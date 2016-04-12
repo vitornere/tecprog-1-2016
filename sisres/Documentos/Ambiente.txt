@@ -1,0 +1,11 @@
+Ambiente:
+	- Windows 7
+	- JDK versão 6 update 37
+	- eclipse-java-juno-SR1-win32 (vem com o Windows composer)
+	- efp-composer-1.5.1.4-win32
+	- Word (.doc)
+	- Notepad (.txt)
+	- Astah Community 6.6
+	- mysql-5.5.25-win32
+	- TerraER2.02
+	- mysql-connector-java-5.1.22
