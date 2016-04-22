@@ -25,6 +25,8 @@ public abstract class DAO {
 		
 		Connection con =  FactoryConnection.getInstance().getConnection();
 		
+		assert con != null;
+		
 		PreparedStatement pst = con.prepareStatement(query);
 		ResultSet rs = pst.executeQuery();
 		
@@ -42,6 +44,9 @@ public abstract class DAO {
 	 * */
 	protected boolean inDBGeneric(String query) throws SQLException{
 		Connection con = FactoryConnection.getInstance().getConnection();
+		
+		assert con != null;
+		
 		PreparedStatement pst = con.prepareStatement(query);
 		ResultSet rs = pst.executeQuery();
 		
@@ -86,6 +91,9 @@ public abstract class DAO {
 	 * */
 	protected void updateQuery(String msg) throws SQLException{
 		Connection con =  FactoryConnection.getInstance().getConnection();
+		
+		assert con != null;
+		
 		con.setAutoCommit(false);
 		PreparedStatement pst = con.prepareStatement(msg);
 		pst.executeUpdate();
