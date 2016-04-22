@@ -50,6 +50,9 @@ public class EquipamentoDAO {
             throw new PatrimonioException(EQUIPAMENTO_NULO);
 
         Connection con = FactoryConnection.getInstance().getConnection();
+        
+        assert con != null;
+        
         PreparedStatement pst;
 
         if (!this.inDB(old_equipamento))
@@ -107,7 +110,8 @@ public class EquipamentoDAO {
         Vector<Equipamento> vet = new Vector<Equipamento>();
 
         Connection con = FactoryConnection.getInstance().getConnection();
-
+        
+        assert con != null;
         PreparedStatement pst = con.prepareStatement(query);
         ResultSet rs = pst.executeQuery();
 
@@ -122,6 +126,9 @@ public class EquipamentoDAO {
 
     private boolean inDBGeneric(String query) throws SQLException {
         Connection con = FactoryConnection.getInstance().getConnection();
+
+        assert con != null;
+        
         PreparedStatement pst = con.prepareStatement(query);
         ResultSet rs = pst.executeQuery();
 
@@ -159,6 +166,8 @@ public class EquipamentoDAO {
 
     private void updateQuery(String msg) throws SQLException {
         Connection con = FactoryConnection.getInstance().getConnection();
+
+        assert con != null;
         PreparedStatement pst = con.prepareStatement(msg);
         pst.executeUpdate();
         pst.close();
