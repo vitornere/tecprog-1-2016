@@ -1,3 +1,8 @@
+/*
+ * File: AlunoDAO.java
+ * Description: Class to make transactions with the database to crud student
+ * */
+
 package persistence;
 
 import model.Aluno;
@@ -7,7 +12,7 @@ import java.util.Vector;
 
 import exception.ClienteException;
 
-public class AlunoDAO {
+public class StudentDAO {
 
 	//Mensagens
 		private static final String ALUNO_JA_EXISTENTE = "O Aluno ja esta cadastrado.";
@@ -18,70 +23,70 @@ public class AlunoDAO {
 		private static final String MATRICULA_JA_EXISTENTE = "Ja existe um aluno cadastrado com essa matricula.";
 	
 	//Singleton
-		private static AlunoDAO instance;
-		private AlunoDAO(){
+		private static StudentDAO instance;
+		private StudentDAO(){
 		}
-		public static AlunoDAO getInstance(){
+		public static StudentDAO getInstance(){
 			if(instance == null)
-				instance = new AlunoDAO();
+				instance = new StudentDAO();
 			return instance;
 		}
 	//
 	
 		
-	public void incluir(Aluno aluno) throws SQLException, ClienteException {
-		if(aluno == null)
+	public void incluir(Aluno student) throws SQLException, ClienteException {
+		if(student == null)
 			throw new ClienteException(ALUNO_NULO);
-		else if(this.inDBCpf(aluno.getCpf()))
+		else if(this.inDBCpf(student.getCpf()))
 			throw new ClienteException(CPF_JA_EXISTENTE);
-		else if(this.inDBMatricula(aluno.getMatricula()))
+		else if(this.inDBMatricula(student.getMatricula()))
 				throw new ClienteException(MATRICULA_JA_EXISTENTE);
-		else if(!this.inDB(aluno))
+		else if(!this.inDB(student))
 		{
 			this.updateQuery("INSERT INTO " +
 					"aluno (nome, cpf, telefone, email, matricula) VALUES (" +
-					"\"" + aluno.getNome() + "\", " +
-					"\"" + aluno.getCpf()+ "\", " +
-					"\"" + aluno.getTelefone() + "\", " +
-					"\"" + aluno.getEmail() + "\", " +
-					"\"" + aluno.getMatricula() + "\"); "
+					"\"" + student.getNome() + "\", " +
+					"\"" + student.getCpf()+ "\", " +
+					"\"" + student.getTelefone() + "\", " +
+					"\"" + student.getEmail() + "\", " +
+					"\"" + student.getMatricula() + "\"); "
 					);
 		}
 		else
 			throw new ClienteException(ALUNO_JA_EXISTENTE);
 	}
 
-	public void alterar(Aluno aluno_velho, Aluno aluno_novo) throws SQLException, ClienteException {
-		if(aluno_velho == null)
+	public void alterar(Aluno old_student, Aluno new_student) throws SQLException, ClienteException {
+		if(old_student == null)
 			throw new ClienteException(ALUNO_NULO);
-		if(aluno_novo == null)
+		if(new_student == null)
 			throw new ClienteException(ALUNO_NULO);
 		
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst;
 		
-		if(!this.inDB(aluno_velho))
+		if(!this.inDB(old_student))
 			throw new ClienteException(ALUNO_NAO_EXISTENTE);
-		else if(this.inOtherDB(aluno_velho))
+		else if(this.inOtherDB(old_student))
 			throw new ClienteException(ALUNO_EM_USO);
-		else if(!aluno_velho.getCpf().equals(aluno_novo.getCpf()) && this.inDBCpf(aluno_novo.getCpf()))
+		else if(!old_student.getCpf().equals(new_student.getCpf()) && this.inDBCpf(new_student.getCpf()))
 			throw new ClienteException(CPF_JA_EXISTENTE);
-		else if(!aluno_velho.getMatricula().equals(aluno_novo.getMatricula()) && this.inDBMatricula(aluno_novo.getMatricula()))
+		else if(!old_student.getMatricula().equals(new_student.getMatricula()) && this.inDBMatricula(new_student.getMatricula()))
 				throw new ClienteException(MATRICULA_JA_EXISTENTE);
-		else if(!this.inDB(aluno_novo))
+		else if(!this.inDB(new_student))
 		{
 			String msg = "UPDATE aluno SET " +
-				"nome = \"" + aluno_novo.getNome() + "\", " +
-				"cpf = \"" + aluno_novo.getCpf() + "\", " +
-				"telefone = \"" + aluno_novo.getTelefone() + "\", " +
-				"email = \"" + aluno_novo.getEmail() + "\", " +
-				"matricula = \"" + aluno_novo.getMatricula() + "\""+
+				"nome = \"" + new_student.getNome() + "\", " +
+				"cpf = \"" + new_student.getCpf() + "\", " +
+				"telefone = \"" + new_student.getTelefone() + "\", " +
+				"email = \"" + new_student.getEmail() + "\", " +
+				"matricula = \"" + new_student.getMatricula() + "\""+
 				" WHERE " +
-				"aluno.nome = \"" + aluno_velho.getNome() + "\" and " +
-				"aluno.cpf = \"" + aluno_velho.getCpf() + "\" and " +
-				"aluno.telefone = \"" + aluno_velho.getTelefone() + "\" and " +
-				"aluno.email = \"" + aluno_velho.getEmail() + "\" and " +
-				"aluno.matricula = \"" + aluno_velho.getMatricula() + "\";";
+				"aluno.nome = \"" + old_student.getNome() + "\" and " +
+				"aluno.cpf = \"" + old_student.getCpf() + "\" and " +
+				"aluno.telefone = \"" + old_student.getTelefone() + "\" and " +
+				"aluno.email = \"" + old_student.getEmail() + "\" and " +
+				"aluno.matricula = \"" + old_student.getMatricula() + "\";";
 			con.setAutoCommit(false);
 			pst = con.prepareStatement(msg);
 			pst.executeUpdate();
@@ -94,18 +99,18 @@ public class AlunoDAO {
 		con.close();
 	}
 
-	public void excluir(Aluno aluno) throws SQLException, ClienteException {
-		if(aluno == null)
+	public void excluir(Aluno student) throws SQLException, ClienteException {
+		if(student == null)
 			throw new ClienteException(ALUNO_NULO);
-		else if(this.inOtherDB(aluno))
+		else if(this.inOtherDB(student))
 			throw new ClienteException(ALUNO_EM_USO);
-		else if(this.inDB(aluno)){
+		else if(this.inDB(student)){
 			this.updateQuery("DELETE FROM aluno WHERE " +
-				"aluno.nome = \"" + aluno.getNome() + "\" and " +
-				"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
-				"aluno.telefone = \"" + aluno.getTelefone() + "\" and " +
-				"aluno.email = \"" + aluno.getEmail() + "\" and " +
-				"aluno.matricula = \"" + aluno.getMatricula() + "\";"
+				"aluno.nome = \"" + student.getNome() + "\" and " +
+				"aluno.cpf = \"" + student.getCpf() + "\" and " +
+				"aluno.telefone = \"" + student.getTelefone() + "\" and " +
+				"aluno.email = \"" + student.getEmail() + "\" and " +
+				"aluno.matricula = \"" + student.getMatricula() + "\";"
 				);
 		}
 		else
@@ -175,13 +180,13 @@ public class AlunoDAO {
 			return true;
 		}
 	}
-	private boolean inDB(Aluno aluno) throws SQLException{
+	private boolean inDB(Aluno student) throws SQLException{
 		return this.inDBGeneric("SELECT * FROM aluno WHERE " +
-				"aluno.nome = \"" + aluno.getNome() + "\" and " +
-				"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
-				"aluno.telefone = \"" + aluno.getTelefone() + "\" and " +
-				"aluno.email = \"" + aluno.getEmail() + "\" and " +
-				"aluno.matricula = \"" + aluno.getMatricula() + "\";");
+				"aluno.nome = \"" + student.getNome() + "\" and " +
+				"aluno.cpf = \"" + student.getCpf() + "\" and " +
+				"aluno.telefone = \"" + student.getTelefone() + "\" and " +
+				"aluno.email = \"" + student.getEmail() + "\" and " +
+				"aluno.matricula = \"" + student.getMatricula() + "\";");
 	}
 	private boolean inDBCpf(String codigo) throws SQLException{
 		return this.inDBGeneric("SELECT * FROM aluno WHERE " +
@@ -191,15 +196,15 @@ public class AlunoDAO {
 		return this.inDBGeneric("SELECT * FROM aluno WHERE " +
 				"aluno.matricula = \"" + codigo + "\";");
 	}
-	private boolean inOtherDB(Aluno aluno) throws SQLException, ClienteException{
+	private boolean inOtherDB(Aluno student) throws SQLException, ClienteException{
 		return this.inDBGeneric(
 				"SELECT * FROM reserva_sala_aluno WHERE " +
 				"id_aluno = (SELECT id_aluno FROM aluno WHERE " +
-				"aluno.nome = \"" + aluno.getNome() + "\" and " +
-				"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
-				"aluno.telefone = \"" + aluno.getTelefone() + "\" and " +
-				"aluno.email = \"" + aluno.getEmail() + "\" and " +
-				"aluno.matricula = \"" + aluno.getMatricula() + "\");");
+				"aluno.nome = \"" + student.getNome() + "\" and " +
+				"aluno.cpf = \"" + student.getCpf() + "\" and " +
+				"aluno.telefone = \"" + student.getTelefone() + "\" and " +
+				"aluno.email = \"" + student.getEmail() + "\" and " +
+				"aluno.matricula = \"" + student.getMatricula() + "\");");
 	}
 	
 	
