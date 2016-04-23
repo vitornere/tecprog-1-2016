@@ -15,12 +15,12 @@ import exception.ClienteException;
 public class StudentDAO {
 
 	//Mensagens
-		private static final String ALUNO_JA_EXISTENTE = "O Aluno ja esta cadastrado.";
-		private static final String ALUNO_NULO = "O Aluno esta nulo.";
-		private static final String ALUNO_NAO_EXISTENTE = "O Aluno nao esta cadastrado.";
-		private static final String ALUNO_EM_USO = "Sala esta sendo utilizada em uma reserva.";
-		private static final String CPF_JA_EXISTENTE = "Ja existe um aluno cadastrado com esse CPF.";
-		private static final String MATRICULA_JA_EXISTENTE = "Ja existe um aluno cadastrado com essa matricula.";
+		private static final String EXISTENTSTUDENT = "O Aluno ja esta cadastrado.";
+		private static final String NULLSTUDENT = "O Aluno esta nulo.";
+		private static final String STUDENTNOTEXIST = "O Aluno nao esta cadastrado.";
+		private static final String STUDENTINUSE = "Sala esta sendo utilizada em uma reserva.";
+		private static final String EXISTENTCPF = "Ja existe um aluno cadastrado com esse CPF.";
+		private static final String EXISTENTREGISTER = "Ja existe um aluno cadastrado com essa matricula.";
 	
 	//Singleton
 		private static StudentDAO instance;
@@ -34,13 +34,13 @@ public class StudentDAO {
 	//
 	
 		
-	public void incluir(Aluno student) throws SQLException, ClienteException {
+	public void add(Aluno student) throws SQLException, ClienteException {
 		if(student == null)
-			throw new ClienteException(ALUNO_NULO);
+			throw new ClienteException(NULLSTUDENT);
 		else if(this.inDBCpf(student.getCpf()))
-			throw new ClienteException(CPF_JA_EXISTENTE);
+			throw new ClienteException(EXISTENTCPF);
 		else if(this.inDBMatricula(student.getMatricula()))
-				throw new ClienteException(MATRICULA_JA_EXISTENTE);
+				throw new ClienteException(EXISTENTREGISTER);
 		else if(!this.inDB(student))
 		{
 			this.updateQuery("INSERT INTO " +
@@ -53,26 +53,26 @@ public class StudentDAO {
 					);
 		}
 		else
-			throw new ClienteException(ALUNO_JA_EXISTENTE);
+			throw new ClienteException(EXISTENTSTUDENT);
 	}
 
-	public void alterar(Aluno old_student, Aluno new_student) throws SQLException, ClienteException {
+	public void change(Aluno old_student, Aluno new_student) throws SQLException, ClienteException {
 		if(old_student == null)
-			throw new ClienteException(ALUNO_NULO);
+			throw new ClienteException(NULLSTUDENT);
 		if(new_student == null)
-			throw new ClienteException(ALUNO_NULO);
+			throw new ClienteException(NULLSTUDENT);
 		
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst;
 		
 		if(!this.inDB(old_student))
-			throw new ClienteException(ALUNO_NAO_EXISTENTE);
+			throw new ClienteException(STUDENTNOTEXIST);
 		else if(this.inOtherDB(old_student))
-			throw new ClienteException(ALUNO_EM_USO);
+			throw new ClienteException(STUDENTINUSE);
 		else if(!old_student.getCpf().equals(new_student.getCpf()) && this.inDBCpf(new_student.getCpf()))
-			throw new ClienteException(CPF_JA_EXISTENTE);
+			throw new ClienteException(EXISTENTCPF);
 		else if(!old_student.getMatricula().equals(new_student.getMatricula()) && this.inDBMatricula(new_student.getMatricula()))
-				throw new ClienteException(MATRICULA_JA_EXISTENTE);
+				throw new ClienteException(EXISTENTREGISTER);
 		else if(!this.inDB(new_student))
 		{
 			String msg = "UPDATE aluno SET " +
@@ -93,17 +93,17 @@ public class StudentDAO {
 			con.commit();
 		}
 		else
-			throw new ClienteException(ALUNO_JA_EXISTENTE);
+			throw new ClienteException(EXISTENTSTUDENT);
 
 		pst.close();
 		con.close();
 	}
 
-	public void excluir(Aluno student) throws SQLException, ClienteException {
+	public void delete(Aluno student) throws SQLException, ClienteException {
 		if(student == null)
-			throw new ClienteException(ALUNO_NULO);
+			throw new ClienteException(NULLSTUDENT);
 		else if(this.inOtherDB(student))
-			throw new ClienteException(ALUNO_EM_USO);
+			throw new ClienteException(STUDENTINUSE);
 		else if(this.inDB(student)){
 			this.updateQuery("DELETE FROM aluno WHERE " +
 				"aluno.nome = \"" + student.getNome() + "\" and " +
@@ -114,28 +114,28 @@ public class StudentDAO {
 				);
 		}
 		else
-			throw new ClienteException(ALUNO_NAO_EXISTENTE);
+			throw new ClienteException(STUDENTNOTEXIST);
 	}
 
 	
 	
-	public Vector<Aluno> buscarTodos() throws SQLException, ClienteException {
-		return this.buscar("SELECT * FROM aluno;");
+	public Vector<Aluno> searchAll() throws SQLException, ClienteException {
+		return this.search("SELECT * FROM aluno;");
 	}
-	public Vector<Aluno> buscarNome(String valor) throws SQLException, ClienteException {
-		return this.buscar("SELECT * FROM aluno WHERE nome = " + "\"" + valor + "\";");
+	public Vector<Aluno> searchByName(String name) throws SQLException, ClienteException {
+		return this.search("SELECT * FROM aluno WHERE nome = " + "\"" + name + "\";");
 	}
-	public Vector<Aluno> buscarCpf(String valor) throws SQLException, ClienteException {
-		return this.buscar("SELECT * FROM aluno WHERE cpf = " + "\"" + valor + "\";");
+	public Vector<Aluno> searchByCpf(String cpf) throws SQLException, ClienteException {
+		return this.search("SELECT * FROM aluno WHERE cpf = " + "\"" + cpf + "\";");
 	}
-	public Vector<Aluno> buscarMatricula(String valor) throws SQLException, ClienteException {
-		return this.buscar("SELECT * FROM aluno WHERE matricula = " + "\"" + valor + "\";");
+	public Vector<Aluno> searchByRegister(String register) throws SQLException, ClienteException {
+		return this.search("SELECT * FROM aluno WHERE matricula = " + "\"" + register + "\";");
 	}
-	public Vector<Aluno> buscarEmail(String valor) throws SQLException, ClienteException {
-		return this.buscar("SELECT * FROM aluno WHERE email = " + "\"" + valor + "\";");
+	public Vector<Aluno> searcByEmail(String email) throws SQLException, ClienteException {
+		return this.search("SELECT * FROM aluno WHERE email = " + "\"" + email + "\";");
 	}
-	public Vector<Aluno> buscarTelefone(String valor) throws SQLException, ClienteException {
-		return this.buscar("SELECT * FROM aluno WHERE telefone = " + "\"" + valor + "\";");
+	public Vector<Aluno> searchByPhone(String phone) throws SQLException, ClienteException {
+		return this.search("SELECT * FROM aluno WHERE telefone = " + "\"" + phone + "\";");
 	}
 	
 	
@@ -143,7 +143,7 @@ public class StudentDAO {
 	 * Metodos Privados
 	 * */
 	
-	private Vector<Aluno> buscar(String query) throws SQLException, ClienteException {
+	private Vector<Aluno> search(String query) throws SQLException, ClienteException {
 		Vector<Aluno> vet = new Vector<Aluno>();
 		
 		Connection con =  FactoryConnection.getInstance().getConnection();

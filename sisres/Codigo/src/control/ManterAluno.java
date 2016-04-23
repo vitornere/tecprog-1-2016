@@ -23,31 +23,31 @@ public class ManterAluno {
 	//
 	
 	public Vector<Aluno> buscarNome(String valor) throws SQLException, ClienteException {
-		return StudentDAO.getInstance().buscarNome(valor);
+		return StudentDAO.getInstance().searchByName(valor);
 	}
 	public Vector<Aluno> buscarCpf(String valor) throws SQLException, ClienteException {
-		return StudentDAO.getInstance().buscarCpf(valor);
+		return StudentDAO.getInstance().searchByCpf(valor);
 	}
 	public Vector<Aluno> buscarMatricula(String valor) throws SQLException, ClienteException {
-		return StudentDAO.getInstance().buscarMatricula(valor);
+		return StudentDAO.getInstance().searchByRegister(valor);
 	}
 	public Vector<Aluno> buscarEmail(String valor) throws SQLException, ClienteException {
-		return StudentDAO.getInstance().buscarEmail(valor);
+		return StudentDAO.getInstance().searcByEmail(valor);
 	}
 	public Vector<Aluno> buscarTelefone(String valor) throws SQLException, ClienteException {
-		return StudentDAO.getInstance().buscarTelefone(valor);
+		return StudentDAO.getInstance().searchByPhone(valor);
 	}
 		
 		
 	public Vector<Aluno> getAluno_vet() throws SQLException, ClienteException{
-		this.alunos_vet = StudentDAO.getInstance().buscarTodos();
+		this.alunos_vet = StudentDAO.getInstance().searchAll();
 		return this.alunos_vet;
 	}
 	
 	public void inserir(String nome, String cpf, String matricula,
 			String telefone, String email) throws ClienteException, SQLException {
 		Aluno aluno = new Aluno(nome, cpf, matricula, telefone, email);
-		StudentDAO.getInstance().incluir(aluno);
+		StudentDAO.getInstance().add(aluno);
 		this.alunos_vet.add(aluno);
 	}
 
@@ -64,11 +64,11 @@ public class ManterAluno {
 		aluno.setMatricula(matricula);
 		aluno.setTelefone(telefone);
 		aluno.setEmail(email);
-		StudentDAO.getInstance().alterar(aluno_velho, aluno);
+		StudentDAO.getInstance().change(aluno_velho, aluno);
 	}
 
 	public void excluir(Aluno aluno) throws SQLException, ClienteException {
-		StudentDAO.getInstance().excluir(aluno);
+		StudentDAO.getInstance().delete(aluno);
 		this.alunos_vet.remove(aluno);
 	}
 
