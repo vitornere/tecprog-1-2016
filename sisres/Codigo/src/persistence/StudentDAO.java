@@ -27,8 +27,12 @@ public class StudentDAO {
 		private StudentDAO(){
 		}
 		public static StudentDAO getInstance(){
-			if(instance == null)
+			if(instance == null){
 				instance = new StudentDAO();
+			}
+			else{
+				// Nothing to do.
+			}
 			return instance;
 		}
 	//

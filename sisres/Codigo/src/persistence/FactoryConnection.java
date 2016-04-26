@@ -1,3 +1,8 @@
+/*
+ * File: FactoryConnectionDAO.java
+ * Description: Class to configure connection with application and database
+ * */
+
 package persistence;
 
 import java.sql.Connection;

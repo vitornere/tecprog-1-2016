@@ -1,3 +1,8 @@
+/*
+ * File: DAO.java
+ * Description: Class to make transactions with database
+ * */
+
 package persistence;
 
 import java.sql.Connection;

@@ -1,3 +1,8 @@
+/*
+ * File: EquipamentDAO.java
+ * Description: Class to make transactions with the database to crud equipament
+ * */
+
 package persistence;
 
 import java.sql.Connection;
@@ -9,45 +14,45 @@ import java.util.Vector;
 import model.Equipamento;
 import exception.PatrimonioException;
 
-public class EquipamentoDAO {
+public class EquipamentDAO {
 
     // Mensagens
-    private static final String EQUIPAMENTO_JA_EXISTENTE = "Equipamento ja cadastrado.";
-    private static final String EQUIPAMENTO_NAO_EXISTENTE = "Equipamento nao cadastrado.";
-    private static final String EQUIPAMENTO_NULO = "Equipamento esta nulo.";
-    private static final String EQUIPAMENTO_EM_USO = "Equipamento esta sendo utilizado em uma reserva.";
-    private static final String CODIGO_JA_EXISTENTE = "Equipamento com o mesmo codigo ja cadastrado.";
+    private static final String EXISTENTEQUIPAMENT = "Equipamento ja cadastrado.";
+    private static final String EQUIPAMENTNOTEXIST = "Equipamento nao cadastrado.";
+    private static final String NULLEQUIPAMENT = "Equipamento esta nulo.";
+    private static final String EQUIPAMENTINUSE = "Equipamento esta sendo utilizado em uma reserva.";
+    private static final String EXISTENTCODE = "Equipamento com o mesmo codigo ja cadastrado.";
 
     // Singleton
-    private static EquipamentoDAO instance;
+    private static EquipamentDAO instance;
 
-    private EquipamentoDAO() {
+    private EquipamentDAO() {
     }
 
-    public static EquipamentoDAO getInstance() {
+    public static EquipamentDAO getInstance() {
         if (instance == null)
-            instance = new EquipamentoDAO();
+            instance = new EquipamentDAO();
         return instance;
     }
 
     //
 
-    public void incluir(Equipamento equipamento) throws SQLException, PatrimonioException {
+    public void add(Equipamento equipamento) throws SQLException, PatrimonioException {
         if (equipamento == null)
-            throw new PatrimonioException(EQUIPAMENTO_NULO);
+            throw new PatrimonioException(NULLEQUIPAMENT);
         else if (this.inDBCodigo(equipamento.getCodigo()))
-            throw new PatrimonioException(CODIGO_JA_EXISTENTE);
+            throw new PatrimonioException(EXISTENTCODE);
         else if (!this.inDB(equipamento)) {
             this.updateQuery("INSERT INTO " + "equipamento (codigo, descricao) VALUES (" + "\"" + equipamento.getCodigo() + "\", "
                     + "\"" + equipamento.getDescricao() + "\");");
         }
     }
 
-    public void alterar(Equipamento old_equipamento, Equipamento new_equipamento) throws SQLException, PatrimonioException {
+    public void change(Equipamento old_equipamento, Equipamento new_equipamento) throws SQLException, PatrimonioException {
         if (old_equipamento == null)
-            throw new PatrimonioException(EQUIPAMENTO_NULO);
+            throw new PatrimonioException(NULLEQUIPAMENT);
         if (new_equipamento == null)
-            throw new PatrimonioException(EQUIPAMENTO_NULO);
+            throw new PatrimonioException(NULLEQUIPAMENT);
 
         Connection con = FactoryConnection.getInstance().getConnection();
         
@@ -56,11 +61,11 @@ public class EquipamentoDAO {
         PreparedStatement pst;
 
         if (!this.inDB(old_equipamento))
-            throw new PatrimonioException(EQUIPAMENTO_NAO_EXISTENTE);
+            throw new PatrimonioException(EQUIPAMENTNOTEXIST);
         else if (this.inOtherDB(old_equipamento))
-            throw new PatrimonioException(EQUIPAMENTO_EM_USO);
+            throw new PatrimonioException(EQUIPAMENTINUSE);
         else if (!new_equipamento.getCodigo().equals(old_equipamento.getCodigo()) && this.inDBCodigo(new_equipamento.getCodigo()))
-            throw new PatrimonioException(CODIGO_JA_EXISTENTE);
+            throw new PatrimonioException(EXISTENTCODE);
         else if (!this.inDB(new_equipamento)) {
             String msg = "UPDATE equipamento SET " + "codigo = \"" + new_equipamento.getCodigo() + "\", " + "descricao = \""
                     + new_equipamento.getDescricao() + "\"" + " WHERE " + "equipamento.codigo = \"" + old_equipamento.getCodigo()
@@ -74,39 +79,39 @@ public class EquipamentoDAO {
             pst.close();
 
         } else
-            throw new PatrimonioException(EQUIPAMENTO_JA_EXISTENTE);
+            throw new PatrimonioException(EXISTENTEQUIPAMENT);
         con.close();
     }
 
-    public void excluir(Equipamento equipamento) throws SQLException, PatrimonioException {
-        if (equipamento == null)
-            throw new PatrimonioException(EQUIPAMENTO_NULO);
-        else if (this.inOtherDB(equipamento))
-            throw new PatrimonioException(EQUIPAMENTO_EM_USO);
-        if (this.inDB(equipamento)) {
-            this.updateQuery("DELETE FROM equipamento WHERE " + "equipamento.codigo = \"" + equipamento.getCodigo() + "\" and "
-                    + "equipamento.descricao = \"" + equipamento.getDescricao() + "\";");
+    public void delete(Equipamento equipament) throws SQLException, PatrimonioException {
+        if (equipament == null)
+            throw new PatrimonioException(NULLEQUIPAMENT);
+        else if (this.inOtherDB(equipament))
+            throw new PatrimonioException(EQUIPAMENTINUSE);
+        if (this.inDB(equipament)) {
+            this.updateQuery("DELETE FROM equipamento WHERE " + "equipamento.codigo = \"" + equipament.getCodigo() + "\" and "
+                    + "equipamento.descricao = \"" + equipament.getDescricao() + "\";");
         } else
-            throw new PatrimonioException(EQUIPAMENTO_NAO_EXISTENTE);
+            throw new PatrimonioException(EQUIPAMENTNOTEXIST);
     }
 
-    public Vector<Equipamento> buscarTodos() throws SQLException, PatrimonioException {
-        return this.buscar("SELECT * FROM equipamento;");
+    public Vector<Equipamento> searchAll() throws SQLException, PatrimonioException {
+        return this.search("SELECT * FROM equipamento;");
     }
 
-    public Vector<Equipamento> buscarPorCodigo(String valor) throws SQLException, PatrimonioException {
-        return this.buscar("SELECT * FROM equipamento WHERE codigo = " + "\"" + valor + "\";");
+    public Vector<Equipamento> searchByCode(String code) throws SQLException, PatrimonioException {
+        return this.search("SELECT * FROM equipamento WHERE codigo = " + "\"" + code + "\";");
     }
 
-    public Vector<Equipamento> buscarPorDescricao(String valor) throws SQLException, PatrimonioException {
-        return this.buscar("SELECT * FROM equipamento WHERE descricao = " + "\"" + valor + "\";");
+    public Vector<Equipamento> searchByDescription(String description) throws SQLException, PatrimonioException {
+        return this.search("SELECT * FROM equipamento WHERE descricao = " + "\"" + description + "\";");
     }
 
     /**
      * Metodos Privados
      * */
 
-    private Vector<Equipamento> buscar(String query) throws SQLException, PatrimonioException {
+    private Vector<Equipamento> search(String query) throws SQLException, PatrimonioException {
         Vector<Equipamento> vet = new Vector<Equipamento>();
 
         Connection con = FactoryConnection.getInstance().getConnection();
