@@ -23,30 +23,30 @@ public class ManterProfessor {
 	// 
 	
 	public Vector<Professor> buscarNome(String valor) throws SQLException, ClienteException {
-		return TeacherDAO.getInstance().buscarNome(valor);
+		return TeacherDAO.getInstance().searchByName(valor);
 	}
 	public Vector<Professor> buscarCpf(String valor) throws SQLException, ClienteException {
-		return TeacherDAO.getInstance().buscarCpf(valor);
+		return TeacherDAO.getInstance().searchByCpf(valor);
 	}
 	public Vector<Professor> buscarMatricula(String valor) throws SQLException, ClienteException {
-		return TeacherDAO.getInstance().buscarMatricula(valor);
+		return TeacherDAO.getInstance().searchByRegister(valor);
 	}
 	public Vector<Professor> buscarEmail(String valor) throws SQLException, ClienteException {
-		return TeacherDAO.getInstance().buscarEmail(valor);
+		return TeacherDAO.getInstance().searchByEmail(valor);
 	}
 	public Vector<Professor> buscarTelefone(String valor) throws SQLException, ClienteException {
 		return TeacherDAO.getInstance().buscarTelefone(valor);
 	}	
 		
 	public Vector<Professor> getProfessores_vet() throws SQLException, ClienteException{
-		this.professores_vet = TeacherDAO.getInstance().buscarTodos();
+		this.professores_vet = TeacherDAO.getInstance().searchAll();
 		return this.professores_vet;
 	}
 	
 	public void inserir(String nome, String cpf, String matricula,
 			String telefone, String email) throws ClienteException, SQLException {
 		Professor prof = new Professor(nome, cpf, matricula, telefone, email);
-		TeacherDAO.getInstance().incluir(prof);
+		TeacherDAO.getInstance().add(prof);
 		this.professores_vet.add(prof);
 	}
 
@@ -63,11 +63,11 @@ public class ManterProfessor {
 		prof.setMatricula(matricula);
 		prof.setTelefone(telefone);
 		prof.setEmail(email);
-		TeacherDAO.getInstance().alterar(prof_velho, prof);
+		TeacherDAO.getInstance().change(prof_velho, prof);
 	}
 
 	public void excluir(Professor professor) throws SQLException, ClienteException {
-		TeacherDAO.getInstance().excluir(professor);
+		TeacherDAO.getInstance().delete(professor);
 		this.professores_vet.remove(professor);
 	}
 
