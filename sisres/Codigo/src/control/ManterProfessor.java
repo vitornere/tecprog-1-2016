@@ -35,7 +35,7 @@ public class ManterProfessor {
 		return TeacherDAO.getInstance().searchByEmail(valor);
 	}
 	public Vector<Professor> buscarTelefone(String valor) throws SQLException, ClienteException {
-		return TeacherDAO.getInstance().buscarTelefone(valor);
+		return TeacherDAO.getInstance().searchByPhone(valor);
 	}	
 		
 	public Vector<Professor> getProfessores_vet() throws SQLException, ClienteException{
