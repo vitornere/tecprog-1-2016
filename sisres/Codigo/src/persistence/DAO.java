@@ -35,8 +35,9 @@ public abstract class DAO {
 		PreparedStatement pst = con.prepareStatement(query);
 		ResultSet rs = pst.executeQuery();
 		
-		while(rs.next())
+		while(rs.next()){
 			vet.add(this.fetch(rs));
+		}
 		
 		pst.close();
 		rs.close();
@@ -55,8 +56,7 @@ public abstract class DAO {
 		PreparedStatement pst = con.prepareStatement(query);
 		ResultSet rs = pst.executeQuery();
 		
-		if(!rs.next())
-		{
+		if(!rs.next()){
 			rs.close();
 			pst.close();
 			con.close();
