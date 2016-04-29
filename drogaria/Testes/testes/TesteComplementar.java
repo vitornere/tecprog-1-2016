@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import entidades.Complementar;
+import entities.ConsoleMenu;
 
 public class TesteComplementar {
 
@@ -22,7 +22,7 @@ public class TesteComplementar {
 
 	@Test
 	public void test() {
-		Complementar complementar = new Complementar();
+		ConsoleMenu complementar = new ConsoleMenu();
 		assertNotNull(complementar);
 	}
 	

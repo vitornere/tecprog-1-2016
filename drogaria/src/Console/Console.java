@@ -3,11 +3,11 @@ package Console;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import entidades.Balconista;
-import entidades.Caixa;
-import entidades.Cliente;
-import entidades.Complementar;
-import entidades.Medicamento;
+import entities.Balconista;
+import entities.Caixa;
+import entities.Cliente;
+import entities.ConsoleMenu;
+import entities.Medicamento;
 
 public class Console {
 
@@ -35,7 +35,7 @@ public class Console {
 		Cliente cliente = new Cliente();
 		Medicamento medicamento = new Medicamento();
 
-		Complementar complementar = new Complementar();
+		ConsoleMenu complementar = new ConsoleMenu();
 
 		int operacao = 0;
 		int operacaoBalconista = 0;
@@ -64,7 +64,7 @@ public class Console {
 
 				assert ((operacao >= 0) && (operacao <= 5)) : "Numero invalido: " + operacao; // Se digitar numero errado, sai do programa
 
-				// Amarração para sair
+				// Amarraï¿½ï¿½o para sair
 				if (operacao == 0) {
 					estados = complementar.ConfirmacaoGeral2(estados);
 				}
@@ -112,7 +112,7 @@ public class Console {
 								caixa.menuCaixa();// Menu caixa
 								operacaoCaixa = scanner.nextInt();
 								if (operacaoCaixa == 0) {
-									estados = complementar.ConfirmacaoCaixa(estados);
+									estados = complementar.confirmacaoCaixa(estados);
 								}
 
 								else if (operacaoCaixa == 1) {
@@ -205,6 +205,6 @@ public class Console {
 				}
 			}// Estados = 0
 		}// Saindo do While de estados != 100 / fim do programa
-		System.out.println("Obrigado por usar nosso sistema de gerência!" + " Saindo do programa!");
+		System.out.println("Obrigado por usar nosso sistema de gerï¿½ncia!" + " Saindo do programa!");
 	}
 }
