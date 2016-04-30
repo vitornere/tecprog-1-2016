@@ -6,7 +6,7 @@ import java.util.Vector;
 import model.Equipamento;
 import model.Professor;
 import model.ReservaEquipamentoProfessor;
-import persistence.ResEquipamentoProfessorDAO;
+import persistence.EquipamentReservationForTeacherDAO;
 import exception.ClienteException;
 import exception.PatrimonioException;
 import exception.ReservaException;
@@ -30,24 +30,24 @@ public class ManterResEquipamentoProfessor {
 
     public Vector<ReservaEquipamentoProfessor> getReservasHora(String hora) throws SQLException, PatrimonioException,
             ClienteException, ReservaException {
-        return ResEquipamentoProfessorDAO.getInstance().buscarPorHora(hora);
+        return EquipamentReservationForTeacherDAO.getInstance().buscarPorHora(hora);
 
     }
 
     public Vector<ReservaEquipamentoProfessor> getReservasMes(int mes) throws SQLException, PatrimonioException, ClienteException,
             ReservaException {
-        return ResEquipamentoProfessorDAO.getInstance().buscarPorMes(mes);
+        return EquipamentReservationForTeacherDAO.getInstance().buscarPorMes(mes);
     }
 
     public Vector<Object> getResEquipamentoProfessor_vet() throws SQLException, ClienteException, PatrimonioException,
             ReservaException {
-        this.rev_equipamento_professor_vet = ResEquipamentoProfessorDAO.getInstance().buscarTodos();
+        this.rev_equipamento_professor_vet = EquipamentReservationForTeacherDAO.getInstance().buscarTodos();
         return this.rev_equipamento_professor_vet;
     }
 
     public void inserir(Equipamento equipamento, Professor prof, String data, String hora) throws SQLException, ReservaException {
         ReservaEquipamentoProfessor reserva = new ReservaEquipamentoProfessor(data, hora, equipamento, prof);
-        ResEquipamentoProfessorDAO.getInstance().incluir(reserva);
+        EquipamentReservationForTeacherDAO.getInstance().incluir(reserva);
         this.rev_equipamento_professor_vet.add(reserva);
     }
 
@@ -55,12 +55,12 @@ public class ManterResEquipamentoProfessor {
 
         ReservaEquipamentoProfessor reserva_old = new ReservaEquipamentoProfessor(reserva.getData(), reserva.getHora(),
                 reserva.getEquipamento(), reserva.getProfessor());
-        ResEquipamentoProfessorDAO.getInstance().alterar(reserva_old, reserva);
+        EquipamentReservationForTeacherDAO.getInstance().alterar(reserva_old, reserva);
 
     }
 
     public void excluir(ReservaEquipamentoProfessor reserva) throws SQLException, ReservaException {
-        ResEquipamentoProfessorDAO.getInstance().excluir(reserva);
+        EquipamentReservationForTeacherDAO.getInstance().excluir(reserva);
         this.rev_equipamento_professor_vet.remove(reserva);
     }
 }

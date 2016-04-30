@@ -143,7 +143,8 @@ public class TeacherDAO {
 		}
 		if (this.inOtherDB(teacher)) {
 			throw new ClienteException(ROOMINUSE);
-		} else {
+		} 
+		else {
 			if (this.inDB(teacher)) {
 				this.updateQuery("DELETE FROM professor WHERE "
 						+ "professor.nome = \"" + teacher.getNome() + "\" and "
@@ -152,7 +153,8 @@ public class TeacherDAO {
 						+ "\" and " + "professor.email = \"" + teacher.getEmail()
 						+ "\" and " + "professor.matricula = \""
 						+ teacher.getMatricula() + "\";");
-			} else {
+			}
+			else {
 				throw new ClienteException(TEACHERNOTEXISTENT);
 			}
 		}
@@ -225,7 +227,8 @@ public class TeacherDAO {
 			pst.close();
 			con.close();
 			return false;
-		} else {
+		} 
+		else {
 			rs.close();
 			pst.close();
 			con.close();
