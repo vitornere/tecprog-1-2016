@@ -47,7 +47,7 @@ public class EquipamentDAO {
 			throw new PatrimonioException(NULLEQUIPAMENT);
 		}
 		else {
-			if (this.inDBCodigo(equipament.getCodigo())) {
+			if (this.inDBcode(equipament.getCodigo())) {
 				throw new PatrimonioException(EXISTENTCODE);
 			} 
 			else {
@@ -86,7 +86,7 @@ public class EquipamentDAO {
 			else {
 				if (!new_equipamento.getCodigo().equals(
 						old_equipamento.getCodigo())
-						&& this.inDBCodigo(new_equipamento.getCodigo())) {
+						&& this.inDBcode(new_equipamento.getCodigo())) {
 					throw new PatrimonioException(EXISTENTCODE);
 				} 
 				else {
@@ -202,38 +202,38 @@ public class EquipamentDAO {
 		}
 	}
 
-	private boolean inDB(Equipamento e) throws SQLException,
+	private boolean inDB(Equipamento equipament) throws SQLException,
 			PatrimonioException {
 		return this.inDBGeneric("SELECT *FROM equipamento WHERE "
-				+ "equipamento.codigo = \"" + e.getCodigo() + "\" and "
-				+ "equipamento.descricao = \"" + e.getDescricao() + "\";");
+				+ "equipamento.codigo = \"" + equipament.getCodigo() + "\" and "
+				+ "equipamento.descricao = \"" + equipament.getDescricao() + "\";");
 	}
 
-	private boolean inDBCodigo(String codigo) throws SQLException {
+	private boolean inDBcode(String code) throws SQLException {
 		return this.inDBGeneric("SELECT *FROM equipamento WHERE "
-				+ "codigo = \"" + codigo + "\";");
+				+ "codigo = \"" + code + "\";");
 	}
 
-	private boolean inOtherDB(Equipamento e) throws SQLException {
+	private boolean inOtherDB(Equipamento equipament) throws SQLException {
 		return this
 				.inDBGeneric("SELECT * FROM reserva_equipamento WHERE "
 						+ "id_equipamento = (SELECT id_equipamentoFROM equipamento WHERE "
-						+ "equipamento.codigo = \"" + e.getCodigo() + "\" and "
-						+ "equipamento.descricao = \"" + e.getDescricao()
+						+ "equipamento.codigo = \"" + equipament.getCodigo() + "\" and "
+						+ "equipamento.descricao = \"" + equipament.getDescricao()
 						+ "\");");
 	}
 
-	private Equipamento fetchEquipamento(ResultSet rs)
+	private Equipamento fetchEquipamento(ResultSet equipament_data)
 			throws PatrimonioException, SQLException {
-		return new Equipamento(rs.getString("codigo"),
-				rs.getString("descricao"));
+		return new Equipamento(equipament_data.getString("codigo"),
+				equipament_data.getString("descricao"));
 	}
 
-	private void updateQuery(String msg) throws SQLException {
+	private void updateQuery(String messenge) throws SQLException {
 		Connection con = FactoryConnection.getInstance().getConnection();
 
 		assert con != null;
-		PreparedStatement pst = con.prepareStatement(msg);
+		PreparedStatement pst = con.prepareStatement(messenge);
 		pst.executeUpdate();
 		pst.close();
 		con.close();

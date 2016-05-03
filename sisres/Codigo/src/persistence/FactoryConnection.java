@@ -22,8 +22,12 @@ public class FactoryConnection {
 		private FactoryConnection(){
 		}
 		public static FactoryConnection getInstance(){
-			if(instance == null)
+			if(instance == null){
 				instance = new FactoryConnection();
+			}
+			else{
+				// Nothing to do
+			}
 			return instance;
 		}
 	//

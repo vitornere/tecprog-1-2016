@@ -153,53 +153,53 @@ public class ReservationRoomForStudentDAO extends DAO{
 			}
 		}
 	}
-	public void alterar(ReservaSalaAluno r, ReservaSalaAluno r_new) throws ReservaException, SQLException, ClienteException, PatrimonioException{
-		if(r == null){
+	public void alterar(ReservaSalaAluno old_reservation, ReservaSalaAluno new_reservation) throws ReservaException, SQLException, ClienteException, PatrimonioException{
+		if(old_reservation == null){
 			throw new ReservaException(NULL);
 		}
 		else{
-			if(r_new == null){
+			if(new_reservation == null){
 				throw new ReservaException(NULL);
 			}
 			else{ 
-				if(!this.reservationInDB(r)){
+				if(!this.reservationInDB(old_reservation)){
 					throw new ReservaException(INEXISTENTRESERVATION);
 				}
 				else{
-					if(this.reservationInDB(r_new)){
+					if(this.reservationInDB(new_reservation)){
 						throw new ReservaException(EXISTENTRESERVATION);
 					}
 					else{
-						if(!this.studentInDB(r_new.getAluno())){
+						if(!this.studentInDB(new_reservation.getAluno())){
 							throw new ReservaException(INEXISTENTSTUDENT);
 						}
 						else{
-							if(!this.roomInDB(r_new.getSala())){
+							if(!this.roomInDB(new_reservation.getSala())){
 								throw new ReservaException(INEXISTENTROOM);
 							}
 							else{
-								if(!r.getData().equals(r_new.getData()) || !r.getHora().equals(r_new.getHora())){
-									if(this.studentReservationDB(r_new.getAluno(), r_new.getData(), r_new.getHora())){
+								if(!old_reservation.getData().equals(new_reservation.getData()) || !old_reservation.getHora().equals(new_reservation.getHora())){
+									if(this.studentReservationDB(new_reservation.getAluno(), new_reservation.getData(), new_reservation.getHora())){
 										throw new ReservaException(STUDENTUNAVALIBLE);
 									}
 									else{ 
-										if(this.roomReservedByTeacherInDB(r_new.getSala(), r_new.getData(), r_new.getHora())){
+										if(this.roomReservedByTeacherInDB(new_reservation.getSala(), new_reservation.getData(), new_reservation.getHora())){
 											throw new ReservaException(ROOMUNAVALIBLE);
 										}
 									}
-								if(!this.hasChairs(""+(Integer.parseInt(r_new.getCadeiras_reservadas()) - 
-										Integer.parseInt(r.getCadeiras_reservadas())), r_new.getSala(), 
-										r_new.getData(), r_new.getHora())){
+								if(!this.hasChairs(""+(Integer.parseInt(new_reservation.getCadeiras_reservadas()) - 
+										Integer.parseInt(old_reservation.getCadeiras_reservadas())), new_reservation.getSala(), 
+										new_reservation.getData(), new_reservation.getHora())){
 									throw new ReservaException(UNAVAILABLECHAIR);
 								}
-								if(this.isValidDate(r_new.getData()))
+								if(this.isValidDate(new_reservation.getData()))
 									throw new ReservaException(PASTDATE);
 								}
-								if(this.isValidHour(r_new.getHora()) && this.equalsDate(r_new.getData())){
+								if(this.isValidHour(new_reservation.getHora()) && this.equalsDate(new_reservation.getData())){
 									throw new ReservaException(PASTHOUR);
 								}
 								else{
-									super.updateQuery(this.update(r, r_new));
+									super.updateQuery(this.update(old_reservation, new_reservation));
 								}
 							}
 						}
@@ -224,13 +224,13 @@ public class ReservationRoomForStudentDAO extends DAO{
 	}
 	
 	public Vector<ReservaSalaAluno> searchAll() throws SQLException, ClienteException, PatrimonioException, ReservaException{
-		return super.buscar("SELECT * FROM reserva_sala_aluno " +
+		return super.search("SELECT * FROM reserva_sala_aluno " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala " +
 				"INNER JOIN aluno ON aluno.id_aluno = reserva_sala_aluno.id_aluno;");
 	}
 	public Vector<ReservaSalaAluno> searchbyDay(String date) throws SQLException, ClienteException, PatrimonioException, ReservaException{
 		date = this.mountDefaultDate(date);
-		return super.buscar("SELECT * FROM reserva_sala_aluno " +
+		return super.search("SELECT * FROM reserva_sala_aluno " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala " +
 				"INNER JOIN aluno ON aluno.id_aluno = reserva_sala_aluno.id_aluno " +
 				"WHERE data = \""+ date + "\";");
@@ -238,7 +238,7 @@ public class ReservationRoomForStudentDAO extends DAO{
 	public Vector<ReservaSalaAluno> searchByHour(String hour) 
 			throws SQLException, ClienteException, PatrimonioException, ReservaException{
 		hour = this.mountDefaultHour(hour);
-		return super.buscar("SELECT * FROM reserva_sala_aluno " +
+		return super.search("SELECT * FROM reserva_sala_aluno " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala " +
 				"INNER JOIN aluno ON aluno.id_aluno = reserva_sala_aluno.id_aluno " +
 				" WHERE hora = \"" + hour +"\";");

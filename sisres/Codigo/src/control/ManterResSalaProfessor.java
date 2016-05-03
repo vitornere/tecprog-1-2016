@@ -3,7 +3,7 @@ package control;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import persistence.ResSalaProfessorDAO;
+import persistence.ReservationRoomForTeacherDAO;
 
 import model.Professor;
 import model.ReservaSalaProfessor;
@@ -27,12 +27,12 @@ public class ManterResSalaProfessor {
 	//
 		
 		public Vector<ReservaSalaProfessor> buscarPorData(String data) throws SQLException, ClienteException, PatrimonioException, ReservaException{
-	        return ResSalaProfessorDAO.getInstance().buscarPorData(data);
+	        return ReservationRoomForTeacherDAO.getInstance().buscarPorData(data);
 	    } 
 	    	
 		
 	public Vector<ReservaSalaProfessor> getResProfessorSala_vet() throws SQLException, ClienteException, PatrimonioException, ReservaException {
-		this.rev_sala_professor_vet = ResSalaProfessorDAO.getInstance().buscarTodos();
+		this.rev_sala_professor_vet = ReservationRoomForTeacherDAO.getInstance().buscarTodos();
 		return this.rev_sala_professor_vet;
 	}
 
@@ -41,7 +41,7 @@ public class ManterResSalaProfessor {
 					throws SQLException, ReservaException {
 
 		ReservaSalaProfessor reserva = new ReservaSalaProfessor(data, hora, sala , finalidade, prof);
-		ResSalaProfessorDAO.getInstance().incluir(reserva);
+		ReservationRoomForTeacherDAO.getInstance().incluir(reserva);
 		this.rev_sala_professor_vet.add(reserva);
 	}
 
@@ -52,12 +52,12 @@ public class ManterResSalaProfessor {
 				reserva.getFinalidade(), reserva.getProfessor());
 		
 		reserva.setFinalidade(finalidade);
-		ResSalaProfessorDAO.getInstance().alterar(reserva_old, reserva);
+		ReservationRoomForTeacherDAO.getInstance().alterar(reserva_old, reserva);
 		
 	}
 
 	public void excluir(ReservaSalaProfessor reserva) throws SQLException, ReservaException {
-		ResSalaProfessorDAO.getInstance().excluir(reserva);
+		ReservationRoomForTeacherDAO.getInstance().excluir(reserva);
 		this.rev_sala_professor_vet.remove(reserva);
 	}
 }

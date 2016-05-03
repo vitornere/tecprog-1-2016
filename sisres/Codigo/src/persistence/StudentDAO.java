@@ -49,7 +49,7 @@ public class StudentDAO {
 				throw new ClienteException(EXISTENTCPF);
 			}
 			else {
-				if (this.inDBMatricula(student.getMatricula())) {
+				if (this.inDBRegister(student.getMatricula())) {
 					throw new ClienteException(EXISTENTREGISTER);
 				}
 				else {
@@ -96,7 +96,7 @@ public class StudentDAO {
 				else {
 					if (!old_student.getMatricula().equals(
 							new_student.getMatricula())
-							&& this.inDBMatricula(new_student.getMatricula())) {
+							&& this.inDBRegister(new_student.getMatricula())) {
 						throw new ClienteException(EXISTENTREGISTER);
 					}
 					else {
@@ -250,9 +250,9 @@ public class StudentDAO {
 				+ code + "\";");
 	}
 
-	private boolean inDBMatricula(String code) throws SQLException {
+	private boolean inDBRegister(String register) throws SQLException {
 		return this.inDBGeneric("SELECT * FROM aluno WHERE "
-				+ "aluno.matricula = \"" + code + "\";");
+				+ "aluno.matricula = \"" + register + "\";");
 	}
 
 	private boolean inOtherDB(Aluno student) throws SQLException,

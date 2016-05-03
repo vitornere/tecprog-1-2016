@@ -24,7 +24,7 @@ public abstract class DAO {
 	 * do tipo que se vai utilizar, se necessario.
 	 * */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected Vector buscar(String query) throws SQLException, ClienteException, 
+	protected Vector search(String query) throws SQLException, ClienteException, 
 													PatrimonioException, ReservaException{
 		Vector vet = new Vector();
 		
