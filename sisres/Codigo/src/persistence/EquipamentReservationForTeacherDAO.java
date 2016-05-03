@@ -12,6 +12,11 @@ import exception.ClienteException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
+/*
+ * File: EquipamentReservationForTeacherDAO.java
+ * Description: Class to make transactions with the database and reservation of equipaments by teacher
+ * */
+
 public class EquipamentReservationForTeacherDAO extends DAO {
 
 	// Mensagens e Alertas
