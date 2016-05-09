@@ -18,7 +18,7 @@ import exception.PatrimonioException;
  * 
  * @author Parley
  */
-public class DiaReservaSala extends DiaReservaPatrimonio {
+public class DiaReservaSala extends PatrimonyReserveDay {
 
     Sala sala;
 
@@ -28,7 +28,7 @@ public class DiaReservaSala extends DiaReservaPatrimonio {
         this.setName("DiaReservaSala");
     }
 
-    @Override protected void visualizarAction(String data) {
+    @Override protected void viewAction(String data) {
         HorariosReservaSala reserva = new HorariosReservaSala(new JFrame(), true, data, sala);
         reserva.setVisible(true);
         reserva.setResizable(false);

@@ -19,18 +19,21 @@ import exception.PatrimonioException;
  * 
  * @author Parley
  */
-public class EquipmentReservDay extends DiaReservaPatrimonio {
+public class EquipmentReserveDay extends PatrimonyReserveDay {
 
     Equipamento equipment;
 
-    public EquipmentReservDay(Frame parent, boolean modal, int indexEquipment) throws SQLException, PatrimonioException {
+    public EquipmentReserveDay(Frame parent, boolean modal, int indexEquipment) throws SQLException, PatrimonioException {
         super(parent, modal);
+        
         equipment = ManterEquipamento.getInstance().getEquipamento_vet().get(indexEquipment);
     }
 
-    @Override protected void visualizarAction(String data) {
+    @Override protected void viewAction(String data) {
         HorariosReservaPatrimonio booking = new HorariosReservaEquipamento(new JFrame(), true, data, this.equipment);
+        
         booking.setVisible(true);
+        
         booking.setResizable(false);
     }
 }
