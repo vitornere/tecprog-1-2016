@@ -55,6 +55,9 @@ public class ConsoleMenu {
 			states = 0;// Volta para o menu
 
 		}
+		else {
+			// Nothing to do
+		}
 
 		return states;
 	}
@@ -195,54 +198,65 @@ public class ConsoleMenu {
 				
 			case 1:
 				System.out.println("Os campos de nome,sobrenome e endereço para 'Balconista' devem ser " +
-								 "inseridos diretamente letra a letra onde cada informação deve ser " +
-								 "separada por espa�o simples");
+								   "inseridos diretamente letra a letra onde cada informação deve ser " +
+								   "separada por espaço simples");
 				System.out.println("Exemplo: \nDigite nome: 'Victor'");
 				System.out.println("Já os campos de 'senha', 'senha de farmácia popular', 'código', " +
 						  		   "'fator de comissao' e 'horas trabalhadas' devem ser inseridos como numeros inteiros");
 				System.out.println("Exemplo: \nDigite a senha: 5734");
-				System.out.println("Os campos de rg devem inseridos com o �rg�o expeditor seguido do n�mero.");
+				System.out.println("Os campos de rg devem inseridos com o orgão expeditor seguido do número.");
 				System.out.println("Exemplo: \nDigite o rg: MG452333");
 				System.out
-						.println("O campo de cpf deve ser inserido sem o d�gito, pois este ser� inserido no campo 'D�gito de cpf' a partir dos 2 n�meros que se deseja cadastrar");
+						.println("O campo de cpf deve ser inserido sem o dígito, pois este será inserido no campo 'Dígito" +
+								 " de cpf' a partir dos 2 números que se deseja cadastrar");
 				System.out.println("Exemplo: \nSe seu cpf for 123.456.789-00, digite apenas: '123456789'");
 				System.out
-						.println("O campo 'validade' de medicamento deve ser inserido sem nenhum caractere espa�ando os dias do m�s e ano respectivamente");
+						.println("O campo 'validade' de medicamento deve ser inserido sem nenhum caractere espaçando os " +
+								 "dias do mês e ano respectivamente");
 				System.out.println("Exemplo: \nData de validade: 12122014");
 				states = 6;
 				break;
 			case 2:
 				System.out
-						.println("Os campos de nome,sobrenome e endere�o para 'Caixa' devem ser inseridos diretamente letra a letra onde cada informa��o deve ser separada por espa�o simples");
+						.println("Os campos de nome,sobrenome e endereço para 'Caixa' devem ser inseridos diretamente letra"+
+								 " a letra onde cada informação deve ser separada por espaço simples");
 				System.out.println("Exemplo: \nDigite nome: 'Victor'");
-				System.out.println("J� o campo de 'c�digo' deve ser inserido como numero inteiro");
-				System.out.println("Exemplo: \nDigite o c�digo do caixa: 2");
-				System.out.println("Os campos de rg devem inseridos com o �rg�o expeditor seguido do n�mero.");
+				System.out.println("Já o campo de 'código' deve ser inserido como numero inteiro");
+				System.out.println("Exemplo: \nDigite o código do caixa: 2");
+				System.out.println("Os campos de rg devem inseridos com o orgão expeditor seguido do número.");
 				System.out.println("Exemplo: \nDigite o rg: MG452333");
 				System.out
-						.println("O campo de cpf deve ser inserido sem o d�gito, pois este ser� inserido no campo 'D�gito de cpf' a partir dos 2 n�meros que se deseja cadastrar");
+						.println("O campo de cpf deve ser inserido sem o dígito, pois este será inserido no campo 'Dígito " +
+								 "de cpf' a partir dos 2 números que se deseja cadastrar");
 				System.out.println("Exemplo: \nSe seu cpf for 123.456.789-00, digite apenas: '123456789'");
 				states = 6;
 				break;
 			case 3:
 				System.out
-						.println("Os campos de nome,sobrenome,endere�o e email para 'Cliente' devem ser inseridos diretamente letra a letra onde cada informa��o deve ser separada por espa�o simples");
+						.println("Os campos de nome,sobrenome,endereço e email para 'Cliente' devem ser inseridos " +
+								 "diretamente letra a letra onde cada informação deve ser separada por espaço simples");
 				System.out.println("Exemplo: \nDigite nome: 'Victor'");
-				System.out.println("Os campos de rg devem inseridos com o �rg�o expeditor seguido do n�mero.");
+				System.out.println("Os campos de rg devem inseridos com o órgão expeditor seguido do número.");
 				System.out.println("Exemplo: \nDigite o rg: MG452333");
 				System.out
-						.println("O campo de cpf deve ser inserido sem o d�gito, pois este ser� inserido no campo 'D�gito de cpf' a partir dos 2 n�meros que se deseja cadastrar");
+						.println("O campo de cpf deve ser inserido sem o dígito, pois este será inserido no campo " +
+								 "'Dígito de cpf' a partir dos 2 números que se deseja cadastrar");
 				System.out.println("Exemplo: \nSe seu cpf for 123.456.789-00, digite apenas: '123456789'");
 				states = 6;
 				break;
 			case 4:
 				System.out
-						.println("Os campos de 'nome','fabricante','recomenda��o','tipo' e 'posologia' para 'Medicamento' devem ser inseridos diretamente onde cada informa��o deve ser separada por espa�o simples");
+						.println("Os campos de 'nome','fabricante','recomendação','tipo' e 'posologia' para 'Medicamento'" +
+								 " devem ser inseridos diretamente onde cada informação deve ser separada por espaço simples");
 				System.out.println("Exemplo: \nDigite nome: 'Neosaldina'");
 				System.out
-						.println("J� o campo 'validade' de medicamento deve ser inserido sem nenhum caractere espa�ando os dias do m�s e ano respectivamente");
+						.println("Já o campo 'validade' de medicamento deve ser inserido sem nenhum caractere espaçando os " +
+								 "dias do mês e ano respectivamente");
 				System.out.println("Exemplo: \nData de validade: 12122014");
 				states = 6;
+				break;
+				
+			default:
 				break;
 		}
 		return states;
