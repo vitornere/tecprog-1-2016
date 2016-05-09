@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import entities.Medicamento;
+import entities.Medicament;
 
 public class TesteMedicamento {
 
@@ -22,35 +22,35 @@ public class TesteMedicamento {
 
 	@Test
 	public void testGetNome() {
-		Medicamento medicamento = new Medicamento ("Paracetamol", "LaboratorioTeste", "Adulto", "Comprimido", "10/10/2020","1cp. a cada 8 horas");
-		assertEquals(medicamento.getNome(),"Paracetamol");
+		Medicament medicament = new Medicament ("Paracetamol", "LaboratorioTeste", "Adulto", "Comprimido", "10/10/2020","1cp. a cada 8 horas");
+		assertEquals(medicament.getNome(),"Paracetamol");
 	}
 
 	@Test
 	public void testGetLaboratorio() {
-		Medicamento medicamento = new Medicamento ("NomeTeste", "Gen�rico", "Adulto", "Comprimido", "10/10/2020","1cp. a cada 8 horas");
-		assertEquals(medicamento.getFabricante(),"Gen�rico");
+		Medicament medicament = new Medicament ("NomeTeste", "Gen�rico", "Adulto", "Comprimido", "10/10/2020","1cp. a cada 8 horas");
+		assertEquals(medicament.getFabricante(),"Gen�rico");
 	}
 
 	@Test
 	public void testGetRecomendacao() {
-		Medicamento medicamento = new Medicamento ("NomeTeste", "LaboratorioTeste", "Crian�a com menos de 12 anos", "Comprimido", "10/10/2020","1cp. a cada 8 horas");
-		assertEquals(medicamento.getRecomendacao(),"Crian�a com menos de 12 anos");
+		Medicament medicament = new Medicament ("NomeTeste", "LaboratorioTeste", "Crian�a com menos de 12 anos", "Comprimido", "10/10/2020","1cp. a cada 8 horas");
+		assertEquals(medicament.getRecomendacao(),"Crian�a com menos de 12 anos");
 	}
 
 	@Test
 	public void testGetTipo() {
-		Medicamento medicamento = new Medicamento ("NomeTeste", "LaboratorioTeste", "Adulto", "Efervescente", "10/10/2020","1cp. a cada 8 horas");
-		assertEquals(medicamento.getTipo(),"Efervescente");
+		Medicament medicament = new Medicament ("NomeTeste", "LaboratorioTeste", "Adulto", "Efervescente", "10/10/2020","1cp. a cada 8 horas");
+		assertEquals(medicament.getTipo(),"Efervescente");
 	}
 
 	@Test
 	public void testGetValidade() {
-		Medicamento medicamento = new Medicamento ("NomeTeste", "LaboratorioTeste", "Adulto", "Efervescente", "01/07/2014","1cp. a cada 8 horas");
-		assertEquals(medicamento.getValidade(),"01/07/2014");
+		Medicament medicament = new Medicament ("NomeTeste", "LaboratorioTeste", "Adulto", "Efervescente", "01/07/2014","1cp. a cada 8 horas");
+		assertEquals(medicament.getValidade(),"01/07/2014");
 	}
 	public void testGetPosologia() {
-		Medicamento medicamento = new Medicamento ("NomeTeste", "LaboratorioTeste", "Adulto", "L�quido", "01/07/2014","5 ml de 6 em 6 horas");
-		assertEquals(medicamento.getPosologia(),"5 ml de 6 em 6 horas");
+		Medicament medicament = new Medicament ("NomeTeste", "LaboratorioTeste", "Adulto", "L�quido", "01/07/2014","5 ml de 6 em 6 horas");
+		assertEquals(medicament.getPosologia(),"5 ml de 6 em 6 horas");
 	}
 }

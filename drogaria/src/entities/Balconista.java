@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import entities.Caixa;
-import entities.Medicamento;
+import entities.Medicament;
 
 public class Balconista extends Pessoa {
 
@@ -14,7 +14,7 @@ public class Balconista extends Pessoa {
 	protected int senhaFarmaciaPopular;
 	protected int codigo; // O funcionario usa o codigo de acesso junto da senha para fazer as vendas.
 	protected int fatorComissao;
-	protected Medicamento[] medicamentos = {};
+	protected Medicament[] medicaments = {};
 	protected Caixa caixa;
 	private static boolean statusBalconista;
 	protected int horas;
@@ -59,26 +59,26 @@ public class Balconista extends Pessoa {
 		}
 	}
 
-	public void setMedicamentos(Medicamento[] medicamentos) {
+	public void setMedicamentos(Medicament[] medicamentos) {
 		if (medicamentos.length < 1) {
 			System.out
 					.println("O medicamento n�o pode ser vendido sem a identifica��o de 1 funcion�rio cadastrado no Sistema! O medicamento s� poder� ser comercializado por no m�nimo 1 funcion�rio devidamente cadastrado!");
 		}
 		else {
-			this.medicamentos = medicamentos;
+			this.medicaments = medicamentos;
 		}
 	}
 
-	public void verificarMedicamento(Medicamento[] medicamento) {
-		int tamanhoAntigo = this.medicamentos.length;
+	public void verificarMedicamento(Medicament[] medicamento) {
+		int tamanhoAntigo = this.medicaments.length;
 
-		Medicamento[] novosMedicamentos = new Medicamento[tamanhoAntigo + 1];
+		Medicament[] novosMedicamentos = new Medicament[tamanhoAntigo + 1];
 		for (int i = 0; i < tamanhoAntigo; i++) {
-			novosMedicamentos[i] = this.medicamentos[i];
+			novosMedicamentos[i] = this.medicaments[i];
 
 		}
 
-		novosMedicamentos[novosMedicamentos.length - 1] = medicamento[medicamentos.length];
+		novosMedicamentos[novosMedicamentos.length - 1] = medicamento[medicaments.length];
 		this.setMedicamentos(novosMedicamentos);
 
 	}
@@ -86,9 +86,9 @@ public class Balconista extends Pessoa {
 	// Listar numero de medicamentos associados aos funcionarios
 	public void listarMedicamentosAssociados() {
 		System.out.println("Os medicamentos vendidos pelo funcionario " + getNome() + " foram:");
-		for (int i = 0; (i < medicamentos.length); i++) {
+		for (int i = 0; (i < medicaments.length); i++) {
 			quantidade++;
-			System.out.println(quantidade + " " + medicamentos[i].nome);
+			System.out.println(quantidade + " " + medicaments[i].nome);
 		}
 	}
 
@@ -285,8 +285,8 @@ public class Balconista extends Pessoa {
 		this.caixa = caixa;
 	}
 
-	public Medicamento[] getMedicamentos() {
-		return medicamentos;
+	public Medicament[] getMedicamentos() {
+		return medicaments;
 	}
 
 	public int getQuantidade() {

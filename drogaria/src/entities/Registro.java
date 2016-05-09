@@ -3,7 +3,7 @@ package entities;
 public class Registro {
 
 	protected String codigo;
-	protected Medicamento medicamento;
+	protected Medicament medicament;
 
 	// Construtor Vazio
 	public Registro() {
@@ -16,12 +16,12 @@ public class Registro {
 
 	// Agrega��o - Listagem e Adi��o
 	public void listarMedicamento() {
-		System.out.println("O medicamento do registro " + this.codigo + " �:" + medicamento.nome);
+		System.out.println("O medicamento do registro " + this.codigo + " �:" + medicament.nome);
 	}
 
 	public void adicionarMedicamento() {
-		Medicamento novoMedicamento = new Medicamento();
-		novoMedicamento = this.medicamento;
+		Medicament novoMedicamento = new Medicament();
+		novoMedicamento = this.medicament;
 		this.setMedicamento(novoMedicamento);
 	}// Fim Agregacao
 
@@ -35,12 +35,12 @@ public class Registro {
 		this.codigo = codigo;
 	}
 
-	public Medicamento getMedicamento() {
-		return medicamento;
+	public Medicament getMedicamento() {
+		return medicament;
 	}
 
-	public void setMedicamento(Medicamento medicamento) {
-		this.medicamento = medicamento;
+	public void setMedicamento(Medicament medicament) {
+		this.medicament = medicament;
 	}
 
 }

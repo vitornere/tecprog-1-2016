@@ -8,7 +8,7 @@ import entities.Administrativo;
 import entities.Balconista;
 import entities.Caixa;
 import entities.Cliente;
-import entities.Medicamento;
+import entities.Medicament;
 import entities.Pessoa;
 import entities.Registro;
 
@@ -28,7 +28,7 @@ public class SistemaDrogaria {
 				"(61)-1234-5678", "cliente1@gmail.com");
 
 		// Criando e cadastrando um medicamento
-		Medicamento novoMedicamento = new Medicamento("NomeTeste", "LaboratorioTeste", "Adulto", "Comprimido",
+		Medicament novoMedicamento = new Medicament("NomeTeste", "LaboratorioTeste", "Adulto", "Comprimido",
 				"10/10/2020", "1cp. a cada 8 horas");
 
 		// Criando e cadastrando uma transacao do caixa
@@ -94,22 +94,22 @@ public class SistemaDrogaria {
 				+ df.format(salarioCaixaSemana) + " E por mes: RS " + df.format(salarioCaixaMes));
 
 		// Associacao
-		Medicamento medicamento1 = new Medicamento("NomeTeste", "LaboratorioTeste", "Adulto", "Comprimido",
+		Medicament medicamento1 = new Medicament("NomeTeste", "LaboratorioTeste", "Adulto", "Comprimido",
 				"10/10/2020", "1cp. a cada 8 horas");
-		Medicamento medicamento2 = new Medicamento("NomeTeste 2", "LaboratorioTeste 2", "Crian�a", "L�quido",
+		Medicament medicamento2 = new Medicament("NomeTeste 2", "LaboratorioTeste 2", "Crian�a", "L�quido",
 				"01/07/2014", "5 ml de 6 em 6 horas");
 
 		// Lista de medicamentos para associacao
-		Medicamento[] medicamentosAs = { medicamento1, medicamento2 };
+		Medicament[] medicamentosAs = { medicamento1, medicamento2 };
 		funcionarioDrogaria.setMedicamentos(medicamentosAs);
 		// Listando
 		funcionarioDrogaria.listarMedicamentosAssociados();
 		// Fim Associacao
 
 		// Agregacao
-		Medicamento medicamento3 = new Medicamento("Paracetamol", "Germed", "Infantil", "L�quido", "01/08/2015",
+		Medicament medicamento3 = new Medicament("Paracetamol", "Germed", "Infantil", "L�quido", "01/08/2015",
 				"2,5 ml a cada 4 horas");
-		Medicamento medicamento4 = new Medicamento("Aspirina", "Germed", "Adulto", "Comprimido", "01/08/2015",
+		Medicament medicamento4 = new Medicament("Aspirina", "Germed", "Adulto", "Comprimido", "01/08/2015",
 				"8 em 8 horas");
 
 		Registro registro1 = new Registro("12.345");

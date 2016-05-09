@@ -7,7 +7,7 @@ import entities.Balconista;
 import entities.Caixa;
 import entities.Cliente;
 import entities.ConsoleMenu;
-import entities.Medicamento;
+import entities.Medicament;
 
 public class Console {
 
@@ -28,12 +28,12 @@ public class Console {
 		ArrayList<Balconista> listaDeBalconistas = new ArrayList<Balconista>();
 		ArrayList<Caixa> listaDeCaixas = new ArrayList<Caixa>();
 		ArrayList<Cliente> listaDeClientes = new ArrayList<Cliente>();
-		ArrayList<Medicamento> listaDeMedicamentos = new ArrayList<Medicamento>();
+		ArrayList<Medicament> listaDeMedicamentos = new ArrayList<Medicament>();
 
 		Balconista balconista = new Balconista();
 		Caixa caixa = new Caixa();
 		Cliente cliente = new Cliente();
-		Medicamento medicamento = new Medicamento();
+		Medicament medicament = new Medicament();
 
 		ConsoleMenu complementar = new ConsoleMenu();
 
@@ -168,24 +168,24 @@ public class Console {
 							}
 							while (estados == 5) {
 
-								medicamento.menuMedicamento();// Menu Medicamento
+								medicament.menuMedicamento();// Menu Medicamento
 								operacaoMedicamento = scanner.nextInt();
 								if (operacaoMedicamento == 0) {
 									estados = complementar.ConfirmacaoMedicamento(estados);
 								}
 
 								else if (operacaoMedicamento == 1) {
-									medicamento.cadastrarMedicamento(listaDeMedicamentos);
+									medicament.cadastrarMedicamento(listaDeMedicamentos);
 									estados = 5;
 								}
 
 								else if (operacaoMedicamento == 2) {
-									medicamento.listarMedicamentos(listaDeMedicamentos);
+									medicament.listarMedicamentos(listaDeMedicamentos);
 									estados = 5;
 								}
 
 								else if (operacaoMedicamento == 3) {
-									medicamento.excluirMedicamento(listaDeMedicamentos);
+									medicament.excluirMedicamento(listaDeMedicamentos);
 									estados = 5;
 								}
 
