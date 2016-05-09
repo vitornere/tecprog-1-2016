@@ -38,13 +38,15 @@ public class ConsoleMenu {
 	}	
 
 	public void consoleOutputConfirmation() {
-		System.out.println("Deseja realmente sair do programa?" + "\n(0) - Nao" + "\n(1) - Sim");
+		System.out.println("Deseja realmente sair do programa?" + "\n(0) - Não" + "\n(1) - Sim");
 
 	}
 
 	public int menuOutputConfirmation(int states) {
-		System.out.println("Deseja realmente sair?" + "\n(0) - Nao" + "\n(1) - Sim");
+		System.out.println("Deseja realmente sair?" + "\n(0) - Não" + "\n(1) - Sim");
+		
 		int confirmation = this.readInt();
+		
 		if (confirmation == 1) {
 			states = 100;// Sai definitivamente
 
@@ -55,12 +57,11 @@ public class ConsoleMenu {
 		}
 
 		return states;
-
 	}
 
 	public int clerkConfirmation(int states) {
 		System.out.println("Deseja realmente sair do menu de cadastro de Balconista?" + 
-						   "\n(0) - Nao" + "\n(1) - Sim");
+						   "\n(0) - Não" + "\n(1) - Sim");
 		
 		int clerkOutputConfirmation = this.readInt();
 		
@@ -71,13 +72,19 @@ public class ConsoleMenu {
 		else if (clerkOutputConfirmation == 0) {
 			states = 2;
 		}
+		else {
+			// Nothing to do
+		}
 		
 		return states;
 	}
 
 	public int confirmacaoCaixa(int states) {
-		System.out.println("Deseja realmente sair do menu de cadastro de Caixa?" + "\n(0) - Nao" + "\n(1) - Sim");
+		System.out.println("Deseja realmente sair do menu de cadastro de Caixa?" + "\n(0) - Não" + 
+						   "\n(1) - Sim");
+		
 		int cashierOutputConfirmation = this.readInt();
+		
 		if (cashierOutputConfirmation == 1) {
 			states = 0;
 			System.out.println("Saindo do setor de cadastro de Caixa.");
@@ -85,13 +92,19 @@ public class ConsoleMenu {
 		else if (cashierOutputConfirmation == 0) {
 			states = 3;
 		}
+		else {
+			// Nothing to do
+		}
+		
 		return states;
 	}
 
 	public int ConfirmacaoCliente(int states) {
-		System.out
-				.println("Deseja realmente sair do menu de cadastro de Cliente?" + "\n(0) - Nao" + "\n(1) - Sim");
+		System.out.println("Deseja realmente sair do menu de cadastro de Cliente?" + "\n(0) - Não" + 
+						   "\n(1) - Sim");
+		
 		int clienteOutputConfirmation = this.readInt();
+		
 		if (clienteOutputConfirmation == 1) {
 			states = 0;
 			System.out.println("Saindo do setor de cadastro de Cliente.");
@@ -99,19 +112,28 @@ public class ConsoleMenu {
 		else if (clienteOutputConfirmation == 0) {
 			states = 4;
 		}
+		else {
+			// Nothing to do
+		}
+		
 		return states;
 	}
 
 	public int ConfirmacaoMedicamento(int states) {
-		System.out.println("Deseja realmente sair do menu de cadastro de Medicamento?" + "\n(0) - Nao"
-				+ "\n(1) - Sim");
+		System.out.println("Deseja realmente sair do menu de cadastro de Medicamento?" + "\n(0) - Nâo" + 
+						   "\n(1) - Sim");
+		
 		int medicamentOutputConfirmation = this.readInt();
+		
 		if (medicamentOutputConfirmation == 1) {
 			states = 0;
 			System.out.println("Saindo do setor de cadastro de Medicamento.");
 		}
 		else if (medicamentOutputConfirmation == 0) {
 			states = 5;
+		}
+		else {
+			// Nothing to do
 		}
 
 		return states;
@@ -120,6 +142,7 @@ public class ConsoleMenu {
 	// Ler String
 	public static String readString() {
 		string = new Scanner(System.in).nextLine();
+		
 		return string;
 	}
 
@@ -127,89 +150,100 @@ public class ConsoleMenu {
 	public static int readInt() {
 		boolean erro = false;
 		int i = 0;
+		
 		do {
 			try {
-				i = Integer.parseInt(readString()); // Atribui��o do termo digitado ao Inteiro pedido
+				i = Integer.parseInt(readString()); // Atribuição do termo digitado ao Inteiro pedido
 				erro = false;
 			} catch (NumberFormatException t) {
-				System.out.println("Voce inseriu algo diferente de um numero. Digite um numero inteiro: ");
+				System.out.println("Você inseriu algo diferente de um número. Digite um número inteiro: ");
 				erro = true;
 			}
 		} while (erro);
+		
 		return i;
 	}
 
 	public int menuAjuda(int states) {
-		System.out
-				.println("A ajuda deste programa tem como objetivo auxilia-lo nos metodos de insercao para utilizacao do sistema de gerencia.");
-		System.out.println("Escolha a opcao em que voce deseja saber mais");
-		System.out.println("(0) - Sair\n(1) - Balconista\n(2) - Caixa \n(3) - Cliente\n(4) - Medicamento");
+		System.out.println("A ajuda deste programa tem como objetivo auxilia-lo nos métodos " + 
+						   "de inserção para utilização do sistema de gerência.");
+		System.out.println("Escolha a opção em que você deseja saber mais");
+		System.out.println("(0) - Sair\n(1) - Balconista\n(2) - Caixa \n(3) - " +
+						   "Cliente\n(4) - Medicamento");
 
 		menuOperation = new Scanner(System.in).nextInt();
+		
 		switch (menuOperation) {
-
-		case 0:
-			System.out.println("Deseja realmente sair do menu de Ajuda?" + "\n(0) - Nao" + "\n(1) - Sim");
-			helpOutputConfirmation = scanner.nextInt();
-			if (helpOutputConfirmation == 1) {
-				states = 0;
-				System.out.println("Saindo do setor de cadastro de Medicamento.");
-			}
-			else if (helpOutputConfirmation == 0) {
+			case 0:
+				System.out.println("Deseja realmente sair do menu de Ajuda?" + "\n(0) - Não" + 
+								   "\n(1) - Sim");
+				
+				helpOutputConfirmation = scanner.nextInt();
+				
+				if (helpOutputConfirmation == 1) {
+					states = 0;
+					System.out.println("Saindo do setor de cadastro de Medicamento.");
+				}
+				else if (helpOutputConfirmation == 0) {
+					states = 6;
+				}
+				else {
+					// Nothing to do
+				}
+	
+				break;
+				
+			case 1:
+				System.out.println("Os campos de nome,sobrenome e endereço para 'Balconista' devem ser " +
+								 "inseridos diretamente letra a letra onde cada informação deve ser " +
+								 "separada por espa�o simples");
+				System.out.println("Exemplo: \nDigite nome: 'Victor'");
+				System.out.println("Já os campos de 'senha', 'senha de farmácia popular', 'código', " +
+						  		   "'fator de comissao' e 'horas trabalhadas' devem ser inseridos como numeros inteiros");
+				System.out.println("Exemplo: \nDigite a senha: 5734");
+				System.out.println("Os campos de rg devem inseridos com o �rg�o expeditor seguido do n�mero.");
+				System.out.println("Exemplo: \nDigite o rg: MG452333");
+				System.out
+						.println("O campo de cpf deve ser inserido sem o d�gito, pois este ser� inserido no campo 'D�gito de cpf' a partir dos 2 n�meros que se deseja cadastrar");
+				System.out.println("Exemplo: \nSe seu cpf for 123.456.789-00, digite apenas: '123456789'");
+				System.out
+						.println("O campo 'validade' de medicamento deve ser inserido sem nenhum caractere espa�ando os dias do m�s e ano respectivamente");
+				System.out.println("Exemplo: \nData de validade: 12122014");
 				states = 6;
-			}
-
-			break;
-		case 1:
-			System.out
-					.println("Os campos de nome,sobrenome e endereco para 'Balconista' devem ser inseridos diretamente letra a letra onde cada informacao deve ser separada por espaco simples");
-			System.out.println("Exemplo: \nDigite nome: 'Victor'");
-			System.out
-					.println("Ja os campos de 'senha', 'senha de farmacia popular', 'codigo', 'fator de comissao' e 'horas trabalhadas' devem ser inseridos como numeros inteiros");
-			System.out.println("Exemplo: \nDigite a senha: 5734");
-			System.out.println("Os campos de rg devem inseridos com o orgao expeditor seguido do numero.");
-			System.out.println("Exemplo: \nDigite o rg: MG452333");
-			System.out
-					.println("O campo de cpf deve ser inserido sem o digito, pois este sera inserido no campo 'Digito de cpf' a partir dos 2 numeros que se deseja cadastrar");
-			System.out.println("Exemplo: \nSe seu cpf for 123.456.789-00, digite apenas: '123456789'");
-			System.out
-					.println("O campo 'validade' de medicamento deve ser inserido sem nenhum caractere espacando os dias do mes e ano respectivamente");
-			System.out.println("Exemplo: \nData de validade: 12122014");
-			states = 6;
-			break;
-		case 2:
-			System.out
-					.println("Os campos de nome,sobrenome e endereco para 'Caixa' devem ser inseridos diretamente letra a letra onde cada informacao deve ser separada por espaco simples");
-			System.out.println("Exemplo: \nDigite nome: 'Victor'");
-			System.out.println("Ja o campo de 'codigo' deve ser inserido como numero inteiro");
-			System.out.println("Exemplo: \nDigite o codigo do caixa: 2");
-			System.out.println("Os campos de rg devem inseridos com o orgao expeditor seguido do numero.");
-			System.out.println("Exemplo: \nDigite o rg: MG452333");
-			System.out
-					.println("O campo de cpf deve ser inserido sem o digito, pois este sera inserido no campo 'Digito de cpf' a partir dos 2 numeros que se deseja cadastrar");
-			System.out.println("Exemplo: \nSe seu cpf for 123.456.789-00, digite apenas: '123456789'");
-			states = 6;
-			break;
-		case 3:
-			System.out
-					.println("Os campos de nome,sobrenome,endereco e email para 'Cliente' devem ser inseridos diretamente letra a letra onde cada informacao deve ser separada por espaco simples");
-			System.out.println("Exemplo: \nDigite nome: 'Victor'");
-			System.out.println("Os campos de rg devem inseridos com o orgao expeditor seguido do numero.");
-			System.out.println("Exemplo: \nDigite o rg: MG452333");
-			System.out
-					.println("O campo de cpf deve ser inserido sem o digito, pois este sera inserido no campo 'Digito de cpf' a partir dos 2 numeros que se deseja cadastrar");
-			System.out.println("Exemplo: \nSe seu cpf for 123.456.789-00, digite apenas: '123456789'");
-			states = 6;
-			break;
-		case 4:
-			System.out
-					.println("Os campos de 'nome','fabricante','recomendacao','tipo' e 'posologia' para 'Medicamento' devem ser inseridos diretamente onde cada informacao deve ser separada por espaco simples");
-			System.out.println("Exemplo: \nDigite nome: 'Neosaldina'");
-			System.out
-					.println("Ja o campo 'validade' de medicamento deve ser inserido sem nenhum caractere espacando os dias do mas e ano respectivamente");
-			System.out.println("Exemplo: \nData de validade: 12122014");
-			states = 6;
-			break;
+				break;
+			case 2:
+				System.out
+						.println("Os campos de nome,sobrenome e endere�o para 'Caixa' devem ser inseridos diretamente letra a letra onde cada informa��o deve ser separada por espa�o simples");
+				System.out.println("Exemplo: \nDigite nome: 'Victor'");
+				System.out.println("J� o campo de 'c�digo' deve ser inserido como numero inteiro");
+				System.out.println("Exemplo: \nDigite o c�digo do caixa: 2");
+				System.out.println("Os campos de rg devem inseridos com o �rg�o expeditor seguido do n�mero.");
+				System.out.println("Exemplo: \nDigite o rg: MG452333");
+				System.out
+						.println("O campo de cpf deve ser inserido sem o d�gito, pois este ser� inserido no campo 'D�gito de cpf' a partir dos 2 n�meros que se deseja cadastrar");
+				System.out.println("Exemplo: \nSe seu cpf for 123.456.789-00, digite apenas: '123456789'");
+				states = 6;
+				break;
+			case 3:
+				System.out
+						.println("Os campos de nome,sobrenome,endere�o e email para 'Cliente' devem ser inseridos diretamente letra a letra onde cada informa��o deve ser separada por espa�o simples");
+				System.out.println("Exemplo: \nDigite nome: 'Victor'");
+				System.out.println("Os campos de rg devem inseridos com o �rg�o expeditor seguido do n�mero.");
+				System.out.println("Exemplo: \nDigite o rg: MG452333");
+				System.out
+						.println("O campo de cpf deve ser inserido sem o d�gito, pois este ser� inserido no campo 'D�gito de cpf' a partir dos 2 n�meros que se deseja cadastrar");
+				System.out.println("Exemplo: \nSe seu cpf for 123.456.789-00, digite apenas: '123456789'");
+				states = 6;
+				break;
+			case 4:
+				System.out
+						.println("Os campos de 'nome','fabricante','recomenda��o','tipo' e 'posologia' para 'Medicamento' devem ser inseridos diretamente onde cada informa��o deve ser separada por espa�o simples");
+				System.out.println("Exemplo: \nDigite nome: 'Neosaldina'");
+				System.out
+						.println("J� o campo 'validade' de medicamento deve ser inserido sem nenhum caractere espa�ando os dias do m�s e ano respectivamente");
+				System.out.println("Exemplo: \nData de validade: 12122014");
+				states = 6;
+				break;
 		}
 		return states;
 

@@ -66,7 +66,7 @@ public class Console {
 
 				// Amarra��o para sair
 				if (operacao == 0) {
-					estados = complementar.ConfirmacaoGeral2(estados);
+					estados = complementar.menuOutputConfirmation(estados);
 				}
 				else {
 					estados++;
@@ -83,7 +83,7 @@ public class Console {
 								balconista.menuBalconista();// Menu de balconistas
 								operacaoBalconista = scanner.nextInt();
 								if (operacaoBalconista == 0) {
-									estados = complementar.ConfirmacaoBalconista(estados);
+									estados = complementar.clerkConfirmation(estados);
 								}
 
 								else if (operacaoBalconista == 1) {
