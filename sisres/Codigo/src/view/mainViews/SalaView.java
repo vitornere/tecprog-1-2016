@@ -15,7 +15,7 @@ import model.Sala;
 import view.alteracoes.AlterarSala;
 import view.cadastros.CadastroPatrimonio;
 import view.cadastros.CadastroSala;
-import view.diasReservas.DiaReservaSala;
+import view.diasReservas.ClassRoomReserveDay;
 import control.ManterSala;
 import exception.PatrimonioException;
 
@@ -109,7 +109,7 @@ public class SalaView extends PatrimonioView {
 
     @Override protected void visualizarAction(int index) {
         try {
-            DiaReservaSala reserva = new DiaReservaSala(new javax.swing.JFrame(), true, index);
+            ClassRoomReserveDay reserva = new ClassRoomReserveDay(new javax.swing.JFrame(), true, index);
             reserva.setResizable(false);
             reserva.setVisible(true);
         } catch (PatrimonioException ex) {
