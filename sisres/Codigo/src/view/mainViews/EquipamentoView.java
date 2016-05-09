@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Equipamento;
 import view.alteracoes.AlterarEquipamento;
 import view.cadastros.CadastroEquipamento;
-import view.diasReservas.DiaReservaEquipamento;
+import view.diasReservas.EquipmentReservDay;
 import control.ManterEquipamento;
 import exception.PatrimonioException;
 
@@ -109,7 +109,7 @@ public class EquipamentoView extends PatrimonioView {
 
     @Override protected void visualizarAction(int index) {
         try {
-            DiaReservaEquipamento reserva = new DiaReservaEquipamento(new javax.swing.JFrame(), true, index);
+            EquipmentReservDay reserva = new EquipmentReservDay(new javax.swing.JFrame(), true, index);
             reserva.setResizable(false);
             reserva.setVisible(true);
         } catch (PatrimonioException ex) {
