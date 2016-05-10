@@ -10,8 +10,8 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 
 import model.Equipamento;
-import view.horariosReservas.HoursEquipamentReservation;
-import view.horariosReservas.HorariosReservaPatrimonio;
+import view.timeReservations.HoursEquipamentReservation;
+import view.timeReservations.HoursPatrimonyReservation;
 import control.ManterEquipamento;
 import exception.PatrimonioException;
 
@@ -30,7 +30,7 @@ public class EquipmentReserveDay extends PatrimonyReserveDay {
     }
 
     @Override protected void viewAction(String data) {
-        HorariosReservaPatrimonio booking = new HoursEquipamentReservation(new JFrame(), true, data, this.equipment);
+        HoursPatrimonyReservation booking = new HoursEquipamentReservation(new JFrame(), true, data, this.equipment);
         
         booking.setVisible(true);
         

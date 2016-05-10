@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.horariosReservas;
+package view.timeReservations;
 
 import java.sql.SQLException;
 import java.util.Vector;
@@ -27,7 +27,7 @@ import exception.ReservaException;
  * 
  * @author Parley
  */
-public class HoursEquipamentReservation extends HorariosReservaPatrimonio {
+public class HoursEquipamentReservation extends HoursPatrimonyReservation {
 
     Equipamento equipament;
     ManterResEquipamentoProfessor instanceOfProfessorEquipament;
@@ -78,9 +78,9 @@ public class HoursEquipamentReservation extends HorariosReservaPatrimonio {
             table.addColumn("Codigo Eqpt.");
             table.addColumn("Descricao Eqpt.");
 
-            this.mes = Integer.parseInt(this.data.substring(3, 5));
+            this.month = Integer.parseInt(this.data.substring(3, 5));
 
-            Vector<ReservaEquipamentoProfessor> professorEquipament = instanceOfProfessorEquipament.getReservasMes(mes);
+            Vector<ReservaEquipamentoProfessor> professorEquipament = instanceOfProfessorEquipament.getReservasMes(month);
             
             if (professorEquipament != null) {
                 for (int i = 0; i < professorEquipament.size(); i++) {
@@ -92,27 +92,27 @@ public class HoursEquipamentReservation extends HorariosReservaPatrimonio {
             	// Nothing to do
             }
         } catch (SQLException ex) {
-            Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
         } catch (PatrimonioException ex) {
-            Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClienteException ex) {
-            Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ReservaException ex) {
-            Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return table;
     }
 
-    @Override protected void cancelarReservaAction(int index) {
+    @Override protected void cancelActionReservation(int index) {
         try {
             int confirm = JOptionPane.showConfirmDialog(this,
                     "Deseja mesmo excluir Reserva?\n" + 
-                     instanceOfProfessorEquipament.getReservasMes(mes).get(index).toString(), 
+                     instanceOfProfessorEquipament.getReservasMes(month).get(index).toString(), 
                      "Excluir", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                this.instanceOfProfessorEquipament.excluir(instanceOfProfessorEquipament.getReservasMes(mes).get(index));
+                this.instanceOfProfessorEquipament.excluir(instanceOfProfessorEquipament.getReservasMes(month).get(index));
                 
                 JOptionPane.showMessageDialog(this, "Reserva excluida com sucesso", "Sucesso", 
                 							  JOptionPane.INFORMATION_MESSAGE, null);
@@ -132,7 +132,7 @@ public class HoursEquipamentReservation extends HorariosReservaPatrimonio {
         }
     }
 
-    @Override protected void reservarAction() {
+    @Override protected void actionReservation() {
         try {
             ReservaEquipamentoView reserva = new FazerReservaEquipamentoView(new JFrame(), true, this.equipament, this.data);
             
