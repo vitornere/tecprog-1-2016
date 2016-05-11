@@ -4,7 +4,7 @@ import view.mainViews.AlunoView;
 import view.mainViews.ClienteView;
 import view.mainViews.EquipamentoView;
 import view.mainViews.PatrimonioView;
-import view.mainViews.ProfessorView;
+import view.mainViews.TeacherView;
 import view.mainViews.SalaView;
 
 /**
@@ -185,7 +185,7 @@ import view.mainViews.SalaView;
 
     private void professorBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_professorBtnActionPerformed
         // TODO add your handling code here:
-        ClienteView client = new ProfessorView(this, true);
+        ClienteView client = new TeacherView(this, true);
         client.setResizable(false);
         client.setVisible(true);
     }// GEN-LAST:event_professorBtnActionPerformed
