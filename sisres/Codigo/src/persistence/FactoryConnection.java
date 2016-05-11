@@ -36,6 +36,7 @@ public class FactoryConnection {
 	public Connection getConnection() throws SQLException{
 		Connection con = null;
 		con = DriverManager.getConnection(LOCAL, USER, PASSWORD);
+		
 		assert con != null;
 		
 		return con;
