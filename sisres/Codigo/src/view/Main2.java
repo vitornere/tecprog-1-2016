@@ -1,7 +1,7 @@
 package view;
 
 import view.mainViews.StudentView;
-import view.mainViews.ClienteView;
+import view.mainViews.ClientView;
 import view.mainViews.EquipamentoView;
 import view.mainViews.PatrimonioView;
 import view.mainViews.ProfessorView;
@@ -185,14 +185,14 @@ import view.mainViews.SalaView;
 
     private void professorBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_professorBtnActionPerformed
         // TODO add your handling code here:
-        ClienteView client = new ProfessorView(this, true);
+        ClientView client = new ProfessorView(this, true);
         client.setResizable(false);
         client.setVisible(true);
     }// GEN-LAST:event_professorBtnActionPerformed
 
     private void alunoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_alunoBtnActionPerformed
         // TODO add your handling code here:
-        ClienteView client = new StudentView(this, true);
+        ClientView client = new StudentView(this, true);
         client.setResizable(false);
         client.setVisible(true);
     }// GEN-LAST:event_alunoBtnActionPerformed

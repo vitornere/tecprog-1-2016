@@ -19,7 +19,7 @@ import exception.ClienteException;
  * 
  * @author Parley
  */
-public class StudentView extends ClienteView {
+public class StudentView extends ClientView {
 
     public StudentView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -43,7 +43,7 @@ public class StudentView extends ClienteView {
         CadastroCliente studentRegister = new CadastroAluno(new javax.swing.JFrame(), true);
         studentRegister.setResizable(false);
         studentRegister.setVisible(true);
-        tabelaCliente.setModel(fillTable());
+        clientTable.setModel(fillTable());
 
     }
 
@@ -52,12 +52,12 @@ public class StudentView extends ClienteView {
         AlterarAluno studentChange = new AlterarAluno(new javax.swing.JFrame(), true, index);
         studentChange.setResizable(false);
         studentChange.setVisible(true);
-        this.tabelaCliente.setModel(fillTable());
+        this.clientTable.setModel(fillTable());
     }
 
     @Override public void excluirAction() {
         try {
-            int index = this.tabelaCliente.getSelectedRow();
+            int index = this.clientTable.getSelectedRow();
             
             if (index < 0) {
                 JOptionPane.showMessageDialog(this, "Selecione uma linha!", "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -81,7 +81,7 @@ public class StudentView extends ClienteView {
             	// Nothing to do
             }
             
-            this.tabelaCliente.setModel(fillTable());
+            this.clientTable.setModel(fillTable());
         } catch (ClienteException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
