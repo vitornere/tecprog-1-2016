@@ -17,36 +17,37 @@ import exception.ReservaException;
 
 /**
  * 
- * @author Parley
+ * @author Parley  
+
  */
-public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
+public class ChangeReservationEquipamentView extends ReservationEquipmentView {
 
     int index;
-    ReservaEquipamentoProfessor reserva;
+    ReservaEquipamentoProfessor reservation;
 
     private void resetComponents() {
-        this.reservarButton.setText("Alterar");
-        this.reservarButton.setName("AlterarButton");
+        this.reservationButton.setText("Alterar");
+        this.reservationButton.setName("AlterarButton");
         this.cpfLabel.setEnabled(false);
         this.cpfTextField.setBackground(new Color(200, 208, 254));
         this.cpfTextField.setEditable(false);
-        this.horaTextField.setText(reserva.getHora());
-        this.dataTextField.setText(reserva.getData());
-        this.professorTextArea.setText(reserva.getProfessor().toString());
+        this.timeTextField.setText(reservation.getHora());
+        this.dateTextField.setText(reservation.getData());
+        this.teacherTextArea.setText(reservation.getProfessor().toString());
     }
 
-    public AlterarReservaEquipamentoView(Frame parent, boolean modal, int index, int mes) throws SQLException, PatrimonioException,
+    public ChangeReservationEquipamentView(Frame parent, boolean modal, int index, int mes) throws SQLException, PatrimonioException,
             PatrimonioException, ClienteException, ReservaException {
         super(parent, modal);
         this.index = index;
-        reserva = this.instanceProf.getReservasMes(mes).get(index);
+        reservation = this.instanceProf.getReservasMes(mes).get(index);
         resetComponents();
     }
 
-    @Override protected void reservarProfessor() {
+    @Override protected void reservationTeacher() {
         try {
 
-            instanceProf.alterar(null, reserva);
+            instanceProf.alterar(null, reservation);
             JOptionPane.showMessageDialog(this, "Reserva alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             this.setVisible(false);
         } catch (ReservaException ex) {
