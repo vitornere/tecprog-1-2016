@@ -3,7 +3,7 @@ package view;
 import view.mainViews.StudentView;
 import view.mainViews.ClientView;
 import view.mainViews.EquipamentView;
-import view.mainViews.PatrimonioView;
+import view.mainViews.PratimonyView;
 import view.mainViews.ProfessorView;
 import view.mainViews.SalaView;
 
@@ -170,14 +170,14 @@ import view.mainViews.SalaView;
 
     private void salaBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_salaBtnActionPerformed
         // TODO add your handling code here:
-        PatrimonioView room = new SalaView(this, true);
+        PratimonyView room = new SalaView(this, true);
         room.setResizable(false);
         room.setVisible(true);
     }// GEN-LAST:event_salaBtnActionPerformed
 
     private void equipamentoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_equipamentoBtnActionPerformed
 
-        PatrimonioView equipamento = new EquipamentView(this, true);
+        PratimonyView equipamento = new EquipamentView(this, true);
         equipamento.setResizable(false);
         equipamento.setVisible(true);
 

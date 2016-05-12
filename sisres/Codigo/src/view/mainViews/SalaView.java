@@ -23,11 +23,11 @@ import exception.PatrimonioException;
  * 
  * @author Parley
  */
-public class SalaView extends PatrimonioView {
+public class SalaView extends PratimonyView {
 
     public SalaView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        pesquisarLbl.setText("Digite a sala desejada: ");
+        searchLbl.setText("Digite a sala desejada: ");
         this.setName("SalaView");
     }
 
@@ -72,19 +72,19 @@ public class SalaView extends PatrimonioView {
         return null;
     }
 
-    @Override protected void cadastrarAction() {
+    @Override protected void registerAction() {
         CadastroPatrimonio cadastro = new CadastroSala(new javax.swing.JFrame(), true);
         cadastro.setResizable(false);
         cadastro.setVisible(true);
-        this.tabelaPatrimonio.setModel(fillTable());
+        this.patrimonyTable.setModel(fillTable());
     }
 
-    @Override protected void alterarAction(int index) {
+    @Override protected void changeAction(int index) {
 
         AlterarSala alteracao = new AlterarSala(new javax.swing.JFrame(), true, index);
         alteracao.setResizable(false);
         alteracao.setVisible(true);
-        this.tabelaPatrimonio.setModel(fillTable());
+        this.patrimonyTable.setModel(fillTable());
     }
 
     @Override protected void excluirAction(int index) {
@@ -98,7 +98,7 @@ public class SalaView extends PatrimonioView {
                 ManterSala.getInstance().excluir(ManterSala.getInstance().getSalas_vet().get(index));
                 JOptionPane.showMessageDialog(this, "Sala excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             }
-            this.tabelaPatrimonio.setModel(fillTable());
+            this.patrimonyTable.setModel(fillTable());
 
         } catch (PatrimonioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

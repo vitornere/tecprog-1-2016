@@ -18,11 +18,11 @@ import exception.PatrimonioException;
  * 
  * @author Parley
  */
-public class EquipamentView extends PatrimonioView {
+public class EquipamentView extends PratimonyView {
 
     public EquipamentView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        pesquisarLbl.setText("Digite o eqpto. desejado: ");
+        searchLbl.setText("Digite o eqpto. desejado: ");
         this.setTitle("Equipamentos");
         this.setName("EquipamentoView");
     }
@@ -69,19 +69,19 @@ public class EquipamentView extends PatrimonioView {
         return null;
     }
 
-    @Override protected void cadastrarAction() {
+    @Override protected void registerAction() {
         CadastroEquipamento newRegister = new CadastroEquipamento(new javax.swing.JFrame(), true);
         newRegister.setResizable(false);
         newRegister.setVisible(true);
-        this.tabelaPatrimonio.setModel(fillTable());
+        this.patrimonyTable.setModel(fillTable());
     }
 
-    @Override protected void alterarAction(int index) {
+    @Override protected void changeAction(int index) {
 
         AlterarEquipamento newChange = new AlterarEquipamento(new javax.swing.JFrame(), true, index);
         newChange.setResizable(false);
         newChange.setVisible(true);
-        this.tabelaPatrimonio.setModel(fillTable());
+        this.patrimonyTable.setModel(fillTable());
 
     }
 
@@ -99,7 +99,7 @@ public class EquipamentView extends PatrimonioView {
                 JOptionPane.showMessageDialog(this, "Equipamento excluido com sucesso", "Sucesso", 
                 							  JOptionPane.INFORMATION_MESSAGE, null);
             }
-            this.tabelaPatrimonio.setModel(fillTable());
+            this.patrimonyTable.setModel(fillTable());
 
         } catch (PatrimonioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
