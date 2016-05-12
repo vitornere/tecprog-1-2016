@@ -2,7 +2,7 @@ package view;
 
 import view.mainViews.StudentView;
 import view.mainViews.ClientView;
-import view.mainViews.EquipamentoView;
+import view.mainViews.EquipamentView;
 import view.mainViews.PatrimonioView;
 import view.mainViews.ProfessorView;
 import view.mainViews.SalaView;
@@ -177,7 +177,7 @@ import view.mainViews.SalaView;
 
     private void equipamentoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_equipamentoBtnActionPerformed
 
-        PatrimonioView equipamento = new EquipamentoView(this, true);
+        PatrimonioView equipamento = new EquipamentView(this, true);
         equipamento.setResizable(false);
         equipamento.setVisible(true);
 
