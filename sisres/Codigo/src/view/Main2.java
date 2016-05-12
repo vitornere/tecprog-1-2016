@@ -1,6 +1,6 @@
 package view;
 
-import view.mainViews.AlunoView;
+import view.mainViews.StudentView;
 import view.mainViews.ClienteView;
 import view.mainViews.EquipamentoView;
 import view.mainViews.PatrimonioView;
@@ -192,7 +192,7 @@ import view.mainViews.SalaView;
 
     private void alunoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_alunoBtnActionPerformed
         // TODO add your handling code here:
-        ClienteView client = new AlunoView(this, true);
+        ClienteView client = new StudentView(this, true);
         client.setResizable(false);
         client.setVisible(true);
     }// GEN-LAST:event_alunoBtnActionPerformed

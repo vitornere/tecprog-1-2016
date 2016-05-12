@@ -33,7 +33,7 @@ public abstract class ClienteView extends javax.swing.JDialog {
      */
     public abstract Iterator getIterator();
 
-    public abstract void cadastrarAction();
+    public abstract void registerAction();
 
     public abstract void alterarAction(int index);
 
@@ -227,7 +227,7 @@ public abstract class ClienteView extends javax.swing.JDialog {
 
     private void cadastrarBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cadastrarBtnActionPerformed
         // TODO add your handling code here:
-        cadastrarAction();
+        registerAction();
 
     }// GEN-LAST:event_cadastrarBtnActionPerformed
 

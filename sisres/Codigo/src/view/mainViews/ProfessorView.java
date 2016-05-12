@@ -38,7 +38,7 @@ public class ProfessorView extends ClienteView {
         return null;
     }
 
-    @Override public void cadastrarAction() {
+    @Override public void registerAction() {
 
         CadastroCliente cadastrar = new CadastroProfessor(new javax.swing.JFrame(), true);
         cadastrar.setResizable(false);

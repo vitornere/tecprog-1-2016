@@ -25,38 +25,38 @@ import persistence.ResSalaAlunoDAO;
 import persistence.ResSalaProfessorDAO;
 import persistence.SalaDAO;
 import view.Main2;
-import view.mainViews.AlunoView;
+import view.mainViews.StudentView;
 import exception.ClienteException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
 /**
- * US1 Título: Reservar sala. Como cliente (aluno/professor), Eu quero reservar
- * uma sala Para que eu possa usufruir, sempre que necessário, do espaço
- * disponível na FGA.
+ * US1 Tï¿½tulo: Reservar sala. Como cliente (aluno/professor), Eu quero reservar
+ * uma sala Para que eu possa usufruir, sempre que necessï¿½rio, do espaï¿½o
+ * disponï¿½vel na FGA.
  * 
- * Cenário 1: Professor deseja reservar sala disponível. Dado que o professor
- * está cadastrado, E a sala está cadastrada, E a sala está disponível, Quando o
- * usuário solicitar a reserva da sala pelo professor, Então o sistema reserva a
+ * Cenï¿½rio 1: Professor deseja reservar sala disponï¿½vel. Dado que o professor
+ * estï¿½ cadastrado, E a sala estï¿½ cadastrada, E a sala estï¿½ disponï¿½vel, Quando o
+ * usuï¿½rio solicitar a reserva da sala pelo professor, Entï¿½o o sistema reserva a
  * sala, E informar que a reserva foi realizada com sucesso.
  * 
- * Cenário 2: Aluno deseja reservar sala disponível. Dado que um aluno possui
- * cadastro, E a sala está cadastrada, E a sala está disponível, Quando o
- * usuário solicitar a reserva pelo aluno, Então o sistema reserva a sala, E
+ * Cenï¿½rio 2: Aluno deseja reservar sala disponï¿½vel. Dado que um aluno possui
+ * cadastro, E a sala estï¿½ cadastrada, E a sala estï¿½ disponï¿½vel, Quando o
+ * usuï¿½rio solicitar a reserva pelo aluno, Entï¿½o o sistema reserva a sala, E
  * informar que a reserva foi realizada com sucesso.
  * 
- * Cenário 3: Professor deseja reservar sala já reservada por aluno. Dado que o
- * professor está cadastrado, E a sala está cadastrada, E a sala está reservada
- * por um aluno, Quando o usuário solicitar a reserva da sala pelo professor,
- * Então o sistema cancela a reserva feita pelo aluno, E o sistema reserva a
+ * Cenï¿½rio 3: Professor deseja reservar sala jï¿½ reservada por aluno. Dado que o
+ * professor estï¿½ cadastrado, E a sala estï¿½ cadastrada, E a sala estï¿½ reservada
+ * por um aluno, Quando o usuï¿½rio solicitar a reserva da sala pelo professor,
+ * Entï¿½o o sistema cancela a reserva feita pelo aluno, E o sistema reserva a
  * sala pelo professor, E informar que a reserva foi realizada com sucesso.
  * 
  * 
- * Cenário 4: Professor deseja reservar sala reservada por professor Dado que o
- * professor está cadastrado, E a sala está cadastrada, E a sala já está
- * reservada por um professor, Quando o usuário solicitar a reserva da sala pelo
- * professor, Então o sistema deverá negar a reserva, E o sistema deve informar
- * que a sala está indisponível para o dia e horário escolhido. E o sistema não
+ * Cenï¿½rio 4: Professor deseja reservar sala reservada por professor Dado que o
+ * professor estï¿½ cadastrado, E a sala estï¿½ cadastrada, E a sala jï¿½ estï¿½
+ * reservada por um professor, Quando o usuï¿½rio solicitar a reserva da sala pelo
+ * professor, Entï¿½o o sistema deverï¿½ negar a reserva, E o sistema deve informar
+ * que a sala estï¿½ indisponï¿½vel para o dia e horï¿½rio escolhido. E o sistema nï¿½o
  * deve substituir a reserva.
  */
 
