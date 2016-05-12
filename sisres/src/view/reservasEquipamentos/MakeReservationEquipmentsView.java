@@ -18,22 +18,22 @@ import exception.ReservaException;
  * 
  * @author Parley
  */
-public class FazerReservaEquipamentoView extends ReservaEquipamentoView {
+public class MakeReservationEquipmentsView extends ReservationEquipmentView {
 
     Equipamento equipamento;
 
-    public FazerReservaEquipamentoView(Frame parent, boolean modal, Equipamento e, String data) throws SQLException,
+    public MakeReservationEquipmentsView(Frame parent, boolean modal, Equipamento e, String data) throws SQLException,
             PatrimonioException, PatrimonioException, ClienteException, ReservaException {
         super(parent, modal);
         this.equipamento = e;
-        this.dataTextField.setText(data);
-        this.equipamentoTextArea.setText(e.toString());
+        this.dateTextField.setText(data);
+        this.equipmentTextArea.setText(e.toString());
     }
 
-    @Override protected void reservarProfessor() {
+    @Override protected void reservationTeacher() {
         try {
 
-            instanceProf.inserir(equipamento, prof, this.dataTextField.getText(), this.horaTextField.getText());
+            instanceProf.inserir(equipamento, prof, this.dateTextField.getText(), this.timeTextField.getText());
 
             JOptionPane.showMessageDialog(this, "Reserva feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
 
