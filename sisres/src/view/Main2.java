@@ -5,7 +5,7 @@ import view.mainViews.ClienteView;
 import view.mainViews.EquipamentoView;
 import view.mainViews.PatrimonioView;
 import view.mainViews.TeacherView;
-import view.mainViews.SalaView;
+import view.mainViews.RoomView;
 
 /**
  * 
@@ -170,7 +170,7 @@ import view.mainViews.SalaView;
 
     private void salaBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_salaBtnActionPerformed
         // TODO add your handling code here:
-        PatrimonioView room = new SalaView(this, true);
+        PatrimonioView room = new RoomView(this, true);
         room.setResizable(false);
         room.setVisible(true);
     }// GEN-LAST:event_salaBtnActionPerformed

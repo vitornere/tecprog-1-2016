@@ -23,27 +23,27 @@ import exception.PatrimonioException;
  * 
  * @author Parley
  */
-public class SalaView extends PatrimonioView {
+public class RoomView extends PatrimonioView {
 
-    public SalaView(java.awt.Frame parent, boolean modal) {
+    public RoomView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         pesquisarLbl.setText("Digite a sala desejada: ");
-        this.setName("SalaView");
+        this.setName("RoomView");
     }
 
-    protected Vector<String> fillDataVector(Sala sala) {
+    protected Vector<String> fillDataVector(Sala room) {
 
-        if (sala == null) {
+        if (room == null) {
             return null;
         }
 
-        Vector<String> nomesTabela = new Vector<String>();
+        Vector<String> tableName = new Vector<String>();
 
-        nomesTabela.add(sala.getCodigo());
-        nomesTabela.add(sala.getDescricao());
-        nomesTabela.add(sala.getCapacidade());
+        tableName.add(room.getCodigo());
+        tableName.add(room.getDescricao());
+        tableName.add(room.getCapacidade());
 
-        return nomesTabela;
+        return tableName;
 
     }
 
@@ -53,12 +53,12 @@ public class SalaView extends PatrimonioView {
 
             Iterator<Sala> i = ManterSala.getInstance().getSalas_vet().iterator();
 
-            table.addColumn("Codigo");
-            table.addColumn("Nome");
-            table.addColumn("Capacidade");
+            table.addColumn("code");
+            table.addColumn("name");
+            table.addColumn("size");
             while (i.hasNext()) {
-                Sala sala = i.next();
-                table.addRow(fillDataVector(sala));
+                Sala room = i.next();
+                table.addRow(fillDataVector(room));
             }
 
             return table;
@@ -73,17 +73,17 @@ public class SalaView extends PatrimonioView {
     }
 
     @Override protected void cadastrarAction() {
-        CadastroPatrimonio cadastro = new CadastroSala(new javax.swing.JFrame(), true);
-        cadastro.setResizable(false);
-        cadastro.setVisible(true);
+        CadastroPatrimonio register = new CadastroSala(new javax.swing.JFrame(), true);
+        register.setResizable(false);
+        register.setVisible(true);
         this.tabelaPatrimonio.setModel(fillTable());
     }
 
     @Override protected void alterarAction(int index) {
 
-        AlterarSala alteracao = new AlterarSala(new javax.swing.JFrame(), true, index);
-        alteracao.setResizable(false);
-        alteracao.setVisible(true);
+        AlterarSala modification = new AlterarSala(new javax.swing.JFrame(), true, index);
+        modification.setResizable(false);
+        modification.setVisible(true);
         this.tabelaPatrimonio.setModel(fillTable());
     }
 
@@ -91,12 +91,14 @@ public class SalaView extends PatrimonioView {
         try {
             int confirm = JOptionPane
                     .showConfirmDialog(this, "Deseja mesmo excluir Sala: "
-                            + ManterSala.getInstance().getSalas_vet().get(index).getDescricao() + "?", "Excluir",
+                            + ManterSala.getInstance().getSalas_vet()
+                            .get(index).getDescricao() + "?", "Excluir", 
                             JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
                 ManterSala.getInstance().excluir(ManterSala.getInstance().getSalas_vet().get(index));
-                JOptionPane.showMessageDialog(this, "Sala excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
+                JOptionPane.showMessageDialog(this, "Sala excluida com sucesso",
+                		    "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             }
             this.tabelaPatrimonio.setModel(fillTable());
 
@@ -109,9 +111,9 @@ public class SalaView extends PatrimonioView {
 
     @Override protected void visualizarAction(int index) {
         try {
-            DiaReservaSala reserva = new DiaReservaSala(new javax.swing.JFrame(), true, index);
-            reserva.setResizable(false);
-            reserva.setVisible(true);
+            DiaReservaSala reservation = new DiaReservaSala(new javax.swing.JFrame(), true, index);
+            reservation.setResizable(false);
+            reservation.setVisible(true);
         } catch (PatrimonioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
