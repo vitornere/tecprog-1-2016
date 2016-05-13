@@ -62,10 +62,10 @@ public class FrameInicial extends JFrame {
 		btnBalconista.setFont(new Font("Trajan Pro", Font.PLAIN, 12));
 		btnBalconista.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Balconista novoFrame = new Balconista();
+				Clerk novoFrame = new Clerk();
 				novoFrame.dispose();
 				String[] string = {};
-				Balconista.main(string);
+				Clerk.main(string);
 			}
 		});
 		btnBalconista.setBounds(35, 100, 150, 50);

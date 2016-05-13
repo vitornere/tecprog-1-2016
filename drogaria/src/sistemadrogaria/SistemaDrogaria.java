@@ -4,13 +4,13 @@ package sistemadrogaria;
 
 import java.text.DecimalFormat;
 
-import entidades.Balconista;
-import entidades.Caixa;
-import entidades.Cliente;
-import entidades.Administrativo;
-import entidades.Medicamento;
-import entidades.Pessoa;
-import entidades.Registro;
+import entities.Administrativo;
+import entities.Cashier;
+import entities.Clerk;
+import entities.Client;
+import entities.Medicament;
+import entities.Pessoa;
+import entities.Registro;
 
 public class SistemaDrogaria {
 
@@ -20,22 +20,22 @@ public class SistemaDrogaria {
 	public static void main(String[] args) {
 
 		// Instanciando um objeto da classe dos funcionarios.
-		Balconista funcionarioDrogaria = new Balconista("13.523.542-PA", "123.456.789", 12, "Victor", "Fellipe",
+		Clerk funcionarioDrogaria = new Clerk("13.523.542-PA", "123.456.789", 12, "Victor", "Fellipe",
 				"SHCES Qd 1000", "(61)1234-5678", 1234, 5678, 20, 2, 20);
 
 		// Instanciando um objeto da classe dos clientes - DEPENDENCIA CORRIGIDA
-		Cliente novoCliente = new Cliente("13.999.888-DF", "444.555.666", 11, "Teste", "Teste", "Gama qd. 1000",
+		Client novoCliente = new Client("13.999.888-DF", "444.555.666", 11, "Teste", "Teste", "Gama qd. 1000",
 				"(61)-1234-5678", "cliente1@gmail.com");
 
 		// Criando e cadastrando um medicamento
-		Medicamento novoMedicamento = new Medicamento("NomeTeste", "LaboratorioTeste", "Adulto", "Comprimido",
+		Medicament novoMedicamento = new Medicament("NomeTeste", "LaboratorioTeste", "Adulto", "Comprimido",
 				"10/10/2020", "1cp. a cada 8 horas");
 
 		// Criando e cadastrando uma transacao do caixa
-		Caixa caixa = new Caixa("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100,
+		Cashier caixa = new Cashier("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100,
 				"10/10/2020", "transacaoTeste", 1);
 
-		// Imprimindo no console as informacoes do Funcionário
+		// Imprimindo no console as informacoes do Funcionï¿½rio
 		System.out.println("Funcionario:" + funcionarioDrogaria.getNome() + funcionarioDrogaria.getSobrenome());
 		System.out.println("CPF: " + funcionarioDrogaria.getCpf() + "-" + funcionarioDrogaria.getDigitoCpf());
 		System.out.println("Senha: " + funcionarioDrogaria.getSenha() + ". Codigo: "
@@ -54,15 +54,15 @@ public class SistemaDrogaria {
 		// Imprimindo no console as informacoes de Medicamento
 		System.out.println("Nome do medicamento: " + novoMedicamento.getNome());
 		System.out.println("Laboratorio fabricante: " + novoMedicamento.getFabricante());
-		System.out.println("Recomendação: " + novoMedicamento.getRecomendacao());
+		System.out.println("Recomendaï¿½ï¿½o: " + novoMedicamento.getRecomendacao());
 		System.out.println("Tipo: " + novoMedicamento.getTipo());
 		System.out.println("Validade: " + novoMedicamento.getValidade());
 
 		// Imprimindo no console as informacoes do Caixa
-		System.out.println("\nTipo da transação:" + caixa.getTipo());
-		System.out.printf("Valor da transação: R$ %.2f\n", caixa.getValor());
-		System.out.println("Data da transação: " + caixa.getData());
-		System.out.println("Descrição: " + caixa.getDescricao());
+		System.out.println("\nTipo da transaï¿½ï¿½o:" + caixa.getTipo());
+		System.out.printf("Valor da transaï¿½ï¿½o: R$ %.2f\n", caixa.getValor());
+		System.out.println("Data da transaï¿½ï¿½o: " + caixa.getData());
+		System.out.println("Descriï¿½ï¿½o: " + caixa.getDescricao());
 		System.out.println("Saldo atual: " + caixa.getSaldoAtual());
 		caixa.depositar(150);
 		System.out.println("\nSaldo atual: " + caixa.getSaldoAtual());
@@ -72,8 +72,8 @@ public class SistemaDrogaria {
 		Administrativo administrativo;
 
 		double salarioSemana, salarioMes;
-		// Utilização de upcasting (Polimorfismo) e classe abstrata
-		Balconista funcionarioDrogaria1 = new Balconista("13.523.542-PA", "123.456.789", 12, "Victor", "Fellipe",
+		// Utilizaï¿½ï¿½o de upcasting (Polimorfismo) e classe abstrata
+		Clerk funcionarioDrogaria1 = new Clerk("13.523.542-PA", "123.456.789", 12, "Victor", "Fellipe",
 				"SHCES Qd 1000", "(61)-1234-5678", 1234, 5678, 20, 10, 40);
 		administrativo = funcionarioDrogaria1;
 		salarioSemana = administrativo.calcularSalario();
@@ -84,8 +84,8 @@ public class SistemaDrogaria {
 
 		double salarioCaixaSemana;
 		double salarioCaixaMes;
-		// Utilização de upcasting (Polimorfismo) e classe abstrata para o Caixa
-		Caixa funcionarioDrogaria2 = new Caixa("25.555.444-DF", "123.456.789", 15, "Henrique", "Augusto",
+		// Utilizaï¿½ï¿½o de upcasting (Polimorfismo) e classe abstrata para o Caixa
+		Cashier funcionarioDrogaria2 = new Cashier("25.555.444-DF", "123.456.789", 15, "Henrique", "Augusto",
 				"SHCES Qd 1000", "(61)-1224-5678", 1, 50, "2/10/2012", "Descricao teste!", 1);
 		administrativo = funcionarioDrogaria2;
 		salarioCaixaSemana = administrativo.calcularSalario() / 30 * 4;
@@ -94,22 +94,22 @@ public class SistemaDrogaria {
 				+ df.format(salarioCaixaSemana) + " E por mes: RS " + df.format(salarioCaixaMes));
 
 		// Associacao
-		Medicamento medicamento1 = new Medicamento("NomeTeste", "LaboratorioTeste", "Adulto", "Comprimido",
+		Medicament medicamento1 = new Medicament("NomeTeste", "LaboratorioTeste", "Adulto", "Comprimido",
 				"10/10/2020", "1cp. a cada 8 horas");
-		Medicamento medicamento2 = new Medicamento("NomeTeste 2", "LaboratorioTeste 2", "Criança", "Líquido",
+		Medicament medicamento2 = new Medicament("NomeTeste 2", "LaboratorioTeste 2", "Crianï¿½a", "Lï¿½quido",
 				"01/07/2014", "5 ml de 6 em 6 horas");
 
 		// Lista de medicamentos para associacao
-		Medicamento[] medicamentosAs = { medicamento1, medicamento2 };
+		Medicament[] medicamentosAs = { medicamento1, medicamento2 };
 		funcionarioDrogaria.setMedicamentos(medicamentosAs);
 		// Listando
 		funcionarioDrogaria.listarMedicamentosAssociados();
 		// Fim Associacao
 
 		// Agregacao
-		Medicamento medicamento3 = new Medicamento("Paracetamol", "Germed", "Infantil", "Líquido", "01/08/2015",
+		Medicament medicamento3 = new Medicament("Paracetamol", "Germed", "Infantil", "Lï¿½quido", "01/08/2015",
 				"2,5 ml a cada 4 horas");
-		Medicamento medicamento4 = new Medicamento("Aspirina", "Germed", "Adulto", "Comprimido", "01/08/2015",
+		Medicament medicamento4 = new Medicament("Aspirina", "Germed", "Adulto", "Comprimido", "01/08/2015",
 				"8 em 8 horas");
 
 		Registro registro1 = new Registro("12.345");
@@ -125,14 +125,14 @@ public class SistemaDrogaria {
 		// Fim Agregacao
 
 		// Composicao3
-		Caixa caixaComposicao = new Caixa("25.555.444-DF", "123.456.789", 15, "Henrique", "Augusto",
+		Cashier caixaComposicao = new Cashier("25.555.444-DF", "123.456.789", 15, "Henrique", "Augusto",
 				"SHCES Qd 1000", "(61)-1224-5678", 1, 50, "2/10/2012", "Descricao teste!", 1);
 
 		caixaComposicao.criarBalconista();
 		caixaComposicao.getBalconista().cadastraBalconista("13.523.542-PA", "123.456.789", 12, "Joao", "Augusto",
 				"Asa sul", "(61)1234-5678");
 
-		System.out.println("O Funcionario do Caixa é:" + caixaComposicao.getBalconista().getNome());
+		System.out.println("O Funcionario do Caixa ï¿½:" + caixaComposicao.getBalconista().getNome());
 
 		// Fim Composicao
 
@@ -140,15 +140,15 @@ public class SistemaDrogaria {
 		Pessoa pessoa;
 		// Upcasting
 		pessoa = funcionarioDrogaria;
-		System.out.println("A confirmação do pagamento do Funcionário (1: Confirmado e 0:Rejeitado) é: "
+		System.out.println("A confirmaï¿½ï¿½o do pagamento do Funcionï¿½rio (1: Confirmado e 0:Rejeitado) ï¿½: "
 				+ pessoa.confirmacaoPagamento());
 		// Upcasting
 		pessoa = caixa;
-		System.out.println("A confirmação do pagamento do Caixa (1: Confirmado e 0:Rejeitado) é: "
+		System.out.println("A confirmaï¿½ï¿½o do pagamento do Caixa (1: Confirmado e 0:Rejeitado) ï¿½: "
 				+ pessoa.confirmacaoPagamento());
 
 		// Interface
-		Cliente novoClienteInterface = new Cliente("13.999.888-DF", "444.555.666", 11, "INTERFACE", "INTERFACE",
+		Client novoClienteInterface = new Client("13.999.888-DF", "444.555.666", 11, "INTERFACE", "INTERFACE",
 				"Gama qd. 1000", "(61)-1234-5678", "cliente1@gmail.com");
 		novoClienteInterface.remediosRecomendados("GENERICO", "PEDIATRICO");
 	}

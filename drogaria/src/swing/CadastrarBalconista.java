@@ -235,9 +235,9 @@ public class CadastrarBalconista extends JFrame {
 				scrollPane.setVisible(true);
 				textArea.setText("   Dados   " + "\nRg: " + txtRg.getText() + "\nCpf: " + txtCpf.getText() + "-"
 						+ txtDigito.getText() + "\nNome: " + txtNome.getText() + " " + txtSobrenome.getText()
-						+ "\nEndereço: " + txtEndereco.getText() + "\nTelefone: " + txtTelefone.getText()
+						+ "\nEndereï¿½o: " + txtEndereco.getText() + "\nTelefone: " + txtTelefone.getText()
 						+ "\nSenha: " + txtSenha.getText() + "\nSenha F.P.: " + txtSenhaFP.getText()
-						+ "\nCódigo: " + txtCodigo.getText() + "\nComissao: " + txtComissao.getText()
+						+ "\nCï¿½digo: " + txtCodigo.getText() + "\nComissao: " + txtComissao.getText()
 						+ "\nHoras Mensais de trabalho: " + txtHoras.getText());
 
 			}
@@ -250,9 +250,9 @@ public class CadastrarBalconista extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Balconista frameBalconista = new Balconista();
+				Clerk frameBalconista = new Clerk();
 				frameBalconista.dispose();
-				Balconista.main(null);
+				Clerk.main(null);
 			}
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
