@@ -19,7 +19,7 @@ import exception.ClienteException;
  * 
  * @author Parley
  */
-public class ProfessorView extends ClienteView {
+public class ProfessorView extends ClientView {
 
     public ProfessorView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -38,12 +38,12 @@ public class ProfessorView extends ClienteView {
         return null;
     }
 
-    @Override public void cadastrarAction() {
+    @Override public void registerAction() {
 
         CadastroCliente cadastrar = new CadastroProfessor(new javax.swing.JFrame(), true);
         cadastrar.setResizable(false);
         cadastrar.setVisible(true);
-        tabelaCliente.setModel(fillTable());
+        clientTable.setModel(fillTable());
 
     }
 
@@ -52,12 +52,12 @@ public class ProfessorView extends ClienteView {
         AlterarProfessor alterar = new AlterarProfessor(new javax.swing.JFrame(), true, index);
         alterar.setResizable(false);
         alterar.setVisible(true);
-        this.tabelaCliente.setModel(fillTable());
+        this.clientTable.setModel(fillTable());
     }
 
     @Override public void excluirAction() {
         try {
-            int index = this.tabelaCliente.getSelectedRow();
+            int index = this.clientTable.getSelectedRow();
             if (index < 0) {
                 JOptionPane.showMessageDialog(this, "Selecione uma linha!", "Erro", JOptionPane.ERROR_MESSAGE, null);
                 return;
@@ -71,7 +71,7 @@ public class ProfessorView extends ClienteView {
                 JOptionPane.showMessageDialog(this, "Professor excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null);
             }
-            this.tabelaCliente.setModel(fillTable());
+            this.clientTable.setModel(fillTable());
 
         } catch (ClienteException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

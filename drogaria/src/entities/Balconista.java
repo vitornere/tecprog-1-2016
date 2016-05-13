@@ -1,10 +1,10 @@
-package entidades;
+package entities;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import entidades.Caixa;
-import entidades.Medicamento;
+import entities.Caixa;
+import entities.Medicament;
 
 public class Balconista extends Pessoa {
 
@@ -14,15 +14,15 @@ public class Balconista extends Pessoa {
 	protected int senhaFarmaciaPopular;
 	protected int codigo; // O funcionario usa o codigo de acesso junto da senha para fazer as vendas.
 	protected int fatorComissao;
-	protected Medicamento[] medicamentos = {};
+	protected Medicament[] medicaments = {};
 	protected Caixa caixa;
 	private static boolean statusBalconista;
 	protected int horas;
 	protected int quantidade = 0;
-	// Utilizacao de STATIC para dependência
+	// Utilizacao de STATIC para dependï¿½ncia
 	Cliente[] clientes = {};
 
-	// SOmente para criação do console;
+	// SOmente para criaï¿½ï¿½o do console;
 	Balconista[] balconista = {};
 	Scanner scanner = new Scanner(System.in);
 	Scanner scanner1 = new Scanner(System.in);
@@ -40,7 +40,7 @@ public class Balconista extends Pessoa {
 			String sobrenomePessoa, String enderecoPessoa, String telefonePessoa, int senhaBalconista,
 			int senhaFarmaciaPopularBalconista, int codigoBalconista, int fatorComissaoBalconista,
 			int horasTrabalhadas) {
-		// Utilização por herança, pegando os atributos através do super
+		// Utilizaï¿½ï¿½o por heranï¿½a, pegando os atributos atravï¿½s do super
 		super(rgPessoa, cpfPessoa, digitoCpfPessoa, nomePessoa, sobrenomePessoa, enderecoPessoa, telefonePessoa);
 		this.senha = senhaBalconista;
 		this.senhaFarmaciaPopular = senhaFarmaciaPopularBalconista;
@@ -49,36 +49,36 @@ public class Balconista extends Pessoa {
 		this.horas = horasTrabalhadas;
 	}
 
-	// Verifica a confirmação de pagamento na Caixa (POLIMORFISMO)
+	// Verifica a confirmaï¿½ï¿½o de pagamento na Caixa (POLIMORFISMO)
 	public double confirmacaoPagamento() {
 		if (this.getConfirmacaoPagamento() == 1) {
 			return 1; // Confirma que o pagamento foi aceito.
 		}
 		else {
-			return 0; // Confirma que o pagamento não foi aceito
+			return 0; // Confirma que o pagamento nï¿½o foi aceito
 		}
 	}
 
-	public void setMedicamentos(Medicamento[] medicamentos) {
+	public void setMedicamentos(Medicament[] medicamentos) {
 		if (medicamentos.length < 1) {
 			System.out
-					.println("O medicamento não pode ser vendido sem a identificação de 1 funcionário cadastrado no Sistema! O medicamento só poderá ser comercializado por no mínimo 1 funcionário devidamente cadastrado!");
+					.println("O medicamento nï¿½o pode ser vendido sem a identificaï¿½ï¿½o de 1 funcionï¿½rio cadastrado no Sistema! O medicamento sï¿½ poderï¿½ ser comercializado por no mï¿½nimo 1 funcionï¿½rio devidamente cadastrado!");
 		}
 		else {
-			this.medicamentos = medicamentos;
+			this.medicaments = medicamentos;
 		}
 	}
 
-	public void verificarMedicamento(Medicamento[] medicamento) {
-		int tamanhoAntigo = this.medicamentos.length;
+	public void verificarMedicamento(Medicament[] medicamento) {
+		int tamanhoAntigo = this.medicaments.length;
 
-		Medicamento[] novosMedicamentos = new Medicamento[tamanhoAntigo + 1];
+		Medicament[] novosMedicamentos = new Medicament[tamanhoAntigo + 1];
 		for (int i = 0; i < tamanhoAntigo; i++) {
-			novosMedicamentos[i] = this.medicamentos[i];
+			novosMedicamentos[i] = this.medicaments[i];
 
 		}
 
-		novosMedicamentos[novosMedicamentos.length - 1] = medicamento[medicamentos.length];
+		novosMedicamentos[novosMedicamentos.length - 1] = medicamento[medicaments.length];
 		this.setMedicamentos(novosMedicamentos);
 
 	}
@@ -86,9 +86,9 @@ public class Balconista extends Pessoa {
 	// Listar numero de medicamentos associados aos funcionarios
 	public void listarMedicamentosAssociados() {
 		System.out.println("Os medicamentos vendidos pelo funcionario " + getNome() + " foram:");
-		for (int i = 0; (i < medicamentos.length); i++) {
+		for (int i = 0; (i < medicaments.length); i++) {
 			quantidade++;
-			System.out.println(quantidade + " " + medicamentos[i].nome);
+			System.out.println(quantidade + " " + medicaments[i].nome);
 		}
 	}
 
@@ -119,53 +119,53 @@ public class Balconista extends Pessoa {
 	}
 
 	public void menuInicial() {
-		System.out.println("Qual setor você deseja utilizar?" + "\n(0) - Sair" + "\n(1) - Balconista\n"
+		System.out.println("Qual setor vocï¿½ deseja utilizar?" + "\n(0) - Sair" + "\n(1) - Balconista\n"
 				+ "(2) - Caixa\n" + "(3) - Cliente\n" + "(4) - Medicamento\n" + "(5) - Ajuda\n");
 	}
 
 	public void menuBalconista() {
-		System.out.println("\nInsira o que deseja fazer de acordo com as opções seguintes:" + "\n(0) - Sair\n"
+		System.out.println("\nInsira o que deseja fazer de acordo com as opï¿½ï¿½es seguintes:" + "\n(0) - Sair\n"
 				+ "(1) - Cadastrar novo Balconista\n" + "(2) - Listar Balconistas\n"
 				+ "(3) - Excluir Balconista\n");
 	}
 
 	public void cadastrarBalconista(ArrayList<Balconista> listaDeBalconistas) {
 
-		System.out.println("Digite o rg do Balconista(SSP seguido de números): ");
-		String rgPessoa = Complementar.readString();
+		System.out.println("Digite o rg do Balconista(SSP seguido de nï¿½meros): ");
+		String rgPessoa = ConsoleMenu.readString();
 
-		System.out.println("Digite o cpf do Balconista(Sem o dígito): ");
-		String cpfPessoa = Complementar.readString();
+		System.out.println("Digite o cpf do Balconista(Sem o dï¿½gito): ");
+		String cpfPessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o digito do cpf do Balconista: ");
-		int digitoCpfPessoa = Complementar.readInt();
+		int digitoCpfPessoa = ConsoleMenu.readInt();
 
 		System.out.println("Digite o nome do Balconista: ");
-		String nomePessoa = Complementar.readString();
+		String nomePessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o sobrenome completo do Balconista: ");
-		String sobrenomePessoa = Complementar.readString();
+		String sobrenomePessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o endereco do Balconista: ");
-		String enderecoPessoa = Complementar.readString();
+		String enderecoPessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o telefone do Balconista:");
-		String telefonePessoa = Complementar.readString();
+		String telefonePessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite a senha do Balconista:");
-		int senhaBalconista = Complementar.readInt();
+		int senhaBalconista = ConsoleMenu.readInt();
 
-		System.out.println("Digite a senha de farmácia popular do Balconista:");
-		int senhaFarmaciaPopularBalconista = Complementar.readInt();
+		System.out.println("Digite a senha de farmï¿½cia popular do Balconista:");
+		int senhaFarmaciaPopularBalconista = ConsoleMenu.readInt();
 
-		System.out.println("Digite o código do Balconista:");
-		int codigoBalconista = Complementar.readInt();
+		System.out.println("Digite o cï¿½digo do Balconista:");
+		int codigoBalconista = ConsoleMenu.readInt();
 
-		System.out.println("Digite o fator de comissão de vendas em porcentagem (%) do Balconista:");
-		int fatorComissaoBalconista = Complementar.readInt();
+		System.out.println("Digite o fator de comissï¿½o de vendas em porcentagem (%) do Balconista:");
+		int fatorComissaoBalconista = ConsoleMenu.readInt();
 
 		System.out.println("Digite as horas trabalhadas semanalmente pelo Balconista:");
-		int horasTrabalhadas = Complementar.readInt();
+		int horasTrabalhadas = ConsoleMenu.readInt();
 
 		// Repete para todos atributos
 
@@ -185,8 +185,8 @@ public class Balconista extends Pessoa {
 		else {
 			System.out.println("\nLista de cadastros de Balconistas\n");
 			for (int b = 0; b < listaDeBalconistas.size(); b++) {
-				Balconista t = listaDeBalconistas.get(b); // Somente para facilitar a chamada para apresentação dos dados
-				System.out.println("\nCadastro de número:" + (b + 1));
+				Balconista t = listaDeBalconistas.get(b); // Somente para facilitar a chamada para apresentaï¿½ï¿½o dos dados
+				System.out.println("\nCadastro de nï¿½mero:" + (b + 1));
 
 				System.out.println("\nNome: " + t.getNome() + " " + t.getSobrenome());
 
@@ -204,13 +204,13 @@ public class Balconista extends Pessoa {
 				System.out.println("\nSenha: " + t.getSenha() + " Senha Farmacia Popular: "
 						+ t.getSenhaFarmaciaPopular());
 
-				System.out.println("\nCódigo do Balconista: " + t.getCodigo());
+				System.out.println("\nCï¿½digo do Balconista: " + t.getCodigo());
 
-				System.out.println("\nNúmero de horas trabalhadas semanalmente: " + t.getHoras() + "horas");
+				System.out.println("\nNï¿½mero de horas trabalhadas semanalmente: " + t.getHoras() + "horas");
 
 				System.out.println("\nFator de comissao: " + t.getFatorComissao() + " %");
 
-				System.out.println("\nSalário: R$ " + t.calcularSalario() );
+				System.out.println("\nSalï¿½rio: R$ " + t.calcularSalario() );
 			}
 			System.out.println("Fim da lista de cadastro de Balconistas.\n");
 		}
@@ -225,8 +225,8 @@ public class Balconista extends Pessoa {
 		else {
 			System.out.println("Digite o numero do cadastro que deseja excluir: ");
 			this.setCodigoExclusao(scanner.nextInt());
-			System.out.println("Você deseja realmente excluir o cadastro de numero: " + this.codigoExclusao + "?"
-					+ "\n(0) - Não" + "\n(1) - Sim");
+			System.out.println("Vocï¿½ deseja realmente excluir o cadastro de numero: " + this.codigoExclusao + "?"
+					+ "\n(0) - Nï¿½o" + "\n(1) - Sim");
 			this.setConfirmacaoExclusaoBalconista(scanner.nextInt());
 			if (confirmacaoExclusaoBalconista == 1) {
 				this.setCodigoExclusao(codigoExclusao - 1);
@@ -285,8 +285,8 @@ public class Balconista extends Pessoa {
 		this.caixa = caixa;
 	}
 
-	public Medicamento[] getMedicamentos() {
-		return medicamentos;
+	public Medicament[] getMedicamentos() {
+		return medicaments;
 	}
 
 	public int getQuantidade() {
@@ -301,10 +301,10 @@ public class Balconista extends Pessoa {
 		return statusBalconista;
 	}
 
-	// Dependência entre Cliente e Balconista.
+	// Dependï¿½ncia entre Cliente e Balconista.
 	public static void setStatusBalconista(boolean statusFuncionarioPresente) {
 		Balconista.statusBalconista = statusFuncionarioPresente;
-		System.out.println("Há um funcionário disponível para atendê-lo! Status:" + statusBalconista);
+		System.out.println("Hï¿½ um funcionï¿½rio disponï¿½vel para atendï¿½-lo! Status:" + statusBalconista);
 	}
 
 	public int getHoras() {

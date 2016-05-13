@@ -1,4 +1,4 @@
-package entidades;
+package entities;
 
 //Super classe de balconista,cliente e caixa
 public class Pessoa extends Administrativo {
@@ -69,10 +69,10 @@ public class Pessoa extends Administrativo {
 
 		boolean validacaoDigitoCpf = this.validarCpf(digitoCpfPessoa);
 		if (validacaoDigitoCpf == true) {
-			System.out.println("Funcionário cadastrado com sucesso!");
+			System.out.println("Funcionï¿½rio cadastrado com sucesso!");
 		}
 		else {
-			System.out.println("Funcionário não cadastrado!");
+			System.out.println("Funcionï¿½rio nï¿½o cadastrado!");
 		}
 	}
 
@@ -81,7 +81,7 @@ public class Pessoa extends Administrativo {
 			return 1; // Confirma que o pagamento foi aceito.
 		}
 		else {
-			return 0; // Confirma que o pagamento não foi aceito
+			return 0; // Confirma que o pagamento nï¿½o foi aceito
 		}
 	}
 

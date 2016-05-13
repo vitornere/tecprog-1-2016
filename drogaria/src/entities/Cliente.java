@@ -1,4 +1,4 @@
-package entidades;
+package entities;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -20,13 +20,13 @@ public class Cliente extends Pessoa implements Recomendavel {
 		super();
 	}
 
-	// Construtor só para herança
+	// Construtor sï¿½ para heranï¿½a
 	public Cliente(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
 			String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
 		super(rgPessoa, cpfPessoa, digitoCpfPessoa, nomePessoa, sobrenomePessoa, enderecoPessoa, telefonePessoa);
-		System.out.println("Possui pelo menos um balconista para atendê-lo!!"); // ---> DEPENDENCIA
+		System.out.println("Possui pelo menos um balconista para atendï¿½-lo!!"); // ---> DEPENDENCIA
 		Balconista.setStatusBalconista(true);
-		// Por ser static, não é necessário instanciar.
+		// Por ser static, nï¿½o ï¿½ necessï¿½rio instanciar.
 	}
 
 	public Cliente(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
@@ -39,19 +39,19 @@ public class Cliente extends Pessoa implements Recomendavel {
 	// Interface
 	public void remediosRecomendados(String tipoRemedio, String uso) {
 		if (tipoRemedio == "TARJA PRETA" && uso == "ADULTO") {
-			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 1");
+			System.out.println("A quantidade de remedios recomendados pelo Balconista ï¿½: 1");
 		}
 
 		if (tipoRemedio == "TARJA PRETA" && uso == "PEDIATRICO") {
-			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 0");
+			System.out.println("A quantidade de remedios recomendados pelo Balconista ï¿½: 0");
 		}
 
 		if (tipoRemedio == "GENERICO" && uso == "ADULTO") {
-			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 5");
+			System.out.println("A quantidade de remedios recomendados pelo Balconista ï¿½: 5");
 		}
 
 		if (tipoRemedio == "GENERICO" && uso == "PEDIATRICO") {
-			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 3");
+			System.out.println("A quantidade de remedios recomendados pelo Balconista ï¿½: 3");
 		}
 
 	}
@@ -65,35 +65,35 @@ public class Cliente extends Pessoa implements Recomendavel {
 	// Console
 
 	public void menuCliente() {
-		System.out.println("\nInsira o que deseja fazer de acordo com as opções seguintes:" + "\n(0) - Sair\n"
+		System.out.println("\nInsira o que deseja fazer de acordo com as opï¿½ï¿½es seguintes:" + "\n(0) - Sair\n"
 				+ "(1) - Cadastrar novo Cliente\n" + "(2) - Listar Clientes\n" + "(3) - Excluir Cliente\n");
 	}
 
 	public void cadastrarCliente(ArrayList<Cliente> listaDeClientes) {
 
 		System.out.println("Digite o rg do Cliente: ");
-		String rgPessoa = Complementar.readString();
+		String rgPessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o cpf do Cliente: ");
-		String cpfPessoa = Complementar.readString();
+		String cpfPessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o digito do cpf do Cliente: ");
-		int digitoCpfPessoa = Complementar.readInt();
+		int digitoCpfPessoa = ConsoleMenu.readInt();
 
 		System.out.println("Digite o nome do Cliente: ");
-		String nomePessoa = Complementar.readString();
+		String nomePessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o sobrenome completo do Cliente: ");
-		String sobrenomePessoa = Complementar.readString();
+		String sobrenomePessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o endereco do Cliente: ");
-		String enderecoPessoa = Complementar.readString();
+		String enderecoPessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o telefone do Cliente:");
-		String telefonePessoa = Complementar.readString();
+		String telefonePessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o email do Cliente");
-		String emailCliente = Complementar.readString();
+		String emailCliente = ConsoleMenu.readString();
 
 		Cliente cliente = new Cliente(rgPessoa, cpfPessoa, digitoCpfPessoa, nomePessoa, sobrenomePessoa,
 				enderecoPessoa, telefonePessoa, emailCliente);
@@ -111,7 +111,7 @@ public class Cliente extends Pessoa implements Recomendavel {
 			System.out.println("\nLista de cadastros de Clientes\n");
 			for (int b = 0; b < listaDeClientes.size(); b++) {
 				Cliente t = listaDeClientes.get(b);
-				System.out.println("\nCadastro de número:" + (b + 1));
+				System.out.println("\nCadastro de nï¿½mero:" + (b + 1));
 
 				System.out.println("\nNome: " + t.getNome() + " " + t.getSobrenome());
 
@@ -139,8 +139,8 @@ public class Cliente extends Pessoa implements Recomendavel {
 		else {
 			System.out.println("Digite o numero do cadastro de Cliente que deseja excluir: ");
 			this.setCodigoExclusao(scanner.nextInt());
-			System.out.println("Você deseja realmente excluir o cadastro de numero: " + this.codigoExclusao + "?"
-					+ "\n(0) - Não" + "\n(1) - Sim");
+			System.out.println("Vocï¿½ deseja realmente excluir o cadastro de numero: " + this.codigoExclusao + "?"
+					+ "\n(0) - Nï¿½o" + "\n(1) - Sim");
 			this.setConfirmacaoExclusaoCliente(scanner.nextInt());
 			if (confirmacaoExclusaoCliente == 1) {
 				this.setCodigoExclusao(codigoExclusao - 1);
