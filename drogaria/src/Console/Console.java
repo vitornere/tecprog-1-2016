@@ -27,7 +27,7 @@ public class Console {
 
 		ArrayList<Clerk> listaDeBalconistas = new ArrayList<Clerk>();
 		ArrayList<Cashier> listaDeCaixas = new ArrayList<Cashier>();
-		ArrayList<Client> listaDeClientes = new ArrayList<Client>();
+		ArrayList<Client> clientsList = new ArrayList<Client>();
 		ArrayList<Medicamento> listaDeMedicamentos = new ArrayList<Medicamento>();
 
 		Clerk balconista = new Clerk();
@@ -138,24 +138,24 @@ public class Console {
 							}
 							while (estados == 4) {
 
-								cliente.menuCliente();// Menu cliente
+								cliente.clientMenu();// Menu cliente
 								operacaoCliente = scanner.nextInt();
 								if (operacaoCliente == 0) {
 									estados = complementar.ConfirmacaoCliente(estados);
 								}
 
 								else if (operacaoCliente == 1) {
-									cliente.cadastrarCliente(listaDeClientes);
+									cliente.clientRegister(clientsList);
 									estados = 4;
 								}
 
 								else if (operacaoCliente == 2) {
-									cliente.listarClientes(listaDeClientes);
+									cliente.listCLients(clientsList);
 									estados = 4;
 								}
 
 								else if (operacaoCliente == 3) {
-									cliente.excluirCliente(listaDeClientes);
+									cliente.deleteClient(clientsList);
 									estados = 4;
 								}
 

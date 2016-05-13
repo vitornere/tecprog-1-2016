@@ -58,7 +58,7 @@ public class Cashier extends Person {
 		this.clerk = clerk;
 
 		System.out.println("Verificacao de um funcion�rio para atend�-lo.");
-		Clerk.setStatusBalconista(true); // Utilization of static for dependence.
+		Clerk.setStatusClerk(true); // Utilization of static for dependence.
 	}
 
 	public Cashier(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName,

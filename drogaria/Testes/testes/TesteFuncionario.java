@@ -32,7 +32,7 @@ public class TesteFuncionario {
 		assertNotNull(balconistaVazio);
 	}
 
-	// Teste para confirmação do digito do CPF.
+	// Teste para confirmaï¿½ï¿½o do digito do CPF.
 	@Test
 	public void testSetDigitoCpf() {
 		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
@@ -40,7 +40,7 @@ public class TesteFuncionario {
 		assertEquals(funcionarioDrogaria.getDigitoCpf(), 50);
 	}
 
-	// Teste para confirmação da senha
+	// Teste para confirmaï¿½ï¿½o da senha
 	@Test
 	public void testGetSenha() {
 		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
@@ -48,7 +48,7 @@ public class TesteFuncionario {
 		assertEquals(funcionarioDrogaria.getSenha(), 15000);
 	}
 
-	// Teste para confirmação da senha da farmácia popular
+	// Teste para confirmaï¿½ï¿½o da senha da farmï¿½cia popular
 	@Test
 	public void testSetSenhaFarmaciaPopular() {
 		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
@@ -56,7 +56,7 @@ public class TesteFuncionario {
 		assertEquals(funcionarioDrogaria.getSenhaFarmaciaPopular(), 2432);
 	}
 
-	// Teste para confirmação do código do funcionário
+	// Teste para confirmaï¿½ï¿½o do cï¿½digo do funcionï¿½rio
 	@Test
 	public void testGetCodigo() {
 		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
@@ -64,7 +64,7 @@ public class TesteFuncionario {
 		assertEquals(funcionarioDrogaria.getCodigo(), 20);
 	}
 
-	// Teste para confirmação do fator de comissão do funcionário
+	// Teste para confirmaï¿½ï¿½o do fator de comissï¿½o do funcionï¿½rio
 	@Test
 	public void testGetFatorComissao() {
 		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
@@ -177,8 +177,8 @@ public class TesteFuncionario {
 
 	@Test
 	public void getTestBoolean() {
-		balconista.setStatusBalconista(true);
-		assertTrue(balconista.isStatusBalconista());
+		balconista.setStatusClerk(true);
+		assertTrue(balconista.isStatusClerk());
 	}
 
 	@Test

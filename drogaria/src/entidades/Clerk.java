@@ -1,5 +1,6 @@
 package entidades;
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,7 +17,7 @@ public class Clerk extends Person {
 	protected int fatorComissao;
 	protected Medicamento[] medicamentos = {};
 	protected Cashier caixa;
-	private static boolean statusBalconista;
+	private static boolean statusClerk;
 	protected int horas;
 	protected int quantidade = 0;
 	// Utilizacao de STATIC para depend�ncia
@@ -297,14 +298,14 @@ public class Clerk extends Person {
 		this.quantidade = quantidade;
 	}
 
-	public static boolean isStatusBalconista() {
-		return statusBalconista;
+	public static boolean isStatusClerk() {
+		return statusClerk;
 	}
 
 	// Depend�ncia entre Cliente e Balconista.
-	public static void setStatusBalconista(boolean statusFuncionarioPresente) {
-		Clerk.statusBalconista = statusFuncionarioPresente;
-		System.out.println("H� um funcion�rio dispon�vel para atend�-lo! Status:" + statusBalconista);
+	public static void setStatusClerk(boolean statusFuncionarioPresente) {
+		Clerk.statusClerk = statusFuncionarioPresente;
+		System.out.println("H� um funcion�rio dispon�vel para atend�-lo! Status:" + statusClerk);
 	}
 
 	public int getHoras() {
