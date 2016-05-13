@@ -7,7 +7,7 @@ import view.mainViews.PatrimonioView;
 import view.mainViews.TeacherView;
 import view.mainViews.RoomView;
 
-/**
+/**i
  * 
  * @author Parley
  */
@@ -31,12 +31,12 @@ import view.mainViews.RoomView;
     private void initComponents() {
 
         fundoLbl = new javax.swing.JLabel();
-        panelReserva1 = new javax.swing.JPanel();
-        salaBtn = new javax.swing.JButton();
-        equipamentoBtn = new javax.swing.JButton();
-        panelReserva = new javax.swing.JPanel();
-        professorBtn = new javax.swing.JButton();
-        alunoBtn = new javax.swing.JButton();
+        panelreservation1 = new javax.swing.JPanel();
+        roomBtn = new javax.swing.JButton();
+        equipmentBtn = new javax.swing.JButton();
+        panelreservation = new javax.swing.JPanel();
+        teacherBtn = new javax.swing.JButton();
+        studentBnt = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SisRES");
@@ -46,91 +46,91 @@ import view.mainViews.RoomView;
         fundoLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         fundoLbl.setText("SisRES");
 
-        panelReserva1.setBorder(javax.swing.BorderFactory.createTitledBorder("Reserva"));
+        panelreservation1.setBorder(javax.swing.BorderFactory.createTitledBorder("Reserva"));
 
-        salaBtn.setText("Sala");
-        salaBtn.setName("Sala");
-        salaBtn.addActionListener(new java.awt.event.ActionListener() {
+        roomBtn.setText("Sala");
+        roomBtn.setName("Sala");
+        roomBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                salaBtnActionPerformed(evt);
+                roomBtnActionPerformed(evt);
             }
         });
 
-        equipamentoBtn.setText("Equipamento");
-        equipamentoBtn.setName("Equipamento");
-        equipamentoBtn.addActionListener(new java.awt.event.ActionListener() {
+        equipmentBtn.setText("Equipamento");
+        equipmentBtn.setName("Equipamento");
+        equipmentBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                equipamentoBtnActionPerformed(evt);
+                equipmentBtnActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout panelReserva1Layout = new javax.swing.GroupLayout(panelReserva1);
-        panelReserva1.setLayout(panelReserva1Layout);
-        panelReserva1Layout.setHorizontalGroup(panelReserva1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelreservation1Layout = new javax.swing.GroupLayout(panelreservation1);
+        panelreservation1.setLayout(panelreservation1Layout);
+        panelreservation1Layout.setHorizontalGroup(panelreservation1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(
-                        panelReserva1Layout
+                        panelreservation1Layout
                                 .createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(salaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105,
+                                .addComponent(roomBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(equipamentoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
+                                .addComponent(equipmentBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
                                 .addContainerGap()));
-        panelReserva1Layout.setVerticalGroup(panelReserva1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelreservation1Layout.setVerticalGroup(panelreservation1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(
-                        panelReserva1Layout
+                        panelreservation1Layout
                                 .createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(
-                                        panelReserva1Layout
+                                        panelreservation1Layout
                                                 .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(salaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                .addComponent(roomBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(equipamentoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                .addComponent(equipmentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
-        panelReserva.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro"));
+        panelreservation.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro"));
 
-        professorBtn.setText("Professor");
-        professorBtn.setName("Professor");
-        professorBtn.addActionListener(new java.awt.event.ActionListener() {
+        teacherBtn.setText("Professor");
+        teacherBtn.setName("Professor");
+        teacherBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                professorBtnActionPerformed(evt);
+                teacherBtnActionPerformed(evt);
             }
         });
 
-        alunoBtn.setText("Aluno");
-        alunoBtn.setName("Aluno");
-        alunoBtn.addActionListener(new java.awt.event.ActionListener() {
+        studentBnt.setText("Aluno");
+        studentBnt.setName("Aluno");
+        studentBnt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                alunoBtnActionPerformed(evt);
+                studentBntActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout panelReservaLayout = new javax.swing.GroupLayout(panelReserva);
-        panelReserva.setLayout(panelReservaLayout);
-        panelReservaLayout.setHorizontalGroup(panelReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelreservationLayout = new javax.swing.GroupLayout(panelreservation);
+        panelreservation.setLayout(panelreservationLayout);
+        panelreservationLayout.setHorizontalGroup(panelreservationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(
-                        panelReservaLayout
+                        panelreservationLayout
                                 .createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(professorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105,
+                                .addComponent(teacherBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(alunoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105,
+                                .addComponent(studentBnt, javax.swing.GroupLayout.PREFERRED_SIZE, 105,
                                         javax.swing.GroupLayout.PREFERRED_SIZE).addGap(14, 14, 14)));
-        panelReservaLayout.setVerticalGroup(panelReservaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        panelreservationLayout.setVerticalGroup(panelreservationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(
-                        panelReservaLayout
+                        panelreservationLayout
                                 .createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(
-                                        panelReservaLayout
+                                        panelreservationLayout
                                                 .createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                .addComponent(professorBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                .addComponent(teacherBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(alunoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
+                                                .addComponent(studentBnt, javax.swing.GroupLayout.PREFERRED_SIZE, 40,
                                                         javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
@@ -141,10 +141,10 @@ import view.mainViews.RoomView;
                 .addGroup(
                         layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(panelReserva1, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                .addComponent(panelreservation1, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(panelReserva, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                .addComponent(panelreservation, javax.swing.GroupLayout.DEFAULT_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(
                         javax.swing.GroupLayout.Alignment.TRAILING,
@@ -158,9 +158,9 @@ import view.mainViews.RoomView;
                         .addContainerGap()
                         .addGroup(
                                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(panelReserva, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        .addComponent(panelreservation, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(panelReserva1, javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        .addComponent(panelreservation1, javax.swing.GroupLayout.DEFAULT_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)).addGap(111, 111, 111)
                         .addComponent(fundoLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(168, Short.MAX_VALUE)));
@@ -168,34 +168,34 @@ import view.mainViews.RoomView;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void salaBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_salaBtnActionPerformed
+    private void roomBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_salaBtnActionPerformed
         // TODO add your handling code here:
         PatrimonioView room = new RoomView(this, true);
         room.setResizable(false);
         room.setVisible(true);
     }// GEN-LAST:event_salaBtnActionPerformed
 
-    private void equipamentoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_equipamentoBtnActionPerformed
+    private void equipmentBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_equipamentoBtnActionPerformed
 
-        PatrimonioView equipamento = new EquipamentoView(this, true);
-        equipamento.setResizable(false);
-        equipamento.setVisible(true);
+        PatrimonioView equipment = new EquipamentoView(this, true);
+        equipment.setResizable(false);
+        equipment.setVisible(true);
 
     }// GEN-LAST:event_equipamentoBtnActionPerformed
 
-    private void professorBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_professorBtnActionPerformed
+    private void teacherBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_teacherBtnActionPerformed
         // TODO add your handling code here:
         ClienteView client = new TeacherView(this, true);
         client.setResizable(false);
         client.setVisible(true);
-    }// GEN-LAST:event_professorBtnActionPerformed
+    }// GEN-LAST:event_teacherBtnActionPerformed
 
-    private void alunoBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_alunoBtnActionPerformed
+    private void studentBntActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_studentBntActionPerformed
         // TODO add your handling code here:
         ClienteView client = new AlunoView(this, true);
         client.setResizable(false);
         client.setVisible(true);
-    }// GEN-LAST:event_alunoBtnActionPerformed
+    }// GEN-LAST:event_studentBntActionPerformed
 
     /**
      * @param args
@@ -238,12 +238,12 @@ import view.mainViews.RoomView;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton alunoBtn;
-    private javax.swing.JButton equipamentoBtn;
+    private javax.swing.JButton studentBnt;
+    private javax.swing.JButton equipmentBtn;
     private javax.swing.JLabel fundoLbl;
-    private javax.swing.JPanel panelReserva;
-    private javax.swing.JPanel panelReserva1;
-    private javax.swing.JButton professorBtn;
-    private javax.swing.JButton salaBtn;
+    private javax.swing.JPanel panelreservation;
+    private javax.swing.JPanel panelreservation1;
+    private javax.swing.JButton teacherBtn;
+    private javax.swing.JButton roomBtn;
     // End of variables declaration//GEN-END:variables
 }
