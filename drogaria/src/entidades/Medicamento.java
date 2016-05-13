@@ -1,5 +1,10 @@
 package entidades;
 
+/**
+ * This class is responsible from implements types of medicine.
+ * 
+ */
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,9 +32,12 @@ public class Medicamento extends Produto {
 		this.posologia = posologiaMedicamento;
 	}
 
-	// Agregacao - Listagem e adicao
+	/**
+	 * This method is responsible from implement list and add register of drugs.
+	 * 
+	 */
 	public void listarRegistro() {
-		System.out.println("O registro do medicamento " + this.nome + " é:" + registro.codigo);
+		System.out.println("O registro do medicamento " + this.nome + " ï¿½:" + registro.codigo);
 	}
 
 	public void adicionarRegistro() {
@@ -39,7 +47,7 @@ public class Medicamento extends Produto {
 	}// Fim Agregacao
 
 	public void menuMedicamento() {
-		System.out.println("\nInsira o que deseja fazer de acordo com as opções seguintes:" + "\n(0) - Sair\n"
+		System.out.println("\nInsira o que deseja fazer de acordo com as opï¿½ï¿½es seguintes:" + "\n(0) - Sair\n"
 				+ "(1) - Cadastrar novo Medicamento\n" + "(2) - Listar Medicamentos\n"
 				+ "(3) - Excluir Medicamento\n");
 	}
@@ -52,7 +60,7 @@ public class Medicamento extends Produto {
 		System.out.println("Digite o fabricante do Medicamento: ");
 		String fabricanteProduto = Complementar.readString();
 
-		System.out.println("Digite a recomendação de uso deste Medicamento: ");
+		System.out.println("Digite a recomendaï¿½ï¿½o de uso deste Medicamento: ");
 		String recomendacaoProduto = Complementar.readString();
 
 		System.out.println("Digite a validade do Medicamento: ");
@@ -80,10 +88,10 @@ public class Medicamento extends Produto {
 			System.out.println("\nLista de cadastros de Medicamentos\n");
 			for (int b = 0; b < listaDeMedicamentos.size(); b++) {
 				Medicamento t = listaDeMedicamentos.get(b);
-				System.out.println("\nCadastro de número:" + (b + 1));
+				System.out.println("\nCadastro de nï¿½mero:" + (b + 1));
 				System.out.println("\nNome: " + t.getNome());
 				System.out.println("\nFabricante: " + t.getFabricante());
-				System.out.println("\nRecomendação: " + t.getRecomendacao());
+				System.out.println("\nRecomendaï¿½ï¿½o: " + t.getRecomendacao());
 				System.out.println("\nValidade: " + t.getValidade().substring(0, 2) + "/"
 						+ t.getValidade().substring(2, 4) + "/" + t.getValidade().substring(4, 8));
 				System.out.println("\nTipo: " + t.getTipo());
@@ -101,8 +109,8 @@ public class Medicamento extends Produto {
 		else {
 			System.out.println("Digite o numero do cadastro de Medicamento que deseja excluir: ");
 			this.setCodigoExclusao(scanner.nextInt());
-			System.out.println("Você deseja realmente excluir o cadastro de numero: " + this.codigoExclusao + "?"
-					+ "\n(0) - Não" + "\n(1) - Sim");
+			System.out.println("Vocï¿½ deseja realmente excluir o cadastro de numero: " + this.codigoExclusao + "?"
+					+ "\n(0) - Nï¿½o" + "\n(1) - Sim");
 			this.setConfirmacaoExclusaoMedicamento(scanner.nextInt());
 			if (confirmacaoExclusaoMedicamento == 1) {
 				this.setCodigoExclusao(codigoExclusao - 1);
