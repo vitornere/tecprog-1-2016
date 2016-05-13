@@ -1,8 +1,8 @@
 package model;
 
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
-public class Sala extends Patrimonio {
+public class Classroom extends Patrimonio {
 
 	private String capacidade;
 	
@@ -14,32 +14,32 @@ public class Sala extends Patrimonio {
 		//private final String CAPACIDADE_NEGATIVA = "Capacidade negativa.";
 			
 		
-	public Sala(String codigo, String descricao, String capacidade) throws PatrimonioException {
+	public Classroom(String codigo, String descricao, String capacidade) throws PatrimonyException {
 		super(codigo, descricao);
 		this.setCapacidade(capacidade);
 	}
 
-	public String getCapacidade() {
+	public String getCapacity() {
 		return capacidade;
 	}
 
-	public void setCapacidade(String capacidade) throws PatrimonioException {
+	public void setCapacidade(String capacidade) throws PatrimonyException {
 		if(capacidade == null)
-			throw new PatrimonioException(CAPACIDADE_NULA);
+			throw new PatrimonyException(CAPACIDADE_NULA);
 		else if("".equals(capacidade.trim()))
-			throw new PatrimonioException(CAPACIDADE_BRANCO);
+			throw new PatrimonyException(CAPACIDADE_BRANCO);
 		else if(capacidade.matches("[\\d]+")){
 				this.capacidade = capacidade;
 		}
 		else
 		{
-			throw new PatrimonioException(CAPACIDADE_INVALIDO);
+			throw new PatrimonyException(CAPACIDADE_INVALIDO);
 		}
 	}
 
-	public boolean equals(Sala b){
+	public boolean equals(Classroom b){
 		if( super.equals(b) &&
-			this.getCapacidade().equals(b.getCapacidade())){
+			this.getCapacity().equals(b.getCapacity())){
 			return true;
 		}
 		
