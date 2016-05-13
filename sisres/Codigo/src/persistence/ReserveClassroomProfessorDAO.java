@@ -8,36 +8,35 @@ import java.util.Vector;
 
 import model.Professor;
 import model.ReservaSalaProfessor;
-import model.Sala;
+import model.Classroom;
 
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
-public class ResSalaProfessorDAO extends DAO{
+public class ReserveClassroomProfessorDAO extends DAO{
 
-	//Mensagens e Alertas
-	private final String NULA = "Termo nulo.";
-	private final String SALA_INDISPONIVEL = "A Sala esta reservada no mesmo dia e horario.";
-	private final String PROFESSOR_INEXISTENTE = "Professor inexistente.";
-	private final String SALA_INEXISTENTE = "Sala inexistente";
-	private final String RESERVA_INEXISTENTE = "Reserva inexistente";
-	private final String RESERVA_EXISTENTE = "A reserva ja existe.";
-	private final String DATA_JA_PASSOU = "A data escolhida ja passou.";
-	private final String HORA_JA_PASSOU = "A hora escolhida ja passou.";
+	private final String NULL_TERM = "Termo nulo.";
+	private final String UNAVAILABLE_CLASSROOM = "A Sala esta reservada no mesmo dia e horario.";
+	private final String NOEXISTENT_PROFESSOR = "Professor inexistente.";
+	private final String NOEXISTENT_CLASSROOM = "Sala inexistente";
+	private final String NOEXISTENT_RESERVE = "Reserva inexistente";
+	private final String EXISTENT_RESERVE = "A reserva ja existe.";
+	private final String DATE_PASSED = "A data escolhida ja passou.";
+	private final String TIME_PASSED = "A hora escolhida ja passou.";
 	
 	
 	//Singleton
-		private static ResSalaProfessorDAO instance;
-		private ResSalaProfessorDAO(){
+		private static ReserveClassroomProfessorDAO instance;
+		private ReserveClassroomProfessorDAO(){
 		}
-		public static ResSalaProfessorDAO getInstance(){
+		public static ReserveClassroomProfessorDAO getInstance(){
 			if(instance == null)
-				instance = new ResSalaProfessorDAO();
+				instance = new ReserveClassroomProfessorDAO();
 			return instance;
 		}
 		//Querys de Reuso
-			private String select_id_professor(Professor p){
+			private String selectIdProfessor(Professor p){
 				return "SELECT id_professor FROM professor WHERE " +
 						"professor.nome = \"" + p.getNome() + "\" and " +
 						"professor.cpf = \"" + p.getCpf() + "\" and " +
@@ -45,46 +44,46 @@ public class ResSalaProfessorDAO extends DAO{
 						"professor.email = \"" + p.getEmail() + "\" and " +
 						"professor.matricula = \"" + p.getMatricula() + "\"";
 			}
-			private String select_id_sala(Sala sala){
+			private String selectIdSala(Classroom sala){
 				return "SELECT id_sala FROM sala WHERE " +
-						"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-						"sala.descricao = \"" + sala.getDescricao() +  "\" and " +
-						"sala.capacidade = " + sala.getCapacidade();
+						"sala.codigo = \"" + sala.getCode() + "\" and " +
+						"sala.descricao = \"" + sala.getDescription() +  "\" and " +
+						"sala.capacidade = " + sala.getCapacity();
 			}
-			private String where_reserva_sala_professor(ReservaSalaProfessor r){
+			private String whereProfessorReserveClassroom(ReservaSalaProfessor r){
 				return " WHERE " +
-				"id_professor = ( " + select_id_professor(r.getProfessor()) + " ) and " +
-				"id_sala = ( " + select_id_sala(r.getSala()) + " ) and " +
+				"id_professor = ( " + selectIdProfessor(r.getProfessor()) + " ) and " +
+				"id_sala = ( " + selectIdSala(r.getSala()) + " ) and " +
 				"finalidade = \"" + r.getFinalidade() + "\" and " +
 				"hora = \"" + r.getHora() + "\" and " +
 				"data = \"" + r.getData() + "\"";
 			}
-			private String values_reserva_sala_professor(ReservaSalaProfessor r){
-				return "( " + select_id_professor(r.getProfessor()) + " ), " +
-				"( " + select_id_sala(r.getSala()) + " ), " +
+			private String classroomValuesReservedProfessor(ReservaSalaProfessor r){
+				return "( " + selectIdProfessor(r.getProfessor()) + " ), " +
+				"( " + selectIdSala(r.getSala()) + " ), " +
 				"\"" + r.getFinalidade() + "\", " +
 				"\"" + r.getHora() + "\", " +
 				"\"" + r.getData() + "\"";
 			}
-			private String atibutes_value_reserva_sala_professor(ReservaSalaProfessor r){
-				return "id_professor = ( " + select_id_professor(r.getProfessor()) + " ), " +
-				"id_sala = ( " + select_id_sala(r.getSala()) + " ), " +
+			private String classroomValuesReservedProfessorAttributes(ReservaSalaProfessor r){
+				return "id_professor = ( " + selectIdProfessor(r.getProfessor()) + " ), " +
+				"id_sala = ( " + selectIdSala(r.getSala()) + " ), " +
 				"finalidade = \"" + r.getFinalidade() + "\", " +
 				"hora = \"" + r.getHora() + "\", " +
 				"data = \"" + r.getData() + "\"";
 			}
 		
-			private String insert_into(ReservaSalaProfessor r){
+			private String insertInto(ReservaSalaProfessor r){
 				return "INSERT INTO " +
 						"reserva_sala_professor (id_professor, id_sala, finalidade, hora, data) " +
-						"VALUES ( " + values_reserva_sala_professor(r) + " );";
+						"VALUES ( " + classroomValuesReservedProfessor(r) + " );";
 			}
 			
-			private String delete_from_professor(ReservaSalaProfessor r){
-				return "DELETE FROM reserva_sala_professor " + this.where_reserva_sala_professor(r) + " ;";
+			private String deleteFromProfessor(ReservaSalaProfessor r){
+				return "DELETE FROM reserva_sala_professor " + this.whereProfessorReserveClassroom(r) + " ;";
 			}
 			
-			private String delete_from_aluno(ReservaSalaProfessor r){
+			private String deleteFromAluno(ReservaSalaProfessor r){
 				return "DELETE FROM reserva_sala_aluno WHERE " +
 						"hora = \"" + r.getHora() + "\" and " +
 						"data = \"" + r.getData() +  "\" ;";
@@ -92,73 +91,73 @@ public class ResSalaProfessorDAO extends DAO{
 			
 			private String update(ReservaSalaProfessor r, ReservaSalaProfessor r2){
 				return "UPDATE reserva_sala_professor SET " + 
-						this.atibutes_value_reserva_sala_professor(r2) +
-						this.where_reserva_sala_professor(r) + " ;";
+						this.classroomValuesReservedProfessorAttributes(r2) +
+						this.whereProfessorReserveClassroom(r) + " ;";
 			}
 			
-	public void incluir(ReservaSalaProfessor r) throws ReservaException, SQLException {
+	public void add(ReservaSalaProfessor r) throws ReservaException, SQLException {
 		if(r == null)
-			throw new ReservaException(NULA);
-		else if(!this.professorinDB(r.getProfessor()))
-			throw new ReservaException(PROFESSOR_INEXISTENTE);
-		else if(!this.salainDB(r.getSala()))
-			throw new ReservaException(SALA_INEXISTENTE);
-		else if(this.salainReservaDB(r.getSala(), r.getData(), r.getHora()))
-			throw new ReservaException(SALA_INDISPONIVEL);
-		else if(this.reservainDB(r))
-			throw new ReservaException(RESERVA_EXISTENTE);
-		else if(this.alunoinReservaDB(r.getData(), r.getHora()))
-				super.executeQuery(this.delete_from_aluno(r));
-		if(this.dataPassou(r.getData()))
-			throw new ReservaException(DATA_JA_PASSOU);
-		if(this.dataIgual(r.getData()))
+			throw new ReservaException(NULL_TERM);
+		else if(!this.professorInDB(r.getProfessor()))
+			throw new ReservaException(NOEXISTENT_PROFESSOR);
+		else if(!this.classroomInDB(r.getSala()))
+			throw new ReservaException(NOEXISTENT_CLASSROOM);
+		else if(this.classroomInReserveDB(r.getSala(), r.getData(), r.getHora()))
+			throw new ReservaException(UNAVAILABLE_CLASSROOM);
+		else if(this.reserveInDB(r))
+			throw new ReservaException(EXISTENT_RESERVE);
+		else if(this.studantInReserveDB(r.getData(), r.getHora()))
+				super.executeQuery(this.deleteFromAluno(r));
+		if(this.datePassed(r.getData()))
+			throw new ReservaException(DATE_PASSED);
+		if(this.equalDate(r.getData()))
 		{
-			if(this.horaPassou(r.getHora()))
-				throw new ReservaException(HORA_JA_PASSOU);
+			if(this.timePassed(r.getHora()))
+				throw new ReservaException(TIME_PASSED);
 			else
-				super.executeQuery(this.insert_into(r));
+				super.executeQuery(this.insertInto(r));
 		}
 		else
-			super.executeQuery(this.insert_into(r));		
+			super.executeQuery(this.insertInto(r));		
 	}
 	
-	public void alterar(ReservaSalaProfessor r, ReservaSalaProfessor r_new) throws ReservaException, SQLException {
+	public void change(ReservaSalaProfessor r, ReservaSalaProfessor r_new) throws ReservaException, SQLException {
 		if(r == null)
-			throw new ReservaException(NULA);
+			throw new ReservaException(NULL_TERM);
 		else if(r_new == null)
-			throw new ReservaException(NULA);
+			throw new ReservaException(NULL_TERM);
 		
-		else if(!this.reservainDB(r))
-			throw new ReservaException(RESERVA_INEXISTENTE);
-		else if(this.reservainDB(r_new))
-			throw new ReservaException(RESERVA_EXISTENTE);
-		else if(!this.professorinDB(r_new.getProfessor()))
-			throw new ReservaException(PROFESSOR_INEXISTENTE);
-		else if(!this.salainDB(r_new.getSala()))
-			throw new ReservaException(SALA_INEXISTENTE);
+		else if(!this.reserveInDB(r))
+			throw new ReservaException(NOEXISTENT_RESERVE);
+		else if(this.reserveInDB(r_new))
+			throw new ReservaException(EXISTENT_RESERVE);
+		else if(!this.professorInDB(r_new.getProfessor()))
+			throw new ReservaException(NOEXISTENT_PROFESSOR);
+		else if(!this.classroomInDB(r_new.getSala()))
+			throw new ReservaException(NOEXISTENT_CLASSROOM);
 		else if(!r.getData().equals(r_new.getData()) || !r.getHora().equals(r_new.getHora())) {
-			 if(this.salainReservaDB(r_new.getSala(), r_new.getData(), r_new.getHora()))
-				throw new ReservaException(SALA_INDISPONIVEL);
+			 if(this.classroomInReserveDB(r_new.getSala(), r_new.getData(), r_new.getHora()))
+				throw new ReservaException(UNAVAILABLE_CLASSROOM);
 		}		
-		if(this.dataPassou(r_new.getData()))
-			throw new ReservaException(DATA_JA_PASSOU);
-		if(this.horaPassou(r_new.getHora()) && this.dataIgual(r_new.getData()))
-			throw new ReservaException(HORA_JA_PASSOU);
+		if(this.datePassed(r_new.getData()))
+			throw new ReservaException(DATE_PASSED);
+		if(this.timePassed(r_new.getHora()) && this.equalDate(r_new.getData()))
+			throw new ReservaException(TIME_PASSED);
 		else
 			super.updateQuery(this.update(r, r_new));
 	}
 	
-	public void excluir(ReservaSalaProfessor r) throws ReservaException, SQLException {
+	public void delete(ReservaSalaProfessor r) throws ReservaException, SQLException {
 		if(r == null)
-			throw new ReservaException(NULA);
-		else if(!this.reservainDB(r))
-			throw new ReservaException(RESERVA_INEXISTENTE);
+			throw new ReservaException(NULL_TERM);
+		else if(!this.reserveInDB(r))
+			throw new ReservaException(NOEXISTENT_RESERVE);
 		else
-			super.executeQuery(this.delete_from_professor(r));
+			super.executeQuery(this.deleteFromProfessor(r));
 	}
 
 	@SuppressWarnings("unchecked")
-	public Vector<ReservaSalaProfessor> buscarTodos() throws SQLException, ClienteException, PatrimonioException, ReservaException{
+	public Vector<ReservaSalaProfessor> buscarTodos() throws SQLException, ClienteException, PatrimonyException, ReservaException{
 		return super.buscar("SELECT * FROM reserva_sala_professor " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala " +
 				"INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor;");
@@ -166,20 +165,20 @@ public class ResSalaProfessorDAO extends DAO{
 
 	
 	@SuppressWarnings("unchecked")
-	public Vector<ReservaSalaProfessor> buscarPorData(String data) throws SQLException, ClienteException, PatrimonioException, ReservaException{
+	public Vector<ReservaSalaProfessor> buscarPorData(String data) throws SQLException, ClienteException, PatrimonyException, ReservaException{
 		return super.buscar("SELECT * FROM reserva_sala_professor " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala " +
 				"INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor" +
-				" WHERE data = \"" + this.padronizarData(data) + "\";");
+				" WHERE data = \"" + this.standardizeDate(data) + "\";");
 	} 
 	
 	
 	@Override
-	protected Object fetch(ResultSet rs) throws SQLException, ClienteException, PatrimonioException, ReservaException {
+	protected Object fetch(ResultSet rs) throws SQLException, ClienteException, PatrimonyException, ReservaException {
 		Professor p = new Professor(rs.getString("nome"), rs.getString("cpf"), rs.getString("matricula"),
 				rs.getString("telefone"), rs.getString("email"));
 		
-		Sala s = new Sala(rs.getString("codigo"), rs.getString("descricao"), rs.getString("capacidade"));
+		Classroom s = new Classroom(rs.getString("codigo"), rs.getString("descricao"), rs.getString("capacidade"));
 		
 		ReservaSalaProfessor r = new ReservaSalaProfessor(rs.getString("data"),rs.getString("hora"),
 				s ,rs.getString("finalidade"), p);
@@ -187,7 +186,7 @@ public class ResSalaProfessorDAO extends DAO{
 		return r;
 	}
 	
-	private boolean professorinDB(Professor professor) throws SQLException{
+	private boolean professorInDB(Professor professor) throws SQLException{
 		return super.inDBGeneric("SELECT * FROM professor WHERE " +
 				"professor.nome = \"" + professor.getNome() + "\" and " +
 				"professor.cpf = \"" + professor.getCpf() + "\" and " +
@@ -196,25 +195,25 @@ public class ResSalaProfessorDAO extends DAO{
 				"professor.matricula = \"" + professor.getMatricula() + "\";");
 	}
 	
-	private boolean salainDB(Sala sala) throws SQLException{
+	private boolean classroomInDB(Classroom sala) throws SQLException{
 		return super.inDBGeneric("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-				"sala.descricao = \"" + sala.getDescricao() + "\" and " +
-				"sala.capacidade = " + sala.getCapacidade() +
+				"sala.codigo = \"" + sala.getCode() + "\" and " +
+				"sala.descricao = \"" + sala.getDescription() + "\" and " +
+				"sala.capacidade = " + sala.getCapacity() +
 				";");
 	}
 	
-	private boolean salainReservaDB(Sala sala, String data, String hora) throws SQLException {
+	private boolean classroomInReserveDB(Classroom sala, String data, String hora) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE " +
 				"data = \"" + data + "\" and " +
 				"hora = \"" + hora + "\" and " +
 				"id_sala = (SELECT id_sala FROM sala WHERE " +
-				"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-				"sala.descricao = \"" + sala.getDescricao() +  "\" and " +
-				"sala.capacidade = " + sala.getCapacidade() +" );");
+				"sala.codigo = \"" + sala.getCode() + "\" and " +
+				"sala.descricao = \"" + sala.getDescription() +  "\" and " +
+				"sala.capacidade = " + sala.getCapacity() +" );");
 	}
 	
-	private boolean reservainDB(ReservaSalaProfessor r) throws SQLException {
+	private boolean reserveInDB(ReservaSalaProfessor r) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE " +
 					"id_professor = (SELECT id_professor FROM professor WHERE " +
 							"professor.nome = \"" + r.getProfessor().getNome() + "\" and " +
@@ -223,73 +222,73 @@ public class ResSalaProfessorDAO extends DAO{
 							"professor.email = \"" + r.getProfessor().getEmail() + "\" and " +
 							"professor.matricula = \"" + r.getProfessor().getMatricula() + "\") and " +
 					"id_sala = (SELECT id_sala FROM sala WHERE " +
-									"sala.codigo = \"" + r.getSala().getCodigo() + "\" and " +
-									"sala.descricao = \"" + r.getSala().getDescricao() +  "\" and " +
-									"sala.capacidade = " + r.getSala().getCapacidade() +" ) and " +
+									"sala.codigo = \"" + r.getSala().getCode() + "\" and " +
+									"sala.descricao = \"" + r.getSala().getDescription() +  "\" and " +
+									"sala.capacidade = " + r.getSala().getCapacity() +" ) and " +
 					"finalidade = \"" + r.getFinalidade() + "\" and " +
 					"hora = \"" + r.getHora() + "\" and " +
 					"data = \"" + r.getData() + "\";");
 	}
-	private boolean alunoinReservaDB(String data, String hora) throws SQLException {
+	private boolean studantInReserveDB(String data, String hora) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_aluno WHERE " +
 				"data = \"" + data + "\" and " +
 				"hora = \"" + hora + "\";");
 	}
 
-	private String dataAtual(){
+	private String currentDate(){
 		Date date = new Date(System.currentTimeMillis());
-		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-		return formatador.format(date);
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		return formatter.format(date);
 	}
 	
-	private String horaAtual(){
+	private String currentTime(){
 		Date date = new Date(System.currentTimeMillis());
 		return date.toString().substring(11, 16);
 	}
 	
-	private boolean dataPassou(String d){
-		String agora[] = this.dataAtual().split("[./-]");
-		String data[] = d.split("[./-]");
+	private boolean datePassed(String d){
+		String now[] = this.currentDate().split("[./-]");
+		String date[] = d.split("[./-]");
 		
-		int dif = agora[2].length() - data[2].length();
-		data[2] = agora[2].substring(0, dif) + data[2];
+		int dif = now[2].length() - date[2].length();
+		date[2] = now[2].substring(0, dif) + date[2];
 		
-		if(Integer.parseInt(agora[2]) > Integer.parseInt(data[2]))
+		if(Integer.parseInt(now[2]) > Integer.parseInt(date[2]))
 			return true;
 		
-		dif = agora[1].length() - data[1].length();
-		data[1] = agora[1].substring(0, dif) + data[1];
+		dif = now[1].length() - date[1].length();
+		date[1] = now[1].substring(0, dif) + date[1];
 		
-		if(Integer.parseInt(agora[1]) > Integer.parseInt(data[1]))
+		if(Integer.parseInt(now[1]) > Integer.parseInt(date[1]))
 			return true;
-		else if(Integer.parseInt(agora[1]) == Integer.parseInt(data[1])){
-			dif = agora[0].length() - data[0].length();
-			data[0] = agora[0].substring(0, dif) + data[0];
+		else if(Integer.parseInt(now[1]) == Integer.parseInt(date[1])){
+			dif = now[0].length() - date[0].length();
+			date[0] = now[0].substring(0, dif) + date[0];
 			
-			if(Integer.parseInt(agora[0]) > Integer.parseInt(data[0]))
+			if(Integer.parseInt(now[0]) > Integer.parseInt(date[0]))
 				return true;
 		}
 		return false;
 	}
 	
-	public boolean dataIgual(String d){
-		d = this.padronizarData(d);
-		String agora[] = this.dataAtual().split("[./-]");
-		String data[] = d.split("[./-]");
+	public boolean equalDate(String d){
+		d = this.standardizeDate(d);
+		String now[] = this.currentDate().split("[./-]");
+		String date[] = d.split("[./-]");
 		
-		if(agora[0].equals(data[0]) && agora[1].equals(data[1]) && agora[2].equals(data[2]))
+		if(now[0].equals(date[0]) && now[1].equals(date[1]) && now[2].equals(date[2]))
 			return true;
 		return false;
 	}
 	
-	private boolean horaPassou(String hora){
-		String agora = this.horaAtual();
+	private boolean timePassed(String hora){
+		String now = this.currentTime();
 		if(hora.length() == 4)
 			hora = "0" + hora;
-		if(Integer.parseInt(agora.substring(0, 2)) > Integer.parseInt(hora.substring(0, 2)))
+		if(Integer.parseInt(now.substring(0, 2)) > Integer.parseInt(hora.substring(0, 2)))
 			return true;
-		else if(Integer.parseInt(agora.substring(0, 2)) == Integer.parseInt(hora.substring(0, 2))){
-			if(Integer.parseInt(agora.substring(3, 5)) > Integer.parseInt(hora.substring(3, 5)))
+		else if(Integer.parseInt(now.substring(0, 2)) == Integer.parseInt(hora.substring(0, 2))){
+			if(Integer.parseInt(now.substring(3, 5)) > Integer.parseInt(hora.substring(3, 5)))
 				return true;
 			else
 				return false;
@@ -298,27 +297,22 @@ public class ResSalaProfessorDAO extends DAO{
 			return false;
 	}
 	
-	private String padronizarData(String data){
-		String agora[] = dataAtual().split("[./-]");
-		String partes[] = data.split("[./-]");
-		String dataNoPadrao = "";
+	private String standardizeDate(String data){
+		String now[] = currentDate().split("[./-]");
+		String parts[] = data.split("[./-]");
+		String standardizedDate = "";
 		
 		for(int i = 0; i < 3; i++){
 			if(i == 0)
-				dataNoPadrao += agora[i].substring(0, 
-						agora[i].length() - partes[i].length()) + partes[i];
+				standardizedDate += now[i].substring(0, 
+						now[i].length() - parts[i].length()) + parts[i];
 			else
-				dataNoPadrao +=  "/" + agora[i].substring(0, 
-						agora[i].length() - partes[i].length()) + partes[i];
+				standardizedDate +=  "/" + now[i].substring(0, 
+						now[i].length() - parts[i].length()) + parts[i];
 				
 		}
 		
-		return dataNoPadrao;
+		return standardizedDate;
 	}
-	/*
-	private String padronizarHora(String hora){
-		if(hora.length() == 4)
-			return "0" + hora;
-		return hora;
-	}*/
+
 }
