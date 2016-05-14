@@ -42,7 +42,7 @@ public class ChangeStudent extends ClientRegistration {
         }
     }
 
-    @Override public void cadastroAction() {
+    @Override public void registrationAction() {
         try {
             ManterAluno.getInstance().alterar(nameTxtField.getText(), cpfTxtField.getText(), enrollmentTxtField.getText(),
                     phoneTxtField.getText(), emailTxtField.getText(), ManterAluno.getInstance().getAluno_vet().get(index2));

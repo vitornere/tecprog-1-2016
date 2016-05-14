@@ -22,7 +22,7 @@ public abstract class ClientRegistration extends javax.swing.JDialog {// impleme
 
     }
 
-    public abstract void cadastroAction();
+    public abstract void registrationAction();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -193,7 +193,7 @@ public abstract class ClientRegistration extends javax.swing.JDialog {// impleme
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadastroBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cadastroBtnActionPerformed
-        cadastroAction();
+        registrationAction();
     }// GEN-LAST:event_cadastroBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelBtnActionPerformed
