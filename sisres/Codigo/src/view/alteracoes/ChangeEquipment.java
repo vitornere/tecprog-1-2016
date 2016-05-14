@@ -12,11 +12,11 @@ import exception.PatrimonyException;
  * 
  * @author Parley
  */
-public class ChangeEquipament extends PatrimonyRegistration {
+public class ChangeEquipment extends PatrimonyRegistration {
 
     private int index2 = 0;
 
-    public ChangeEquipament(java.awt.Frame parent, boolean modal, int index) {
+    public ChangeEquipment(java.awt.Frame parent, boolean modal, int index) {
         super(parent, modal);
         this.setTitle("Alterar");
         this.setName("AlterarEquipamento");
