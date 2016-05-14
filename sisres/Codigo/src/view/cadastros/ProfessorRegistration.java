@@ -15,20 +15,20 @@ import exception.ClienteException;
  * 
  * @author Parley
  */
-public class CadastroProfessor extends CadastroCliente {
+public class ProfessorRegistration extends ClientRegistration {
 
-    public CadastroProfessor(java.awt.Frame parent, boolean modal) {
+    public ProfessorRegistration(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setName("CadastroProfessor");
 
     }
 
-    @Override public void cadastroAction() {
+    @Override public void registrationAction() {
         try {
-            if (cadastroBtn.getText().equals("Cadastrar")) {
+            if (btnRegistration.getText().equals("Cadastrar")) {
                 // TODO add your handling code here:
-                ManterProfessor.getInstance().inserir(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
-                        telefoneTxtField.getText(), emailTxtField.getText());
+                ManterProfessor.getInstance().inserir(nameTxtField.getText(), cpfTxtField.getText(), enrollmentTxtField.getText(),
+                        phoneTxtField.getText(), emailTxtField.getText());
 
                 JOptionPane.showMessageDialog(this, "Professor Cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null);
