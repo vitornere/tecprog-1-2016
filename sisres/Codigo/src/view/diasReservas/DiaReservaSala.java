@@ -9,10 +9,10 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
-import model.Sala;
+import model.Classroom;
 import view.horariosReservas.HorariosReservaSala;
 import control.ManterSala;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * 
@@ -20,9 +20,9 @@ import exception.PatrimonioException;
  */
 public class DiaReservaSala extends DiaReservaPatrimonio {
 
-    Sala sala;
+    Classroom sala;
 
-    public DiaReservaSala(Frame parent, boolean modal, int indexSala) throws SQLException, PatrimonioException {
+    public DiaReservaSala(Frame parent, boolean modal, int indexSala) throws SQLException, PatrimonyException {
         super(parent, modal);
         sala = ManterSala.getInstance().getSalas_vet().get(indexSala);
         this.setName("DiaReservaSala");
