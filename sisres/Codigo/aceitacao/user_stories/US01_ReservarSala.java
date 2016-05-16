@@ -9,7 +9,7 @@ import model.Aluno;
 import model.Professor;
 import model.ReservaSalaAluno;
 import model.ReservaSalaProfessor;
-import model.Sala;
+import model.Classroom;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -22,41 +22,41 @@ import org.junit.Test;
 import persistence.AlunoDAO;
 import persistence.ProfessorDAO;
 import persistence.ResSalaAlunoDAO;
-import persistence.ResSalaProfessorDAO;
-import persistence.SalaDAO;
+import persistence.ReserveClassroomProfessorDAO;
+import persistence.ClassroomDAO;
 import view.Main2;
 import view.mainViews.AlunoView;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 /**
- * US1 Título: Reservar sala. Como cliente (aluno/professor), Eu quero reservar
- * uma sala Para que eu possa usufruir, sempre que necessário, do espaço
- * disponível na FGA.
+ * US1 Tï¿½tulo: Reservar sala. Como cliente (aluno/professor), Eu quero reservar
+ * uma sala Para que eu possa usufruir, sempre que necessï¿½rio, do espaï¿½o
+ * disponï¿½vel na FGA.
  * 
- * Cenário 1: Professor deseja reservar sala disponível. Dado que o professor
- * está cadastrado, E a sala está cadastrada, E a sala está disponível, Quando o
- * usuário solicitar a reserva da sala pelo professor, Então o sistema reserva a
+ * Cenï¿½rio 1: Professor deseja reservar sala disponï¿½vel. Dado que o professor
+ * estï¿½ cadastrado, E a sala estï¿½ cadastrada, E a sala estï¿½ disponï¿½vel, Quando o
+ * usuï¿½rio solicitar a reserva da sala pelo professor, Entï¿½o o sistema reserva a
  * sala, E informar que a reserva foi realizada com sucesso.
  * 
- * Cenário 2: Aluno deseja reservar sala disponível. Dado que um aluno possui
- * cadastro, E a sala está cadastrada, E a sala está disponível, Quando o
- * usuário solicitar a reserva pelo aluno, Então o sistema reserva a sala, E
+ * Cenï¿½rio 2: Aluno deseja reservar sala disponï¿½vel. Dado que um aluno possui
+ * cadastro, E a sala estï¿½ cadastrada, E a sala estï¿½ disponï¿½vel, Quando o
+ * usuï¿½rio solicitar a reserva pelo aluno, Entï¿½o o sistema reserva a sala, E
  * informar que a reserva foi realizada com sucesso.
  * 
- * Cenário 3: Professor deseja reservar sala já reservada por aluno. Dado que o
- * professor está cadastrado, E a sala está cadastrada, E a sala está reservada
- * por um aluno, Quando o usuário solicitar a reserva da sala pelo professor,
- * Então o sistema cancela a reserva feita pelo aluno, E o sistema reserva a
+ * Cenï¿½rio 3: Professor deseja reservar sala jï¿½ reservada por aluno. Dado que o
+ * professor estï¿½ cadastrado, E a sala estï¿½ cadastrada, E a sala estï¿½ reservada
+ * por um aluno, Quando o usuï¿½rio solicitar a reserva da sala pelo professor,
+ * Entï¿½o o sistema cancela a reserva feita pelo aluno, E o sistema reserva a
  * sala pelo professor, E informar que a reserva foi realizada com sucesso.
  * 
  * 
- * Cenário 4: Professor deseja reservar sala reservada por professor Dado que o
- * professor está cadastrado, E a sala está cadastrada, E a sala já está
- * reservada por um professor, Quando o usuário solicitar a reserva da sala pelo
- * professor, Então o sistema deverá negar a reserva, E o sistema deve informar
- * que a sala está indisponível para o dia e horário escolhido. E o sistema não
+ * Cenï¿½rio 4: Professor deseja reservar sala reservada por professor Dado que o
+ * professor estï¿½ cadastrado, E a sala estï¿½ cadastrada, E a sala jï¿½ estï¿½
+ * reservada por um professor, Quando o usuï¿½rio solicitar a reserva da sala pelo
+ * professor, Entï¿½o o sistema deverï¿½ negar a reserva, E o sistema deve informar
+ * que a sala estï¿½ indisponï¿½vel para o dia e horï¿½rio escolhido. E o sistema nï¿½o
  * deve substituir a reserva.
  */
 
@@ -64,7 +64,7 @@ public class US01_ReservarSala {
 
     private FrameFixture window;
     private Robot robot;
-    private Sala sala;
+    private Classroom sala;
     private ReservaSalaProfessor reservaProf;
     private ReservaSalaAluno reservaAluno;
     private Aluno aluno;
@@ -82,15 +82,15 @@ public class US01_ReservarSala {
         this.data = formatador.format(date);
     }
 
-    @Before public void setUp() throws PatrimonioException, SQLException, ClienteException, ReservaException {
+    @Before public void setUp() throws PatrimonyException, SQLException, ClienteException, ReservaException {
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
 
         window = new FrameFixture(robot, new Main2());
         window.show(new Dimension(900, 500)); // shows the frame to test
 
-        sala = new Sala("code", "Sala para testes de aceitacao", "123");
-        SalaDAO.getInstance().incluir(sala);
+        sala = new Classroom("code", "Sala para testes de aceitacao", "123");
+        ClassroomDAO.getInstance().add(sala);
 
         prof = new Professor("Professor Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
         ProfessorDAO.getInstance().incluir(prof);
@@ -100,20 +100,20 @@ public class US01_ReservarSala {
 
         dataAtual();
 
-        index = SalaDAO.getInstance().buscarTodos().size() - 1;
-        indexReserva = ResSalaProfessorDAO.getInstance().buscarPorData(data).size() - 1;
+        index = ClassroomDAO.getInstance().searchAll().size() - 1;
+        indexReserva = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).size() - 1;
 
         window.button("Sala").click();
         dialog = window.dialog("SalaView");
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException, ClienteException, ReservaException {
+    @After public void tearDown() throws SQLException, PatrimonyException, ClienteException, ReservaException {
         if (reservaProf != null)
-            ResSalaProfessorDAO.getInstance().excluir(reservaProf);
+            ReserveClassroomProfessorDAO.getInstance().delete(reservaProf);
         if (reservaAluno != null)
             ResSalaAlunoDAO.getInstance().excluir(reservaAluno);
         if (sala != null)
-            SalaDAO.getInstance().excluir(sala);
+            ClassroomDAO.getInstance().delete(sala);
         if (aluno != null)
             AlunoDAO.getInstance().excluir(aluno);
         if (prof != null)
@@ -130,7 +130,7 @@ public class US01_ReservarSala {
 
     }
 
-    @Test public void testCenario1Professor() throws SQLException, ClienteException, PatrimonioException, ReservaException {
+    @Test public void testCenario1Professor() throws SQLException, ClienteException, PatrimonyException, ReservaException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -152,11 +152,11 @@ public class US01_ReservarSala {
         fazerReservaSalaView.optionPane().requireMessage("Reserva feita com sucesso");
         fazerReservaSalaView.optionPane().okButton().click();
 
-        indexReserva = ResSalaProfessorDAO.getInstance().buscarPorData(data).size() - 1;
-        reservaProf = ResSalaProfessorDAO.getInstance().buscarPorData(data).get(indexReserva);
+        indexReserva = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).size() - 1;
+        reservaProf = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).get(indexReserva);
     }
 
-    @Test public void testCenario1ProfessorCpfInvalido() throws SQLException, ClienteException, PatrimonioException, ReservaException {
+    @Test public void testCenario1ProfessorCpfInvalido() throws SQLException, ClienteException, PatrimonyException, ReservaException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -177,7 +177,7 @@ public class US01_ReservarSala {
         reservaProf = null;
     }
 
-    @Test public void testProfessorHoraAnterior() throws SQLException, ClienteException, PatrimonioException, ReservaException {
+    @Test public void testProfessorHoraAnterior() throws SQLException, ClienteException, PatrimonyException, ReservaException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -201,7 +201,7 @@ public class US01_ReservarSala {
         
     }
 
-    @Test public void testCenario2Aluno() throws SQLException, ClienteException, PatrimonioException, ReservaException {
+    @Test public void testCenario2Aluno() throws SQLException, ClienteException, PatrimonyException, ReservaException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -229,7 +229,7 @@ public class US01_ReservarSala {
         reservaAluno = ResSalaAlunoDAO.getInstance().buscarTodos().lastElement();
     }
 
-    @Test public void testCenario2AlunoCpfInvalido() throws SQLException, ClienteException, PatrimonioException, ReservaException {
+    @Test public void testCenario2AlunoCpfInvalido() throws SQLException, ClienteException, PatrimonyException, ReservaException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -249,7 +249,7 @@ public class US01_ReservarSala {
         reservaProf = null;
     }
 
-    @Test public void testCenario2AlunoHoraAnterior() throws SQLException, ClienteException, PatrimonioException, ReservaException {
+    @Test public void testCenario2AlunoHoraAnterior() throws SQLException, ClienteException, PatrimonyException, ReservaException {
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -275,7 +275,7 @@ public class US01_ReservarSala {
 
     }
 
-    @Test public void testCenario2AlunoCadeirasIndisponiveis() throws SQLException, ClienteException, PatrimonioException, ReservaException {
+    @Test public void testCenario2AlunoCadeirasIndisponiveis() throws SQLException, ClienteException, PatrimonyException, ReservaException {
                 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -302,9 +302,9 @@ public class US01_ReservarSala {
     }
 
     
-    @Test public void testCenario3() throws SQLException, ClienteException, PatrimonioException, ReservaException {
+    @Test public void testCenario3() throws SQLException, ClienteException, PatrimonyException, ReservaException {
 
-        reservaAluno = new ReservaSalaAluno(data, "23:59", sala, "abc", sala.getCapacidade(), aluno);
+        reservaAluno = new ReservaSalaAluno(data, "23:59", sala, "abc", sala.getCapacity(), aluno);
         ResSalaAlunoDAO.getInstance().incluir(reservaAluno);
 
         dialog.table("tabelaPatrimonio").selectRows(index);
@@ -327,13 +327,13 @@ public class US01_ReservarSala {
         fazerReservaSalaView.optionPane().requireMessage("Reserva feita com sucesso");
         fazerReservaSalaView.optionPane().okButton().click();
 
-        indexReserva = ResSalaProfessorDAO.getInstance().buscarPorData(data).size() - 1;
-        reservaProf = ResSalaProfessorDAO.getInstance().buscarPorData(data).get(indexReserva);
+        indexReserva = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).size() - 1;
+        reservaProf = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).get(indexReserva);
         reservaAluno = null;
     }
 
     
-    @Test public void testCenario3AlunoReserva() throws SQLException, ClienteException, PatrimonioException, ReservaException {
+    @Test public void testCenario3AlunoReserva() throws SQLException, ClienteException, PatrimonyException, ReservaException {
         Aluno aluno2 = new Aluno("Aluno Teste", "382.808.446-00", "110", "", "abc");
         AlunoDAO.getInstance().incluir(aluno2);
 
@@ -370,10 +370,10 @@ public class US01_ReservarSala {
     }
 
     
-    @Test public void testCenario4() throws SQLException, ClienteException, ReservaException, PatrimonioException {
+    @Test public void testCenario4() throws SQLException, ClienteException, ReservaException, PatrimonyException {
 
         reservaProf = new ReservaSalaProfessor(data, "23:59", sala, "abc", prof);
-        ResSalaProfessorDAO.getInstance().incluir(reservaProf);
+        ReserveClassroomProfessorDAO.getInstance().add(reservaProf);
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -392,8 +392,8 @@ public class US01_ReservarSala {
         fazerReservaSalaView.textBox("Hora").enterText("23:59");
         fazerReservaSalaView.button("Reservar").click();
 
-        indexReserva = ResSalaProfessorDAO.getInstance().buscarPorData(data).size() - 1;
-        reservaProf = ResSalaProfessorDAO.getInstance().buscarPorData(data).get(indexReserva);
+        indexReserva = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).size() - 1;
+        reservaProf = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).get(indexReserva);
         reservaAluno = null;
 
         fazerReservaSalaView.optionPane().requireMessage("A Sala esta reservada no mesmo dia e horario.");

@@ -5,10 +5,10 @@ import java.util.Vector;
 
 import model.Aluno;
 import model.ReservaSalaAluno;
-import model.Sala;
+import model.Classroom;
 import persistence.ResSalaAlunoDAO;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 public class ManterResSalaAluno {
@@ -28,27 +28,27 @@ public class ManterResSalaAluno {
 	}
 	//
 
-	public Vector<ReservaSalaAluno> getReservasHora(String hora) throws SQLException, PatrimonioException, ClienteException, ReservaException{
+	public Vector<ReservaSalaAluno> getReservasHora(String hora) throws SQLException, PatrimonyException, ClienteException, ReservaException{
 		return ResSalaAlunoDAO.getInstance().buscarPorHora(hora);
 		
 	}
 	
-	public Vector<ReservaSalaAluno> getReservasMes(String data) throws SQLException, PatrimonioException, ClienteException, ReservaException{
+	public Vector<ReservaSalaAluno> getReservasMes(String data) throws SQLException, PatrimonyException, ClienteException, ReservaException{
 		return ResSalaAlunoDAO.getInstance().buscarPorDia(data);
 	}
 	
-	public Vector<ReservaSalaAluno> getResAlunoSala_vet() throws SQLException, PatrimonioException, ClienteException, ReservaException {
+	public Vector<ReservaSalaAluno> getResAlunoSala_vet() throws SQLException, PatrimonyException, ClienteException, ReservaException {
 		this.rev_sala_aluno_vet = ResSalaAlunoDAO.getInstance().buscarTodos();
 		return this.rev_sala_aluno_vet;
 	}
 
-	public int cadeirasDisponveis(Sala sala, String data, String hora) throws SQLException, PatrimonioException, ClienteException, ReservaException {
+	public int cadeirasDisponveis(Classroom sala, String data, String hora) throws SQLException, PatrimonyException, ClienteException, ReservaException {
 		return ResSalaAlunoDAO.getInstance().cadeirasDisponiveis(sala, data, hora);
 	}
 
-	public void inserir(Sala sala, Aluno aluno,
+	public void inserir(Classroom sala, Aluno aluno,
 		String data, String hora, String finalidade, String cadeiras_reservadas)
-		throws SQLException, ReservaException, ClienteException, PatrimonioException {
+		throws SQLException, ReservaException, ClienteException, PatrimonyException {
 
 		ReservaSalaAluno r = new ReservaSalaAluno(data, hora, sala, finalidade, cadeiras_reservadas, aluno);
 		ResSalaAlunoDAO.getInstance().incluir(r);
@@ -56,7 +56,7 @@ public class ManterResSalaAluno {
 	}
 
 	public void alterar(String finalidade, String cadeiras_reservadas, ReservaSalaAluno r)
-		throws SQLException, ReservaException, ClienteException, PatrimonioException {
+		throws SQLException, ReservaException, ClienteException, PatrimonyException {
 
 		ReservaSalaAluno res_old = new ReservaSalaAluno(r.getData(), r.getHora(), r.getSala(),
 			r.getFinalidade(), r.getCadeiras_reservadas(), r.getAluno());
