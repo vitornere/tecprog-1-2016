@@ -11,7 +11,7 @@ import java.util.Vector;
 
 import model.Aluno;
 import model.ReservaSalaAluno;
-import model.Sala;
+import model.Classroom;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -20,32 +20,32 @@ import org.junit.Test;
 import control.ManterResSalaAluno;
 
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 import persistence.AlunoDAO;
 import persistence.FactoryConnection;
-import persistence.SalaDAO;
+import persistence.ClassroomDAO;
 
 public class ManterResSalaAlunoTest {
-	private static Sala sala1;
+	private static Classroom sala1;
 	private static Aluno aluno1;
 	private static Vector<ReservaSalaAluno> vet;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		vet = ManterResSalaAluno.getInstance().getResAlunoSala_vet();
-		sala1 = new Sala("123", "Sala de Aula", "120");
+		sala1 = new Classroom("123", "Sala de Aula", "120");
 		aluno1 = new Aluno("testInstance", "501.341.852-69", "456678", "", "");
 		
 		AlunoDAO.getInstance().incluir(aluno1);
-		SalaDAO.getInstance().incluir(sala1);
+		ClassroomDAO.getInstance().add(sala1);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		AlunoDAO.getInstance().excluir(aluno1);
-		SalaDAO.getInstance().excluir(sala1);
+		ClassroomDAO.getInstance().delete(sala1);
 	}
 
 	
@@ -61,7 +61,7 @@ public class ManterResSalaAlunoTest {
 	
 	
 	@Test
-	public void testInserir() throws SQLException, ReservaException, ClienteException, PatrimonioException {
+	public void testInserir() throws SQLException, ReservaException, ClienteException, PatrimonyException {
 		String cadeiras_reservadas = "120";
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
@@ -75,7 +75,7 @@ public class ManterResSalaAlunoTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
-	public void testAlterar() throws ReservaException, SQLException, ClienteException, PatrimonioException {
+	public void testAlterar() throws ReservaException, SQLException, ClienteException, PatrimonyException {
 		String cadeiras_reservadas = "120";
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
@@ -113,7 +113,7 @@ public class ManterResSalaAlunoTest {
 	}
 	
 	@Test
-	public void testVetDia() throws SQLException, ReservaException, ClienteException, PatrimonioException {
+	public void testVetDia() throws SQLException, ReservaException, ClienteException, PatrimonyException {
 		Aluno aluno2 = new Aluno("testInswewee", "490.491.781-20", "4324678", "", "");
 		ReservaSalaAluno r = new ReservaSalaAluno("1/3/20", "9:11", sala1, "Sala de Estudos", "60", aluno1);
 		ReservaSalaAluno r2 = new ReservaSalaAluno("1/3/20", "9:11", sala1,"Sala de Estudos", "30", aluno2);
@@ -146,7 +146,7 @@ public class ManterResSalaAlunoTest {
 	}
 	
 	@Test
-	public void testVetDiaHoje() throws SQLException, ReservaException, ClienteException, PatrimonioException {
+	public void testVetDiaHoje() throws SQLException, ReservaException, ClienteException, PatrimonyException {
 		Aluno aluno2 = new Aluno("testInswewee", "490.491.781-20", "4324678", "", "");
 		ReservaSalaAluno r = new ReservaSalaAluno("26/02/2013", "20:00", sala1, "Sala de Estudos", "60", aluno1);
 		ReservaSalaAluno r2 = new ReservaSalaAluno("26/02/2013", "20:00", sala1,"Sala de Estudos", "30", aluno2);
@@ -187,11 +187,11 @@ public class ManterResSalaAlunoTest {
 				"aluno.email = \"" + a.getEmail() + "\" and " +
 				"aluno.matricula = \"" + a.getMatricula() + "\"";
 	}
-	private String select_id_sala(Sala sala){
+	private String select_id_sala(Classroom sala){
 		return "SELECT id_sala FROM sala WHERE " +
-				"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-				"sala.descricao = \"" + sala.getDescricao() +  "\" and " +
-				"sala.capacidade = " + sala.getCapacidade();
+				"sala.codigo = \"" + sala.getCode() + "\" and " +
+				"sala.descricao = \"" + sala.getDescription() +  "\" and " +
+				"sala.capacidade = " + sala.getCapacity();
 	}
 	private String where_reserva_sala_aluno(ReservaSalaAluno r){
 		return " WHERE " +

@@ -11,11 +11,11 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import model.Sala;
+import model.Classroom;
 import control.ManterResSalaAluno;
 import control.ManterResSalaProfessor;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 /**
@@ -24,13 +24,13 @@ import exception.ReservaException;
  */
 public class FazerReservaSalaView extends ReservaSalaView {
 
-    public FazerReservaSalaView(Frame parent, boolean modal, Sala sala, String data) throws SQLException, PatrimonioException,
-            PatrimonioException, ClienteException, ReservaException {
+    public FazerReservaSalaView(Frame parent, boolean modal, Classroom sala, String data) throws SQLException, PatrimonyException,
+            PatrimonyException, ClienteException, ReservaException {
         super(parent, modal);
         this.sala = sala;
         this.dataTextField.setText(data);
         this.salaTextArea.setText(sala.toString());
-        this.qntCadeirasTxtField.setText(sala.getCapacidade());
+        this.qntCadeirasTxtField.setText(sala.getCapacity());
         this.setName("FazerReservaSalaView");
         
     }
@@ -49,7 +49,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
         } catch (ReservaException ex) {
             
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (ClienteException ex) {
             
@@ -110,7 +110,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
         } catch (ReservaException ex) {
             
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (ClienteException ex) {
             

@@ -11,13 +11,13 @@ import javax.swing.JOptionPane;
 
 import model.Aluno;
 import model.Professor;
-import model.Sala;
+import model.Classroom;
 import control.ManterAluno;
 import control.ManterProfessor;
 import control.ManterResSalaAluno;
 import control.ManterResSalaProfessor;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 /**
@@ -31,11 +31,11 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
     protected final int ERRO = -1;
     protected ManterResSalaAluno instanceAluno;
     protected ManterResSalaProfessor instanceProf;
-    protected Sala sala;
+    protected Classroom sala;
     protected Aluno aluno;
     protected Professor prof;
 
-    public ReservaSalaView(java.awt.Frame parent, boolean modal) throws SQLException, PatrimonioException, PatrimonioException,
+    public ReservaSalaView(java.awt.Frame parent, boolean modal) throws SQLException, PatrimonyException, PatrimonyException,
             ClienteException, ReservaException {
         super(parent, modal);
         this.instanceProf = ManterResSalaProfessor.getInstance();

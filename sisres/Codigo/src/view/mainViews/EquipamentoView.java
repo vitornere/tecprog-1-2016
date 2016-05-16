@@ -8,11 +8,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import model.Equipamento;
-import view.alteracoes.AlterarEquipamento;
-import view.cadastros.CadastroEquipamento;
+import view.alteracoes.ChangeEquipment;
+import view.cadastros.EquipmentRegistration;
 import view.diasReservas.DiaReservaEquipamento;
 import control.ManterEquipamento;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * 
@@ -35,8 +35,8 @@ public class EquipamentoView extends PatrimonioView {
 
         Vector<String> nomesTabela = new Vector<String>();
 
-        nomesTabela.add(equipamento.getCodigo());
-        nomesTabela.add(equipamento.getDescricao());
+        nomesTabela.add(equipamento.getCode());
+        nomesTabela.add(equipamento.getDescription());
 
         return nomesTabela;
 
@@ -57,7 +57,7 @@ public class EquipamentoView extends PatrimonioView {
             }
             return table;
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -68,7 +68,7 @@ public class EquipamentoView extends PatrimonioView {
     }
 
     @Override protected void cadastrarAction() {
-        CadastroEquipamento cadastro = new CadastroEquipamento(new javax.swing.JFrame(), true);
+        EquipmentRegistration cadastro = new EquipmentRegistration(new javax.swing.JFrame(), true);
         cadastro.setResizable(false);
         cadastro.setVisible(true);
         this.tabelaPatrimonio.setModel(fillTable());
@@ -76,7 +76,7 @@ public class EquipamentoView extends PatrimonioView {
 
     @Override protected void alterarAction(int index) {
 
-        AlterarEquipamento alteracao = new AlterarEquipamento(new javax.swing.JFrame(), true, index);
+        ChangeEquipment alteracao = new ChangeEquipment(new javax.swing.JFrame(), true, index);
         alteracao.setResizable(false);
         alteracao.setVisible(true);
         this.tabelaPatrimonio.setModel(fillTable());
@@ -87,7 +87,7 @@ public class EquipamentoView extends PatrimonioView {
 
         try {
             int confirm = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Equipamento: "
-                    + ManterEquipamento.getInstance().getEquipamento_vet().get(index).getDescricao() + "?", "Excluir",
+                    + ManterEquipamento.getInstance().getEquipamento_vet().get(index).getDescription() + "?", "Excluir",
                     JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
@@ -97,7 +97,7 @@ public class EquipamentoView extends PatrimonioView {
             }
             this.tabelaPatrimonio.setModel(fillTable());
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -112,7 +112,7 @@ public class EquipamentoView extends PatrimonioView {
             DiaReservaEquipamento reserva = new DiaReservaEquipamento(new javax.swing.JFrame(), true, index);
             reserva.setResizable(false);
             reserva.setVisible(true);
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

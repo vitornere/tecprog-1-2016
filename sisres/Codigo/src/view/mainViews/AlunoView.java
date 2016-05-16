@@ -9,9 +9,9 @@ import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
-import view.alteracoes.AlterarAluno;
-import view.cadastros.CadastroAluno;
-import view.cadastros.CadastroCliente;
+import view.alteracoes.ChangeStudent;
+import view.cadastros.StudentRegistration;
+import view.cadastros.ClientRegistration;
 import control.ManterAluno;
 import exception.ClienteException;
 
@@ -40,7 +40,7 @@ public class AlunoView extends ClienteView {
 
     @Override public void cadastrarAction() {
 
-        CadastroCliente cadastrar = new CadastroAluno(new javax.swing.JFrame(), true);
+        ClientRegistration cadastrar = new StudentRegistration(new javax.swing.JFrame(), true);
         cadastrar.setResizable(false);
         cadastrar.setVisible(true);
         tabelaCliente.setModel(fillTable());
@@ -49,7 +49,7 @@ public class AlunoView extends ClienteView {
 
     @Override public void alterarAction(int index) {
 
-        AlterarAluno alterar = new AlterarAluno(new javax.swing.JFrame(), true, index);
+        ChangeStudent alterar = new ChangeStudent(new javax.swing.JFrame(), true, index);
         alterar.setResizable(false);
         alterar.setVisible(true);
         this.tabelaCliente.setModel(fillTable());
