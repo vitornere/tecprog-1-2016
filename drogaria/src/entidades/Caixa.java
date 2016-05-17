@@ -6,7 +6,7 @@ import java.util.Scanner;
 import entidades.Cliente;
 import entidades.Balconista;
 
-public class Caixa extends Pessoa {
+public class Caixa extends People {
 	private float saldoAtual = 0;
 	private int tipo; // 0-Receita ou 1-Despesa
 	private float valor;
@@ -49,8 +49,8 @@ public class Caixa extends Pessoa {
 		Balconista balconista = new Balconista(this);
 		this.balconista = balconista;
 
-		System.out.println("Verificacao de um funcionário para atendê-lo.");
-		Balconista.setStatusBalconista(true); // Utilizacao de static para dependência
+		System.out.println("Verificacao de um funcionï¿½rio para atendï¿½-lo.");
+		Balconista.setStatusBalconista(true); // Utilizacao de static para dependï¿½ncia
 	}
 
 	public Caixa(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
@@ -65,21 +65,21 @@ public class Caixa extends Pessoa {
 		this.balconista = balconista;
 	}
 
-	// Verifica a confirmação de pagamento na Caixa (POLIMORFISMO)
+	// Verifica a confirmaï¿½ï¿½o de pagamento na Caixa (POLIMORFISMO)
 	public double confirmacaoPagamento() {
-		if (this.getConfirmacaoPagamento() == 1) {
+		if (this.paymentConfirmation() == 1) {
 			return 1; // Confirma que o pagamento foi aceito.
 		}
 		else {
-			return 0; // Confirma que o pagamento não foi aceito
+			return 0; // Confirma que o pagamento nï¿½o foi aceito
 		}
 	}
 
-	// Método depositar
+	// Mï¿½todo depositar
 	public void depositar(float valor) {
 		System.out.println("Valor do saldo atual: " + saldoAtual);
 		saldoAtual += valor;
-		System.out.println("Valor após o depósito: " + saldoAtual);
+		System.out.println("Valor apï¿½s o depï¿½sito: " + saldoAtual);
 	}
 
 	public double calcularSalario() {
@@ -88,7 +88,7 @@ public class Caixa extends Pessoa {
 	}
 
 	public void menuCaixa() {
-		System.out.println("\nInsira o que deseja fazer de acordo com as opções seguintes:" + "\n(0) - Sair\n"
+		System.out.println("\nInsira o que deseja fazer de acordo com as opï¿½ï¿½es seguintes:" + "\n(0) - Sair\n"
 				+ "(1) - Cadastrar novo Caixa\n" + "(2) - Listar Caixas\n" + "(3) - Excluir Caixa\n");
 	}
 
@@ -115,7 +115,7 @@ public class Caixa extends Pessoa {
 		System.out.println("Digite o telefone do Caixa:");
 		String telefonePessoa = Complementar.readString();
 
-		System.out.println("Digite o código do Caixa:");
+		System.out.println("Digite o cï¿½digo do Caixa:");
 		int codigo = Complementar.readInt();
 
 		Caixa caixa = new Caixa(rgPessoa, cpfPessoa, digitoCpfPessoa, nomePessoa, sobrenomePessoa, enderecoPessoa,
@@ -135,7 +135,7 @@ public class Caixa extends Pessoa {
 			System.out.println("\nLista de cadastros de Caixas\n");
 			for (int b = 0; b < listaDeCaixas.size(); b++) {
 				Caixa t = listaDeCaixas.get(b);
-				System.out.println("\nCadastro de número:" + (b + 1));
+				System.out.println("\nCadastro de nï¿½mero:" + (b + 1));
 
 				System.out.println("\nNome: " + listaDeCaixas.get(b).getNome() + " "
 						+ listaDeCaixas.get(b).getSobrenome());
@@ -149,9 +149,9 @@ public class Caixa extends Pessoa {
 				System.out.println("\nTelefone: (" + t.getTelefone().substring(0, 2) + ") "
 						+ t.getTelefone().substring(2, 6) + "-" + t.getTelefone().substring(6, 10));
 
-				System.out.println("\nCódigo do Caixa: " + t.getCodigo());
+				System.out.println("\nCï¿½digo do Caixa: " + t.getCodigo());
 
-				System.out.println("\nSalário: R$ " + t.calcularSalario());
+				System.out.println("\nSalï¿½rio: R$ " + t.calcularSalario());
 			}
 			System.out.println("Fim da lista de cadastro de Caixas.\n");
 		}
@@ -166,8 +166,8 @@ public class Caixa extends Pessoa {
 		else {
 			System.out.println("Digite o numero do cadastro do Caixa que deseja excluir: ");
 			this.setCodigoExclusao(scanner.nextInt());
-			System.out.println("Você deseja realmente excluir o cadastro de numero: " + this.codigoExclusao + "?"
-					+ "\n(0) - Não" + "\n(1) - Sim");
+			System.out.println("Vocï¿½ deseja realmente excluir o cadastro de numero: " + this.codigoExclusao + "?"
+					+ "\n(0) - Nï¿½o" + "\n(1) - Sim");
 			this.setConfirmacaoExclusaoCaixa(scanner.nextInt());
 			if (confirmacaoExclusaoCaixa == 1) {
 				this.setCodigoExclusao(codigoExclusao - 1);
@@ -183,7 +183,7 @@ public class Caixa extends Pessoa {
 
 	}
 
-	// Especificando métodos get and set.
+	// Especificando mï¿½todos get and set.
 	private void setSalario(double i) {
 	}
 
