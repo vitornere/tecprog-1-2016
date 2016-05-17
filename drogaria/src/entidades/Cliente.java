@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import interfaces.*;
 
-public class Cliente extends Pessoa implements Recommended {
+public class Cliente extends People implements Recommended {
 
 	protected String email;
 	protected Caixa[] caixas;
