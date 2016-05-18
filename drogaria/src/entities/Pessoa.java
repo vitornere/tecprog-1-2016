@@ -154,4 +154,10 @@ public class Pessoa extends Administrativo {
 		Pessoa.confirmacaoPagamento = confirmacaoPagamento;
 	}
 
+	@Override
+	public double calculateSalary() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
