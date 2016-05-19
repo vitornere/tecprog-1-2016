@@ -9,36 +9,42 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
 public class FactoryConnection {
-	static String statusConnection = "";
-	
 	private final String LOCAL = "jdbc:mysql://localhost/sisres_db";
 	private final String USER = "testuser";
 	private final String PASSWORD = "password";
+	private static FactoryConnection instance;
+
+	private FactoryConnection() {
+	}
+
 	
-	//Singleton
-		private static FactoryConnection instance;
-		private FactoryConnection(){
+	/** Method to provider current instance or create a new
+	 * @return FactoryConnection - current instance
+	 */
+	public static FactoryConnection getInstance() {
+		//Verify if instance exist
+		if (instance != null) {
+			// Nothing to do
+		} 
+		else {
+			instance = new FactoryConnection();
 		}
-		public static FactoryConnection getInstance(){
-			if(instance == null){
-				instance = new FactoryConnection();
-			}
-			else{
-				// Nothing to do
-			}
-			return instance;
-		}
-	//
-		
-		
-	public Connection getConnection() throws SQLException{
+		return instance;
+	}
+
+
+	/** Method to provider database connection
+	 * @return Connection - Current connection
+	 */
+	public Connection getConnection() throws SQLException {
+		//Create a instance to connection
 		Connection con = null;
 		con = DriverManager.getConnection(LOCAL, USER, PASSWORD);
-		
+
+		//Verify connect is successful
 		assert con != null;
-		
+
 		return con;
 	}
 
