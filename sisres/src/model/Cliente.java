@@ -1,5 +1,8 @@
 package model;
 
+import java.util.InputMismatchException;
+
+import sun.security.validator.ValidatorException;
 import exception.ClienteException;
 
 
@@ -59,7 +62,8 @@ public abstract class Cliente {
 		return matricula;
 	}
 	
-	public void setNome(String nome) throws ClienteException{
+	public void setNome(String nome) throws InputMismatchException, ClienteException{
+		try{
 		if(nome == null)
 			throw new ClienteException(NOME_NULO);
 		else if("".equals(nome.trim()))
@@ -68,9 +72,13 @@ public abstract class Cliente {
 			this.nome = nome.trim();
 		else
 			throw new ClienteException(NOME_INVALIDO);
+		}catch(Exception error){
+			System.out.println("ocorreu um erro. o programa será fechado");
+			System.out.println("erro! "+ error.getStackTrace());
+		}
 	}
 	
-	public void setCpf(String cpf) throws ClienteException {
+	public void setCpf(String cpf) throws ClienteException, InputMismatchException{
 		if(cpf == null)
 			throw new ClienteException(CPF_NULO);
 		else if("".equals(cpf))
@@ -120,7 +128,7 @@ public abstract class Cliente {
 			"\nMatricula: " + matricula;
 	}
 
-	public boolean equals(Cliente b){
+	public boolean equals(Cliente b) throws ClienteException {
 		if(	this.getNome().equals(b.getNome()) &&
 			this.getCpf().equals(b.getCpf()) &&
 			this.getMatricula().equals(b.getMatricula()) &&
@@ -132,8 +140,10 @@ public abstract class Cliente {
 		return false;
 	}
 	
-	private boolean validarCpf(String cpf) {
-
+	private boolean validarCpf(String cpf) throws ValidatorException{
+		
+		try{
+		
 		int d1, d2;
 		int digito1, digito2, resto;
 		int digitoCPF;
@@ -182,6 +192,9 @@ public abstract class Cliente {
 		//comparar o digito verificador do cpf com o primeiro resto + o segundo resto.
 		return nDigVerific.equals(nDigResult);
 
-	} // fim do método validarCpf
-
+	} // fim do método validarCpffinally{
+		catch(NumberFormatException validator){
+			System.out.println(validator.getStackTrace());
+		}
+	}
 }
