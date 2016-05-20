@@ -85,7 +85,7 @@ public class Cashier extends Person {
 	public void deposito(float value) {
 		System.out.println("Valor do saldo atual: " + CurrentBalance);
 		CurrentBalance += value;
-		System.out.println("Valor ap�s o dep�sito: " + CurrentBalance);
+		System.out.println("Valor após o depósito: " + CurrentBalance);
 	}
 
 	public double calculateSalary() {
@@ -121,7 +121,7 @@ public class Cashier extends Person {
 		System.out.println("Digite o telefone do Caixa:");
 		String personPhone = Complementary.readString();
 
-		System.out.println("Digite o c�digo do Caixa:");
+		System.out.println("Digite o código do Caixa:");
 		int code = Complementary.readInt();
 
 		Cashier cashier = new Cashier(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress,
@@ -141,7 +141,7 @@ public class Cashier extends Person {
 			System.out.println("\nLista de cadastros de Caixas\n");
 			for (int position = FIRST; position < cashierList.size(); position++) {
 				Cashier t = cashierList.get(position);
-				System.out.println("\nCadastro de n�mero:" + (position + 1));
+				System.out.println("\nCadastro de número:" + (position + 1));
 
 				System.out.println("\nNome: " + cashierList.get(position).getName() + " "
 						+ cashierList.get(position).getLastName());
@@ -155,9 +155,9 @@ public class Cashier extends Person {
 				System.out.println("\nTelefone: (" + t.getPhone().substring(0, 2) + ") "
 						+ t.getPhone().substring(2, 6) + "-" + t.getPhone().substring(6, 10));
 
-				System.out.println("\nC�digo do Caixa: " + t.getCode());
+				System.out.println("\nCódigo do Caixa: " + t.getCode());
 
-				System.out.println("\nSal�rio: R$ " + t.calculateSalary());
+				System.out.println("\nSalário: R$ " + t.calculateSalary());
 			}
 			System.out.println("Fim da lista de cadastro de Caixas.\n");
 		}
