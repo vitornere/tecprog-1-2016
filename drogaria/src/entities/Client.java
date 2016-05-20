@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import interfaces.*;
 
-public class Client extends Pessoa implements Recommended {
+public class Client extends Person implements Recommended {
 
 	protected String email;
 	protected Cashier[] caixas;
@@ -37,7 +37,7 @@ public class Client extends Pessoa implements Recommended {
 	}
 
 	// Interface
-	public void remediosRecomendados(String tipoRemedio, String uso) {
+	public void recommendedMedicaments(String tipoRemedio, String uso) {
 		if (tipoRemedio == "TARJA PRETA" && uso == "ADULTO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista �: 1");
 		}
@@ -100,7 +100,7 @@ public class Client extends Pessoa implements Recommended {
 
 		listaDeClientes.add(cliente);
 
-		System.out.println("O(A) Cliente " + cliente.getNome() + " foi cadastrado(a) com sucesso!");
+		System.out.println("O(A) Cliente " + cliente.getName() + " foi cadastrado(a) com sucesso!");
 	}
 
 	public void listClients(ArrayList<Client> listaDeClientes) {
@@ -113,16 +113,16 @@ public class Client extends Pessoa implements Recommended {
 				Client t = listaDeClientes.get(b);
 				System.out.println("\nCadastro de n�mero:" + (b + 1));
 
-				System.out.println("\nNome: " + t.getNome() + " " + t.getSobrenome());
+				System.out.println("\nNome: " + t.getName() + " " + t.getPastName());
 
-				System.out.println("\nRG: " + t.getRg().substring(0, 2) + "-"
-						+ t.getRg().substring(2, t.getRg().length()));
+				System.out.println("\nRG: " + t.getIdentity().substring(0, 2) + "-"
+						+ t.getIdentity().substring(2, t.getIdentity().length()));
 
-				System.out.println("Cpf: " + t.getCpf().substring(0, 3) + "."
-						+ t.getCpf().substring(3, 6) + "." + t.getCpf().substring(6, 9) + "-"  + t.getDigitoCpf());
+				System.out.println("Cpf: " + t.getCpfPerson().substring(0, 3) + "."
+						+ t.getCpfPerson().substring(3, 6) + "." + t.getCpfPerson().substring(6, 9) + "-"  + t.getDigitCpfPerson());
 
-				System.out.println("\nTelefone: (" + t.getTelefone().substring(0, 2) + ") "
-						+ t.getTelefone().substring(2, 6) + "-" + t.getTelefone().substring(6, 10));
+				System.out.println("\nTelefone: (" + t.getPhone().substring(0, 2) + ") "
+						+ t.getPhone().substring(2, 6) + "-" + t.getPhone().substring(6, 10));
 
 				System.out.println("\nEmail: " + t.getEmail());
 			}

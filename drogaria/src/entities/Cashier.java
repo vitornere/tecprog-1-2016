@@ -6,7 +6,7 @@ import java.util.Scanner;
 import entities.Clerk;
 import entities.Client;
 
-public class Cashier extends Pessoa {
+public class Cashier extends Person {
 	private float saldoAtual = 0;
 	private int tipo; // 0-Receita ou 1-Despesa
 	private float valor;
@@ -60,13 +60,13 @@ public class Cashier extends Pessoa {
 	}
 
 	// Composicao - Criacao de um novo caixa a partir de um balconista
-	public void criarBalconista() {
+	public void createClerk() {
 		Clerk balconista = new Clerk(this);
 		this.balconista = balconista;
 	}
 
 	// Verifica a confirma��o de pagamento na Caixa (POLIMORFISMO)
-	public double confirmacaoPagamento() {
+	public double paymentConfirmation() {
 		if (this.getConfirmacaoPagamento() == 1) {
 			return 1; // Confirma que o pagamento foi aceito.
 		}
@@ -82,7 +82,7 @@ public class Cashier extends Pessoa {
 		System.out.println("Valor ap�s o dep�sito: " + saldoAtual);
 	}
 
-	public double calcularSalario() {
+	public double calculateSalary() {
 		this.setSalario(715);
 		return 715;
 	}
@@ -123,7 +123,7 @@ public class Cashier extends Pessoa {
 
 		listaDeCaixas.add(caixa);
 
-		System.out.println("O(A) caixa " + caixa.getNome() + " foi cadastrado(a) com sucesso!");
+		System.out.println("O(A) caixa " + caixa.getName() + " foi cadastrado(a) com sucesso!");
 
 	}
 
@@ -137,21 +137,21 @@ public class Cashier extends Pessoa {
 				Cashier t = listaDeCaixas.get(b);
 				System.out.println("\nCadastro de n�mero:" + (b + 1));
 
-				System.out.println("\nNome: " + listaDeCaixas.get(b).getNome() + " "
-						+ listaDeCaixas.get(b).getSobrenome());
+				System.out.println("\nNome: " + listaDeCaixas.get(b).getName() + " "
+						+ listaDeCaixas.get(b).getPastName());
 
-				System.out.println("\nRG: " + t.getRg().substring(0, 2) + "-"
-						+ t.getRg().substring(2, t.getRg().length()));
+				System.out.println("\nRG: " + t.getIdentity().substring(0, 2) + "-"
+						+ t.getIdentity().substring(2, t.getIdentity().length()));
 
-				System.out.println("Cpf: " + t.getCpf().substring(0, 3) + "."
-						+ t.getCpf().substring(3, 6) + "." + t.getCpf().substring(6, 9) + "-"  + t.getDigitoCpf());
+				System.out.println("Cpf: " + t.getCpfPerson().substring(0, 3) + "."
+						+ t.getCpfPerson().substring(3, 6) + "." + t.getCpfPerson().substring(6, 9) + "-"  + t.getDigitCpfPerson());
 
-				System.out.println("\nTelefone: (" + t.getTelefone().substring(0, 2) + ") "
-						+ t.getTelefone().substring(2, 6) + "-" + t.getTelefone().substring(6, 10));
+				System.out.println("\nTelefone: (" + t.getPhone().substring(0, 2) + ") "
+						+ t.getPhone().substring(2, 6) + "-" + t.getPhone().substring(6, 10));
 
 				System.out.println("\nC�digo do Caixa: " + t.getCodigo());
 
-				System.out.println("\nSal�rio: R$ " + t.calcularSalario());
+				System.out.println("\nSal�rio: R$ " + t.calculateSalary());
 			}
 			System.out.println("Fim da lista de cadastro de Caixas.\n");
 		}
@@ -205,7 +205,7 @@ public class Cashier extends Pessoa {
 		}
 	}
 
-	public int getTipo() {
+	public int getTransationType() {
 		return tipo;
 	}
 
@@ -213,7 +213,7 @@ public class Cashier extends Pessoa {
 		this.tipo = tipo;
 	}
 
-	public float getValor() {
+	public float getTransactionValue() {
 		return valor;
 	}
 
@@ -221,7 +221,7 @@ public class Cashier extends Pessoa {
 		this.valor = valor;
 	}
 
-	public String getData() {
+	public String getTransationDate() {
 		return data;
 	}
 
@@ -229,7 +229,7 @@ public class Cashier extends Pessoa {
 		this.data = data;
 	}
 
-	public String getDescricao() {
+	public String getDescription() {
 		return descricao;
 	}
 
@@ -237,7 +237,7 @@ public class Cashier extends Pessoa {
 		this.descricao = descricao;
 	}
 
-	public float getSaldoAtual() {
+	public float getCurrentSale() {
 		return saldoAtual;
 	}
 
@@ -253,7 +253,7 @@ public class Cashier extends Pessoa {
 		this.funcionario = funcionario;
 	}
 
-	public Clerk getBalconista() {
+	public Clerk getClerk() {
 		return balconista;
 	}
 

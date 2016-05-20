@@ -32,23 +32,23 @@ public class TesteFuncionario {
 		assertNotNull(balconistaVazio);
 	}
 
-	// Teste para confirmação do digito do CPF.
+	// Teste para confirmaï¿½ï¿½o do digito do CPF.
 	@Test
 	public void testSetDigitoCpf() {
 		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 1, 2, 0);
-		assertEquals(funcionarioDrogaria.getDigitoCpf(), 50);
+		assertEquals(funcionarioDrogaria.getDigitCpfPerson(), 50);
 	}
 
-	// Teste para confirmação da senha
+	// Teste para confirmaï¿½ï¿½o da senha
 	@Test
 	public void testGetSenha() {
 		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 15000, 5678, 1, 2, 0);
-		assertEquals(funcionarioDrogaria.getSenha(), 15000);
+		assertEquals(funcionarioDrogaria.getPassword(), 15000);
 	}
 
-	// Teste para confirmação da senha da farmácia popular
+	// Teste para confirmaï¿½ï¿½o da senha da farmï¿½cia popular
 	@Test
 	public void testSetSenhaFarmaciaPopular() {
 		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
@@ -56,20 +56,20 @@ public class TesteFuncionario {
 		assertEquals(funcionarioDrogaria.getSenhaFarmaciaPopular(), 2432);
 	}
 
-	// Teste para confirmação do código do funcionário
+	// Teste para confirmaï¿½ï¿½o do cï¿½digo do funcionï¿½rio
 	@Test
 	public void testGetCodigo() {
 		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 20, 2, 0);
-		assertEquals(funcionarioDrogaria.getCodigo(), 20);
+		assertEquals(funcionarioDrogaria.getIdFuncionary(), 20);
 	}
 
-	// Teste para confirmação do fator de comissão do funcionário
+	// Teste para confirmaï¿½ï¿½o do fator de comissï¿½o do funcionï¿½rio
 	@Test
 	public void testGetFatorComissao() {
 		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 1, 15, 0);
-		assertEquals(funcionarioDrogaria.getFatorComissao(), 15);
+		assertEquals(funcionarioDrogaria.getCommissionFactor(), 15);
 	}
 
 	@Test
@@ -83,14 +83,14 @@ public class TesteFuncionario {
 	public void testSetMedicamento() {
 		Medicamento[] medicamento = { new Medicamento(), new Medicamento() };
 
-		balconista.setMedicamentos(medicamento);
+		balconista.setMedicaments(medicamento);
 		assertNotNull(balconista.getMedicamentos());
 	}
 
 	@Test
 	public void testSetMedicamentoNull() {
 		Medicamento[] medicamento = {};
-		balconista.setMedicamentos(medicamento);
+		balconista.setMedicaments(medicamento);
 		assertNull(balconista.getMedicamentos());
 
 	}
@@ -115,35 +115,35 @@ public class TesteFuncionario {
 	public void testDgCadastra() {
 		Balconista balconista2 = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 1, 15, 0);
-		balconista2.cadastraBalconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6");
-		assertEquals(balconista2.getDigitoCpf(), 50);
+		balconista2.registerClerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6");
+		assertEquals(balconista2.getDigitCpfPerson(), 50);
 	}
 
 	@Test
 	public void testSalario() {
 		Balconista balconista = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 1, 15, 5);
-		assertEquals(75, balconista.calcularSalario());
+		assertEquals(75, balconista.calculateSalary());
 	}
 
 	@Test
 	public void testConfirmacaoPagamento() {
 		balconista.setConfirmacaoPagamento(1);
-		assertEquals(1, balconista.confirmacaoPagamento());
+		assertEquals(1, balconista.paymentConfirmation());
 
 	}
 
 	@Test
 	public void testConfirmacaoPagamentoElse() {
 		balconista.setConfirmacaoPagamento(0);
-		assertEquals(0, balconista.confirmacaoPagamento());
+		assertEquals(0, balconista.paymentConfirmation());
 
 	}
 
 	@Test
 	public void testSetSenha() {
 		balconista.setSenha(1234);
-		assertEquals(1234, balconista.getSenha());
+		assertEquals(1234, balconista.getPassword());
 
 	}
 
@@ -157,14 +157,14 @@ public class TesteFuncionario {
 	@Test
 	public void testSetCodigo() {
 		balconista.setCodigo(1);
-		assertEquals(1, balconista.getCodigo());
+		assertEquals(1, balconista.getIdFuncionary());
 
 	}
 
 	@Test
 	public void testSetFatorComissao() {
 		balconista.setFatorComissao(10);
-		assertEquals(10, balconista.getFatorComissao());
+		assertEquals(10, balconista.getCommissionFactor());
 
 	}
 
@@ -240,7 +240,7 @@ public class TesteFuncionario {
 	public void testBalconistas() {
 		Balconista[] balconista2 = { new Balconista(), new Balconista() };
 		balconista.setBalconista(balconista2);
-		assertEquals(balconista2, balconista.getBalconista());
+		assertEquals(balconista2, balconista.getClerk());
 	}
 
 	@Test

@@ -22,7 +22,7 @@ public class Register {
 	public void adicionarMedicamento() {
 		Medicament novoMedicamento = new Medicament();
 		novoMedicamento = this.medicamento;
-		this.setMedicamento(novoMedicamento);
+		this.setMedicament(novoMedicamento);
 	}// Fim Agregacao
 
 	// Getters & Setters
@@ -39,7 +39,7 @@ public class Register {
 		return medicamento;
 	}
 
-	public void setMedicamento(Medicament medicamento) {
+	public void setMedicament(Medicament medicamento) {
 		this.medicamento = medicamento;
 	}
 

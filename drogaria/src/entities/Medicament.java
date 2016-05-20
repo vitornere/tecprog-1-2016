@@ -3,13 +3,13 @@ package entities;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import entities.Registro;
+import entities.Register;;
 
 public class Medicament extends Produto {
 
 	protected String tipo; // Comprimidos, liquido, etc
 	protected String posologia;
-	protected Registro registro;
+	protected Register registro;
 
 	// Console
 	Medicament[] medicamento = {};
@@ -28,14 +28,14 @@ public class Medicament extends Produto {
 	}
 
 	// Agregacao - Listagem e adicao
-	public void listarRegistro() {
+	public void registerList() {
 		System.out.println("O registro do medicamento " + this.nome + " �:" + registro.codigo);
 	}
 
 	public void adicionarRegistro() {
-		Registro novoRegistro = new Registro();
+		Register novoRegistro = new Register();
 		novoRegistro = this.registro;
-		this.setRegistro(novoRegistro);
+		this.setRegister(novoRegistro);
 	}// Fim Agregacao
 
 	public void menuMedicament() {
@@ -69,7 +69,7 @@ public class Medicament extends Produto {
 
 		listaDeMedicamentos.add(medicamento);
 
-		System.out.println("O Medicamento " + medicamento.getNome() + " foi cadastrado com sucesso!");
+		System.out.println("O Medicamento " + medicamento.getNameMedicament() + " foi cadastrado com sucesso!");
 	}
 
 	public void listMedicaments(ArrayList<Medicament> listaDeMedicamentos) {
@@ -81,12 +81,12 @@ public class Medicament extends Produto {
 			for (int b = 0; b < listaDeMedicamentos.size(); b++) {
 				Medicament t = listaDeMedicamentos.get(b);
 				System.out.println("\nCadastro de n�mero:" + (b + 1));
-				System.out.println("\nNome: " + t.getNome());
-				System.out.println("\nFabricante: " + t.getFabricante());
-				System.out.println("\nRecomenda��o: " + t.getRecomendacao());
-				System.out.println("\nValidade: " + t.getValidade().substring(0, 2) + "/"
-						+ t.getValidade().substring(2, 4) + "/" + t.getValidade().substring(4, 8));
-				System.out.println("\nTipo: " + t.getTipo());
+				System.out.println("\nNome: " + t.getNameMedicament());
+				System.out.println("\nFabricante: " + t.getManufacturer());
+				System.out.println("\nRecomenda��o: " + t.getRecommendation());
+				System.out.println("\nValidade: " + t.getExpirationDate().substring(0, 2) + "/"
+						+ t.getExpirationDate().substring(2, 4) + "/" + t.getExpirationDate().substring(4, 8));
+				System.out.println("\nTipo: " + t.getMedicamentType());
 				System.out.println("\nPosologia: " + t.getPosologia());
 			}
 			System.out.println("Fim da lista de cadastro.\n");
@@ -120,7 +120,7 @@ public class Medicament extends Produto {
 
 	// Getters & Setters
 
-	public String getTipo() {
+	public String getMedicamentType() {
 		return tipo;
 	}
 
@@ -136,11 +136,11 @@ public class Medicament extends Produto {
 		this.posologia = posologia;
 	}
 
-	public Registro getRegistro() {
+	public Register getRegistro() {
 		return registro;
 	}
 
-	public void setRegistro(Registro registro) {
+	public void setRegister(Register registro) {
 		this.registro = registro;
 	}
 

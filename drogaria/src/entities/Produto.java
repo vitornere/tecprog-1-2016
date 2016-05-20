@@ -17,7 +17,7 @@ public class Produto {
 		this.validade = validadeProduto;
 	}
 
-	public String getNome() {
+	public String getNameMedicament() {
 		return nome;
 	}
 
@@ -25,7 +25,7 @@ public class Produto {
 		this.nome = nome;
 	}
 
-	public String getFabricante() {
+	public String getManufacturer() {
 		return fabricante;
 	}
 
@@ -33,7 +33,7 @@ public class Produto {
 		this.fabricante = fabricante;
 	}
 
-	public String getRecomendacao() {
+	public String getRecommendation() {
 		return recomendacao;
 	}
 
@@ -41,7 +41,7 @@ public class Produto {
 		this.recomendacao = recomendacao;
 	}
 
-	public String getValidade() {
+	public String getExpirationDate() {
 		return validade;
 	}
 

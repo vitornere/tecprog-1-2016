@@ -26,25 +26,25 @@ public class TesteCaixa{
 	@Test
 	public void testGetTipoo(){
 		Caixa transacao = new Caixa ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertEquals(transacao.getTipo(),0);
+		assertEquals(transacao.getMedicamentType(),0);
 	}
 	
 	
 	@Test
 	public void testGetValor (){
 		Caixa transacao = new Caixa ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertEquals(transacao.getValor(),100);
+		assertEquals(transacao.getTransactionValue(),100);
 	}
 	
 	@Test
 	public void testGetData (){
 		Caixa transacao = new Caixa ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertEquals(transacao.getData(),"10/10/2020");
+		assertEquals(transacao.getTransationDate(),"10/10/2020");
 	}
 	
 	@Test
 	public void testGetDescricao (){
 		Caixa transacao = new Caixa ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertEquals(transacao.getDescricao(),"transacaoTeste");
+		assertEquals(transacao.getDescription(),"transacaoTeste");
 	}
 }

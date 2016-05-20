@@ -32,7 +32,7 @@ public class TesteCliente {
 	@Test
 	public void testSetDigitoCpf() {
 		Cliente novoCliente = new Cliente("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6");
-		assertEquals(novoCliente.getDigitoCpf(),50);
+		assertEquals(novoCliente.getDigitCpfPerson(),50);
 		
 	}
 

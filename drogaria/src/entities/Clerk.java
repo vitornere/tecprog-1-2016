@@ -6,7 +6,7 @@ import java.util.Scanner;
 import entities.Cashier;
 import entities.Medicament;
 
-public class Clerk extends Pessoa {
+public class Clerk extends Person {
 
 	// Declaracao de atributos
 
@@ -50,7 +50,7 @@ public class Clerk extends Pessoa {
 	}
 
 	// Verifica a confirma��o de pagamento na Caixa (POLIMORFISMO)
-	public double confirmacaoPagamento() {
+	public double paymentConfirmation() {
 		if (this.getConfirmacaoPagamento() == 1) {
 			return 1; // Confirma que o pagamento foi aceito.
 		}
@@ -59,7 +59,7 @@ public class Clerk extends Pessoa {
 		}
 	}
 
-	public void setMedicamentos(Medicament[] medicamentos) {
+	public void setMedicaments(Medicament[] medicamentos) {
 		if (medicamentos.length < 1) {
 			System.out
 					.println("O medicamento n�o pode ser vendido sem a identifica��o de 1 funcion�rio cadastrado no Sistema! O medicamento s� poder� ser comercializado por no m�nimo 1 funcion�rio devidamente cadastrado!");
@@ -79,13 +79,13 @@ public class Clerk extends Pessoa {
 		}
 
 		novosMedicamentos[novosMedicamentos.length - 1] = medicamento[medicamentos.length];
-		this.setMedicamentos(novosMedicamentos);
+		this.setMedicaments(novosMedicamentos);
 
 	}
 
 	// Listar numero de medicamentos associados aos funcionarios
-	public void listarMedicamentosAssociados() {
-		System.out.println("Os medicamentos vendidos pelo funcionario " + getNome() + " foram:");
+	public void listMedicamentsAssociated() {
+		System.out.println("Os medicamentos vendidos pelo funcionario " + getName() + " foram:");
 		for (int i = 0; (i < medicamentos.length); i++) {
 			quantidade++;
 			System.out.println(quantidade + " " + medicamentos[i].nome);
@@ -93,7 +93,7 @@ public class Clerk extends Pessoa {
 	}
 
 	// Utilizacao da classe abstrata
-	public double calcularSalario() {
+	public double calculateSalary() {
 		double comissao = this.fatorComissao;
 		double horasTrabalhadas = this.horas;
 		double salario = 600 + horasTrabalhadas * comissao;
@@ -106,7 +106,7 @@ public class Clerk extends Pessoa {
 		this.caixa = caixa;
 	}
 
-	public void cadastraBalconista(String rg, String cpf, int digitoCpf, String nome, String sobrenome,
+	public void registerClerk(String rg, String cpf, int digitoCpf, String nome, String sobrenome,
 			String endereco, String telefone) {
 
 		this.rg = rg;
@@ -175,7 +175,7 @@ public class Clerk extends Pessoa {
 
 		listaDeBalconistas.add(balconista);
 		
-		System.out.println("O(A) balconista " + balconista.getNome() + " foi cadastrado(a) com sucesso!");
+		System.out.println("O(A) balconista " + balconista.getName() + " foi cadastrado(a) com sucesso!");
 	}
 
 	public void listClerks(ArrayList<Clerk> listaDeBalconistas) {
@@ -188,29 +188,29 @@ public class Clerk extends Pessoa {
 				Clerk t = listaDeBalconistas.get(b); // Somente para facilitar a chamada para apresenta��o dos dados
 				System.out.println("\nCadastro de n�mero:" + (b + 1));
 
-				System.out.println("\nNome: " + t.getNome() + " " + t.getSobrenome());
+				System.out.println("\nNome: " + t.getName() + " " + t.getPastName());
 
-				System.out.println("\nRG: " + t.getRg().substring(0, 2) + "-"
-						+ t.getRg().substring(2, t.getRg().length()));
+				System.out.println("\nRG: " + t.getIdentity().substring(0, 2) + "-"
+						+ t.getIdentity().substring(2, t.getIdentity().length()));
 
-				System.out.println("Cpf: " + t.getCpf().substring(0, 3) + "."
-						+ t.getCpf().substring(3, 6) + "." + t.getCpf().substring(6, 9) + "-"  + t.getDigitoCpf());
+				System.out.println("Cpf: " + t.getCpfPerson().substring(0, 3) + "."
+						+ t.getCpfPerson().substring(3, 6) + "." + t.getCpfPerson().substring(6, 9) + "-"  + t.getDigitCpfPerson());
 
-				System.out.println("\nTelefone: (" + t.getTelefone().substring(0, 2) + ") "
-						+ t.getTelefone().substring(2, 6) + "-" + t.getTelefone().substring(6, 10));
+				System.out.println("\nTelefone: (" + t.getPhone().substring(0, 2) + ") "
+						+ t.getPhone().substring(2, 6) + "-" + t.getPhone().substring(6, 10));
 
-				System.out.println("\nEndereco:" + t.getEndereco());
+				System.out.println("\nEndereco:" + t.getAddress());
 
-				System.out.println("\nSenha: " + t.getSenha() + " Senha Farmacia Popular: "
+				System.out.println("\nSenha: " + t.getPassword() + " Senha Farmacia Popular: "
 						+ t.getSenhaFarmaciaPopular());
 
-				System.out.println("\nC�digo do Balconista: " + t.getCodigo());
+				System.out.println("\nC�digo do Balconista: " + t.getIdFuncionary());
 
 				System.out.println("\nN�mero de horas trabalhadas semanalmente: " + t.getHoras() + "horas");
 
-				System.out.println("\nFator de comissao: " + t.getFatorComissao() + " %");
+				System.out.println("\nFator de comissao: " + t.getCommissionFactor() + " %");
 
-				System.out.println("\nSal�rio: R$ " + t.calcularSalario() );
+				System.out.println("\nSal�rio: R$ " + t.calculateSalary() );
 			}
 			System.out.println("Fim da lista de cadastro de Balconistas.\n");
 		}
@@ -245,7 +245,7 @@ public class Clerk extends Pessoa {
 	private void setSalario(double salario) {
 	}
 
-	public int getSenha() {
+	public int getPassword() {
 		return senha;
 	}
 
@@ -261,7 +261,7 @@ public class Clerk extends Pessoa {
 		this.senhaFarmaciaPopular = senhaFarmaciaPopular;
 	}
 
-	public int getCodigo() {
+	public int getIdFuncionary() {
 		return codigo;
 	}
 
@@ -269,7 +269,7 @@ public class Clerk extends Pessoa {
 		this.codigo = codigo;
 	}
 
-	public int getFatorComissao() {
+	public int getCommissionFactor() {
 		return fatorComissao;
 	}
 
