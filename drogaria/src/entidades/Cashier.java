@@ -14,18 +14,19 @@ public class Cashier extends Person {
 	private static final int FIRST = 0;
 	private static final double PAYMENT_ACCEPTED = 1;
 	private static final double PAYMENT_NOT_ACCEPTED = 0;
+	private static final int YES = 1;
+	private static final int NO = 0;
 	
 	private float CurrentBalance = 0;
-	private int type; 
-	private float value;
+	private int type = 0; 
+	private float value = 0;
 	private String date;
 	private String description;
 	private Clerk clerk;
 	protected Client[] clients;
 	protected Clerk[] employee;
-	private int code;
+	private int code = 0;
 
-	// Console
 	Cashier[] cashier = {};
 	Scanner scanner = new Scanner(System.in);
 	int operation = 0;
@@ -53,12 +54,12 @@ public class Cashier extends Person {
 			System.out.println("Caixa nao cadastrado.");
 
 		}
-		// Composition - there is only a cashier, if there is already a clerk.
+		
 		Clerk clerk = new Clerk(this);
 		this.clerk = clerk;
 
-		System.out.println("Verificacao de um funcion�rio para atend�-lo.");
-		Clerk.setStatusClerk(true); // Utilization of static for dependence.
+		System.out.println("Verificação de um funcionário para atendê-lo.");
+		Clerk.setStatusClerk(true); 
 	}
 
 	public Cashier(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName,
@@ -67,19 +68,17 @@ public class Cashier extends Person {
 		this.code = code;
 	}
 
-	// Composition - creation of a new cashier from a clerk.
 	public void createClerk() {
 		Clerk clerk = new Clerk(this);
 		this.clerk = clerk;
 	}
 
-	// Checks payment confirmation in cashier (polymorphism).
 	public double paymentConfirmation() {
-		if (this.getPaymentConfirmation() == 1) {
-			return PAYMENT_ACCEPTED; // It confirms that the payment has been accepted.
+		if (this.getPaymentConfirmation() == PAYMENT_ACCEPTED) {
+			return PAYMENT_ACCEPTED; 
 		}
 		else {
-			return PAYMENT_NOT_ACCEPTED; // It confirms that the payment has not been accepted.
+			return PAYMENT_NOT_ACCEPTED; 
 		}
 	}
 
@@ -95,7 +94,7 @@ public class Cashier extends Person {
 	}
 
 	public void cashierMenu() {
-		System.out.println("\nInsira o que deseja fazer de acordo com as op��es seguintes:" + "\n(0) - Sair\n"
+		System.out.println("\nInsira o que deseja fazer de acordo com as opções seguintes:" + "\n(0) - Sair\n"
 				+ "(1) - Cadastrar novo Caixa\n" + "(2) - Listar Caixas\n" + "(3) - Excluir Caixa\n");
 	}
 
@@ -140,12 +139,12 @@ public class Cashier extends Person {
 		}
 		else {
 			System.out.println("\nLista de cadastros de Caixas\n");
-			for (int b = 0; b < cashierList.size(); b++) {
-				Cashier t = cashierList.get(b);
-				System.out.println("\nCadastro de n�mero:" + (b + 1));
+			for (int position = FIRST; position < cashierList.size(); position++) {
+				Cashier t = cashierList.get(position);
+				System.out.println("\nCadastro de n�mero:" + (position + 1));
 
-				System.out.println("\nNome: " + cashierList.get(b).getName() + " "
-						+ cashierList.get(b).getLastName());
+				System.out.println("\nNome: " + cashierList.get(position).getName() + " "
+						+ cashierList.get(position).getLastName());
 
 				System.out.println("\nRG: " + t.getRg().substring(0, 2) + "-"
 						+ t.getRg().substring(2, t.getRg().length()));
@@ -173,18 +172,20 @@ public class Cashier extends Person {
 		else {
 			System.out.println("Digite o numero do cadastro do Caixa que deseja excluir: ");
 			this.setDeleteCode(scanner.nextInt());
-			System.out.println("Voc� deseja realmente excluir o cadastro de numero: " + this.deleteCode + "?"
-					+ "\n(0) - N�o" + "\n(1) - Sim");
+			System.out.println("Você deseja realmente excluir o cadastro de numero: " + this.deleteCode + "?"
+					+ "\n(0) - Não" + "\n(1) - Sim");
 			this.setConfirmationExclusionCashier(scanner.nextInt());
-			if (confirmationExclusionCashier == 1) {
+			if (confirmationExclusionCashier == YES) {
 				this.setDeleteCode(deleteCode - 1);
 				cashierList.remove(deleteCode);
 
 				System.out.println("A lista foi alterada");
 				listCashiers(cashierList);
 			}
-			else if (confirmationExclusionCashier == 0) {
+			else if (confirmationExclusionCashier == NO) {
 				this.setDeleteCode(0);
+			} else {
+				//Nothing to do.
 			}
 		}
 
