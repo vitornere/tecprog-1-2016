@@ -85,14 +85,19 @@ public abstract class Cliente {
 			throw new ClienteException(CPF_BRANCO);
 		else if(cpf.matches("[\\d]{3,3}.[\\d]{3,3}.[\\d]{3,3}-[\\d]{2,2}$"))
 		{
-			if(this.validarCpf(
-					cpf.split("[\\. | -]")[0] + 
-					cpf.split("[\\. | -]")[1] + 
-					cpf.split("[\\. | -]")[2] + 
-					cpf.split("[\\. | -]")[3]))
-				this.cpf = cpf;
-			else
-				throw new ClienteException(CPF_INVALIDO);
+			try {
+				if(this.validarCpf(
+						cpf.split("[\\. | -]")[0] + 
+						cpf.split("[\\. | -]")[1] + 
+						cpf.split("[\\. | -]")[2] + 
+						cpf.split("[\\. | -]")[3]))
+					this.cpf = cpf;
+				else
+					throw new ClienteException(CPF_INVALIDO);
+			} catch (ValidatorException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		else
 			throw new ClienteException(CPF_INVALIDO);
@@ -196,5 +201,6 @@ public abstract class Cliente {
 		catch(NumberFormatException validator){
 			System.out.println(validator.getStackTrace());
 		}
+		return false;
 	}
 }
