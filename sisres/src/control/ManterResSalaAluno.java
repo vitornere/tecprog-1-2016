@@ -2,6 +2,7 @@ package control;
 
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.zip.DataFormatException;
 
 import model.Aluno;
 import model.ReservaSalaAluno;
@@ -28,27 +29,27 @@ public class ManterResSalaAluno {
 	}
 	//
 
-	public Vector<ReservaSalaAluno> getReservasHora(String hora) throws SQLException, PatrimonioException, ClienteException, ReservaException{
+	public Vector<ReservaSalaAluno> getReservasHora(String hora) throws SQLException, PatrimonioException, ClienteException, ReservaException, DataFormatException{
 		return ResSalaAlunoDAO.getInstance().buscarPorHora(hora);
 		
 	}
 	
-	public Vector<ReservaSalaAluno> getReservasMes(String data) throws SQLException, PatrimonioException, ClienteException, ReservaException{
+	public Vector<ReservaSalaAluno> getReservasMes(String data) throws SQLException, PatrimonioException, ClienteException, ReservaException, DataFormatException{
 		return ResSalaAlunoDAO.getInstance().buscarPorDia(data);
 	}
 	
-	public Vector<ReservaSalaAluno> getResAlunoSala_vet() throws SQLException, PatrimonioException, ClienteException, ReservaException {
+	public Vector<ReservaSalaAluno> getResAlunoSala_vet() throws SQLException, PatrimonioException, ClienteException, ReservaException, DataFormatException {
 		this.rev_sala_aluno_vet = ResSalaAlunoDAO.getInstance().buscarTodos();
 		return this.rev_sala_aluno_vet;
 	}
 
-	public int cadeirasDisponveis(Sala sala, String data, String hora) throws SQLException, PatrimonioException, ClienteException, ReservaException {
+	public int cadeirasDisponveis(Sala sala, String data, String hora) throws SQLException, PatrimonioException, ClienteException, ReservaException, DataFormatException {
 		return ResSalaAlunoDAO.getInstance().cadeirasDisponiveis(sala, data, hora);
 	}
 
 	public void inserir(Sala sala, Aluno aluno,
 		String data, String hora, String finalidade, String cadeiras_reservadas)
-		throws SQLException, ReservaException, ClienteException, PatrimonioException {
+		throws SQLException, ReservaException, ClienteException, PatrimonioException, NumberFormatException, DataFormatException {
 
 		ReservaSalaAluno r = new ReservaSalaAluno(data, hora, sala, finalidade, cadeiras_reservadas, aluno);
 		ResSalaAlunoDAO.getInstance().incluir(r);
