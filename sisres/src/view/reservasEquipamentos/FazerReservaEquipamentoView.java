@@ -6,6 +6,7 @@ package view.reservasEquipamentos;
 
 import java.awt.Frame;
 import java.sql.SQLException;
+import java.util.zip.DataFormatException;
 
 import javax.swing.JOptionPane;
 
@@ -30,7 +31,7 @@ public class FazerReservaEquipamentoView extends ReservaEquipamentoView {
         this.equipamentoTextArea.setText(e.toString());
     }
 
-    @Override protected void reservarProfessor() {
+    @Override protected void reservarProfessor() throws DataFormatException {
         try {
 
             instanceProf.inserir(equipamento, prof, this.dataTextField.getText(), this.horaTextField.getText());
