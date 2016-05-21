@@ -7,6 +7,7 @@ package view.reservasEquipamentos;
 import java.awt.Color;
 import java.awt.Frame;
 import java.sql.SQLException;
+import java.util.zip.DataFormatException;
 
 import javax.swing.JOptionPane;
 
@@ -36,14 +37,14 @@ public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
     }
 
     public AlterarReservaEquipamentoView(Frame parent, boolean modal, int index, int mes) throws SQLException, PatrimonioException,
-            PatrimonioException, ClienteException, ReservaException {
+            PatrimonioException, ClienteException, ReservaException, DataFormatException {
         super(parent, modal);
         this.index = index;
         reserva = this.instanceProf.getReservasMes(mes).get(index);
         resetComponents();
     }
 
-    @Override protected void reservarProfessor() {
+    @Override protected void reservarProfessor() throws DataFormatException {
         try {
 
             instanceProf.alterar(null, reserva);
