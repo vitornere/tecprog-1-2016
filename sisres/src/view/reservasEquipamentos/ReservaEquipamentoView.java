@@ -6,6 +6,7 @@ package view.reservasEquipamentos;
 
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.zip.DataFormatException;
 
 import javax.swing.JOptionPane;
 
@@ -29,7 +30,7 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
         initComponents();
     }
 
-    abstract protected void reservarProfessor();
+    abstract protected void reservarProfessor() throws DataFormatException;
 
     protected void getProfessor() {
         try {
@@ -108,7 +109,12 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
         reservarButton.setName("Reservar"); // NOI18N
         reservarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                reservarButtonActionPerformed(evt);
+                try {
+					reservarButtonActionPerformed(evt);
+				} catch (DataFormatException e) {
+		
+					e.printStackTrace();
+				}
             }
         });
 
@@ -279,7 +285,7 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
         }
     }// GEN-LAST:event_cpfTextFieldActionPerformed
 
-    private void reservarButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_reservarButtonActionPerformed
+    private void reservarButtonActionPerformed(java.awt.event.ActionEvent evt) throws DataFormatException {// GEN-FIRST:event_reservarButtonActionPerformed
         reservarProfessor();
     }// GEN-LAST:event_reservarButtonActionPerformed
 
