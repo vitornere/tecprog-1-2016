@@ -2,6 +2,7 @@ package control;
 
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.zip.DataFormatException;
 
 import model.Equipamento;
 import model.Professor;
@@ -29,29 +30,29 @@ public class ManterResEquipamentoProfessor {
     //
 
     public Vector<ReservaEquipamentoProfessor> getReservasHora(String hora) throws SQLException, PatrimonioException,
-            ClienteException, ReservaException {
+            ClienteException, ReservaException, DataFormatException {
         return ResEquipamentoProfessorDAO.getInstance().buscarPorHora(hora);
 
     }
 
     public Vector<ReservaEquipamentoProfessor> getReservasMes(int mes) throws SQLException, PatrimonioException, ClienteException,
-            ReservaException {
+            ReservaException, DataFormatException {
         return ResEquipamentoProfessorDAO.getInstance().buscarPorMes(mes);
     }
 
     public Vector<Object> getResEquipamentoProfessor_vet() throws SQLException, ClienteException, PatrimonioException,
-            ReservaException {
+            ReservaException, DataFormatException {
         this.rev_equipamento_professor_vet = ResEquipamentoProfessorDAO.getInstance().buscarTodos();
         return this.rev_equipamento_professor_vet;
     }
 
-    public void inserir(Equipamento equipamento, Professor prof, String data, String hora) throws SQLException, ReservaException {
+    public void inserir(Equipamento equipamento, Professor prof, String data, String hora) throws SQLException, ReservaException, DataFormatException {
         ReservaEquipamentoProfessor reserva = new ReservaEquipamentoProfessor(data, hora, equipamento, prof);
         ResEquipamentoProfessorDAO.getInstance().incluir(reserva);
         this.rev_equipamento_professor_vet.add(reserva);
     }
 
-    public void alterar(String finalidade, ReservaEquipamentoProfessor reserva) throws SQLException, ReservaException {
+    public void alterar(String finalidade, ReservaEquipamentoProfessor reserva) throws SQLException, ReservaException, DataFormatException {
 
         ReservaEquipamentoProfessor reserva_old = new ReservaEquipamentoProfessor(reserva.getData(), reserva.getHora(),
                 reserva.getEquipamento(), reserva.getProfessor());
