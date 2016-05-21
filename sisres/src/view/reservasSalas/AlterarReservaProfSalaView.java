@@ -7,6 +7,7 @@ package view.reservasSalas;
 import java.awt.Color;
 import java.awt.Frame;
 import java.sql.SQLException;
+import java.util.zip.DataFormatException;
 
 import javax.swing.JOptionPane;
 
@@ -36,7 +37,11 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
             PatrimonioException, PatrimonioException, ClienteException, ReservaException {
         super(parent, modal);
         this.setName("AlterarReservaSalaView");
-        this.reservaProfessor = instanceProf.buscarPorData(data).get(index);
+        try {
+			this.reservaProfessor = instanceProf.buscarPorData(data).get(index);
+		} catch (DataFormatException e) {
+			e.printStackTrace();
+		}
         resetComponents();
 
     }
