@@ -7,6 +7,7 @@ package view.reservasSalas;
 import java.awt.Color;
 import java.awt.Frame;
 import java.sql.SQLException;
+import java.util.zip.DataFormatException;
 
 import javax.swing.JOptionPane;
 
@@ -38,7 +39,11 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
             PatrimonioException, PatrimonioException, ClienteException, ReservaException {
         super(parent, modal);
         this.setName("AlterarReservaSalaView");
-        this.reservaAluno = instanceAluno.getReservasMes(data).get(index);
+        try {
+			this.reservaAluno = instanceAluno.getReservasMes(data).get(index);
+		} catch (DataFormatException e) {
+			e.printStackTrace();
+		}
         resetComponents();
 
     }
@@ -90,8 +95,13 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
 
     @Override protected void verificarAction() {
         try {
-            this.qntCadeirasTxtField.setText(String.valueOf(instanceAluno.cadeirasDisponveis(sala, this.dataTextField.getText(),
-                    this.horaTextField.getText())));
+            try {
+				this.qntCadeirasTxtField.setText(String.valueOf(instanceAluno.cadeirasDisponveis(sala, this.dataTextField.getText(),
+				        this.horaTextField.getText())));
+			} catch (DataFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         } catch (ReservaException ex) {
             
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
