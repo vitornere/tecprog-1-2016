@@ -2,9 +2,9 @@ package control;
 
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.zip.DataFormatException;
 
 import persistence.ResSalaProfessorDAO;
-
 import model.Professor;
 import model.ReservaSalaProfessor;
 import model.Sala;
@@ -26,12 +26,12 @@ public class ManterResSalaProfessor {
 	}
 	//
 		
-		public Vector<ReservaSalaProfessor> buscarPorData(String data) throws SQLException, ClienteException, PatrimonioException, ReservaException{
+		public Vector<ReservaSalaProfessor> buscarPorData(String data) throws SQLException, ClienteException, PatrimonioException, ReservaException, DataFormatException{
 	        return ResSalaProfessorDAO.getInstance().buscarPorData(data);
 	    } 
 	    	
 		
-	public Vector<ReservaSalaProfessor> getResProfessorSala_vet() throws SQLException, ClienteException, PatrimonioException, ReservaException {
+	public Vector<ReservaSalaProfessor> getResProfessorSala_vet() throws SQLException, ClienteException, PatrimonioException, ReservaException, DataFormatException {
 		this.rev_sala_professor_vet = ResSalaProfessorDAO.getInstance().buscarTodos();
 		return this.rev_sala_professor_vet;
 	}
