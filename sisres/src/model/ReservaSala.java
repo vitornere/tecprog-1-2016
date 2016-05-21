@@ -33,15 +33,15 @@ public class ReservaSala extends Reserva{
 		this.sala = sala;
 	}
 
-	public void setFinalidade(String finalidade) throws ReservaException {
+	public void setFinalidade(String finalidade) {
+		try{
 		if(finalidade == null)
 			throw new ReservaException(FINALIDADE_NULA);
 		
 		finalidade = finalidade.trim();
-		if(finalidade.equals(""))
-			throw new ReservaException(FINALIDADE_BRANCO);
-		else
-			this.finalidade = finalidade;
+		}catch(Exception ex){
+			System.out.println("erro" + ex.getStackTrace());
+		}
 	}
 
 	public boolean equals(ReservaSala obj) {
