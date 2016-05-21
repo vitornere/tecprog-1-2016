@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.zip.DataFormatException;
 
 import exception.ClienteException;
 import exception.PatrimonioException;
@@ -17,10 +18,11 @@ public abstract class DAO {
 	/**
 	 * O vetor obtido deste metodo deve ser convertido pra o vetor
 	 * do tipo que se vai utilizar, se necessario.
+	 * @throws DataFormatException 
 	 * */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	protected Vector buscar(String query) throws SQLException, ClienteException, 
-													PatrimonioException, ReservaException{
+													PatrimonioException, ReservaException, DataFormatException{
 		Vector vet = new Vector();
 		
 		Connection con =  FactoryConnection.getInstance().getConnection();
@@ -64,9 +66,10 @@ public abstract class DAO {
 	 * Funcao utilizada no buscar, por isso precisa ser implementada
 	 * Ja foi implementada nas outras classes DAO. A implementacao eh
 	 * semelhante.
+	 * @throws DataFormatException 
 	 * */
 	protected abstract Object fetch(ResultSet rs) throws SQLException, ClienteException,
-														PatrimonioException, ReservaException;
+														PatrimonioException, ReservaException, DataFormatException;
 	
 	
 	/**
