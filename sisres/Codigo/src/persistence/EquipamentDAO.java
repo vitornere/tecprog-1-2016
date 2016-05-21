@@ -255,25 +255,29 @@ public class EquipamentDAO {
 	 * @throws SQLException happens when sql code is wrong
 	 */
 	private boolean inDBGeneric(String query) throws SQLException {
-		Connection con = FactoryConnection.getInstance().getConnection();
+		//Start connection
+		Connection connection = FactoryConnection.getInstance().getConnection();
+		PreparedStatement prepare_query_to_execute = connection.prepareStatement(query);
+		
+		//Execute consult
+		ResultSet rs = prepare_query_to_execute.executeQuery();
 
-		assert con != null;
-
-		PreparedStatement pst = con.prepareStatement(query);
-		ResultSet rs = pst.executeQuery();
-
+		//Verify if data exists
+		boolean isExists = true;
 		if (!rs.next()) {
 			rs.close();
-			pst.close();
-			con.close();
-			return false;
+			prepare_query_to_execute.close();
+			connection.close();
+			isExists = false;
 		}
 		else {
 			rs.close();
-			pst.close();
-			con.close();
-			return true;
+			prepare_query_to_execute.close();
+			connection.close();
+			isExists = true;
 		}
+		
+		return isExists;
 	}
 
 	/**
@@ -316,12 +320,6 @@ public class EquipamentDAO {
 						+ "\");");
 	}
 
-	/**
-	 * Method to verify if equipment exists
-	 * @param equipment - equipment to search
-	 * @return boolean - true if exist data in consult or false if not exist
-	 * @throws SQLException happens when sql code is wrong
-	 */
 	/**
 	 * Method to convert result set in Equipment
 	 * @param equipament_data result set contain equipment data
