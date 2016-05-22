@@ -43,7 +43,6 @@ public class Cashier extends Person {
 			String personLastName, String personAddress, String personPhone, int trasitionType,
 			float trasitionValue, String trasitionDate, String trasitionDescription, int code) {
 		super(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress, personPhone);
-		assert(type == INCOME || type == OUTGO):"Tipo não condiz com o esperado";
 		if (type == INCOME || type == OUTGO) {
 			this.type = trasitionType;
 			this.value = trasitionValue;
@@ -86,7 +85,6 @@ public class Cashier extends Person {
 	}
 
 	public void deposito(float value) {
-		assert(value != 0):"Deposito igual a zero";
 		System.out.println("Valor do saldo atual: " + CurrentBalance);
 		CurrentBalance += value;
 		System.out.println("Valor após o depósito: " + CurrentBalance);
