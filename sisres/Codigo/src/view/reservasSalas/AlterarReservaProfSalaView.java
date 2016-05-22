@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import model.ReservaSalaProfessor;
 import exception.ClientException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 /**
  * 
@@ -33,7 +33,7 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
     }
 
     public AlterarReservaProfSalaView(Frame parent, boolean modal, int index, String data) throws SQLException,
-            PatrimonyException, PatrimonyException, ClientException, ReservaException {
+            PatrimonyException, PatrimonyException, ClientException, ReserveException {
         super(parent, modal);
         this.setName("AlterarReservaSalaView");
         this.reservaProfessor = instanceProf.buscarPorData(data).get(index);
@@ -48,7 +48,7 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
             JOptionPane.showMessageDialog(this, "Reserva alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
 
             this.setVisible(false);
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -67,10 +67,10 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
         this.qntCadeirasReservadasTextField.setBackground(Color.white);
         this.horaTextField.setBackground(blue);
         this.horaTextField.setEditable(false);
-        this.horaTextField.setText(reservaProfessor.getHora());
+        this.horaTextField.setText(reservaProfessor.getHour());
         this.alunoTextArea.setText(reservaProfessor.getProfessor().toString());
         this.salaTextArea.setText(reservaProfessor.getSala().toString());
-        this.dataTextField.setText(reservaProfessor.getData());
+        this.dataTextField.setText(reservaProfessor.getDate());
         this.qntCadeirasTxtField.setText(reservaProfessor.getSala().getCapacidade());
         this.qntCadeirasReservadasTextField.setText(reservaProfessor.getSala().getCapacidade());
         this.qntCadeirasReservadasTextField.setBackground(blue);

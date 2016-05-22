@@ -14,7 +14,7 @@ import model.ReservaSalaAluno;
 import model.ReservaSalaProfessor;
 import exception.ClientException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 /**
  * 
@@ -35,7 +35,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
     }
 
     public AlterarReservaAlunoSalaView(Frame parent, boolean modal, int index, String data) throws SQLException,
-            PatrimonyException, PatrimonyException, ClientException, ReservaException {
+            PatrimonyException, PatrimonyException, ClientException, ReserveException {
         super(parent, modal);
         this.setName("AlterarReservaSalaView");
         this.reservaAluno = instanceAluno.getReservasMes(data).get(index);
@@ -50,7 +50,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
             JOptionPane.showMessageDialog(this, "Reserva alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
 
             this.setVisible(false);
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -79,10 +79,10 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
         this.qntCadeirasReservadasTextField.setBackground(Color.white);
         this.horaTextField.setBackground(new Color(200, 208, 254));
         this.horaTextField.setEditable(false);
-        this.horaTextField.setText(reservaAluno.getHora());
+        this.horaTextField.setText(reservaAluno.getHour());
         this.alunoTextArea.setText(reservaAluno.getAluno().toString());
         this.salaTextArea.setText(reservaAluno.getSala().toString());
-        this.dataTextField.setText(reservaAluno.getData());
+        this.dataTextField.setText(reservaAluno.getDate());
         this.qntCadeirasTxtField.setText(reservaAluno.getSala().getCapacidade());
         this.qntCadeirasReservadasTextField.setText(reservaAluno.getCadeiras_reservadas());
         this.finalidadeTextField.setText(reservaAluno.getFinalidade());
@@ -92,7 +92,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
         try {
             this.qntCadeirasTxtField.setText(String.valueOf(instanceAluno.cadeirasDisponveis(sala, this.dataTextField.getText(),
                     this.horaTextField.getText())));
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (PatrimonyException ex) {

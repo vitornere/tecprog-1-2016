@@ -25,7 +25,7 @@ import control.ManterResSalaAluno;
 import control.ManterResSalaProfessor;
 import exception.ClientException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 /**
  * 
@@ -50,7 +50,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             if (this.sala != null && (r.getSala().equals(this.sala))) {
                 nomesTabela.add(String.valueOf(index));
                 nomesTabela.add("Aluno");
-                nomesTabela.add(r.getHora());
+                nomesTabela.add(r.getHour());
                 nomesTabela.add(r.getAluno().getNamePerson());
                 nomesTabela.add(r.getAluno().getIdRegister());
                 nomesTabela.add(r.getFinalidade());
@@ -65,7 +65,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
 
                 nomesTabela.add(String.valueOf(index));
                 nomesTabela.add("Professor");
-                nomesTabela.add(r.getHora());
+                nomesTabela.add(r.getHour());
                 nomesTabela.add(r.getProfessor().getNamePerson());
                 nomesTabela.add(r.getProfessor().getIdRegister());
                 nomesTabela.add(r.getFinalidade());
@@ -125,7 +125,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClientException ex) {
             Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException ex) {
             Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
@@ -167,7 +167,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         }
     }
@@ -182,7 +182,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         }
     }
@@ -204,7 +204,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         }
     }

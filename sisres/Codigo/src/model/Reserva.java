@@ -3,7 +3,7 @@ package model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class Reserva {
 
@@ -20,26 +20,26 @@ public class Reserva {
 		private final String DATA_BRANCA = "A data esta em branco.";
 		private final String DATA_PATTERN = "^[0123]?[\\d]([./-])[01]?[\\d]\\1[\\d]{2,4}$";
 	
-	public Reserva(String data, String hora) throws ReservaException {
+	public Reserva(String data, String hora) throws ReserveException {
 		this.setData(data);
 		this.setHora(hora);
 	}
 
-	public String getHora() {
+	public String getHour() {
 		return this.hora;
 	}
 
-	public String getData() {
+	public String getDate() {
 		return this.data;
 	}
 
-	public void setHora(String hora) throws ReservaException {
+	public void setHora(String hora) throws ReserveException {
 		if(hora == null)
-			throw new ReservaException(HORA_NULA);
+			throw new ReserveException(HORA_NULA);
 		
 		hora = hora.trim();
 		if(hora.equals(""))
-			throw new ReservaException(HORA_BRANCA);
+			throw new ReserveException(HORA_BRANCA);
 		else if(hora.matches(HORA_PATTERN)){
 			if(hora.length() == 4)
 				this.hora = "0" + hora;
@@ -47,27 +47,27 @@ public class Reserva {
 				this.hora = hora;
 		}
 		else
-			throw new ReservaException(HORA_INVALIDA);
+			throw new ReserveException(HORA_INVALIDA);
 	}
 
-	public void setData(String data) throws ReservaException {
+	public void setData(String data) throws ReserveException {
 		if(data == null)
-			throw new ReservaException(DATA_NULA);
+			throw new ReserveException(DATA_NULA);
 		
 		data = data.trim();
 		if(data.equals(""))
-			throw new ReservaException(DATA_BRANCA);
+			throw new ReserveException(DATA_BRANCA);
 		else if(data.matches(DATA_PATTERN)){
 			this.data = padronizarData(data);
 		}
 		else
-			throw new ReservaException(DATA_INVALIDA);
+			throw new ReserveException(DATA_INVALIDA);
 		
 	}
 
 	public boolean equals(Reserva obj) {
-		return (this.hora.equals(obj.getHora()) &&
-			this.data.equals(obj.getData()));
+		return (this.hora.equals(obj.getHour()) &&
+			this.data.equals(obj.getDate()));
 	}
 	
 	@Override

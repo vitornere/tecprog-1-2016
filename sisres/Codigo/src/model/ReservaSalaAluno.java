@@ -1,6 +1,6 @@
 package model;
 
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class ReservaSalaAluno extends ReservaSala{
 	
@@ -16,7 +16,7 @@ public class ReservaSalaAluno extends ReservaSala{
 		private final String CADEIRAS_PATTERN = "^[\\d]+$";
 
 	public ReservaSalaAluno(String data, String hora, Sala sala,
-			String finalidade, String cadeiras_reservadas, Student aluno) throws ReservaException {
+			String finalidade, String cadeiras_reservadas, Student aluno) throws ReserveException {
 		super(data, hora, sala, finalidade);
 		this.setAluno(aluno);
 		this.setCadeiras_reservadas(cadeiras_reservadas);
@@ -30,27 +30,27 @@ public class ReservaSalaAluno extends ReservaSala{
 		return this.cadeiras_reservadas;
 	}
 
-	public void setAluno(Student aluno) throws ReservaException {
+	public void setAluno(Student aluno) throws ReserveException {
 		if(aluno == null)
-			throw new ReservaException(ALUNO_NULO);
+			throw new ReserveException(ALUNO_NULO);
 		this.aluno = aluno;
 	}
 
-	public void setCadeiras_reservadas(String cadeiras_reservadas) throws ReservaException {
+	public void setCadeiras_reservadas(String cadeiras_reservadas) throws ReserveException {
 		String c = cadeiras_reservadas;
 		if(c == null)
-			throw new ReservaException(CADEIRAS_NULA);
+			throw new ReserveException(CADEIRAS_NULA);
 		c = c.trim();
 		if(c.equals(""))
-			throw new ReservaException(CADEIRAS_BRANCO);
+			throw new ReserveException(CADEIRAS_BRANCO);
 		else if(c.matches(CADEIRAS_PATTERN)){
 			if(Integer.parseInt(super.getSala().getCapacidade()) < Integer.parseInt(cadeiras_reservadas))
-				throw new ReservaException(CADEIRAS_ACIMA_DO_LIMITE);
+				throw new ReserveException(CADEIRAS_ACIMA_DO_LIMITE);
 			else
 				this.cadeiras_reservadas = cadeiras_reservadas;
 		}
 		else
-			throw new ReservaException(CADEIRAS_INVALIDA);
+			throw new ReserveException(CADEIRAS_INVALIDA);
 	}
 
 

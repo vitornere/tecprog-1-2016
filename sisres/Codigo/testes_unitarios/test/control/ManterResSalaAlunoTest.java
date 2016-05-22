@@ -21,7 +21,7 @@ import control.ManterResSalaAluno;
 
 import exception.ClientException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 import persistence.StudentDAO;
 import persistence.FactoryConnection;
@@ -61,7 +61,7 @@ public class ManterResSalaAlunoTest {
 	
 	
 	@Test
-	public void testInserir() throws SQLException, ReservaException, ClientException, PatrimonyException {
+	public void testInserir() throws SQLException, ReserveException, ClientException, PatrimonyException {
 		String cadeiras_reservadas = "120";
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
@@ -75,7 +75,7 @@ public class ManterResSalaAlunoTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
-	public void testAlterar() throws ReservaException, SQLException, ClientException, PatrimonyException {
+	public void testAlterar() throws ReserveException, SQLException, ClientException, PatrimonyException {
 		String cadeiras_reservadas = "120";
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
@@ -94,7 +94,7 @@ public class ManterResSalaAlunoTest {
 		assertTrue("Teste de Alteracao.", resultado && resultado2);
 	}
 	@Test
-	public void testExcluir() throws ReservaException, SQLException {
+	public void testExcluir() throws ReserveException, SQLException {
 		String cadeiras_reservadas = "120";
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
@@ -113,7 +113,7 @@ public class ManterResSalaAlunoTest {
 	}
 	
 	@Test
-	public void testVetDia() throws SQLException, ReservaException, ClientException, PatrimonyException {
+	public void testVetDia() throws SQLException, ReserveException, ClientException, PatrimonyException {
 		Student aluno2 = new Student("testInswewee", "490.491.781-20", "4324678", "", "");
 		ReservaSalaAluno r = new ReservaSalaAluno("1/3/20", "9:11", sala1, "Sala de Estudos", "60", aluno1);
 		ReservaSalaAluno r2 = new ReservaSalaAluno("1/3/20", "9:11", sala1,"Sala de Estudos", "30", aluno2);
@@ -146,7 +146,7 @@ public class ManterResSalaAlunoTest {
 	}
 	
 	@Test
-	public void testVetDiaHoje() throws SQLException, ReservaException, ClientException, PatrimonyException {
+	public void testVetDiaHoje() throws SQLException, ReserveException, ClientException, PatrimonyException {
 		Student aluno2 = new Student("testInswewee", "490.491.781-20", "4324678", "", "");
 		ReservaSalaAluno r = new ReservaSalaAluno("26/02/2013", "20:00", sala1, "Sala de Estudos", "60", aluno1);
 		ReservaSalaAluno r2 = new ReservaSalaAluno("26/02/2013", "20:00", sala1,"Sala de Estudos", "30", aluno2);
@@ -198,16 +198,16 @@ public class ManterResSalaAlunoTest {
 		"id_aluno = ( " + select_id_aluno(r.getAluno()) + " ) and " +
 		"id_sala = ( " + select_id_sala(r.getSala()) + " ) and " +
 		"finalidade = \"" + r.getFinalidade() + "\" and " +
-		"hora = \"" + r.getHora() + "\" and " +
-		"data = \"" + r.getData() + "\" and " +
+		"hora = \"" + r.getHour() + "\" and " +
+		"data = \"" + r.getDate() + "\" and " +
 		"cadeiras_reservadas = " + r.getCadeiras_reservadas();
 	}
 	private String values_reserva_sala_aluno(ReservaSalaAluno r){
 		return "( " + select_id_aluno(r.getAluno()) + " ), " +
 		"( " + select_id_sala(r.getSala()) + " ), " +
 		"\"" + r.getFinalidade() + "\", " +
-		"\"" + r.getHora() + "\", " +
-		"\"" + r.getData() + "\", " +
+		"\"" + r.getHour() + "\", " +
+		"\"" + r.getDate() + "\", " +
 		r.getCadeiras_reservadas();
 	}
 	private void insert_into(ReservaSalaAluno r){

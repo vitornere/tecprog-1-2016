@@ -19,7 +19,7 @@ import org.junit.Test;
 import control.ManterResSalaProfessor;
 import exception.ClientException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 import persistence.FactoryConnection;
 import persistence.ProfessorDAO;
@@ -57,7 +57,7 @@ public class ManterResSalaProfessorTest {
 	
 	
 	@Test
-	public void testInserir() throws SQLException, ReservaException, ClientException, PatrimonyException {
+	public void testInserir() throws SQLException, ReserveException, ClientException, PatrimonyException {
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
 		String hora = "9:11";
@@ -70,7 +70,7 @@ public class ManterResSalaProfessorTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
-	public void testAlterar() throws ReservaException, SQLException, ClientException, PatrimonyException {
+	public void testAlterar() throws ReserveException, SQLException, ClientException, PatrimonyException {
 		
 		ReservaSalaProfessor reserva = new ReservaSalaProfessor("20/12/33", "9:11", sala1, "Pesquisa", professor1);
 		this.insert_into(reserva);
@@ -86,7 +86,7 @@ public class ManterResSalaProfessorTest {
 		assertTrue("Teste de Alteracao.", resultado && resultado2);
 	}
 	@Test
-	public void testExcluir() throws ReservaException, SQLException {
+	public void testExcluir() throws ReserveException, SQLException {
 		String finalidade = "Pesquisa";
 		String data = "20/12/33";
 		String hora = "9:11";
@@ -121,15 +121,15 @@ public class ManterResSalaProfessorTest {
 		"id_professor = ( " + select_id_professor(reserva.getProfessor()) + " ) and " +
 		"id_sala = ( " + select_id_sala(reserva.getSala()) + " ) and " +
 		"finalidade = \"" + reserva.getFinalidade() + "\" and " +
-		"hora = \"" + reserva.getHora() + "\" and " +
-		"data = \"" + reserva.getData() + "\" ";
+		"hora = \"" + reserva.getHour() + "\" and " +
+		"data = \"" + reserva.getDate() + "\" ";
 	}
 	private String values_reserva_sala_professor(ReservaSalaProfessor reserva){
 		return "( " + select_id_professor(reserva.getProfessor()) + " ), " +
 		"( " + select_id_sala(reserva.getSala()) + " ), " +
 		"\"" + reserva.getFinalidade() + "\", " +
-		"\"" + reserva.getHora() + "\", " +
-		"\"" + reserva.getData() + "\"";
+		"\"" + reserva.getHour() + "\", " +
+		"\"" + reserva.getDate() + "\"";
 	}
 	private void insert_into(ReservaSalaProfessor reserva){
 		try {

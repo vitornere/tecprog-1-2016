@@ -11,20 +11,20 @@ import javax.swing.JOptionPane;
 
 import model.Professor;
 import control.ProfessorRegister;
-import control.ManterResEquipamentoProfessor;
+import control.ReserveEquipmentProfessorRegister;
 import exception.ClientException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
 
-    protected ManterResEquipamentoProfessor instanceProf;
+    protected ReserveEquipmentProfessorRegister instanceProf;
     protected Professor prof;
 
     public ReservaEquipamentoView(java.awt.Frame parent, boolean modal) throws SQLException, PatrimonyException,
-            PatrimonyException, ClientException, ReservaException {
+            PatrimonyException, ClientException, ReserveException {
         super(parent, modal);
-        this.instanceProf = ManterResEquipamentoProfessor.getInstance();
+        this.instanceProf = ReserveEquipmentProfessorRegister.getReserveEquipmentProfessor();
 
         initComponents();
     }

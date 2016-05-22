@@ -9,7 +9,7 @@ import java.util.Vector;
 
 import exception.ClientException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 import model.Student;
 import model.ReservaSalaAluno;
@@ -63,24 +63,24 @@ public class ResSalaAlunoDAO extends DAO{
 			"id_aluno = ( " + select_id_aluno(r.getAluno()) + " ) and " +
 			"id_sala = ( " + select_id_sala(r.getSala()) + " ) and " +
 			"finalidade = \"" + r.getFinalidade() + "\" and " +
-			"hora = \"" + r.getHora() + "\" and " +
-			"data = \"" + r.getData() + "\" and " +
+			"hora = \"" + r.getHour() + "\" and " +
+			"data = \"" + r.getDate() + "\" and " +
 			"cadeiras_reservadas = " + r.getCadeiras_reservadas();
 		}
 		private String values_reserva_sala_aluno(ReservaSalaAluno r){
 			return "( " + select_id_aluno(r.getAluno()) + " ), " +
 			"( " + select_id_sala(r.getSala()) + " ), " +
 			"\"" + r.getFinalidade() + "\", " +
-			"\"" + r.getHora() + "\", " +
-			"\"" + r.getData() + "\", " +
+			"\"" + r.getHour() + "\", " +
+			"\"" + r.getDate() + "\", " +
 			r.getCadeiras_reservadas();
 		}
 		private String atibutes_value_reserva_sala_aluno(ReservaSalaAluno r){
 			return "id_aluno = ( " + select_id_aluno(r.getAluno()) + " ), " +
 			"id_sala = ( " + select_id_sala(r.getSala()) + " ), " +
 			"finalidade = \"" + r.getFinalidade() + "\", " +
-			"hora = \"" + r.getHora() + "\", " +
-			"data = \"" + r.getData() + "\", " +
+			"hora = \"" + r.getHour() + "\", " +
+			"data = \"" + r.getDate() + "\", " +
 			"cadeiras_reservadas = " + r.getCadeiras_reservadas();
 		}
 		private String insert_into(ReservaSalaAluno r){
@@ -99,25 +99,25 @@ public class ResSalaAlunoDAO extends DAO{
 
 		
 		
-	public void incluir(ReservaSalaAluno r) throws ReservaException, SQLException, ClientException, PatrimonyException {
+	public void incluir(ReservaSalaAluno r) throws ReserveException, SQLException, ClientException, PatrimonyException {
 		if(r == null)
-			throw new ReservaException(NULA);
+			throw new ReserveException(NULA);
 		else if(!this.alunoinDB(r.getAluno()))
-			throw new ReservaException(ALUNO_INEXISTENTE);
+			throw new ReserveException(ALUNO_INEXISTENTE);
 		else if(!this.salainDB(r.getSala()))
-			throw new ReservaException(SALA_INEXISTENTE);
-		else if(this.salainReservaProfessorDB(r.getSala(), r.getData(), r.getHora()))
-			throw new ReservaException(SALA_INDISPONIVEL);
-		else if(this.alunoinReservaDB(r.getAluno(), r.getData(), r.getHora()))
-			throw new ReservaException(ALUNO_INDISPONIVEL);
-		else if(!this.haCadeiras(r.getCadeiras_reservadas(), r.getSala(), r.getData(), r.getHora()))
-			throw new ReservaException(CADEIRAS_INDISPONIVEIS);
-		if(this.dataPassou(r.getData()))
-			throw new ReservaException(DATA_JA_PASSOU);
-		if(this.dataIgual(r.getData()))
+			throw new ReserveException(SALA_INEXISTENTE);
+		else if(this.salainReservaProfessorDB(r.getSala(), r.getDate(), r.getHour()))
+			throw new ReserveException(SALA_INDISPONIVEL);
+		else if(this.alunoinReservaDB(r.getAluno(), r.getDate(), r.getHour()))
+			throw new ReserveException(ALUNO_INDISPONIVEL);
+		else if(!this.haCadeiras(r.getCadeiras_reservadas(), r.getSala(), r.getDate(), r.getHour()))
+			throw new ReserveException(CADEIRAS_INDISPONIVEIS);
+		if(this.dataPassou(r.getDate()))
+			throw new ReserveException(DATA_JA_PASSOU);
+		if(this.dataIgual(r.getDate()))
 		{
-			if(this.horaPassou(r.getHora()))
-				throw new ReservaException(HORA_JA_PASSOU);
+			if(this.horaPassou(r.getHour()))
+				throw new ReserveException(HORA_JA_PASSOU);
 			else
 				super.executeQuery(this.insert_into(r));
 		}
@@ -125,54 +125,54 @@ public class ResSalaAlunoDAO extends DAO{
 			super.executeQuery(this.insert_into(r));
 	}
 	
-	public void alterar(ReservaSalaAluno r, ReservaSalaAluno r_new) throws ReservaException, SQLException, ClientException, PatrimonyException{
+	public void alterar(ReservaSalaAluno r, ReservaSalaAluno r_new) throws ReserveException, SQLException, ClientException, PatrimonyException{
 		if(r == null)
-			throw new ReservaException(NULA);
+			throw new ReserveException(NULA);
 		else if(r_new == null)
-			throw new ReservaException(NULA);
+			throw new ReserveException(NULA);
 		
 		else if(!this.reservainDB(r))
-			throw new ReservaException(RESERVA_INEXISTENTE);
+			throw new ReserveException(RESERVA_INEXISTENTE);
 		else if(this.reservainDB(r_new))
-			throw new ReservaException(RESERVA_EXISTENTE);
+			throw new ReserveException(RESERVA_EXISTENTE);
 		else if(!this.alunoinDB(r_new.getAluno()))
-			throw new ReservaException(ALUNO_INEXISTENTE);
+			throw new ReserveException(ALUNO_INEXISTENTE);
 		else if(!this.salainDB(r_new.getSala()))
-			throw new ReservaException(SALA_INEXISTENTE);
-		else if(!r.getData().equals(r_new.getData()) || !r.getHora().equals(r_new.getHora())){
-			if(this.alunoinReservaDB(r_new.getAluno(), r_new.getData(), r_new.getHora()))
-				throw new ReservaException(ALUNO_INDISPONIVEL);
-			else if(this.salainReservaProfessorDB(r_new.getSala(), r_new.getData(), r_new.getHora()))
-				throw new ReservaException(SALA_INDISPONIVEL);
+			throw new ReserveException(SALA_INEXISTENTE);
+		else if(!r.getDate().equals(r_new.getDate()) || !r.getHour().equals(r_new.getHour())){
+			if(this.alunoinReservaDB(r_new.getAluno(), r_new.getDate(), r_new.getHour()))
+				throw new ReserveException(ALUNO_INDISPONIVEL);
+			else if(this.salainReservaProfessorDB(r_new.getSala(), r_new.getDate(), r_new.getHour()))
+				throw new ReserveException(SALA_INDISPONIVEL);
 		}
 		if(!this.haCadeiras(""+(Integer.parseInt(r_new.getCadeiras_reservadas()) - 
 				Integer.parseInt(r.getCadeiras_reservadas())), r_new.getSala(), 
-				r_new.getData(), r_new.getHora()))
-			throw new ReservaException(CADEIRAS_INDISPONIVEIS);
-		if(this.dataPassou(r_new.getData()))
-			throw new ReservaException(DATA_JA_PASSOU);
-		if(this.horaPassou(r_new.getHora()) && this.dataIgual(r_new.getData()))
-			throw new ReservaException(HORA_JA_PASSOU);
+				r_new.getDate(), r_new.getHour()))
+			throw new ReserveException(CADEIRAS_INDISPONIVEIS);
+		if(this.dataPassou(r_new.getDate()))
+			throw new ReserveException(DATA_JA_PASSOU);
+		if(this.horaPassou(r_new.getHour()) && this.dataIgual(r_new.getDate()))
+			throw new ReserveException(HORA_JA_PASSOU);
 		else
 			super.updateQuery(this.update(r, r_new));
 			
 	}
 	
-	public void excluir(ReservaSalaAluno r) throws ReservaException, SQLException {
+	public void excluir(ReservaSalaAluno r) throws ReserveException, SQLException {
 		if(r == null)
-			throw new ReservaException(NULA);
+			throw new ReserveException(NULA);
 		else if(!this.reservainDB(r))
-			throw new ReservaException(RESERVA_INEXISTENTE);
+			throw new ReserveException(RESERVA_INEXISTENTE);
 		else
 			super.executeQuery(this.delete_from(r));
 	}
 	
-	public Vector<ReservaSalaAluno> buscarTodos() throws SQLException, ClientException, PatrimonyException, ReservaException{
+	public Vector<ReservaSalaAluno> buscarTodos() throws SQLException, ClientException, PatrimonyException, ReserveException{
 		return super.buscar("SELECT * FROM reserva_sala_aluno " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala " +
 				"INNER JOIN aluno ON aluno.id_aluno = reserva_sala_aluno.id_aluno;");
 	}
-	public Vector<ReservaSalaAluno> buscarPorDia(String data) throws SQLException, ClientException, PatrimonyException, ReservaException{
+	public Vector<ReservaSalaAluno> buscarPorDia(String data) throws SQLException, ClientException, PatrimonyException, ReserveException{
 		data = this.padronizarData(data);
 		return super.buscar("SELECT * FROM reserva_sala_aluno " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala " +
@@ -180,7 +180,7 @@ public class ResSalaAlunoDAO extends DAO{
 				"WHERE data = \""+ data + "\";");
 	}
 	public Vector<ReservaSalaAluno> buscarPorHora(String hora) 
-			throws SQLException, ClientException, PatrimonyException, ReservaException{
+			throws SQLException, ClientException, PatrimonyException, ReserveException{
 		hora = this.padronizarHora(hora);
 		return super.buscar("SELECT * FROM reserva_sala_aluno " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala " +
@@ -190,7 +190,7 @@ public class ResSalaAlunoDAO extends DAO{
 
 	
 	public int cadeirasDisponiveis(Sala sala, String data, String hora) 
-			throws SQLException, PatrimonyException, ClientException, ReservaException{
+			throws SQLException, PatrimonyException, ClientException, ReserveException{
 		data = this.padronizarData(data);
 		hora = this.padronizarHora(hora);
 		Vector<ReservaSalaAluno> vet = this.buscarTodos();
@@ -198,7 +198,7 @@ public class ResSalaAlunoDAO extends DAO{
 		int total = Integer.parseInt(sala.getCapacidade());
 		while(it.hasNext()){
 			ReservaSalaAluno r = it.next();
-			if(r.getSala().equals(sala) && r.getData().equals(data) && r.getHora().equals(hora))
+			if(r.getSala().equals(sala) && r.getDate().equals(data) && r.getHour().equals(hora))
 				total -= Integer.parseInt(r.getCadeiras_reservadas());
 		}
 		return total;
@@ -206,14 +206,14 @@ public class ResSalaAlunoDAO extends DAO{
 	
 	
 	private boolean haCadeiras(String cadeiras_reservadas, Sala sala, String data, String hora) 
-			throws SQLException, ClientException, PatrimonyException, ReservaException {
+			throws SQLException, ClientException, PatrimonyException, ReserveException {
 		if(this.cadeirasDisponiveis(sala, data, hora) >= Integer.parseInt(cadeiras_reservadas))
 			return true;
 		return false;
 	}
 	
 	@Override
-	protected Object fetch(ResultSet rs) throws SQLException, ClientException, PatrimonyException, ReservaException {
+	protected Object fetch(ResultSet rs) throws SQLException, ClientException, PatrimonyException, ReserveException {
 		Student a = new Student(rs.getString("nome"), rs.getString("cpf"), rs.getString("matricula"),
 				rs.getString("telefone"), rs.getString("email"));
 		
@@ -276,8 +276,8 @@ public class ResSalaAlunoDAO extends DAO{
 									"sala.descricao = \"" + r.getSala().getDescriptionEquipment() +  "\" and " +
 									"sala.capacidade = " + r.getSala().getCapacidade() +" ) and " +
 					"finalidade = \"" + r.getFinalidade() + "\" and " +
-					"hora = \"" + r.getHora() + "\" and " +
-					"data = \"" + r.getData() + "\" and " +
+					"hora = \"" + r.getHour() + "\" and " +
+					"data = \"" + r.getDate() + "\" and " +
 					"cadeiras_reservadas = " + r.getCadeiras_reservadas() + ";");
 	}
 

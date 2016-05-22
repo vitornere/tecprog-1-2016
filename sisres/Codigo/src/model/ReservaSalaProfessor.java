@@ -1,6 +1,6 @@
 package model;
 
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class ReservaSalaProfessor extends ReservaSala{
 
@@ -10,7 +10,7 @@ public class ReservaSalaProfessor extends ReservaSala{
 		private final String PROFESSOR_NULO = "O professor esta nulo.";
 	
 	public ReservaSalaProfessor(String data, String hora, Sala sala,
-			String finalidade, Professor professor) throws ReservaException {
+			String finalidade, Professor professor) throws ReserveException {
 		super(data, hora, sala, finalidade);
 		this.setProfessor(professor);
 	}
@@ -19,9 +19,9 @@ public class ReservaSalaProfessor extends ReservaSala{
 		return this.professor;
 	}
 
-	public void setProfessor(Professor professor) throws ReservaException {
+	public void setProfessor(Professor professor) throws ReserveException {
 		if(professor == null)
-			throw new ReservaException(PROFESSOR_NULO);
+			throw new ReserveException(PROFESSOR_NULO);
 		this.professor = professor;
 	}
 

@@ -1,6 +1,6 @@
 package model;
 
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class ReservaSala extends Reserva{
 
@@ -13,7 +13,7 @@ public class ReservaSala extends Reserva{
 		private final String FINALIDADE_BRANCO = "A finalidade esta em branco.";
 				
 	
-	public ReservaSala(String data, String hora, Sala sala, String finalidade) throws ReservaException {
+	public ReservaSala(String data, String hora, Sala sala, String finalidade) throws ReserveException {
 		super(data, hora);
 		this.setSala(sala);
 		this.setFinalidade(finalidade);
@@ -27,19 +27,19 @@ public class ReservaSala extends Reserva{
 		return this.finalidade;
 	}
 
-	public void setSala(Sala sala) throws ReservaException {
+	public void setSala(Sala sala) throws ReserveException {
 		if(sala == null)
-			throw new ReservaException(SALA_NULO);
+			throw new ReserveException(SALA_NULO);
 		this.sala = sala;
 	}
 
-	public void setFinalidade(String finalidade) throws ReservaException {
+	public void setFinalidade(String finalidade) throws ReserveException {
 		if(finalidade == null)
-			throw new ReservaException(FINALIDADE_NULA);
+			throw new ReserveException(FINALIDADE_NULA);
 		
 		finalidade = finalidade.trim();
 		if(finalidade.equals(""))
-			throw new ReservaException(FINALIDADE_BRANCO);
+			throw new ReserveException(FINALIDADE_BRANCO);
 		else
 			this.finalidade = finalidade;
 	}

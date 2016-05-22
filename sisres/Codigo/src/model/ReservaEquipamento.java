@@ -1,6 +1,6 @@
 package model;
 
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class ReservaEquipamento extends Reserva {
 
@@ -9,27 +9,27 @@ public class ReservaEquipamento extends Reserva {
     // Mensagens
     private final String EQUIPAMENTO_NULO = "O equipamneto esta nulo.";
 
-    public ReservaEquipamento(String data, String hora, Equipment equipamento) throws ReservaException {
+    public ReservaEquipamento(String data, String hora, Equipment equipamento) throws ReserveException {
         super(data, hora);
         this.setEquipamento(equipamento);
     }
 
-    public Equipment getEquipamento() {
+    public Equipment getEquipment() {
         return this.equipamento;
     }
 
-    public void setEquipamento(Equipment equipamento) throws ReservaException {
+    public void setEquipamento(Equipment equipamento) throws ReserveException {
         if (equipamento == null)
-            throw new ReservaException(EQUIPAMENTO_NULO);
+            throw new ReserveException(EQUIPAMENTO_NULO);
         this.equipamento = equipamento;
     }
 
     public boolean equals(ReservaEquipamento obj) {
-        return (super.equals(obj) && this.getEquipamento().equals(obj.getEquipamento()));
+        return (super.equals(obj) && this.getEquipment().equals(obj.getEquipment()));
     }
 
     @Override public String toString() {
-        return "ReservaEquipamento [equipamento=" + this.getEquipamento() + ", toString()=" + super.toString() + "]";
+        return "ReservaEquipamento [equipamento=" + this.getEquipment() + ", toString()=" + super.toString() + "]";
     }
 
 }

@@ -10,10 +10,10 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import model.ReservaEquipamentoProfessor;
+import model.ReserveEquipmentProfessor;
 import exception.ClientException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 /**
  * 
@@ -22,7 +22,7 @@ import exception.ReservaException;
 public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
 
     int index;
-    ReservaEquipamentoProfessor reserva;
+    ReserveEquipmentProfessor reserva;
 
     private void resetComponents() {
         this.reservarButton.setText("Alterar");
@@ -30,26 +30,26 @@ public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
         this.cpfLabel.setEnabled(false);
         this.cpfTextField.setBackground(new Color(200, 208, 254));
         this.cpfTextField.setEditable(false);
-        this.horaTextField.setText(reserva.getHora());
-        this.dataTextField.setText(reserva.getData());
+        this.horaTextField.setText(reserva.getHour());
+        this.dataTextField.setText(reserva.getDate());
         this.professorTextArea.setText(reserva.getProfessor().toString());
     }
 
     public AlterarReservaEquipamentoView(Frame parent, boolean modal, int index, int mes) throws SQLException, PatrimonyException,
-            PatrimonyException, ClientException, ReservaException {
+            PatrimonyException, ClientException, ReserveException {
         super(parent, modal);
         this.index = index;
-        reserva = this.instanceProf.getReservasMes(mes).get(index);
+        reserva = this.instanceProf.getMonthReservations(mes).get(index);
         resetComponents();
     }
 
     @Override protected void reservarProfessor() {
         try {
 
-            instanceProf.alterar(null, reserva);
+            instanceProf.update(null, reserva);
             JOptionPane.showMessageDialog(this, "Reserva alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             this.setVisible(false);
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
