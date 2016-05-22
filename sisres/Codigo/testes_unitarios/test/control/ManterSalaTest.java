@@ -7,7 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import persistence.FactoryConnection;
-import control.ManterSala;
+import control.ClassroomRegister;
 import model.Classroom;
 import exception.PatrimonyException;
 
@@ -31,13 +31,13 @@ public class ManterSalaTest {
 	
 	@Test
 	public void testGetInstance() {
-		assertTrue("Verifica metodo getInstance().", ManterSala.getInstance() instanceof ManterSala);
+		assertTrue("Verifica metodo getInstance().", ClassroomRegister.getClassroom() instanceof ClassroomRegister);
 	}
 	
 	@Test
 	public void testSingleton() {
-		ManterSala p = ManterSala.getInstance();
-		ManterSala q = ManterSala.getInstance();
+		ClassroomRegister p = ClassroomRegister.getClassroom();
+		ClassroomRegister q = ClassroomRegister.getClassroom();
 		assertSame("Testando o Padrao Singleton", p, q);
 	}
 
@@ -45,12 +45,12 @@ public class ManterSalaTest {
 	@Test
 	public void testInserir() throws PatrimonyException, SQLException {
 		Classroom sala_new = new Classroom("codigo", "descricao", "2");
-		ManterSala.getInstance().inserir("codigo", "descricao", "2");
+		ClassroomRegister.getClassroom().insert("codigo", "descricao", "2");
 		assertNotNull("Falha ao inserir", this.procurarNoVetor(sala_new));
 		this.executaNoBanco("DELETE FROM sala WHERE " +
 				"sala.codigo = \"" + sala_new.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala_new.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + sala_new.getCapacidade() + ";"
+				"sala.capacidade = " + sala_new.getCapacity() + ";"
 				);
 	}
 
@@ -63,16 +63,16 @@ public class ManterSalaTest {
 				"sala (codigo, descricao, capacidade) VALUES (" +
 				"\"" + sala.getIdEquipment() + "\", " +
 				"\"" + sala.getDescriptionEquipment() + "\", " +
-				"" + sala.getCapacidade() + "); "
+				"" + sala.getCapacity() + "); "
 				);
-		ManterSala.getInstance().alterar("codigo", "descricao", "2", sala);
+		ClassroomRegister.getClassroom().update("codigo", "descricao", "2", sala);
 		
 		assertNotNull("Falha ao alterar", this.procurarNoVetor(sala_new));
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
 				"sala.codigo = \"" + sala_new.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala_new.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + sala_new.getCapacidade() + ";"
+				"sala.capacidade = " + sala_new.getCapacity() + ";"
 				);
 	}
 
@@ -84,16 +84,16 @@ public class ManterSalaTest {
 				"sala (codigo, descricao, capacidade) VALUES (" +
 				"\"" + sala.getIdEquipment() + "\", " +
 				"\"" + sala.getDescriptionEquipment() + "\", " +
-				"" + sala.getCapacidade() + "); "
+				"" + sala.getCapacity() + "); "
 				);
 		
-		ManterSala.getInstance().excluir(sala);
+		ClassroomRegister.getClassroom().delete(sala);
 		
 		assertNull("Falha ao excluir", this.procurarNoVetor(sala));
 	}
 
 	public Classroom procurarNoVetor(Classroom teste) throws PatrimonyException, SQLException {
-		Vector<Classroom> todos = ManterSala.getInstance().getSalas_vet();
+		Vector<Classroom> todos = ClassroomRegister.getClassroom().getVectorClassroom();
 		Iterator<Classroom> i = todos.iterator();
 		while(i.hasNext()){
 			Classroom e = i.next();

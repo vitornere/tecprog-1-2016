@@ -71,8 +71,8 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
         this.alunoTextArea.setText(reservaProfessor.getProfessor().toString());
         this.salaTextArea.setText(reservaProfessor.getClassroom().toString());
         this.dataTextField.setText(reservaProfessor.getDate());
-        this.qntCadeirasTxtField.setText(reservaProfessor.getClassroom().getCapacidade());
-        this.qntCadeirasReservadasTextField.setText(reservaProfessor.getClassroom().getCapacidade());
+        this.qntCadeirasTxtField.setText(reservaProfessor.getClassroom().getCapacity());
+        this.qntCadeirasReservadasTextField.setText(reservaProfessor.getClassroom().getCapacity());
         this.qntCadeirasReservadasTextField.setBackground(blue);
         this.qntCadeirasReservadasTextField.setEditable(false);
         this.finalidadeTextField.setText(reservaProfessor.getFinality());

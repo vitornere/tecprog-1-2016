@@ -16,7 +16,7 @@ import view.alteracoes.AlterarSala;
 import view.cadastros.CadastroPatrimonio;
 import view.cadastros.CadastroSala;
 import view.diasReservas.DiaReservaSala;
-import control.ManterSala;
+import control.ClassroomRegister;
 import exception.PatrimonyException;
 
 /**
@@ -41,7 +41,7 @@ public class SalaView extends PatrimonioView {
 
         nomesTabela.add(sala.getIdEquipment());
         nomesTabela.add(sala.getDescriptionEquipment());
-        nomesTabela.add(sala.getCapacidade());
+        nomesTabela.add(sala.getCapacity());
 
         return nomesTabela;
 
@@ -51,7 +51,7 @@ public class SalaView extends PatrimonioView {
         try {
             DefaultTableModel table = new DefaultTableModel();
 
-            Iterator<Classroom> i = ManterSala.getInstance().getSalas_vet().iterator();
+            Iterator<Classroom> i = ClassroomRegister.getClassroom().getVectorClassroom().iterator();
 
             table.addColumn("Codigo");
             table.addColumn("Nome");
@@ -91,11 +91,11 @@ public class SalaView extends PatrimonioView {
         try {
             int confirm = JOptionPane
                     .showConfirmDialog(this, "Deseja mesmo excluir Sala: "
-                            + ManterSala.getInstance().getSalas_vet().get(index).getDescriptionEquipment() + "?", "Excluir",
+                            + ClassroomRegister.getClassroom().getVectorClassroom().get(index).getDescriptionEquipment() + "?", "Excluir",
                             JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                ManterSala.getInstance().excluir(ManterSala.getInstance().getSalas_vet().get(index));
+                ClassroomRegister.getClassroom().delete(ClassroomRegister.getClassroom().getVectorClassroom().get(index));
                 JOptionPane.showMessageDialog(this, "Sala excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             }
             this.tabelaPatrimonio.setModel(fillTable());

@@ -19,7 +19,7 @@ public class Classroom extends Patrimonio {
 		this.setCapacidade(capacidade);
 	}
 
-	public String getCapacidade() {
+	public String getCapacity() {
 		return capacidade;
 	}
 
@@ -39,7 +39,7 @@ public class Classroom extends Patrimonio {
 
 	public boolean equals(Classroom b){
 		if( super.equals(b) &&
-			this.getCapacidade().equals(b.getCapacidade())){
+			this.getCapacity().equals(b.getCapacity())){
 			return true;
 		}
 		

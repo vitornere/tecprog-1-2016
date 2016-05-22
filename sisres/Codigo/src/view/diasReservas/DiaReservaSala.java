@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 
 import model.Classroom;
 import view.horariosReservas.HorariosReservaSala;
-import control.ManterSala;
+import control.ClassroomRegister;
 import exception.PatrimonyException;
 
 /**
@@ -24,7 +24,7 @@ public class DiaReservaSala extends DiaReservaPatrimonio {
 
     public DiaReservaSala(Frame parent, boolean modal, int indexSala) throws SQLException, PatrimonyException {
         super(parent, modal);
-        sala = ManterSala.getInstance().getSalas_vet().get(indexSala);
+        sala = ClassroomRegister.getClassroom().getVectorClassroom().get(indexSala);
         this.setName("DiaReservaSala");
     }
 

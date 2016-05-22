@@ -44,7 +44,7 @@ public class ReserveClassroomForStudent extends ReservaSala{
 		if(c.equals(""))
 			throw new ReserveException(CADEIRAS_BRANCO);
 		else if(c.matches(CADEIRAS_PATTERN)){
-			if(Integer.parseInt(super.getClassroom().getCapacidade()) < Integer.parseInt(cadeiras_reservadas))
+			if(Integer.parseInt(super.getClassroom().getCapacity()) < Integer.parseInt(cadeiras_reservadas))
 				throw new ReserveException(CADEIRAS_ACIMA_DO_LIMITE);
 			else
 				this.cadeiras_reservadas = cadeiras_reservadas;

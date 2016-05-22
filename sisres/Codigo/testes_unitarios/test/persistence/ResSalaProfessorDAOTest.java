@@ -32,7 +32,7 @@ import persistence.FactoryConnection;
 
 import persistence.ReserveClassroomForStudentDAO;
 import persistence.ReserveClassroomForProfessorDAO;
-import persistence.SalaDAO;
+import persistence.ClassroomDAO;
 
 public class ResSalaProfessorDAOTest {
 	
@@ -48,16 +48,16 @@ public class ResSalaProfessorDAOTest {
 		professor1 = new Professor("ProfessorUm", "490.491.781-20", "58801", "3333-3333", "prof@email");
 		professor2 = new Professor("ProfessorDois", "040.757.021-70", "36106", "3628-3079", "prof@email");
 		
-		SalaDAO.getInstance().incluir(sala_a);
-		SalaDAO.getInstance().incluir(sala_b);
+		ClassroomDAO.getClassroom().include(sala_a);
+		ClassroomDAO.getClassroom().include(sala_b);
 		ProfessorDAO.getNewProfessor().include(professor1);
 		ProfessorDAO.getNewProfessor().include(professor2);		
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		SalaDAO.getInstance().excluir(sala_a);
-		SalaDAO.getInstance().excluir(sala_b);
+		ClassroomDAO.getClassroom().delete(sala_a);
+		ClassroomDAO.getClassroom().delete(sala_b);
 		ProfessorDAO.getNewProfessor().delete(professor1);
 		ProfessorDAO.getNewProfessor().delete(professor2);	
 	}
@@ -551,7 +551,7 @@ public class ResSalaProfessorDAOTest {
 		return "SELECT id_sala FROM sala WHERE " +
 				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + sala.getCapacidade();
+				"sala.capacidade = " + sala.getCapacity();
 	}
 	private String where_reserva_sala_professor(ReserveClassroomForProfessor r){
 		return " WHERE " +

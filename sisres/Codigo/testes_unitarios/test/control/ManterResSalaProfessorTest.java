@@ -23,7 +23,7 @@ import exception.ReserveException;
 
 import persistence.FactoryConnection;
 import persistence.ProfessorDAO;
-import persistence.SalaDAO;
+import persistence.ClassroomDAO;
 
 public class ManterResSalaProfessorTest {
 	private static Classroom sala1;
@@ -37,13 +37,13 @@ public class ManterResSalaProfessorTest {
 		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
 		
 		ProfessorDAO.getNewProfessor().include(professor1);
-		SalaDAO.getInstance().incluir(sala1);
+		ClassroomDAO.getClassroom().include(sala1);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		ProfessorDAO.getNewProfessor().delete(professor1);
-		SalaDAO.getInstance().excluir(sala1);
+		ClassroomDAO.getClassroom().delete(sala1);
 	}
 
 	@Test
@@ -114,7 +114,7 @@ public class ManterResSalaProfessorTest {
 		return "SELECT id_sala FROM sala WHERE " +
 				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + sala.getCapacidade();
+				"sala.capacidade = " + sala.getCapacity();
 	}
 	private String where_reserva_sala_professor(ReserveClassroomForProfessor reserva){
 		return " WHERE " +

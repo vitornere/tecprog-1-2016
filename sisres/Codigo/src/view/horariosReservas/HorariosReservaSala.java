@@ -57,7 +57,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 nomesTabela.add(r.getClassroom().getIdEquipment());
                 nomesTabela.add(r.getClassroom().getDescriptionEquipment());
                 nomesTabela.add(r.getReservedChairs());
-                nomesTabela.add(r.getClassroom().getCapacidade());
+                nomesTabela.add(r.getClassroom().getCapacity());
             }
         } else if (o instanceof ReserveClassroomForProfessor) {
             ReserveClassroomForProfessor r = (ReserveClassroomForProfessor) o;
@@ -71,8 +71,8 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 nomesTabela.add(r.getFinality());
                 nomesTabela.add(r.getClassroom().getIdEquipment());
                 nomesTabela.add(r.getClassroom().getDescriptionEquipment());
-                nomesTabela.add(r.getClassroom().getCapacidade());
-                nomesTabela.add(r.getClassroom().getCapacidade());
+                nomesTabela.add(r.getClassroom().getCapacity());
+                nomesTabela.add(r.getClassroom().getCapacity());
             }
         }
 

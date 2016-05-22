@@ -22,7 +22,7 @@ import org.junit.Test;
 import persistence.StudentDAO;
 import persistence.FactoryConnection;
 import persistence.ReserveClassroomForStudentDAO;
-import persistence.SalaDAO;
+import persistence.ClassroomDAO;
 
 import exception.ClientException;
 import exception.PatrimonyException;
@@ -44,16 +44,16 @@ public class ResSalaAlunoDAOTest {
 		
 		StudentDAO.getNewStudent().include(aluno1);
 		StudentDAO.getNewStudent().include(aluno2);
-		SalaDAO.getInstance().incluir(sala1);
-		SalaDAO.getInstance().incluir(sala2);
+		ClassroomDAO.getClassroom().include(sala1);
+		ClassroomDAO.getClassroom().include(sala2);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		StudentDAO.getNewStudent().delete(aluno1);
 		StudentDAO.getNewStudent().delete(aluno2);
-		SalaDAO.getInstance().excluir(sala1);
-		SalaDAO.getInstance().excluir(sala2);
+		ClassroomDAO.getClassroom().delete(sala1);
+		ClassroomDAO.getClassroom().delete(sala2);
 	}
 
 	@Test
@@ -142,7 +142,7 @@ public class ResSalaAlunoDAOTest {
 		ReserveClassroomForStudent reserva = new ReserveClassroomForStudent("20/12/34", "8:00", sala1,
 				"Grupo de Estudos", "120", aluno1);
 		ReserveClassroomForStudent reserva2 = new ReserveClassroomForStudent("20/12/34", "8:00", sala2,
-				"Grupo de Estudos", ""+sala2.getCapacidade(), aluno1);
+				"Grupo de Estudos", ""+sala2.getCapacity(), aluno1);
 		ReserveClassroomForStudentDAO.getReserveClassroomForStudent().include(reserva);
 		try{
 			ReserveClassroomForStudentDAO.getReserveClassroomForStudent().include(reserva2);
@@ -279,7 +279,7 @@ public class ResSalaAlunoDAOTest {
 		ReserveClassroomForStudent reserva = new ReserveClassroomForStudent("20/12/34", "8:00", sala1,
 				"Grupo de Estudos", "120", aluno1);
 		ReserveClassroomForStudent reserva2 = new ReserveClassroomForStudent("27/12/34", "9:00", sala2,
-				"Grupo d", ""+sala2.getCapacidade(), aluno2);
+				"Grupo d", ""+sala2.getCapacity(), aluno2);
 		this.insert_into(reserva);
 		this.insert_into(reserva2);
 		
@@ -303,7 +303,7 @@ public class ResSalaAlunoDAOTest {
 		this.insert_into(reserva2);
 		
 		ReserveClassroomForStudent reserva3 = new ReserveClassroomForStudent("20/12/34", "8:00", sala2,
-				"Grupo de Estudos", ""+sala2.getCapacidade(), aluno1);
+				"Grupo de Estudos", ""+sala2.getCapacity(), aluno1);
 		
 		try{
 			ReserveClassroomForStudentDAO.getReserveClassroomForStudent().updateReserveClassroomForStudent(reserva2, reserva3);
@@ -645,7 +645,7 @@ public class ResSalaAlunoDAOTest {
 		return "SELECT id_sala FROM sala WHERE " +
 				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + sala.getCapacidade();
+				"sala.capacidade = " + sala.getCapacity();
 	}
 	private String where_reserva_sala_aluno(ReserveClassroomForStudent r){
 		return " WHERE " +

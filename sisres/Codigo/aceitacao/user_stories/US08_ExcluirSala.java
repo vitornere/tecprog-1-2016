@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import persistence.StudentDAO;
-import persistence.SalaDAO;
+import persistence.ClassroomDAO;
 import view.Main2;
 import exception.ClientException;
 import exception.PatrimonyException;
@@ -49,9 +49,9 @@ public class US08_ExcluirSala {
         window.show(new Dimension(900, 500)); // shows the frame to test
 
         sala = new Classroom("code", "Sala para testes de aceitacao", "123");
-        SalaDAO.getInstance().incluir(sala);
+        ClassroomDAO.getClassroom().include(sala);
 
-        index = SalaDAO.getInstance().buscarTodos().size() - 1;
+        index = ClassroomDAO.getClassroom().searchAll().size() - 1;
 
         window.button("Sala").click();
         dialog = window.dialog("SalaView");
@@ -60,7 +60,7 @@ public class US08_ExcluirSala {
 
     @After public void tearDown() throws SQLException, PatrimonyException {
         if (sala != null)
-            SalaDAO.getInstance().excluir(sala);
+            ClassroomDAO.getClassroom().delete(sala);
         window.cleanUp();
     }
 

@@ -23,7 +23,7 @@ import persistence.StudentDAO;
 import persistence.ProfessorDAO;
 import persistence.ReserveClassroomForStudentDAO;
 import persistence.ReserveClassroomForProfessorDAO;
-import persistence.SalaDAO;
+import persistence.ClassroomDAO;
 import view.Main2;
 import view.mainViews.AlunoView;
 import exception.ClientException;
@@ -90,7 +90,7 @@ public class US01_ReservarSala {
         window.show(new Dimension(900, 500)); // shows the frame to test
 
         sala = new Classroom("code", "Sala para testes de aceitacao", "123");
-        SalaDAO.getInstance().incluir(sala);
+        ClassroomDAO.getClassroom().include(sala);
 
         prof = new Professor("Professor Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
         ProfessorDAO.getNewProfessor().include(prof);
@@ -100,7 +100,7 @@ public class US01_ReservarSala {
 
         dataAtual();
 
-        index = SalaDAO.getInstance().buscarTodos().size() - 1;
+        index = ClassroomDAO.getClassroom().searchAll().size() - 1;
         indexReserva = ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().searchForDate(data).size() - 1;
 
         window.button("Sala").click();
@@ -113,7 +113,7 @@ public class US01_ReservarSala {
         if (reservaAluno != null)
             ReserveClassroomForStudentDAO.getReserveClassroomForStudent().delete(reservaAluno);
         if (sala != null)
-            SalaDAO.getInstance().excluir(sala);
+            ClassroomDAO.getClassroom().delete(sala);
         if (aluno != null)
             StudentDAO.getNewStudent().delete(aluno);
         if (prof != null)
@@ -304,7 +304,7 @@ public class US01_ReservarSala {
     
     @Test public void testCenario3() throws SQLException, ClientException, PatrimonyException, ReserveException {
 
-        reservaAluno = new ReserveClassroomForStudent(data, "23:59", sala, "abc", sala.getCapacidade(), aluno);
+        reservaAluno = new ReserveClassroomForStudent(data, "23:59", sala, "abc", sala.getCapacity(), aluno);
         ReserveClassroomForStudentDAO.getReserveClassroomForStudent().include(reservaAluno);
 
         dialog.table("tabelaPatrimonio").selectRows(index);

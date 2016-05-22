@@ -83,7 +83,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
         this.alunoTextArea.setText(reservaAluno.getStudent().toString());
         this.salaTextArea.setText(reservaAluno.getClassroom().toString());
         this.dataTextField.setText(reservaAluno.getDate());
-        this.qntCadeirasTxtField.setText(reservaAluno.getClassroom().getCapacidade());
+        this.qntCadeirasTxtField.setText(reservaAluno.getClassroom().getCapacity());
         this.qntCadeirasReservadasTextField.setText(reservaAluno.getReservedChairs());
         this.finalidadeTextField.setText(reservaAluno.getFinality());
     }

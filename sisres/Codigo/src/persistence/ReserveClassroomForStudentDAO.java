@@ -56,7 +56,7 @@ public class ReserveClassroomForStudentDAO extends DAO{
 			return "SELECT id_sala FROM sala WHERE " +
 					"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
 					"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
-					"sala.capacidade = " + sala.getCapacidade();
+					"sala.capacidade = " + sala.getCapacity();
 		}
 		private String where_reserva_sala_aluno(ReserveClassroomForStudent r){
 			return " WHERE " +
@@ -195,7 +195,7 @@ public class ReserveClassroomForStudentDAO extends DAO{
 		hora = this.padronizarHora(hora);
 		Vector<ReserveClassroomForStudent> vet = this.searchAll();
 		Iterator<ReserveClassroomForStudent> it = vet.iterator();
-		int total = Integer.parseInt(sala.getCapacidade());
+		int total = Integer.parseInt(sala.getCapacity());
 		while(it.hasNext()){
 			ReserveClassroomForStudent r = it.next();
 			if(r.getClassroom().equals(sala) && r.getDate().equals(data) && r.getHour().equals(hora))
@@ -238,7 +238,7 @@ public class ReserveClassroomForStudentDAO extends DAO{
 		return super.inDBGeneric("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala.getDescriptionEquipment() + "\" and " +
-				"sala.capacidade = " + sala.getCapacidade() +
+				"sala.capacidade = " + sala.getCapacity() +
 				";");
 	}
 	
@@ -260,7 +260,7 @@ public class ReserveClassroomForStudentDAO extends DAO{
 				"id_sala = (SELECT id_sala FROM sala WHERE " +
 				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + sala.getCapacidade() +" );");
+				"sala.capacidade = " + sala.getCapacity() +" );");
 	}
 	
 	private boolean reservainDB(ReserveClassroomForStudent r) throws SQLException {
@@ -274,7 +274,7 @@ public class ReserveClassroomForStudentDAO extends DAO{
 					"id_sala = (SELECT id_sala FROM sala WHERE " +
 									"sala.codigo = \"" + r.getClassroom().getIdEquipment() + "\" and " +
 									"sala.descricao = \"" + r.getClassroom().getDescriptionEquipment() +  "\" and " +
-									"sala.capacidade = " + r.getClassroom().getCapacidade() +" ) and " +
+									"sala.capacidade = " + r.getClassroom().getCapacity() +" ) and " +
 					"finalidade = \"" + r.getFinality() + "\" and " +
 					"hora = \"" + r.getHour() + "\" and " +
 					"data = \"" + r.getDate() + "\" and " +
