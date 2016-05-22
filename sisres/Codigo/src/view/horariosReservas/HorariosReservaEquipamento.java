@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import model.Equipment;
-import model.Patrimonio;
+import model.Patrimony;
 import model.ReserveEquipmentProfessor;
 import view.reservasEquipamentos.FazerReservaEquipamentoView;
 import view.reservasEquipamentos.ReservaEquipamentoView;
@@ -56,7 +56,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
     }
 
-    @Override protected DefaultTableModel fillTable(Patrimonio equip) {
+    @Override protected DefaultTableModel fillTable(Patrimony equip) {
         this.eq = (Equipment) equip;
         DefaultTableModel table = new DefaultTableModel();
         instance = ReserveEquipmentProfessorRegister.getReserveEquipmentProfessor();
