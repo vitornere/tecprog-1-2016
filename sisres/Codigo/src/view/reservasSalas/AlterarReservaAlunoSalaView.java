@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import model.ReservaSalaAluno;
+import model.ReserveClassroomForStudent;
 import model.ReservaSalaProfessor;
 import exception.ClientException;
 import exception.PatrimonyException;
@@ -23,7 +23,7 @@ import exception.ReserveException;
 public class AlterarReservaAlunoSalaView extends ReservaSalaView {
 
     int index;
-    ReservaSalaAluno reservaAluno;
+    ReserveClassroomForStudent reservaAluno;
     ReservaSalaProfessor reservaProfessor;
 
     private void resetComponents() {
@@ -38,14 +38,14 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
             PatrimonyException, PatrimonyException, ClientException, ReserveException {
         super(parent, modal);
         this.setName("AlterarReservaSalaView");
-        this.reservaAluno = instanceAluno.getReservasMes(data).get(index);
+        this.reservaAluno = instanceAluno.getMonthReservations(data).get(index);
         resetComponents();
 
     }
 
     @Override protected void reservarAluno() {
         try {
-            instanceAluno.alterar(this.finalidadeTextField.getText(), this.qntCadeirasReservadasTextField.getText(), reservaAluno);
+            instanceAluno.update(this.finalidadeTextField.getText(), this.qntCadeirasReservadasTextField.getText(), reservaAluno);
 
             JOptionPane.showMessageDialog(this, "Reserva alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
 
@@ -80,17 +80,17 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
         this.horaTextField.setBackground(new Color(200, 208, 254));
         this.horaTextField.setEditable(false);
         this.horaTextField.setText(reservaAluno.getHour());
-        this.alunoTextArea.setText(reservaAluno.getAluno().toString());
-        this.salaTextArea.setText(reservaAluno.getSala().toString());
+        this.alunoTextArea.setText(reservaAluno.getStudent().toString());
+        this.salaTextArea.setText(reservaAluno.getClassroom().toString());
         this.dataTextField.setText(reservaAluno.getDate());
-        this.qntCadeirasTxtField.setText(reservaAluno.getSala().getCapacidade());
-        this.qntCadeirasReservadasTextField.setText(reservaAluno.getCadeiras_reservadas());
-        this.finalidadeTextField.setText(reservaAluno.getFinalidade());
+        this.qntCadeirasTxtField.setText(reservaAluno.getClassroom().getCapacidade());
+        this.qntCadeirasReservadasTextField.setText(reservaAluno.getReservedChairs());
+        this.finalidadeTextField.setText(reservaAluno.getFinality());
     }
 
     @Override protected void verificarAction() {
         try {
-            this.qntCadeirasTxtField.setText(String.valueOf(instanceAluno.cadeirasDisponveis(sala, this.dataTextField.getText(),
+            this.qntCadeirasTxtField.setText(String.valueOf(instanceAluno.chairsAvailable(sala, this.dataTextField.getText(),
                     this.horaTextField.getText())));
         } catch (ReserveException ex) {
             

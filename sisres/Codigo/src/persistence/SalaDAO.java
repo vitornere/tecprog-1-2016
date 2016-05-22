@@ -1,6 +1,6 @@
 package persistence;
 
-import model.Sala;
+import model.Classroom;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +31,7 @@ public class SalaDAO {
 	//
 
 		
-	public void incluir(Sala sala) throws SQLException, PatrimonyException {	
+	public void incluir(Classroom sala) throws SQLException, PatrimonyException {	
 		if(sala == null)
 			throw new PatrimonyException(SALA_NULA);
 		else if(this.inDBCodigo(sala.getIdEquipment()))
@@ -43,7 +43,7 @@ public class SalaDAO {
 					sala.getCapacidade() + ");");
 	}
 
-	public void alterar(Sala old_sala, Sala new_sala) throws SQLException, PatrimonyException {
+	public void alterar(Classroom old_sala, Classroom new_sala) throws SQLException, PatrimonyException {
 		if(new_sala == null)
 			throw new PatrimonyException(SALA_NULA);
 		if(old_sala == null)
@@ -79,7 +79,7 @@ public class SalaDAO {
 		con.close();
 	}
 
-	public void excluir(Sala sala) throws SQLException, PatrimonyException {
+	public void excluir(Classroom sala) throws SQLException, PatrimonyException {
 		if(sala == null)
 			throw new PatrimonyException(SALA_NULA);
 		else if(this.inOtherDB(sala))
@@ -97,16 +97,16 @@ public class SalaDAO {
 
 	
 	
-	public Vector<Sala> buscarTodos() throws SQLException, PatrimonyException {
+	public Vector<Classroom> buscarTodos() throws SQLException, PatrimonyException {
 		return this.buscar("SELECT * FROM sala;");
 	}
-	public Vector<Sala> buscarPorCodigo(String valor) throws SQLException, PatrimonyException {
+	public Vector<Classroom> buscarPorCodigo(String valor) throws SQLException, PatrimonyException {
 		return this.buscar("SELECT * FROM sala WHERE codigo = " + "\"" + valor + "\";");
 	}
-	public Vector<Sala> buscarPorDescricao(String valor) throws SQLException, PatrimonyException {
+	public Vector<Classroom> buscarPorDescricao(String valor) throws SQLException, PatrimonyException {
 		return this.buscar("SELECT * FROM sala WHERE descricao = " + "\"" + valor + "\";");
 	}
-	public Vector<Sala> buscarPorCapacidade(String valor) throws SQLException, PatrimonyException {
+	public Vector<Classroom> buscarPorCapacidade(String valor) throws SQLException, PatrimonyException {
 		return this.buscar("SELECT * FROM sala WHERE capacidade = " + valor + ";");
 	}
 	
@@ -115,8 +115,8 @@ public class SalaDAO {
 	 * Metodos Privados
 	 * */
 	
-	private Vector<Sala> buscar(String query) throws SQLException, PatrimonyException {
-		Vector<Sala> vet = new Vector<Sala>();
+	private Vector<Classroom> buscar(String query) throws SQLException, PatrimonyException {
+		Vector<Classroom> vet = new Vector<Classroom>();
 		
 		Connection con =  FactoryConnection.getInstance().getConnection();
 		
@@ -152,7 +152,7 @@ public class SalaDAO {
 			return true;
 		}
 	}
-	private boolean inDB(Sala sala) throws SQLException{
+	private boolean inDB(Classroom sala) throws SQLException{
 		return this.inDBGeneric("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala.getDescriptionEquipment() + "\" and " +
@@ -163,7 +163,7 @@ public class SalaDAO {
 		return this.inDBGeneric("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + codigo + "\";");
 	}
-	private boolean inOtherDB(Sala sala) throws SQLException{
+	private boolean inOtherDB(Classroom sala) throws SQLException{
 		if( this.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE " +
 				"id_sala = (SELECT id_sala FROM sala WHERE " +
 				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
@@ -184,8 +184,8 @@ public class SalaDAO {
 	}
 	
 	
-	private Sala fetchSala(ResultSet rs) throws PatrimonyException, SQLException{
-		return new Sala(rs.getString("codigo"), rs.getString("descricao"), rs.getString("capacidade"));
+	private Classroom fetchSala(ResultSet rs) throws PatrimonyException, SQLException{
+		return new Classroom(rs.getString("codigo"), rs.getString("descricao"), rs.getString("capacidade"));
 	}
 	
 	private void updateQuery(String msg) throws SQLException{

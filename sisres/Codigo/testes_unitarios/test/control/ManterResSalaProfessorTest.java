@@ -10,7 +10,7 @@ import java.util.Vector;
 
 import model.Professor;
 import model.ReservaSalaProfessor;
-import model.Sala;
+import model.Classroom;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -26,14 +26,14 @@ import persistence.ProfessorDAO;
 import persistence.SalaDAO;
 
 public class ManterResSalaProfessorTest {
-	private static Sala sala1;
+	private static Classroom sala1;
 	private static Professor professor1;
 	private static Vector<ReservaSalaProfessor> vet;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		vet = ManterResSalaProfessor.getInstance().getResProfessorSala_vet();
-		sala1 = new Sala("123", "Sala de Aula", "120");
+		sala1 = new Classroom("123", "Sala de Aula", "120");
 		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
 		
 		ProfessorDAO.getNewProfessor().include(professor1);
@@ -110,7 +110,7 @@ public class ManterResSalaProfessorTest {
 				"professor.email = \"" + prof.getEmailPerson() + "\" and " +
 				"professor.matricula = \"" + prof.getIdRegister() + "\"";
 	}
-	private String select_id_sala(Sala sala){
+	private String select_id_sala(Classroom sala){
 		return "SELECT id_sala FROM sala WHERE " +
 				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
@@ -119,15 +119,15 @@ public class ManterResSalaProfessorTest {
 	private String where_reserva_sala_professor(ReservaSalaProfessor reserva){
 		return " WHERE " +
 		"id_professor = ( " + select_id_professor(reserva.getProfessor()) + " ) and " +
-		"id_sala = ( " + select_id_sala(reserva.getSala()) + " ) and " +
-		"finalidade = \"" + reserva.getFinalidade() + "\" and " +
+		"id_sala = ( " + select_id_sala(reserva.getClassroom()) + " ) and " +
+		"finalidade = \"" + reserva.getFinality() + "\" and " +
 		"hora = \"" + reserva.getHour() + "\" and " +
 		"data = \"" + reserva.getDate() + "\" ";
 	}
 	private String values_reserva_sala_professor(ReservaSalaProfessor reserva){
 		return "( " + select_id_professor(reserva.getProfessor()) + " ), " +
-		"( " + select_id_sala(reserva.getSala()) + " ), " +
-		"\"" + reserva.getFinalidade() + "\", " +
+		"( " + select_id_sala(reserva.getClassroom()) + " ), " +
+		"\"" + reserva.getFinality() + "\", " +
 		"\"" + reserva.getHour() + "\", " +
 		"\"" + reserva.getDate() + "\"";
 	}

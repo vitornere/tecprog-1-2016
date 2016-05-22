@@ -7,7 +7,7 @@ import persistence.ResSalaProfessorDAO;
 
 import model.Professor;
 import model.ReservaSalaProfessor;
-import model.Sala;
+import model.Classroom;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -36,7 +36,7 @@ public class ManterResSalaProfessor {
 		return this.rev_sala_professor_vet;
 	}
 
-	public void inserir(Sala sala, Professor prof,
+	public void inserir(Classroom sala, Professor prof,
 						String data, String hora, String finalidade) 
 					throws SQLException, ReserveException {
 
@@ -48,10 +48,10 @@ public class ManterResSalaProfessor {
 	public void alterar(String finalidade, ReservaSalaProfessor reserva) 
 				throws SQLException, ReserveException {
 		
-		ReservaSalaProfessor reserva_old = new ReservaSalaProfessor(reserva.getDate(), reserva.getHour(), reserva.getSala() , 
-				reserva.getFinalidade(), reserva.getProfessor());
+		ReservaSalaProfessor reserva_old = new ReservaSalaProfessor(reserva.getDate(), reserva.getHour(), reserva.getClassroom() , 
+				reserva.getFinality(), reserva.getProfessor());
 		
-		reserva.setFinalidade(finalidade);
+		reserva.setFinality(finalidade);
 		ResSalaProfessorDAO.getInstance().alterar(reserva_old, reserva);
 		
 	}

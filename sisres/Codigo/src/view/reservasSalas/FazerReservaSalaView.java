@@ -11,8 +11,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import model.Sala;
-import control.ManterResSalaAluno;
+import model.Classroom;
+import control.ReserveClassroomForStudentRegister;
 import control.ManterResSalaProfessor;
 import exception.ClientException;
 import exception.PatrimonyException;
@@ -24,7 +24,7 @@ import exception.ReserveException;
  */
 public class FazerReservaSalaView extends ReservaSalaView {
 
-    public FazerReservaSalaView(Frame parent, boolean modal, Sala sala, String data) throws SQLException, PatrimonyException,
+    public FazerReservaSalaView(Frame parent, boolean modal, Classroom sala, String data) throws SQLException, PatrimonyException,
             PatrimonyException, ClientException, ReserveException {
         super(parent, modal);
         this.sala = sala;
@@ -37,10 +37,10 @@ public class FazerReservaSalaView extends ReservaSalaView {
 
     @Override protected void reservarAluno() {
         try {
-            instanceAluno.inserir(sala, aluno, this.dataTextField.getText(), this.horaTextField.getText(),
+            instanceAluno.insert(sala, aluno, this.dataTextField.getText(), this.horaTextField.getText(),
                     this.finalidadeTextField.getText(), this.qntCadeirasReservadasTextField.getText());
 
-            instanceAluno.getResAlunoSala_vet();
+            instanceAluno.getVectorReserveClassroomForStudent();
             // System.out.println(v.toString());
 
             JOptionPane.showMessageDialog(this, "Reserva feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
@@ -92,7 +92,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
     }
 
     @Override protected void alunoRadioButtonAction() {
-        this.instanceAluno = ManterResSalaAluno.getInstance();
+        this.instanceAluno = ReserveClassroomForStudentRegister.getReserveClassroomForStudent();
         this.alunoLabel.setText(this.alunoRadioButton.getText() + ": ");
         this.alunoTextArea.setText("");
         this.cpfTextField.setText("");
@@ -105,7 +105,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
 
     @Override protected void verificarAction() {
         try {
-            this.qntCadeirasTxtField.setText(String.valueOf(instanceAluno.cadeirasDisponveis(sala, this.dataTextField.getText(),
+            this.qntCadeirasTxtField.setText(String.valueOf(instanceAluno.chairsAvailable(sala, this.dataTextField.getText(),
                     this.horaTextField.getText())));
         } catch (ReserveException ex) {
             

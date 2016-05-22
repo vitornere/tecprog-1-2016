@@ -11,7 +11,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import model.Sala;
+import model.Classroom;
 import view.alteracoes.AlterarSala;
 import view.cadastros.CadastroPatrimonio;
 import view.cadastros.CadastroSala;
@@ -31,7 +31,7 @@ public class SalaView extends PatrimonioView {
         this.setName("SalaView");
     }
 
-    protected Vector<String> fillDataVector(Sala sala) {
+    protected Vector<String> fillDataVector(Classroom sala) {
 
         if (sala == null) {
             return null;
@@ -51,13 +51,13 @@ public class SalaView extends PatrimonioView {
         try {
             DefaultTableModel table = new DefaultTableModel();
 
-            Iterator<Sala> i = ManterSala.getInstance().getSalas_vet().iterator();
+            Iterator<Classroom> i = ManterSala.getInstance().getSalas_vet().iterator();
 
             table.addColumn("Codigo");
             table.addColumn("Nome");
             table.addColumn("Capacidade");
             while (i.hasNext()) {
-                Sala sala = i.next();
+                Classroom sala = i.next();
                 table.addRow(fillDataVector(sala));
             }
 

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
-import model.Sala;
+import model.Classroom;
 import view.horariosReservas.HorariosReservaSala;
 import control.ManterSala;
 import exception.PatrimonyException;
@@ -20,7 +20,7 @@ import exception.PatrimonyException;
  */
 public class DiaReservaSala extends DiaReservaPatrimonio {
 
-    Sala sala;
+    Classroom sala;
 
     public DiaReservaSala(Frame parent, boolean modal, int indexSala) throws SQLException, PatrimonyException {
         super(parent, modal);

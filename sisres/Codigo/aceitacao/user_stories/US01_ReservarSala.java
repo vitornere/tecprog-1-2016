@@ -7,9 +7,9 @@ import java.util.Date;
 
 import model.Student;
 import model.Professor;
-import model.ReservaSalaAluno;
+import model.ReserveClassroomForStudent;
 import model.ReservaSalaProfessor;
-import model.Sala;
+import model.Classroom;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import persistence.StudentDAO;
 import persistence.ProfessorDAO;
-import persistence.ResSalaAlunoDAO;
+import persistence.ReserveClassroomForStudentDAO;
 import persistence.ResSalaProfessorDAO;
 import persistence.SalaDAO;
 import view.Main2;
@@ -64,9 +64,9 @@ public class US01_ReservarSala {
 
     private FrameFixture window;
     private Robot robot;
-    private Sala sala;
+    private Classroom sala;
     private ReservaSalaProfessor reservaProf;
-    private ReservaSalaAluno reservaAluno;
+    private ReserveClassroomForStudent reservaAluno;
     private Student aluno;
     private Professor prof;
     private DialogFixture dialog;
@@ -89,7 +89,7 @@ public class US01_ReservarSala {
         window = new FrameFixture(robot, new Main2());
         window.show(new Dimension(900, 500)); // shows the frame to test
 
-        sala = new Sala("code", "Sala para testes de aceitacao", "123");
+        sala = new Classroom("code", "Sala para testes de aceitacao", "123");
         SalaDAO.getInstance().incluir(sala);
 
         prof = new Professor("Professor Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
@@ -111,7 +111,7 @@ public class US01_ReservarSala {
         if (reservaProf != null)
             ResSalaProfessorDAO.getInstance().excluir(reservaProf);
         if (reservaAluno != null)
-            ResSalaAlunoDAO.getInstance().excluir(reservaAluno);
+            ReserveClassroomForStudentDAO.getReserveClassroomForStudent().delete(reservaAluno);
         if (sala != null)
             SalaDAO.getInstance().excluir(sala);
         if (aluno != null)
@@ -225,8 +225,8 @@ public class US01_ReservarSala {
         fazerReservaSalaView.optionPane().requireMessage("Reserva feita com sucesso");
         fazerReservaSalaView.optionPane().okButton().click();
 
-        indexReserva = ResSalaAlunoDAO.getInstance().buscarPorDia(data).size() - 1;
-        reservaAluno = ResSalaAlunoDAO.getInstance().buscarTodos().lastElement();
+        indexReserva = ReserveClassroomForStudentDAO.getReserveClassroomForStudent().searchForDay(data).size() - 1;
+        reservaAluno = ReserveClassroomForStudentDAO.getReserveClassroomForStudent().searchAll().lastElement();
     }
 
     @Test public void testCenario2AlunoCpfInvalido() throws SQLException, ClientException, PatrimonyException, ReserveException {
@@ -304,8 +304,8 @@ public class US01_ReservarSala {
     
     @Test public void testCenario3() throws SQLException, ClientException, PatrimonyException, ReserveException {
 
-        reservaAluno = new ReservaSalaAluno(data, "23:59", sala, "abc", sala.getCapacidade(), aluno);
-        ResSalaAlunoDAO.getInstance().incluir(reservaAluno);
+        reservaAluno = new ReserveClassroomForStudent(data, "23:59", sala, "abc", sala.getCapacidade(), aluno);
+        ReserveClassroomForStudentDAO.getReserveClassroomForStudent().include(reservaAluno);
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -337,8 +337,8 @@ public class US01_ReservarSala {
         Student aluno2 = new Student("Aluno Teste", "382.808.446-00", "110", "", "abc");
         StudentDAO.getNewStudent().include(aluno2);
 
-        ReservaSalaAluno reservaAluno2 = new ReservaSalaAluno(data, "23:59", sala, "abc", "100", aluno2);
-        ResSalaAlunoDAO.getInstance().incluir(reservaAluno2);
+        ReserveClassroomForStudent reservaAluno2 = new ReserveClassroomForStudent(data, "23:59", sala, "abc", "100", aluno2);
+        ReserveClassroomForStudentDAO.getReserveClassroomForStudent().include(reservaAluno2);
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -362,10 +362,10 @@ public class US01_ReservarSala {
         fazerReservaSalaView.optionPane().requireMessage("Reserva feita com sucesso");
         fazerReservaSalaView.optionPane().okButton().click();
 
-        indexReserva = ResSalaAlunoDAO.getInstance().buscarPorDia(data).size() - 1;
-        reservaAluno = ResSalaAlunoDAO.getInstance().buscarPorDia(data).get(indexReserva);
+        indexReserva = ReserveClassroomForStudentDAO.getReserveClassroomForStudent().searchForDay(data).size() - 1;
+        reservaAluno = ReserveClassroomForStudentDAO.getReserveClassroomForStudent().searchForDay(data).get(indexReserva);
         
-        ResSalaAlunoDAO.getInstance().excluir(reservaAluno2);
+        ReserveClassroomForStudentDAO.getReserveClassroomForStudent().delete(reservaAluno2);
         StudentDAO.getNewStudent().delete(aluno2);        
     }
 

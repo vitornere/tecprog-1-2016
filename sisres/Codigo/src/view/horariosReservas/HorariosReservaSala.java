@@ -14,14 +14,14 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import model.Patrimonio;
-import model.ReservaSalaAluno;
+import model.ReserveClassroomForStudent;
 import model.ReservaSalaProfessor;
-import model.Sala;
+import model.Classroom;
 import view.reservasSalas.AlterarReservaAlunoSalaView;
 import view.reservasSalas.AlterarReservaProfSalaView;
 import view.reservasSalas.FazerReservaSalaView;
 import view.reservasSalas.ReservaSalaView;
-import control.ManterResSalaAluno;
+import control.ReserveClassroomForStudentRegister;
 import control.ManterResSalaProfessor;
 import exception.ClientException;
 import exception.PatrimonyException;
@@ -33,11 +33,11 @@ import exception.ReserveException;
  */
 public class HorariosReservaSala extends HorariosReservaPatrimonio {
 
-    ManterResSalaAluno instanceAluno;
+    ReserveClassroomForStudentRegister instanceAluno;
     ManterResSalaProfessor instanceProf;
-    Sala sala;
+    Classroom sala;
 
-    public HorariosReservaSala(java.awt.Frame parent, boolean modal, String data, Sala sala) {
+    public HorariosReservaSala(java.awt.Frame parent, boolean modal, String data, Classroom sala) {
         super(parent, modal, data, sala);
         this.sala = sala;
         this.setName("HorarioReservaSala");
@@ -45,34 +45,34 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
 
     protected Vector<String> fillDataVector(Object o, int index) {
         Vector<String> nomesTabela = new Vector<String>();
-        if (o instanceof ReservaSalaAluno) {
-            ReservaSalaAluno r = (ReservaSalaAluno) o;
-            if (this.sala != null && (r.getSala().equals(this.sala))) {
+        if (o instanceof ReserveClassroomForStudent) {
+            ReserveClassroomForStudent r = (ReserveClassroomForStudent) o;
+            if (this.sala != null && (r.getClassroom().equals(this.sala))) {
                 nomesTabela.add(String.valueOf(index));
                 nomesTabela.add("Aluno");
                 nomesTabela.add(r.getHour());
-                nomesTabela.add(r.getAluno().getNamePerson());
-                nomesTabela.add(r.getAluno().getIdRegister());
-                nomesTabela.add(r.getFinalidade());
-                nomesTabela.add(r.getSala().getIdEquipment());
-                nomesTabela.add(r.getSala().getDescriptionEquipment());
-                nomesTabela.add(r.getCadeiras_reservadas());
-                nomesTabela.add(r.getSala().getCapacidade());
+                nomesTabela.add(r.getStudent().getNamePerson());
+                nomesTabela.add(r.getStudent().getIdRegister());
+                nomesTabela.add(r.getFinality());
+                nomesTabela.add(r.getClassroom().getIdEquipment());
+                nomesTabela.add(r.getClassroom().getDescriptionEquipment());
+                nomesTabela.add(r.getReservedChairs());
+                nomesTabela.add(r.getClassroom().getCapacidade());
             }
         } else if (o instanceof ReservaSalaProfessor) {
             ReservaSalaProfessor r = (ReservaSalaProfessor) o;
-            if (this.sala != null && (r.getSala().equals(this.sala))) {
+            if (this.sala != null && (r.getClassroom().equals(this.sala))) {
 
                 nomesTabela.add(String.valueOf(index));
                 nomesTabela.add("Professor");
                 nomesTabela.add(r.getHour());
                 nomesTabela.add(r.getProfessor().getNamePerson());
                 nomesTabela.add(r.getProfessor().getIdRegister());
-                nomesTabela.add(r.getFinalidade());
-                nomesTabela.add(r.getSala().getIdEquipment());
-                nomesTabela.add(r.getSala().getDescriptionEquipment());
-                nomesTabela.add(r.getSala().getCapacidade());
-                nomesTabela.add(r.getSala().getCapacidade());
+                nomesTabela.add(r.getFinality());
+                nomesTabela.add(r.getClassroom().getIdEquipment());
+                nomesTabela.add(r.getClassroom().getDescriptionEquipment());
+                nomesTabela.add(r.getClassroom().getCapacidade());
+                nomesTabela.add(r.getClassroom().getCapacidade());
             }
         }
 
@@ -81,9 +81,9 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
     }
 
     @Override protected DefaultTableModel fillTable(Patrimonio sala) {
-        this.sala = (Sala) sala;
+        this.sala = (Classroom) sala;
         DefaultTableModel table = new DefaultTableModel();
-        instanceAluno = ManterResSalaAluno.getInstance();
+        instanceAluno = ReserveClassroomForStudentRegister.getReserveClassroomForStudent();
         instanceProf = ManterResSalaProfessor.getInstance();
         table.addColumn("");
         table.addColumn("Tipo:");
@@ -110,7 +110,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 }
             v.clear();
 
-            v = instanceAluno.getReservasMes(this.data);
+            v = instanceAluno.getMonthReservations(this.data);
             if (v != null)
                 for (int i = 0; i < v.size(); i++) {
                     Vector<String> linha = fillDataVector(v.get(i), i);
@@ -141,11 +141,11 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             index = Integer.parseInt((String) this.reservasTable.getModel().getValueAt(index, 0));
             if (tipoCliente.equals("Aluno")) {
                 int confirm = JOptionPane.showConfirmDialog(this,
-                        "Deseja mesmo excluir Reserva?\n" + instanceAluno.getReservasMes(data).get(index).toString(), "Excluir",
+                        "Deseja mesmo excluir Reserva?\n" + instanceAluno.getMonthReservations(data).get(index).toString(), "Excluir",
                         JOptionPane.YES_NO_OPTION);
 
                 if (confirm == JOptionPane.YES_OPTION) {
-                    this.instanceAluno.excluir(instanceAluno.getReservasMes(data).get(index));
+                    this.instanceAluno.delete(instanceAluno.getMonthReservations(data).get(index));
                     JOptionPane.showMessageDialog(this, "Reserva excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                             null);
                 }

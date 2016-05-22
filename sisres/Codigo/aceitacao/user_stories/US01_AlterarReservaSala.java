@@ -7,9 +7,9 @@ import java.util.Date;
 
 import model.Student;
 import model.Professor;
-import model.ReservaSalaAluno;
+import model.ReserveClassroomForStudent;
 import model.ReservaSalaProfessor;
-import model.Sala;
+import model.Classroom;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import persistence.StudentDAO;
 import persistence.ProfessorDAO;
-import persistence.ResSalaAlunoDAO;
+import persistence.ReserveClassroomForStudentDAO;
 import persistence.ResSalaProfessorDAO;
 import persistence.SalaDAO;
 import view.Main2;
@@ -32,9 +32,9 @@ import exception.ReserveException;
 public class US01_AlterarReservaSala {
     private FrameFixture window;
     private Robot robot;
-    private Sala sala;
+    private Classroom sala;
     private ReservaSalaProfessor reservaProf;
-    private ReservaSalaAluno reservaAluno;
+    private ReserveClassroomForStudent reservaAluno;
     private Student aluno;
     private Professor prof;
     private DialogFixture dialog;
@@ -56,7 +56,7 @@ public class US01_AlterarReservaSala {
         window = new FrameFixture(robot, new Main2());
         window.show(new Dimension(900, 500)); // shows the frame to test
 
-        sala = new Sala("code", "Sala para testes de aceitacao", "123");
+        sala = new Classroom("code", "Sala para testes de aceitacao", "123");
         SalaDAO.getInstance().incluir(sala);
 
         prof = new Professor("Professor Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
@@ -72,8 +72,8 @@ public class US01_AlterarReservaSala {
 
         StudentDAO.getNewStudent().include(aluno);
 
-        reservaAluno = new ReservaSalaAluno(data, "23:59", sala, "abc", "100", aluno);
-        ResSalaAlunoDAO.getInstance().incluir(reservaAluno);
+        reservaAluno = new ReserveClassroomForStudent(data, "23:59", sala, "abc", "100", aluno);
+        ReserveClassroomForStudentDAO.getReserveClassroomForStudent().include(reservaAluno);
 
         window.button("Sala").click();
         dialog = window.dialog("SalaView");
@@ -83,7 +83,7 @@ public class US01_AlterarReservaSala {
         if (reservaProf != null)
             ResSalaProfessorDAO.getInstance().excluir(reservaProf);
         if (reservaAluno != null)
-            ResSalaAlunoDAO.getInstance().excluir(reservaAluno);
+            ReserveClassroomForStudentDAO.getReserveClassroomForStudent().delete(reservaAluno);
         if (sala != null)
             SalaDAO.getInstance().excluir(sala);
         if (aluno != null)

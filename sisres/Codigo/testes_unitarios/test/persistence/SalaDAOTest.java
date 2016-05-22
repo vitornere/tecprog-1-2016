@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import model.Sala;
+import model.Classroom;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -48,7 +48,7 @@ public class SalaDAOTest {
 
 	@Test
 	public void testIncluir() throws PatrimonyException, SQLException {
-		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Classroom s = new Classroom("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		boolean rs = false;
 		
 		SalaDAO.getInstance().incluir(s);
@@ -73,8 +73,8 @@ public class SalaDAOTest {
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testIncluirCodigoExistente() throws PatrimonyException, SQLException {
-		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		Sala s2 = new Sala("CodigoInc", "Descricao Dois", "200");
+		Classroom s = new Classroom("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Classroom s2 = new Classroom("CodigoInc", "Descricao Dois", "200");
 		boolean rs = false;
 		
 		SalaDAO.getInstance().incluir(s2);
@@ -101,8 +101,8 @@ public class SalaDAOTest {
 	
 	@Test
 	public void testAlerar() throws PatrimonyException, SQLException {
-		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		Sala s2 = new Sala("CodigoAlt", "Descricao Dois", "200");
+		Classroom s = new Classroom("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Classroom s2 = new Classroom("CodigoAlt", "Descricao Dois", "200");
 		boolean rs = true, rs2 = false;
 		
 		this.executaNoBanco("INSERT INTO " +
@@ -141,18 +141,18 @@ public class SalaDAOTest {
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testAletarPrimeiroNulo() throws PatrimonyException, SQLException {
-		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Classroom s = new Classroom("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		SalaDAO.getInstance().alterar(null, s);
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testAletarSegundoNulo() throws PatrimonyException, SQLException {
-		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Classroom s = new Classroom("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		SalaDAO.getInstance().alterar(s, null);
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testAletarNaoExistente() throws PatrimonyException, SQLException {
-		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		Sala s2 = new Sala("CodigoAlt", "Descricao Dois", "200");
+		Classroom s = new Classroom("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Classroom s2 = new Classroom("CodigoAlt", "Descricao Dois", "200");
 		boolean rs2 = true;
 		
 		try{
@@ -177,9 +177,9 @@ public class SalaDAOTest {
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testAletarComMesmoCodigo() throws PatrimonyException, SQLException {
-		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
-		Sala s2 = new Sala("CodigoAlt", "Descricao Dois", "200");
-		Sala s3 = new Sala("CodigoInc", "Descricao Dois", "200");
+		Classroom s = new Classroom("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Classroom s2 = new Classroom("CodigoAlt", "Descricao Dois", "200");
+		Classroom s3 = new Classroom("CodigoInc", "Descricao Dois", "200");
 		boolean rs = false, rs2 = false, rs3 = true;
 		
 		this.executaNoBanco("INSERT INTO " +
@@ -237,8 +237,8 @@ public class SalaDAOTest {
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testAletarParaExistente() throws PatrimonyException, SQLException {
-		Sala s = new Sala("CodigoAlt", "Descricao Dois", "200");
-		Sala s2 = new Sala("CodigoAlt", "Descricao Dois", "200");
+		Classroom s = new Classroom("CodigoAlt", "Descricao Dois", "200");
+		Classroom s2 = new Classroom("CodigoAlt", "Descricao Dois", "200");
 		boolean rs = false, rs2 = true;
 		
 		this.executaNoBanco("INSERT INTO " +
@@ -280,7 +280,7 @@ public class SalaDAOTest {
 	
 	@Test
 	public void testExcluir() throws PatrimonyException, SQLException {
-		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Classroom s = new Classroom("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		boolean rs = true;
 		
 		this.executaNoBanco("INSERT INTO " +
@@ -315,14 +315,14 @@ public class SalaDAOTest {
 	}
 	@Test (expected= PatrimonyException.class)
 	public void testExcluirNaoExistente() throws PatrimonyException, SQLException {
-		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Classroom s = new Classroom("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		SalaDAO.getInstance().excluir(s);
 	}
 	
 	
 	@Test
 	public void testBuscarCodigo() throws PatrimonyException, SQLException {
-		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Classroom s = new Classroom("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		
 		this.executaNoBanco("INSERT INTO " +
 				"sala (codigo, descricao, capacidade) VALUES (" +
@@ -330,7 +330,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescriptionEquipment() + "\", " +
 				s.getCapacidade() + ");");
 		
-		Vector<Sala> vet = SalaDAO.getInstance().buscarPorCodigo("CodigoInc");
+		Vector<Classroom> vet = SalaDAO.getInstance().buscarPorCodigo("CodigoInc");
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
 				"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
@@ -341,7 +341,7 @@ public class SalaDAOTest {
 	}
 	@Test
 	public void testDescricao() throws PatrimonyException, SQLException {
-		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Classroom s = new Classroom("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		
 		this.executaNoBanco("INSERT INTO " +
 				"sala (codigo, descricao, capacidade) VALUES (" +
@@ -349,7 +349,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescriptionEquipment() + "\", " +
 				s.getCapacidade() + ");");
 		
-		Vector<Sala> vet = SalaDAO.getInstance().buscarPorDescricao("Descricao Da Sala Inclusao");
+		Vector<Classroom> vet = SalaDAO.getInstance().buscarPorDescricao("Descricao Da Sala Inclusao");
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
 				"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
@@ -360,7 +360,7 @@ public class SalaDAOTest {
 	}
 	@Test
 	public void testCapacidade() throws PatrimonyException, SQLException {
-		Sala s = new Sala("CodigoInc", "Descricao Da Sala Inclusao", "123");
+		Classroom s = new Classroom("CodigoInc", "Descricao Da Sala Inclusao", "123");
 		
 		this.executaNoBanco("INSERT INTO " +
 				"sala (codigo, descricao, capacidade) VALUES (" +
@@ -368,7 +368,7 @@ public class SalaDAOTest {
 				"\"" + s.getDescriptionEquipment() + "\", " +
 				s.getCapacidade() + ");");
 		
-		Vector<Sala> vet = SalaDAO.getInstance().buscarPorCapacidade("123");
+		Vector<Classroom> vet = SalaDAO.getInstance().buscarPorCapacidade("123");
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
 				"sala.codigo = \"" + s.getIdEquipment() + "\" and " +

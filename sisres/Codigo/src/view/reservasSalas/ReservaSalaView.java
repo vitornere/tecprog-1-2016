@@ -11,10 +11,10 @@ import javax.swing.JOptionPane;
 
 import model.Student;
 import model.Professor;
-import model.Sala;
+import model.Classroom;
 import control.StudentRegister;
 import control.ProfessorRegister;
-import control.ManterResSalaAluno;
+import control.ReserveClassroomForStudentRegister;
 import control.ManterResSalaProfessor;
 import exception.ClientException;
 import exception.PatrimonyException;
@@ -29,9 +29,9 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
     protected final int ALUNO = 1;
     protected final int PROF = 2;
     protected final int ERRO = -1;
-    protected ManterResSalaAluno instanceAluno;
+    protected ReserveClassroomForStudentRegister instanceAluno;
     protected ManterResSalaProfessor instanceProf;
-    protected Sala sala;
+    protected Classroom sala;
     protected Student aluno;
     protected Professor prof;
 
@@ -39,7 +39,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
             ClientException, ReserveException {
         super(parent, modal);
         this.instanceProf = ManterResSalaProfessor.getInstance();
-        this.instanceAluno = ManterResSalaAluno.getInstance();
+        this.instanceAluno = ReserveClassroomForStudentRegister.getReserveClassroomForStudent();
         initComponents();
         this.bucarCpfButton.setName("BuscarCpfButton");
 

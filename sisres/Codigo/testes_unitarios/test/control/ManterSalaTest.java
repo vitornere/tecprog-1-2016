@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import persistence.FactoryConnection;
 import control.ManterSala;
-import model.Sala;
+import model.Classroom;
 import exception.PatrimonyException;
 
 import java.sql.Connection;
@@ -44,7 +44,7 @@ public class ManterSalaTest {
 
 	@Test
 	public void testInserir() throws PatrimonyException, SQLException {
-		Sala sala_new = new Sala("codigo", "descricao", "2");
+		Classroom sala_new = new Classroom("codigo", "descricao", "2");
 		ManterSala.getInstance().inserir("codigo", "descricao", "2");
 		assertNotNull("Falha ao inserir", this.procurarNoVetor(sala_new));
 		this.executaNoBanco("DELETE FROM sala WHERE " +
@@ -56,8 +56,8 @@ public class ManterSalaTest {
 
 	@Test
 	public void testAlterar() throws PatrimonyException, SQLException {
-		Sala sala = new Sala("codigo_old", "descricao", "1");
-		Sala sala_new = new Sala("codigo", "descricao", "2");
+		Classroom sala = new Classroom("codigo_old", "descricao", "1");
+		Classroom sala_new = new Classroom("codigo", "descricao", "2");
 		
 		this.executaNoBanco("INSERT INTO " +
 				"sala (codigo, descricao, capacidade) VALUES (" +
@@ -78,7 +78,7 @@ public class ManterSalaTest {
 
 	@Test
 	public void testExcluir() throws SQLException, PatrimonyException {
-		Sala sala = new Sala("codigo_old", "descricao", "1");
+		Classroom sala = new Classroom("codigo_old", "descricao", "1");
 		
 		this.executaNoBanco("INSERT INTO " +
 				"sala (codigo, descricao, capacidade) VALUES (" +
@@ -92,11 +92,11 @@ public class ManterSalaTest {
 		assertNull("Falha ao excluir", this.procurarNoVetor(sala));
 	}
 
-	public Sala procurarNoVetor(Sala teste) throws PatrimonyException, SQLException {
-		Vector<Sala> todos = ManterSala.getInstance().getSalas_vet();
-		Iterator<Sala> i = todos.iterator();
+	public Classroom procurarNoVetor(Classroom teste) throws PatrimonyException, SQLException {
+		Vector<Classroom> todos = ManterSala.getInstance().getSalas_vet();
+		Iterator<Classroom> i = todos.iterator();
 		while(i.hasNext()){
-			Sala e = i.next();
+			Classroom e = i.next();
 			if(e.equals(teste))
 				return e;			
 		}

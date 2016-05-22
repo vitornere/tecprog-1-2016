@@ -4,7 +4,7 @@ import exception.ReserveException;
 
 public class ReservaSala extends Reserva{
 
-	private Sala sala;
+	private Classroom sala;
 	private String finalidade;
 	
 	//Mensagens
@@ -13,27 +13,27 @@ public class ReservaSala extends Reserva{
 		private final String FINALIDADE_BRANCO = "A finalidade esta em branco.";
 				
 	
-	public ReservaSala(String data, String hora, Sala sala, String finalidade) throws ReserveException {
+	public ReservaSala(String data, String hora, Classroom sala, String finalidade) throws ReserveException {
 		super(data, hora);
 		this.setSala(sala);
-		this.setFinalidade(finalidade);
+		this.setFinality(finalidade);
 	}
 
-	public Sala getSala() {
+	public Classroom getClassroom() {
 		return this.sala;
 	}
 
-	public String getFinalidade() {
+	public String getFinality() {
 		return this.finalidade;
 	}
 
-	public void setSala(Sala sala) throws ReserveException {
+	public void setSala(Classroom sala) throws ReserveException {
 		if(sala == null)
 			throw new ReserveException(SALA_NULO);
 		this.sala = sala;
 	}
 
-	public void setFinalidade(String finalidade) throws ReserveException {
+	public void setFinality(String finalidade) throws ReserveException {
 		if(finalidade == null)
 			throw new ReserveException(FINALIDADE_NULA);
 		
@@ -46,14 +46,14 @@ public class ReservaSala extends Reserva{
 
 	public boolean equals(ReservaSala obj) {
 		return (super.equals(obj) && 
-			this.getSala().equals(obj.getSala())&&
-			this.getFinalidade().equals(obj.getFinalidade()));
+			this.getClassroom().equals(obj.getClassroom())&&
+			this.getFinality().equals(obj.getFinality()));
 	}
 	
 	@Override
 	public String toString() {
-		return "\n" + this.getSala().toString() 
-			+ "\nFinalidade=" + this.getFinalidade() 
+		return "\n" + this.getClassroom().toString() 
+			+ "\nFinalidade=" + this.getFinality() 
 			+ super.toString();
 	}
 

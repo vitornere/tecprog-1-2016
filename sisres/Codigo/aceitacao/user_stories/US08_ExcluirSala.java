@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.sql.SQLException;
 
 import model.Student;
-import model.Sala;
+import model.Classroom;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -37,7 +37,7 @@ public class US08_ExcluirSala {
 
     private FrameFixture window;
     private Robot robot;
-    private Sala sala;
+    private Classroom sala;
     private DialogFixture dialog;
     private int index;
 
@@ -48,7 +48,7 @@ public class US08_ExcluirSala {
         window = new FrameFixture(robot, new Main2());
         window.show(new Dimension(900, 500)); // shows the frame to test
 
-        sala = new Sala("code", "Sala para testes de aceitacao", "123");
+        sala = new Classroom("code", "Sala para testes de aceitacao", "123");
         SalaDAO.getInstance().incluir(sala);
 
         index = SalaDAO.getInstance().buscarTodos().size() - 1;

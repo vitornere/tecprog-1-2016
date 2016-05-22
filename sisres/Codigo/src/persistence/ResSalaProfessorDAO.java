@@ -8,7 +8,7 @@ import java.util.Vector;
 
 import model.Professor;
 import model.ReservaSalaProfessor;
-import model.Sala;
+import model.Classroom;
 
 import exception.ClientException;
 import exception.PatrimonyException;
@@ -45,7 +45,7 @@ public class ResSalaProfessorDAO extends DAO{
 						"professor.email = \"" + p.getEmailPerson() + "\" and " +
 						"professor.matricula = \"" + p.getIdRegister() + "\"";
 			}
-			private String select_id_sala(Sala sala){
+			private String select_id_sala(Classroom sala){
 				return "SELECT id_sala FROM sala WHERE " +
 						"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
 						"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
@@ -54,22 +54,22 @@ public class ResSalaProfessorDAO extends DAO{
 			private String where_reserva_sala_professor(ReservaSalaProfessor r){
 				return " WHERE " +
 				"id_professor = ( " + select_id_professor(r.getProfessor()) + " ) and " +
-				"id_sala = ( " + select_id_sala(r.getSala()) + " ) and " +
-				"finalidade = \"" + r.getFinalidade() + "\" and " +
+				"id_sala = ( " + select_id_sala(r.getClassroom()) + " ) and " +
+				"finalidade = \"" + r.getFinality() + "\" and " +
 				"hora = \"" + r.getHour() + "\" and " +
 				"data = \"" + r.getDate() + "\"";
 			}
 			private String values_reserva_sala_professor(ReservaSalaProfessor r){
 				return "( " + select_id_professor(r.getProfessor()) + " ), " +
-				"( " + select_id_sala(r.getSala()) + " ), " +
-				"\"" + r.getFinalidade() + "\", " +
+				"( " + select_id_sala(r.getClassroom()) + " ), " +
+				"\"" + r.getFinality() + "\", " +
 				"\"" + r.getHour() + "\", " +
 				"\"" + r.getDate() + "\"";
 			}
 			private String atibutes_value_reserva_sala_professor(ReservaSalaProfessor r){
 				return "id_professor = ( " + select_id_professor(r.getProfessor()) + " ), " +
-				"id_sala = ( " + select_id_sala(r.getSala()) + " ), " +
-				"finalidade = \"" + r.getFinalidade() + "\", " +
+				"id_sala = ( " + select_id_sala(r.getClassroom()) + " ), " +
+				"finalidade = \"" + r.getFinality() + "\", " +
 				"hora = \"" + r.getHour() + "\", " +
 				"data = \"" + r.getDate() + "\"";
 			}
@@ -101,9 +101,9 @@ public class ResSalaProfessorDAO extends DAO{
 			throw new ReserveException(NULA);
 		else if(!this.professorinDB(r.getProfessor()))
 			throw new ReserveException(PROFESSOR_INEXISTENTE);
-		else if(!this.salainDB(r.getSala()))
+		else if(!this.salainDB(r.getClassroom()))
 			throw new ReserveException(SALA_INEXISTENTE);
-		else if(this.salainReservaDB(r.getSala(), r.getDate(), r.getHour()))
+		else if(this.salainReservaDB(r.getClassroom(), r.getDate(), r.getHour()))
 			throw new ReserveException(SALA_INDISPONIVEL);
 		else if(this.reservainDB(r))
 			throw new ReserveException(RESERVA_EXISTENTE);
@@ -134,10 +134,10 @@ public class ResSalaProfessorDAO extends DAO{
 			throw new ReserveException(RESERVA_EXISTENTE);
 		else if(!this.professorinDB(r_new.getProfessor()))
 			throw new ReserveException(PROFESSOR_INEXISTENTE);
-		else if(!this.salainDB(r_new.getSala()))
+		else if(!this.salainDB(r_new.getClassroom()))
 			throw new ReserveException(SALA_INEXISTENTE);
 		else if(!r.getDate().equals(r_new.getDate()) || !r.getHour().equals(r_new.getHour())) {
-			 if(this.salainReservaDB(r_new.getSala(), r_new.getDate(), r_new.getHour()))
+			 if(this.salainReservaDB(r_new.getClassroom(), r_new.getDate(), r_new.getHour()))
 				throw new ReserveException(SALA_INDISPONIVEL);
 		}		
 		if(this.dataPassou(r_new.getDate()))
@@ -179,7 +179,7 @@ public class ResSalaProfessorDAO extends DAO{
 		Professor p = new Professor(rs.getString("nome"), rs.getString("cpf"), rs.getString("matricula"),
 				rs.getString("telefone"), rs.getString("email"));
 		
-		Sala s = new Sala(rs.getString("codigo"), rs.getString("descricao"), rs.getString("capacidade"));
+		Classroom s = new Classroom(rs.getString("codigo"), rs.getString("descricao"), rs.getString("capacidade"));
 		
 		ReservaSalaProfessor r = new ReservaSalaProfessor(rs.getString("data"),rs.getString("hora"),
 				s ,rs.getString("finalidade"), p);
@@ -196,7 +196,7 @@ public class ResSalaProfessorDAO extends DAO{
 				"professor.matricula = \"" + professor.getIdRegister() + "\";");
 	}
 	
-	private boolean salainDB(Sala sala) throws SQLException{
+	private boolean salainDB(Classroom sala) throws SQLException{
 		return super.inDBGeneric("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala.getDescriptionEquipment() + "\" and " +
@@ -204,7 +204,7 @@ public class ResSalaProfessorDAO extends DAO{
 				";");
 	}
 	
-	private boolean salainReservaDB(Sala sala, String data, String hora) throws SQLException {
+	private boolean salainReservaDB(Classroom sala, String data, String hora) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE " +
 				"data = \"" + data + "\" and " +
 				"hora = \"" + hora + "\" and " +
@@ -223,10 +223,10 @@ public class ResSalaProfessorDAO extends DAO{
 							"professor.email = \"" + r.getProfessor().getEmailPerson() + "\" and " +
 							"professor.matricula = \"" + r.getProfessor().getIdRegister() + "\") and " +
 					"id_sala = (SELECT id_sala FROM sala WHERE " +
-									"sala.codigo = \"" + r.getSala().getIdEquipment() + "\" and " +
-									"sala.descricao = \"" + r.getSala().getDescriptionEquipment() +  "\" and " +
-									"sala.capacidade = " + r.getSala().getCapacidade() +" ) and " +
-					"finalidade = \"" + r.getFinalidade() + "\" and " +
+									"sala.codigo = \"" + r.getClassroom().getIdEquipment() + "\" and " +
+									"sala.descricao = \"" + r.getClassroom().getDescriptionEquipment() +  "\" and " +
+									"sala.capacidade = " + r.getClassroom().getCapacidade() +" ) and " +
+					"finalidade = \"" + r.getFinality() + "\" and " +
 					"hora = \"" + r.getHour() + "\" and " +
 					"data = \"" + r.getDate() + "\";");
 	}

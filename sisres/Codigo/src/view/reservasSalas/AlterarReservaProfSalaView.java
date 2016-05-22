@@ -69,13 +69,13 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
         this.horaTextField.setEditable(false);
         this.horaTextField.setText(reservaProfessor.getHour());
         this.alunoTextArea.setText(reservaProfessor.getProfessor().toString());
-        this.salaTextArea.setText(reservaProfessor.getSala().toString());
+        this.salaTextArea.setText(reservaProfessor.getClassroom().toString());
         this.dataTextField.setText(reservaProfessor.getDate());
-        this.qntCadeirasTxtField.setText(reservaProfessor.getSala().getCapacidade());
-        this.qntCadeirasReservadasTextField.setText(reservaProfessor.getSala().getCapacidade());
+        this.qntCadeirasTxtField.setText(reservaProfessor.getClassroom().getCapacidade());
+        this.qntCadeirasReservadasTextField.setText(reservaProfessor.getClassroom().getCapacidade());
         this.qntCadeirasReservadasTextField.setBackground(blue);
         this.qntCadeirasReservadasTextField.setEditable(false);
-        this.finalidadeTextField.setText(reservaProfessor.getFinalidade());
+        this.finalidadeTextField.setText(reservaProfessor.getFinality());
         this.verificarCadeiraButton.setEnabled(false);
     }
 
