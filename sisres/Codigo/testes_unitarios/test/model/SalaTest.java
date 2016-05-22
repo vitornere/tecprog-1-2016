@@ -85,7 +85,7 @@ public class SalaTest {
 	@Test(expected = exception.PatrimonyException.class)
 	public void testCapacidadeNegativo() throws PatrimonyException {
 		setUp();
-		sala.setCapacidade("-1");
+		sala.setCapacity("-1");
 		assertEquals("Capacidade diferente instanciada", "1", sala.getCapacity());
 		tearDown();
 	}
@@ -93,7 +93,7 @@ public class SalaTest {
 	@Test(expected = exception.PatrimonyException.class)
 	public void testCapacidadeLetra() throws PatrimonyException {
 		setUp();
-		sala.setCapacidade("a");
+		sala.setCapacity("a");
 		assertEquals("Capacidade diferente instanciada", "1", sala.getCapacity());
 		tearDown();
 	}

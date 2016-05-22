@@ -48,7 +48,7 @@ public class ClassroomRegister {
 				classroom.getDescriptionEquipment(), classroom.getCapacity());
 		classroom.setIdEquipment(idClassroom);
 		classroom.setDescriptionEquipment(descriptionClassroom);
-		classroom.setCapacidade(capacity);
+		classroom.setCapacity(capacity);
 		ClassroomDAO.getClassroom().update(oldClassroomDate, classroom);
 	}
 
