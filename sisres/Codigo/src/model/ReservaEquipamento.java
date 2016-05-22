@@ -4,21 +4,21 @@ import exception.ReservaException;
 
 public class ReservaEquipamento extends Reserva {
 
-    private Equipamento equipamento;
+    private Equipment equipamento;
 
     // Mensagens
     private final String EQUIPAMENTO_NULO = "O equipamneto esta nulo.";
 
-    public ReservaEquipamento(String data, String hora, Equipamento equipamento) throws ReservaException {
+    public ReservaEquipamento(String data, String hora, Equipment equipamento) throws ReservaException {
         super(data, hora);
         this.setEquipamento(equipamento);
     }
 
-    public Equipamento getEquipamento() {
+    public Equipment getEquipamento() {
         return this.equipamento;
     }
 
-    public void setEquipamento(Equipamento equipamento) throws ReservaException {
+    public void setEquipamento(Equipment equipamento) throws ReservaException {
         if (equipamento == null)
             throw new ReservaException(EQUIPAMENTO_NULO);
         this.equipamento = equipamento;

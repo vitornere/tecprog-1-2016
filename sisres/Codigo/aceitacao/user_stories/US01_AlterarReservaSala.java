@@ -26,7 +26,7 @@ import persistence.ResSalaProfessorDAO;
 import persistence.SalaDAO;
 import view.Main2;
 import exception.ClientException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 public class US01_AlterarReservaSala {
@@ -49,7 +49,7 @@ public class US01_AlterarReservaSala {
         this.data = formatador.format(date);
     }
 
-    @Before public void setUp() throws PatrimonioException, SQLException, ClientException, ReservaException {
+    @Before public void setUp() throws PatrimonyException, SQLException, ClientException, ReservaException {
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
 
@@ -79,7 +79,7 @@ public class US01_AlterarReservaSala {
         dialog = window.dialog("SalaView");
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException, ClientException, ReservaException {
+    @After public void tearDown() throws SQLException, PatrimonyException, ClientException, ReservaException {
         if (reservaProf != null)
             ResSalaProfessorDAO.getInstance().excluir(reservaProf);
         if (reservaAluno != null)
@@ -101,7 +101,7 @@ public class US01_AlterarReservaSala {
         }
 
     }
-    @Test public void testCenario2AlunoCadeirasIndisponiveis() throws SQLException, ClientException, PatrimonioException, ReservaException {
+    @Test public void testCenario2AlunoCadeirasIndisponiveis() throws SQLException, ClientException, PatrimonyException, ReservaException {
         
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();

@@ -3,12 +3,12 @@ package control;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import model.Equipamento;
+import model.Equipment;
 import model.Professor;
 import model.ReservaEquipamentoProfessor;
 import persistence.ResEquipamentoProfessorDAO;
 import exception.ClientException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 public class ManterResEquipamentoProfessor {
@@ -28,24 +28,24 @@ public class ManterResEquipamentoProfessor {
 
     //
 
-    public Vector<ReservaEquipamentoProfessor> getReservasHora(String hora) throws SQLException, PatrimonioException,
+    public Vector<ReservaEquipamentoProfessor> getReservasHora(String hora) throws SQLException, PatrimonyException,
             ClientException, ReservaException {
         return ResEquipamentoProfessorDAO.getInstance().buscarPorHora(hora);
 
     }
 
-    public Vector<ReservaEquipamentoProfessor> getReservasMes(int mes) throws SQLException, PatrimonioException, ClientException,
+    public Vector<ReservaEquipamentoProfessor> getReservasMes(int mes) throws SQLException, PatrimonyException, ClientException,
             ReservaException {
         return ResEquipamentoProfessorDAO.getInstance().buscarPorMes(mes);
     }
 
-    public Vector<Object> getResEquipamentoProfessor_vet() throws SQLException, ClientException, PatrimonioException,
+    public Vector<Object> getResEquipamentoProfessor_vet() throws SQLException, ClientException, PatrimonyException,
             ReservaException {
         this.rev_equipamento_professor_vet = ResEquipamentoProfessorDAO.getInstance().buscarTodos();
         return this.rev_equipamento_professor_vet;
     }
 
-    public void inserir(Equipamento equipamento, Professor prof, String data, String hora) throws SQLException, ReservaException {
+    public void inserir(Equipment equipamento, Professor prof, String data, String hora) throws SQLException, ReservaException {
         ReservaEquipamentoProfessor reserva = new ReservaEquipamentoProfessor(data, hora, equipamento, prof);
         ResEquipamentoProfessorDAO.getInstance().incluir(reserva);
         this.rev_equipamento_professor_vet.add(reserva);

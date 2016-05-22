@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 import view.cadastros.CadastroPatrimonio;
 import control.ManterSala;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * 
@@ -30,12 +30,12 @@ public class AlterarSala extends CadastroPatrimonio {
 
         try {
 
-            this.codigoTxtField.setText(ManterSala.getInstance().getSalas_vet().get(index).getCodigo());
+            this.codigoTxtField.setText(ManterSala.getInstance().getSalas_vet().get(index).getIdEquipment());
             this.capacidadeTxtField.setText(ManterSala.getInstance().getSalas_vet().get(index).getCapacidade());
-            this.descricaoTextArea.setText(ManterSala.getInstance().getSalas_vet().get(index).getDescricao());
+            this.descricaoTextArea.setText(ManterSala.getInstance().getSalas_vet().get(index).getDescriptionEquipment());
             this.index2 = index;
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -54,7 +54,7 @@ public class AlterarSala extends CadastroPatrimonio {
             JOptionPane.showMessageDialog(this, "Sala Alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             this.setVisible(false);
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

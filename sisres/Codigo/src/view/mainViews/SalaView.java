@@ -17,7 +17,7 @@ import view.cadastros.CadastroPatrimonio;
 import view.cadastros.CadastroSala;
 import view.diasReservas.DiaReservaSala;
 import control.ManterSala;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * 
@@ -39,8 +39,8 @@ public class SalaView extends PatrimonioView {
 
         Vector<String> nomesTabela = new Vector<String>();
 
-        nomesTabela.add(sala.getCodigo());
-        nomesTabela.add(sala.getDescricao());
+        nomesTabela.add(sala.getIdEquipment());
+        nomesTabela.add(sala.getDescriptionEquipment());
         nomesTabela.add(sala.getCapacidade());
 
         return nomesTabela;
@@ -63,7 +63,7 @@ public class SalaView extends PatrimonioView {
 
             return table;
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -91,7 +91,7 @@ public class SalaView extends PatrimonioView {
         try {
             int confirm = JOptionPane
                     .showConfirmDialog(this, "Deseja mesmo excluir Sala: "
-                            + ManterSala.getInstance().getSalas_vet().get(index).getDescricao() + "?", "Excluir",
+                            + ManterSala.getInstance().getSalas_vet().get(index).getDescriptionEquipment() + "?", "Excluir",
                             JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
@@ -100,7 +100,7 @@ public class SalaView extends PatrimonioView {
             }
             this.tabelaPatrimonio.setModel(fillTable());
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -112,7 +112,7 @@ public class SalaView extends PatrimonioView {
             DiaReservaSala reserva = new DiaReservaSala(new javax.swing.JFrame(), true, index);
             reserva.setResizable(false);
             reserva.setVisible(true);
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

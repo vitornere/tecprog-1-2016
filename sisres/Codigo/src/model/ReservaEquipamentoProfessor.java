@@ -9,7 +9,7 @@ public class ReservaEquipamentoProfessor extends ReservaEquipamento {
     // Mensagens
     private final String PROFESSOR_NULO = "O professor esta nulo.";
 
-    public ReservaEquipamentoProfessor(String data, String hora, Equipamento equipamento, Professor professor)
+    public ReservaEquipamentoProfessor(String data, String hora, Equipment equipamento, Professor professor)
             throws ReservaException {
         super(data, hora, equipamento);
         this.setProfessor(professor);

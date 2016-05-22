@@ -3,7 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Equipamento;
+import model.Equipment;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -13,40 +13,40 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.EquipamentoDAO;
+import persistence.EquipmentDAO;
 import view.Main2;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * US2 Titulo: Reservar equipamento. Como professor, Eu quero reservar um
- * equipamento, Para que eu possa usufruir, sempre que necessário, dos recursos
- * disponíveis na FGA.
+ * equipamento, Para que eu possa usufruir, sempre que necessï¿½rio, dos recursos
+ * disponï¿½veis na FGA.
  * 
- * Cenário 1: Aluno deseja reservar equipamento. Dado que um aluno possui
- * cadastro, E solicita reserva de equipamento, Quando o usuário solicitar a
- * reserva pelo aluno, Então o sistema deve negar a reserva.
+ * Cenï¿½rio 1: Aluno deseja reservar equipamento. Dado que um aluno possui
+ * cadastro, E solicita reserva de equipamento, Quando o usuï¿½rio solicitar a
+ * reserva pelo aluno, Entï¿½o o sistema deve negar a reserva.
  * 
- * Cenário 2: Professor deseja reservar equipamento disponível. Dado que o
- * professor está cadastrado, E o equipamento está cadastrado, E o equipamento
- * está disponível, Quando o usuário solicitar a reserva do equipamento pelo
- * professor, Então o sistema reserva o equipamento, E informar que a reserva
+ * Cenï¿½rio 2: Professor deseja reservar equipamento disponï¿½vel. Dado que o
+ * professor estï¿½ cadastrado, E o equipamento estï¿½ cadastrado, E o equipamento
+ * estï¿½ disponï¿½vel, Quando o usuï¿½rio solicitar a reserva do equipamento pelo
+ * professor, Entï¿½o o sistema reserva o equipamento, E informar que a reserva
  * foi realizada com sucesso.
  * 
- * Cenário 3: Professor deseja reservar equipamento indisponível. Dado que o
- * professor está cadastrado, E o equipamento está cadastrado, E o equipamento
- * já está reservado, Quando o usuário solicitar a reserva do equipamento pelo
- * professor, Então o sistema deverá negar a reserva, E o sistema deve informar
- * que o equipamento está indisponível para o dia e horário escolhido. E o
- * sistema não deve substituir a reserva.
+ * Cenï¿½rio 3: Professor deseja reservar equipamento indisponï¿½vel. Dado que o
+ * professor estï¿½ cadastrado, E o equipamento estï¿½ cadastrado, E o equipamento
+ * jï¿½ estï¿½ reservado, Quando o usuï¿½rio solicitar a reserva do equipamento pelo
+ * professor, Entï¿½o o sistema deverï¿½ negar a reserva, E o sistema deve informar
+ * que o equipamento estï¿½ indisponï¿½vel para o dia e horï¿½rio escolhido. E o
+ * sistema nï¿½o deve substituir a reserva.
  */
 public class US02_ReservarEquipamento {
     private FrameFixture window;
     private Robot robot;
-    private Equipamento equipamento;
+    private Equipment equipamento;
     private DialogFixture dialog;
     private int index;
 
-    @Before public void setUp() throws PatrimonioException, SQLException {
+    @Before public void setUp() throws PatrimonyException, SQLException {
 
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
@@ -54,19 +54,19 @@ public class US02_ReservarEquipamento {
         window = new FrameFixture(robot, new Main2());
         window.show(new Dimension(900, 500)); // shows the frame to test
 
-        equipamento = new Equipamento("code", "Equipamento para testes de aceitacao");
-        EquipamentoDAO.getInstance().incluir(equipamento);
+        equipamento = new Equipment("code", "Equipamento para testes de aceitacao");
+        EquipmentDAO.getNewEquipment().include(equipamento);
 
-        index = EquipamentoDAO.getInstance().buscarTodos().size() - 1;
+        index = EquipmentDAO.getNewEquipment().searchAll().size() - 1;
 
         window.button("Equipamento").click();
         dialog = window.dialog("EquipamentoView");
 
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException {
+    @After public void tearDown() throws SQLException, PatrimonyException {
         if (equipamento != null)
-            EquipamentoDAO.getInstance().excluir(equipamento);
+            EquipmentDAO.getNewEquipment().delete(equipamento);
         window.cleanUp();
     }
 

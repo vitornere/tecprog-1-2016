@@ -15,26 +15,26 @@ import org.junit.Test;
 
 import persistence.SalaDAO;
 import view.Main2;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
- * US6 Título: Cadastrar sala. Como usuário Eu quero cadastrar salas Para que
- * haja possibilidade de reserva quando disponível.
+ * US6 Tï¿½tulo: Cadastrar sala. Como usuï¿½rio Eu quero cadastrar salas Para que
+ * haja possibilidade de reserva quando disponï¿½vel.
  * 
- * Cenário 1: Não há cadastro e dados inseridos são válidos. Dado que não há
- * cadastro da sala, E os dados inseridos todos são válidos, Quando o usuário
- * solicitar o cadastro da sala, Então o sistema deve registrar o novo cadastro,
- * E informar o sucesso da operação.
+ * Cenï¿½rio 1: Nï¿½o hï¿½ cadastro e dados inseridos sï¿½o vï¿½lidos. Dado que nï¿½o hï¿½
+ * cadastro da sala, E os dados inseridos todos sï¿½o vï¿½lidos, Quando o usuï¿½rio
+ * solicitar o cadastro da sala, Entï¿½o o sistema deve registrar o novo cadastro,
+ * E informar o sucesso da operaï¿½ï¿½o.
  * 
- * Cenário 2: Há cadastro e dados inseridos são válidos. Dado que há o cadastro
- * da sala, E os dados do novo cadastro são válidos, Quando o usuário solicitar
- * o cadastro da sala, Então o sistema deve informar que a sala já está
- * cadastrada, E não deve registrar um novo cadastro.
+ * Cenï¿½rio 2: Hï¿½ cadastro e dados inseridos sï¿½o vï¿½lidos. Dado que hï¿½ o cadastro
+ * da sala, E os dados do novo cadastro sï¿½o vï¿½lidos, Quando o usuï¿½rio solicitar
+ * o cadastro da sala, Entï¿½o o sistema deve informar que a sala jï¿½ estï¿½
+ * cadastrada, E nï¿½o deve registrar um novo cadastro.
  * 
- * Cenário 3: Não há cadastro e dados inseridos são inválidos. Dado que não há o
- * cadastro da sala, E os dados do novo cadastro são inválidos, Quando o usuário
- * solicitar o cadastro da sala, Então o sistema deve exibir a seguinte
- * mensagem: “O campo [campo] é inválido”, E não deve registrar um novo
+ * Cenï¿½rio 3: Nï¿½o hï¿½ cadastro e dados inseridos sï¿½o invï¿½lidos. Dado que nï¿½o hï¿½ o
+ * cadastro da sala, E os dados do novo cadastro sï¿½o invï¿½lidos, Quando o usuï¿½rio
+ * solicitar o cadastro da sala, Entï¿½o o sistema deve exibir a seguinte
+ * mensagem: ï¿½O campo [campo] ï¿½ invï¿½lidoï¿½, E nï¿½o deve registrar um novo
  * cadastro.
  */
 
@@ -56,7 +56,7 @@ public class US06_CadastrarSala {
         dialog = window.dialog("SalaView");
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException {
+    @After public void tearDown() throws SQLException, PatrimonyException {
         if (sala != null)
             SalaDAO.getInstance().excluir(sala);
         window.cleanUp();
@@ -77,7 +77,7 @@ public class US06_CadastrarSala {
         cadastro.button("Cancelar").click();
     }
 
-    @Test public void testCenario1() throws SQLException, PatrimonioException {
+    @Test public void testCenario1() throws SQLException, PatrimonyException {
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroSala");
 
@@ -94,7 +94,7 @@ public class US06_CadastrarSala {
         sala = SalaDAO.getInstance().buscarTodos().get(index);
     }
 
-    @Test public void testCenario2() throws SQLException, PatrimonioException {
+    @Test public void testCenario2() throws SQLException, PatrimonyException {
 
         sala = new Sala("code","Sala para testes de aceitacao","123");
         SalaDAO.getInstance().incluir(sala);
@@ -112,7 +112,7 @@ public class US06_CadastrarSala {
         cadastro.optionPane().okButton().click();
     }
 
-    @Test public void testCenario3CapacidadeInvalida() throws SQLException, PatrimonioException {
+    @Test public void testCenario3CapacidadeInvalida() throws SQLException, PatrimonyException {
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroSala");
@@ -128,7 +128,7 @@ public class US06_CadastrarSala {
 
     }
     
-    @Test public void testCenario3CapacidadeBranco() throws SQLException, PatrimonioException {
+    @Test public void testCenario3CapacidadeBranco() throws SQLException, PatrimonyException {
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroSala");
@@ -144,7 +144,7 @@ public class US06_CadastrarSala {
     }
 
 
-    @Test public void testCenario3CodigoBranco() throws SQLException, PatrimonioException {
+    @Test public void testCenario3CodigoBranco() throws SQLException, PatrimonyException {
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroSala");
@@ -159,7 +159,7 @@ public class US06_CadastrarSala {
         cadastro.optionPane().okButton().click();
     }
 
-    @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonioException {
+    @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonyException {
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroSala");

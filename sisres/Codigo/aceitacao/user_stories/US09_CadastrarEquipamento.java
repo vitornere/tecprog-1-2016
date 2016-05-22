@@ -3,7 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Equipamento;
+import model.Equipment;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -13,42 +13,42 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.EquipamentoDAO;
+import persistence.EquipmentDAO;
 import view.Main2;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**US9
-Título: Cadastrar equipamento.
-Como usuário
+Tï¿½tulo: Cadastrar equipamento.
+Como usuï¿½rio
 Eu quero cadastrar equipamentos
-Para que haja possibilidade de reserva quando disponível.
+Para que haja possibilidade de reserva quando disponï¿½vel.
 
-Cenário 1: Não há cadastro e dados inseridos são válidos.
-Dado que não há cadastro do equipamento,
-E os dados inseridos todos são válidos,
-Quando o usuário solicitar o cadastro do equipamento,
-Então o sistema deve registrar o novo cadastro,
-E informar o sucesso da operação.
+Cenï¿½rio 1: Nï¿½o hï¿½ cadastro e dados inseridos sï¿½o vï¿½lidos.
+Dado que nï¿½o hï¿½ cadastro do equipamento,
+E os dados inseridos todos sï¿½o vï¿½lidos,
+Quando o usuï¿½rio solicitar o cadastro do equipamento,
+Entï¿½o o sistema deve registrar o novo cadastro,
+E informar o sucesso da operaï¿½ï¿½o.
 
-Cenário 2: Há cadastro e dados inseridos são válidos.
-Dado que há o cadastro do equipamento,
-E os dados do novo cadastro são válidos,
-Quando o usuário solicitar o cadastro do equipamento,
-Então o sistema deve informar que o equipamento já está cadastrado,
-E não deve registrar um novo cadastro.
+Cenï¿½rio 2: Hï¿½ cadastro e dados inseridos sï¿½o vï¿½lidos.
+Dado que hï¿½ o cadastro do equipamento,
+E os dados do novo cadastro sï¿½o vï¿½lidos,
+Quando o usuï¿½rio solicitar o cadastro do equipamento,
+Entï¿½o o sistema deve informar que o equipamento jï¿½ estï¿½ cadastrado,
+E nï¿½o deve registrar um novo cadastro.
 
-Cenário 3: Não há cadastro e dados inseridos são inválidos.
-Dado que não há o cadastro do equipamento,
-E os dados do novo cadastro são inválidos,
-Quando o usuário solicitar o cadastro do equipamento,
-Então o sistema deve exibir a seguinte mensagem: “O campo [campo] é inválido”,
-E não deve registrar um novo cadastro.
+Cenï¿½rio 3: Nï¿½o hï¿½ cadastro e dados inseridos sï¿½o invï¿½lidos.
+Dado que nï¿½o hï¿½ o cadastro do equipamento,
+E os dados do novo cadastro sï¿½o invï¿½lidos,
+Quando o usuï¿½rio solicitar o cadastro do equipamento,
+Entï¿½o o sistema deve exibir a seguinte mensagem: ï¿½O campo [campo] ï¿½ invï¿½lidoï¿½,
+E nï¿½o deve registrar um novo cadastro.
 
 */
 public class US09_CadastrarEquipamento {
     private FrameFixture window;
     private Robot robot;
-    private Equipamento equipamento;
+    private Equipment equipamento;
     private DialogFixture dialog;
     private int index;
 
@@ -62,9 +62,9 @@ public class US09_CadastrarEquipamento {
         dialog = window.dialog("EquipamentoView");
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException {
+    @After public void tearDown() throws SQLException, PatrimonyException {
         if (equipamento != null)
-            EquipamentoDAO.getInstance().excluir(equipamento);
+            EquipmentDAO.getNewEquipment().delete(equipamento);
         window.cleanUp();
     }
 
@@ -83,7 +83,7 @@ public class US09_CadastrarEquipamento {
         cadastro.button("Cancelar").click();
     }
 
-    @Test public void testCenario1() throws SQLException, PatrimonioException {
+    @Test public void testCenario1() throws SQLException, PatrimonyException {
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroEquipamento");
 
@@ -95,14 +95,14 @@ public class US09_CadastrarEquipamento {
         sleep();
         cadastro.optionPane().okButton().click();
 
-        index = EquipamentoDAO.getInstance().buscarTodos().size() - 1;
-        equipamento = EquipamentoDAO.getInstance().buscarTodos().get(index);
+        index = EquipmentDAO.getNewEquipment().searchAll().size() - 1;
+        equipamento = EquipmentDAO.getNewEquipment().searchAll().get(index);
     }
 
-    @Test public void testCenario2() throws SQLException, PatrimonioException {
+    @Test public void testCenario2() throws SQLException, PatrimonyException {
 
-        equipamento = new Equipamento("code","Equipamento para testes de aceitacao");
-        EquipamentoDAO.getInstance().incluir(equipamento);
+        equipamento = new Equipment("code","Equipamento para testes de aceitacao");
+        EquipmentDAO.getNewEquipment().include(equipamento);
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroEquipamento");
@@ -117,7 +117,7 @@ public class US09_CadastrarEquipamento {
     }
 
     
-    @Test public void testCenario3CodigoBranco() throws SQLException, PatrimonioException {
+    @Test public void testCenario3CodigoBranco() throws SQLException, PatrimonyException {
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroEquipamento");
@@ -131,7 +131,7 @@ public class US09_CadastrarEquipamento {
         cadastro.optionPane().okButton().click();
     }
 
-    @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonioException {
+    @Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonyException {
 
         dialog.button("Cadastrar").click();
         DialogFixture cadastro = dialog.dialog("CadastroEquipamento");

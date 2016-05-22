@@ -3,7 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Equipamento;
+import model.Equipment;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -13,10 +13,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.EquipamentoDAO;
+import persistence.EquipmentDAO;
 import view.Main2;
 import exception.ClientException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * US11
@@ -42,30 +42,30 @@ E informa que n�o h� o registro.
 public class US11_ExcluirEquipamento {
     private FrameFixture window;
     private Robot robot;
-    private Equipamento equipamento;
+    private Equipment equipamento;
     private DialogFixture dialog;
     private int index;
 
-    @Before public void setUp() throws PatrimonioException, SQLException {
+    @Before public void setUp() throws PatrimonyException, SQLException {
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
 
         window = new FrameFixture(robot, new Main2());
         window.show(new Dimension(900, 500)); // shows the frame to test
 
-        equipamento = new Equipamento("code", "Equipamento para testes de aceitacao");
-        EquipamentoDAO.getInstance().incluir(equipamento);
+        equipamento = new Equipment("code", "Equipamento para testes de aceitacao");
+        EquipmentDAO.getNewEquipment().include(equipamento);
 
-        index = EquipamentoDAO.getInstance().buscarTodos().size() - 1;
+        index = EquipmentDAO.getNewEquipment().searchAll().size() - 1;
 
         window.button("Equipamento").click();
         dialog = window.dialog("EquipamentoView");
 
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException {
+    @After public void tearDown() throws SQLException, PatrimonyException {
         if (equipamento != null)
-            EquipamentoDAO.getInstance().excluir(equipamento);
+            EquipmentDAO.getNewEquipment().delete(equipamento);
         window.cleanUp();
     }
 
@@ -81,7 +81,7 @@ public class US11_ExcluirEquipamento {
     public void testCenario1() throws SQLException, ClientException{
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Excluir").click();
-        dialog.optionPane().requireMessage("Deseja mesmo excluir Equipamento: " + equipamento.getDescricao() + "?");
+        dialog.optionPane().requireMessage("Deseja mesmo excluir Equipamento: " + equipamento.getDescriptionEquipment() + "?");
         sleep();
         dialog.optionPane().yesButton().click();
         sleep();

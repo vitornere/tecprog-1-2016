@@ -1,12 +1,12 @@
 package test.control;
 
-import control.ManterEquipamento;
-import exception.PatrimonioException;
+import control.EquipmentRegister;
+import exception.PatrimonyException;
 
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Vector;
-import model.Equipamento;
+import model.Equipment;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -18,16 +18,16 @@ import org.junit.Test;
 
 public class ManterEquipamentoTest {
 
-	static ManterEquipamento instance;
-	Vector<Equipamento> todos;
-	Equipamento e;
+	static EquipmentRegister instance;
+	Vector<Equipment> todos;
+	Equipment e;
  
 	public ManterEquipamentoTest() {
 	}
 
 	@BeforeClass
-	public static void setUpClass() throws PatrimonioException {
-		instance = ManterEquipamento.getInstance();
+	public static void setUpClass() throws PatrimonyException {
+		instance = EquipmentRegister.getNewEquipment();
 	}
 
 	@AfterClass
@@ -37,18 +37,18 @@ public class ManterEquipamentoTest {
 
 	@Before
 	public void setUp() throws Exception {
-		e = new Equipamento("codigo", "descricao");
-		instance.inserir("codigo","descricao");
-		todos = instance.getEquipamento_vet();
+		e = new Equipment("codigo", "descricao");
+		instance.insert("codigo","descricao");
+		todos = instance.getVectorEquipments();
 	}
 
 	@After
-	public void tearDown() throws SQLException, PatrimonioException {
-		todos = instance.getEquipamento_vet();
-		Iterator<Equipamento> i = todos.iterator();
+	public void tearDown() throws SQLException, PatrimonyException {
+		todos = instance.getVectorEquipments();
+		Iterator<Equipment> i = todos.iterator();
 		while(i.hasNext()){
 			e = i.next();
-			instance.excluir(e);
+			instance.delete(e);
 		}
 		e = null;
 	}
@@ -65,45 +65,45 @@ public class ManterEquipamentoTest {
 	
 	@Test
 	public void testSingleton(){
-		ManterEquipamento me = ManterEquipamento.getInstance();
+		EquipmentRegister me = EquipmentRegister.getNewEquipment();
 		assertSame("Instancias diferentes", me, instance);
 		
 	}
 
 	@Test
-	public void testIncluirVet() throws SQLException, PatrimonioException {
+	public void testIncluirVet() throws SQLException, PatrimonyException {
 		assertNotNull("Teste de Inclusao no Equipamento Vet.", procurarNoVetor(e));
 	}
 	
 	@Test
-	public void testAlterarVet() throws SQLException, PatrimonioException {
-		instance.alterar("codigo alterado", "descricao alterarda", e);
-		Equipamento e2 = new Equipamento("codigo alterado", "descricao alterarda");
+	public void testAlterarVet() throws SQLException, PatrimonyException {
+		instance.update("codigo alterado", "descricao alterarda", e);
+		Equipment e2 = new Equipment("codigo alterado", "descricao alterarda");
 		assertNotNull("Teste de Inclusao no Equipamento Vet.", procurarNoVetor(e2));
 	}
 	
-	@Test(expected = PatrimonioException.class)
-	public void testAlterarNaoExistente() throws SQLException, PatrimonioException {
-		Equipamento eq = new Equipamento("codigo", "nao existe");
-		instance.alterar("codigo alterado", "descricao alterarda", eq);
+	@Test(expected = PatrimonyException.class)
+	public void testAlterarNaoExistente() throws SQLException, PatrimonyException {
+		Equipment eq = new Equipment("codigo", "nao existe");
+		instance.update("codigo alterado", "descricao alterarda", eq);
 	}
 	
-	@Test(expected = PatrimonioException.class)
-	public void testAlterarNull() throws SQLException, PatrimonioException {
-		instance.alterar("codigo alterado", "descricao alterarda", null);
+	@Test(expected = PatrimonyException.class)
+	public void testAlterarNull() throws SQLException, PatrimonyException {
+		instance.update("codigo alterado", "descricao alterarda", null);
 	}
 	
-	@Test (expected = PatrimonioException.class)
-	public void testExcluirNull() throws SQLException, PatrimonioException {
+	@Test (expected = PatrimonyException.class)
+	public void testExcluirNull() throws SQLException, PatrimonyException {
 		e = null;
-		instance.excluir(e);
+		instance.delete(e);
 	}
 	
-	public Equipamento procurarNoVetor(Equipamento teste) throws PatrimonioException, SQLException {
-		todos = instance.getEquipamento_vet();
-		Iterator<Equipamento> i = todos.iterator();
+	public Equipment procurarNoVetor(Equipment teste) throws PatrimonyException, SQLException {
+		todos = instance.getVectorEquipments();
+		Iterator<Equipment> i = todos.iterator();
 		while(i.hasNext()){
-			Equipamento e = i.next();
+			Equipment e = i.next();
 			if(e.equals(teste))
 				return e;			
 		}

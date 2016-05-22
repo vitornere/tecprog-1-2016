@@ -20,8 +20,7 @@ public class StudentRegister {
 		if (newStudent != null) {
 
 			// Nothing to do.
-		} 
-		else {
+		} else {
 
 			newStudent = new StudentRegister();
 		}

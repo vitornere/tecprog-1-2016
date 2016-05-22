@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import persistence.SalaDAO;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import model.Sala;
 
 public class ManterSala {
@@ -22,27 +22,27 @@ public class ManterSala {
 	}
 	//
 		
-	public Vector<Sala> getSalas_vet() throws SQLException, PatrimonioException{
+	public Vector<Sala> getSalas_vet() throws SQLException, PatrimonyException{
 		this.salas_vet = SalaDAO.getInstance().buscarTodos();
 		return this.salas_vet;
 	}
 
-	public void inserir(String codigo, String descricao, String capacidade) throws PatrimonioException, SQLException {
+	public void inserir(String codigo, String descricao, String capacidade) throws PatrimonyException, SQLException {
 		Sala sala = new Sala(codigo, descricao, capacidade);
 		SalaDAO.getInstance().incluir(sala);
 		this.salas_vet.add(sala);
 	}
 
-	public void alterar(String codigo, String descricao, String capacidade, Sala sala) throws PatrimonioException, SQLException {
-		Sala old_sala = new Sala(sala.getCodigo(), sala.getDescricao(),
+	public void alterar(String codigo, String descricao, String capacidade, Sala sala) throws PatrimonyException, SQLException {
+		Sala old_sala = new Sala(sala.getIdEquipment(), sala.getDescriptionEquipment(),
 								sala.getCapacidade());
-		sala.setCodigo(codigo);
-		sala.setDescricao(descricao);
+		sala.setIdEquipment(codigo);
+		sala.setDescriptionEquipment(descricao);
 		sala.setCapacidade(capacidade);
 		SalaDAO.getInstance().alterar(old_sala, sala);
 	}
 
-	public void excluir(Sala sala) throws SQLException, PatrimonioException {
+	public void excluir(Sala sala) throws SQLException, PatrimonyException {
 		SalaDAO.getInstance().excluir(sala);
 		this.salas_vet.remove(sala);
 	}

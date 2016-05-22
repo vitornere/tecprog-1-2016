@@ -9,11 +9,11 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
-import model.Equipamento;
+import model.Equipment;
 import view.horariosReservas.HorariosReservaEquipamento;
 import view.horariosReservas.HorariosReservaPatrimonio;
-import control.ManterEquipamento;
-import exception.PatrimonioException;
+import control.EquipmentRegister;
+import exception.PatrimonyException;
 
 /**
  * 
@@ -21,11 +21,11 @@ import exception.PatrimonioException;
  */
 public class DiaReservaEquipamento extends DiaReservaPatrimonio {
 
-    Equipamento eq;
+    Equipment eq;
 
-    public DiaReservaEquipamento(Frame parent, boolean modal, int indexEquipamento) throws SQLException, PatrimonioException {
+    public DiaReservaEquipamento(Frame parent, boolean modal, int indexEquipamento) throws SQLException, PatrimonyException {
         super(parent, modal);
-        eq = ManterEquipamento.getInstance().getEquipamento_vet().get(indexEquipamento);
+        eq = EquipmentRegister.getNewEquipment().getVectorEquipments().get(indexEquipamento);
     }
 
     @Override protected void visualizarAction(String data) {

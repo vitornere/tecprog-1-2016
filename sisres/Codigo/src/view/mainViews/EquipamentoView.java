@@ -7,12 +7,12 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import model.Equipamento;
+import model.Equipment;
 import view.alteracoes.AlterarEquipamento;
 import view.cadastros.CadastroEquipamento;
 import view.diasReservas.DiaReservaEquipamento;
-import control.ManterEquipamento;
-import exception.PatrimonioException;
+import control.EquipmentRegister;
+import exception.PatrimonyException;
 
 /**
  * 
@@ -27,7 +27,7 @@ public class EquipamentoView extends PatrimonioView {
         this.setName("EquipamentoView");
     }
 
-    private Vector<String> fillDataVector(Equipamento equipamento) {
+    private Vector<String> fillDataVector(Equipment equipamento) {
 
         if (equipamento == null) {
             return null;
@@ -35,8 +35,8 @@ public class EquipamentoView extends PatrimonioView {
 
         Vector<String> nomesTabela = new Vector<String>();
 
-        nomesTabela.add(equipamento.getCodigo());
-        nomesTabela.add(equipamento.getDescricao());
+        nomesTabela.add(equipamento.getIdEquipment());
+        nomesTabela.add(equipamento.getDescriptionEquipment());
 
         return nomesTabela;
 
@@ -46,18 +46,18 @@ public class EquipamentoView extends PatrimonioView {
         try {
             DefaultTableModel table = new DefaultTableModel();
 
-            Iterator<Equipamento> i = control.ManterEquipamento.getInstance().getEquipamento_vet().iterator();
+            Iterator<Equipment> i = control.EquipmentRegister.getNewEquipment().getVectorEquipments().iterator();
 
             table.addColumn("Codigo");
             table.addColumn("Descricao");
 
             while (i.hasNext()) {
-                Equipamento equipamento = i.next();
+                Equipment equipamento = i.next();
                 table.addRow(fillDataVector(equipamento));
             }
             return table;
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -87,17 +87,17 @@ public class EquipamentoView extends PatrimonioView {
 
         try {
             int confirm = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Equipamento: "
-                    + ManterEquipamento.getInstance().getEquipamento_vet().get(index).getDescricao() + "?", "Excluir",
+                    + EquipmentRegister.getNewEquipment().getVectorEquipments().get(index).getDescriptionEquipment() + "?", "Excluir",
                     JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                ManterEquipamento.getInstance().excluir(ManterEquipamento.getInstance().getEquipamento_vet().get(index));
+                EquipmentRegister.getNewEquipment().delete(EquipmentRegister.getNewEquipment().getVectorEquipments().get(index));
                 JOptionPane.showMessageDialog(this, "Equipamento excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null);
             }
             this.tabelaPatrimonio.setModel(fillTable());
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -112,7 +112,7 @@ public class EquipamentoView extends PatrimonioView {
             DiaReservaEquipamento reserva = new DiaReservaEquipamento(new javax.swing.JFrame(), true, index);
             reserva.setResizable(false);
             reserva.setVisible(true);
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

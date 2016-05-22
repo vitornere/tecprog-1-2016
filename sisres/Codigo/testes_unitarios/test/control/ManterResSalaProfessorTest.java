@@ -18,7 +18,7 @@ import org.junit.Test;
 
 import control.ManterResSalaProfessor;
 import exception.ClientException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 import persistence.FactoryConnection;
@@ -57,7 +57,7 @@ public class ManterResSalaProfessorTest {
 	
 	
 	@Test
-	public void testInserir() throws SQLException, ReservaException, ClientException, PatrimonioException {
+	public void testInserir() throws SQLException, ReservaException, ClientException, PatrimonyException {
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
 		String hora = "9:11";
@@ -70,7 +70,7 @@ public class ManterResSalaProfessorTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
-	public void testAlterar() throws ReservaException, SQLException, ClientException, PatrimonioException {
+	public void testAlterar() throws ReservaException, SQLException, ClientException, PatrimonyException {
 		
 		ReservaSalaProfessor reserva = new ReservaSalaProfessor("20/12/33", "9:11", sala1, "Pesquisa", professor1);
 		this.insert_into(reserva);
@@ -112,8 +112,8 @@ public class ManterResSalaProfessorTest {
 	}
 	private String select_id_sala(Sala sala){
 		return "SELECT id_sala FROM sala WHERE " +
-				"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-				"sala.descricao = \"" + sala.getDescricao() +  "\" and " +
+				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
+				"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
 				"sala.capacidade = " + sala.getCapacidade();
 	}
 	private String where_reserva_sala_professor(ReservaSalaProfessor reserva){

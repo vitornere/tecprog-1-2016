@@ -3,8 +3,8 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Equipamento;
-import model.Equipamento;
+import model.Equipment;
+import model.Equipment;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -14,46 +14,46 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.EquipamentoDAO;
+import persistence.EquipmentDAO;
 import view.Main2;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**US10
-Título: Alterar cadastro de equipamento
-Como usuário
+Tï¿½tulo: Alterar cadastro de equipamento
+Como usuï¿½rio
 Eu gostaria de alterar dados de equipamentos
 Para que haja confiabilidade nos dados contidos no sistema.
 
-Cenário 1: Existe equipamento cadastrado e dados novos são válidos.
-Dado que o equipamento está cadastrado;
-Quando o usuário edita algum campo
-E todos os dados são válidos,
-E solicita alteração;
-Então o sistema deve alterar os registros do equipamento.
-E informar o sucesso da alteração.
+Cenï¿½rio 1: Existe equipamento cadastrado e dados novos sï¿½o vï¿½lidos.
+Dado que o equipamento estï¿½ cadastrado;
+Quando o usuï¿½rio edita algum campo
+E todos os dados sï¿½o vï¿½lidos,
+E solicita alteraï¿½ï¿½o;
+Entï¿½o o sistema deve alterar os registros do equipamento.
+E informar o sucesso da alteraï¿½ï¿½o.
 
-Cenário 2: Não existe equipamento cadastrado.
-Dado que não existe o registro do equipamento;
-Quando o usuário solicita alteração;
-Então o sistema informa que não há o registro.
+Cenï¿½rio 2: Nï¿½o existe equipamento cadastrado.
+Dado que nï¿½o existe o registro do equipamento;
+Quando o usuï¿½rio solicita alteraï¿½ï¿½o;
+Entï¿½o o sistema informa que nï¿½o hï¿½ o registro.
 
-Cenário 3: Existe equipamento cadastrado e dados novos não são válidos.
-Dado que o equipamento está cadastrado;
-Quando o usuário edita algum campo
-E algum dado não é válido,
-E solicita alteração;
-Então o sistema deve exibir a seguinte mensagem: “O campo [campo] é inválido”,
-E não realizar alteração.
+Cenï¿½rio 3: Existe equipamento cadastrado e dados novos nï¿½o sï¿½o vï¿½lidos.
+Dado que o equipamento estï¿½ cadastrado;
+Quando o usuï¿½rio edita algum campo
+E algum dado nï¿½o ï¿½ vï¿½lido,
+E solicita alteraï¿½ï¿½o;
+Entï¿½o o sistema deve exibir a seguinte mensagem: ï¿½O campo [campo] ï¿½ invï¿½lidoï¿½,
+E nï¿½o realizar alteraï¿½ï¿½o.
 */
 
 public class US10_AlterarEquipamento {
     private FrameFixture window;
     private Robot robot;
-    private Equipamento equipamento;
+    private Equipment equipamento;
     private DialogFixture dialog;
     private int index;
 
-    @Before public void setUp() throws PatrimonioException, SQLException {
+    @Before public void setUp() throws PatrimonyException, SQLException {
         
     robot = BasicRobot.robotWithNewAwtHierarchy();
     robot.settings().delayBetweenEvents(5);
@@ -61,19 +61,19 @@ public class US10_AlterarEquipamento {
     window = new FrameFixture(robot, new Main2());
     window.show(new Dimension(900, 500)); // shows the frame to test
 
-    equipamento = new Equipamento("code", "Equipamento para testes de aceitacao");
-    EquipamentoDAO.getInstance().incluir(equipamento);
+    equipamento = new Equipment("code", "Equipamento para testes de aceitacao");
+    EquipmentDAO.getNewEquipment().include(equipamento);
 
-    index = EquipamentoDAO.getInstance().buscarTodos().size() - 1;
+    index = EquipmentDAO.getNewEquipment().searchAll().size() - 1;
 
     window.button("Equipamento").click();
     dialog = window.dialog("EquipamentoView");
 
 }
 
-@After public void tearDown() throws SQLException, PatrimonioException {
+@After public void tearDown() throws SQLException, PatrimonyException {
     if (equipamento != null)
-        EquipamentoDAO.getInstance().excluir(equipamento);
+        EquipmentDAO.getNewEquipment().delete(equipamento);
     window.cleanUp();
 }
 
@@ -93,7 +93,7 @@ public void sleep() {
     cadastro.button("Cancelar").click();
 }
 
-@Test public void testCenario1() throws SQLException, PatrimonioException {
+@Test public void testCenario1() throws SQLException, PatrimonyException {
 
     dialog.table("tabelaPatrimonio").selectRows(index);
 
@@ -107,13 +107,13 @@ public void sleep() {
     sleep();
     cadastro.optionPane().okButton().click();
 
-    equipamento = EquipamentoDAO.getInstance().buscarTodos().get(index);
+    equipamento = EquipmentDAO.getNewEquipment().searchAll().get(index);
 }
 
-@Test public void testCenario2() throws SQLException, PatrimonioException {
+@Test public void testCenario2() throws SQLException, PatrimonyException {
 
     if (equipamento != null)
-        EquipamentoDAO.getInstance().excluir(equipamento);
+        EquipmentDAO.getNewEquipment().delete(equipamento);
     equipamento = null;
     dialog.button("Alterar").click();
     dialog.optionPane().requireMessage("Selecione uma linha!");
@@ -121,7 +121,7 @@ public void sleep() {
 
 }
 
-@Test public void testCenario3CodigoBranco() throws SQLException, PatrimonioException {
+@Test public void testCenario3CodigoBranco() throws SQLException, PatrimonyException {
 
     dialog.table("tabelaPatrimonio").selectRows(index);
     dialog.button("Alterar").click();
@@ -135,10 +135,10 @@ public void sleep() {
     cadastro.optionPane().requireMessage("Codigo em Branco.");
     sleep();
     cadastro.optionPane().okButton().click();
-    equipamento = EquipamentoDAO.getInstance().buscarTodos().get(index);
+    equipamento = EquipmentDAO.getNewEquipment().searchAll().get(index);
 }
 
-@Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonioException {
+@Test public void testCenario3DescricaoBranco() throws SQLException, PatrimonyException {
 
     dialog.table("tabelaPatrimonio").selectRows(index);
     dialog.button("Alterar").click();
@@ -152,7 +152,7 @@ public void sleep() {
     cadastro.optionPane().requireMessage("Descricao em Branco.");
     sleep();
     cadastro.optionPane().okButton().click();
-    equipamento = EquipamentoDAO.getInstance().buscarTodos().get(index);
+    equipamento = EquipmentDAO.getNewEquipment().searchAll().get(index);
 }
 
 }

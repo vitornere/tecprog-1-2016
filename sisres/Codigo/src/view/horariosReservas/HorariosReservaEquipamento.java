@@ -13,14 +13,14 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import model.Equipamento;
+import model.Equipment;
 import model.Patrimonio;
 import model.ReservaEquipamentoProfessor;
 import view.reservasEquipamentos.FazerReservaEquipamentoView;
 import view.reservasEquipamentos.ReservaEquipamentoView;
 import control.ManterResEquipamentoProfessor;
 import exception.ClientException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 /**
@@ -29,10 +29,10 @@ import exception.ReservaException;
  */
 public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
-    Equipamento eq;
+    Equipment eq;
     ManterResEquipamentoProfessor instance;
 
-    public HorariosReservaEquipamento(java.awt.Frame parent, boolean modal, String data, Equipamento eq) {
+    public HorariosReservaEquipamento(java.awt.Frame parent, boolean modal, String data, Equipment eq) {
         super(parent, modal, data, eq);
         this.eq = eq;
     }
@@ -47,8 +47,8 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
                 nomesTabela.add(r.getHora());
                 nomesTabela.add(r.getProfessor().getNamePerson());
                 nomesTabela.add(r.getProfessor().getIdRegister());
-                nomesTabela.add(r.getEquipamento().getCodigo());
-                nomesTabela.add(r.getEquipamento().getDescricao());
+                nomesTabela.add(r.getEquipamento().getIdEquipment());
+                nomesTabela.add(r.getEquipamento().getDescriptionEquipment());
             }
         }
 
@@ -57,7 +57,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
     }
 
     @Override protected DefaultTableModel fillTable(Patrimonio equip) {
-        this.eq = (Equipamento) equip;
+        this.eq = (Equipment) equip;
         DefaultTableModel table = new DefaultTableModel();
         instance = ManterResEquipamentoProfessor.getInstance();
         try {
@@ -79,7 +79,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
         } catch (SQLException ex) {
             Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClientException ex) {
             Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
@@ -104,7 +104,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -119,7 +119,7 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
             reserva.setVisible(true);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

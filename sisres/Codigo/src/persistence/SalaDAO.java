@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 public class SalaDAO {
 
@@ -31,41 +31,41 @@ public class SalaDAO {
 	//
 
 		
-	public void incluir(Sala sala) throws SQLException, PatrimonioException {	
+	public void incluir(Sala sala) throws SQLException, PatrimonyException {	
 		if(sala == null)
-			throw new PatrimonioException(SALA_NULA);
-		else if(this.inDBCodigo(sala.getCodigo()))
-			throw new PatrimonioException(CODIGO_JA_EXISTENTE);
+			throw new PatrimonyException(SALA_NULA);
+		else if(this.inDBCodigo(sala.getIdEquipment()))
+			throw new PatrimonyException(CODIGO_JA_EXISTENTE);
 		this.updateQuery("INSERT INTO " +
 					"sala (codigo, descricao, capacidade) VALUES (" +
-					"\"" + sala.getCodigo() + "\", " +
-					"\"" + sala.getDescricao() + "\", " +
+					"\"" + sala.getIdEquipment() + "\", " +
+					"\"" + sala.getDescriptionEquipment() + "\", " +
 					sala.getCapacidade() + ");");
 	}
 
-	public void alterar(Sala old_sala, Sala new_sala) throws SQLException, PatrimonioException {
+	public void alterar(Sala old_sala, Sala new_sala) throws SQLException, PatrimonyException {
 		if(new_sala == null)
-			throw new PatrimonioException(SALA_NULA);
+			throw new PatrimonyException(SALA_NULA);
 		if(old_sala == null)
-			throw new PatrimonioException(SALA_NULA);
+			throw new PatrimonyException(SALA_NULA);
 		
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst;
 		
 		if(!this.inDB(old_sala))
-			throw new PatrimonioException(SALA_NAO_EXISTENTE);
+			throw new PatrimonyException(SALA_NAO_EXISTENTE);
 		else if(this.inOtherDB(old_sala))
-			throw new PatrimonioException(SALA_EM_USO);
-		else if(!old_sala.getCodigo().equals(new_sala.getCodigo()) && this.inDBCodigo(new_sala.getCodigo()))
-			throw new PatrimonioException(CODIGO_JA_EXISTENTE);
+			throw new PatrimonyException(SALA_EM_USO);
+		else if(!old_sala.getIdEquipment().equals(new_sala.getIdEquipment()) && this.inDBCodigo(new_sala.getIdEquipment()))
+			throw new PatrimonyException(CODIGO_JA_EXISTENTE);
 		if(!this.inDB(new_sala)){
 			String msg = "UPDATE sala SET " +				
-				"codigo = \"" + new_sala.getCodigo() + "\", " +
-				"descricao = \"" + new_sala.getDescricao() + "\", " +
+				"codigo = \"" + new_sala.getIdEquipment() + "\", " +
+				"descricao = \"" + new_sala.getDescriptionEquipment() + "\", " +
 				"capacidade = " + new_sala.getCapacidade() +
 				" WHERE " +
-				"sala.codigo = \"" + old_sala.getCodigo() + "\" and " +
-				"sala.descricao = \"" + old_sala.getDescricao() +  "\" and " +
+				"sala.codigo = \"" + old_sala.getIdEquipment() + "\" and " +
+				"sala.descricao = \"" + old_sala.getDescriptionEquipment() +  "\" and " +
 				"sala.capacidade = " + old_sala.getCapacidade() +";";
 			con.setAutoCommit(false);
 			pst = con.prepareStatement(msg);
@@ -73,40 +73,40 @@ public class SalaDAO {
 			con.commit();
 		}
 		else
-			throw new PatrimonioException(SALA_JA_EXISTENTE);
+			throw new PatrimonyException(SALA_JA_EXISTENTE);
 		
 		pst.close();
 		con.close();
 	}
 
-	public void excluir(Sala sala) throws SQLException, PatrimonioException {
+	public void excluir(Sala sala) throws SQLException, PatrimonyException {
 		if(sala == null)
-			throw new PatrimonioException(SALA_NULA);
+			throw new PatrimonyException(SALA_NULA);
 		else if(this.inOtherDB(sala))
-			throw new PatrimonioException(SALA_EM_USO);
+			throw new PatrimonyException(SALA_EM_USO);
 		else if(this.inDB(sala)){
 			this.updateQuery("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-				"sala.descricao = \"" + sala.getDescricao() +  "\" and " +
+				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
+				"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
 				"sala.capacidade = " + sala.getCapacidade() + ";"				
 				);
 		}
 		else
-			throw new PatrimonioException(SALA_NAO_EXISTENTE);
+			throw new PatrimonyException(SALA_NAO_EXISTENTE);
 	}
 
 	
 	
-	public Vector<Sala> buscarTodos() throws SQLException, PatrimonioException {
+	public Vector<Sala> buscarTodos() throws SQLException, PatrimonyException {
 		return this.buscar("SELECT * FROM sala;");
 	}
-	public Vector<Sala> buscarPorCodigo(String valor) throws SQLException, PatrimonioException {
+	public Vector<Sala> buscarPorCodigo(String valor) throws SQLException, PatrimonyException {
 		return this.buscar("SELECT * FROM sala WHERE codigo = " + "\"" + valor + "\";");
 	}
-	public Vector<Sala> buscarPorDescricao(String valor) throws SQLException, PatrimonioException {
+	public Vector<Sala> buscarPorDescricao(String valor) throws SQLException, PatrimonyException {
 		return this.buscar("SELECT * FROM sala WHERE descricao = " + "\"" + valor + "\";");
 	}
-	public Vector<Sala> buscarPorCapacidade(String valor) throws SQLException, PatrimonioException {
+	public Vector<Sala> buscarPorCapacidade(String valor) throws SQLException, PatrimonyException {
 		return this.buscar("SELECT * FROM sala WHERE capacidade = " + valor + ";");
 	}
 	
@@ -115,7 +115,7 @@ public class SalaDAO {
 	 * Metodos Privados
 	 * */
 	
-	private Vector<Sala> buscar(String query) throws SQLException, PatrimonioException {
+	private Vector<Sala> buscar(String query) throws SQLException, PatrimonyException {
 		Vector<Sala> vet = new Vector<Sala>();
 		
 		Connection con =  FactoryConnection.getInstance().getConnection();
@@ -154,8 +154,8 @@ public class SalaDAO {
 	}
 	private boolean inDB(Sala sala) throws SQLException{
 		return this.inDBGeneric("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-				"sala.descricao = \"" + sala.getDescricao() + "\" and " +
+				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
+				"sala.descricao = \"" + sala.getDescriptionEquipment() + "\" and " +
 				"sala.capacidade = " + sala.getCapacidade() +
 				";");
 	}
@@ -166,14 +166,14 @@ public class SalaDAO {
 	private boolean inOtherDB(Sala sala) throws SQLException{
 		if( this.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE " +
 				"id_sala = (SELECT id_sala FROM sala WHERE " +
-				"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-				"sala.descricao = \"" + sala.getDescricao() +  "\" and " +
+				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
+				"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
 				"sala.capacidade = " + sala.getCapacidade() +" );") == false)
 		{
 			if(this.inDBGeneric("SELECT * FROM reserva_sala_aluno WHERE " +
 							"id_sala = (SELECT id_sala FROM sala WHERE " +
-							"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-							"sala.descricao = \"" + sala.getDescricao() +  "\" and " +
+							"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
+							"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
 							"sala.capacidade = " + sala.getCapacidade() +" );") == false)
 			{
 				return false;
@@ -184,7 +184,7 @@ public class SalaDAO {
 	}
 	
 	
-	private Sala fetchSala(ResultSet rs) throws PatrimonioException, SQLException{
+	private Sala fetchSala(ResultSet rs) throws PatrimonyException, SQLException{
 		return new Sala(rs.getString("codigo"), rs.getString("descricao"), rs.getString("capacidade"));
 	}
 	

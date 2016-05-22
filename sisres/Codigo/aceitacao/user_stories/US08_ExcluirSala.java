@@ -18,7 +18,7 @@ import persistence.StudentDAO;
 import persistence.SalaDAO;
 import view.Main2;
 import exception.ClientException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * US8 T�tulo: Excluir sala. Como usu�rio Eu quero excluir uma sala Para que a
@@ -41,7 +41,7 @@ public class US08_ExcluirSala {
     private DialogFixture dialog;
     private int index;
 
-    @Before public void setUp() throws PatrimonioException, SQLException {
+    @Before public void setUp() throws PatrimonyException, SQLException {
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
 
@@ -58,7 +58,7 @@ public class US08_ExcluirSala {
 
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException {
+    @After public void tearDown() throws SQLException, PatrimonyException {
         if (sala != null)
             SalaDAO.getInstance().excluir(sala);
         window.cleanUp();
@@ -76,7 +76,7 @@ public class US08_ExcluirSala {
     public void testCenario1() throws SQLException, ClientException{
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Excluir").click();
-        dialog.optionPane().requireMessage("Deseja mesmo excluir Sala: " + sala.getDescricao() + "?");
+        dialog.optionPane().requireMessage("Deseja mesmo excluir Sala: " + sala.getDescriptionEquipment() + "?");
         sleep();
         dialog.optionPane().yesButton().click();
         sleep();

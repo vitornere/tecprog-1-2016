@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import view.cadastros.CadastroPatrimonio;
-import control.ManterEquipamento;
-import exception.PatrimonioException;
+import control.EquipmentRegister;
+import exception.PatrimonyException;
 
 /**
  * 
@@ -28,11 +28,11 @@ public class AlterarEquipamento extends CadastroPatrimonio {
 
         try {
 
-            this.codigoTxtField.setText(ManterEquipamento.getInstance().getEquipamento_vet().get(index).getCodigo());
-            this.descricaoTextArea.setText(ManterEquipamento.getInstance().getEquipamento_vet().get(index).getDescricao());
+            this.codigoTxtField.setText(EquipmentRegister.getNewEquipment().getVectorEquipments().get(index).getIdEquipment());
+            this.descricaoTextArea.setText(EquipmentRegister.getNewEquipment().getVectorEquipments().get(index).getDescriptionEquipment());
             this.index2 = index;
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -45,14 +45,14 @@ public class AlterarEquipamento extends CadastroPatrimonio {
     @Override protected void cadastroAction() {
         try {
 
-            ManterEquipamento.getInstance().alterar(codigoTxtField.getText(), descricaoTextArea.getText(),
-                    ManterEquipamento.getInstance().getEquipamento_vet().get(index2));
+            EquipmentRegister.getNewEquipment().update(codigoTxtField.getText(), descricaoTextArea.getText(),
+                    EquipmentRegister.getNewEquipment().getVectorEquipments().get(index2));
 
             JOptionPane.showMessageDialog(this, "Equipamento alterado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                     null);
             this.setVisible(false);
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

@@ -9,7 +9,7 @@ import model.Professor;
 import model.ReservaSalaProfessor;
 import model.Sala;
 import exception.ClientException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 public class ManterResSalaProfessor {
@@ -26,12 +26,12 @@ public class ManterResSalaProfessor {
 	}
 	//
 		
-		public Vector<ReservaSalaProfessor> buscarPorData(String data) throws SQLException, ClientException, PatrimonioException, ReservaException{
+		public Vector<ReservaSalaProfessor> buscarPorData(String data) throws SQLException, ClientException, PatrimonyException, ReservaException{
 	        return ResSalaProfessorDAO.getInstance().buscarPorData(data);
 	    } 
 	    	
 		
-	public Vector<ReservaSalaProfessor> getResProfessorSala_vet() throws SQLException, ClientException, PatrimonioException, ReservaException {
+	public Vector<ReservaSalaProfessor> getResProfessorSala_vet() throws SQLException, ClientException, PatrimonyException, ReservaException {
 		this.rev_sala_professor_vet = ResSalaProfessorDAO.getInstance().buscarTodos();
 		return this.rev_sala_professor_vet;
 	}

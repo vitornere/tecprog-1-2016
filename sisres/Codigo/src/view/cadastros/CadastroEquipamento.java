@@ -8,8 +8,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import control.ManterEquipamento;
-import exception.PatrimonioException;
+import control.EquipmentRegister;
+import exception.PatrimonyException;
 
 /**
  * @author Parley
@@ -27,12 +27,12 @@ public class CadastroEquipamento extends CadastroPatrimonio {
     @Override protected void cadastroAction() {
 
         try {
-            ManterEquipamento.getInstance().inserir(codigoTxtField.getText(), descricaoTextArea.getText());
+            EquipmentRegister.getNewEquipment().insert(codigoTxtField.getText(), descricaoTextArea.getText());
             JOptionPane.showMessageDialog(this, "Equipamento Cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                     null);
             this.setVisible(false);
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

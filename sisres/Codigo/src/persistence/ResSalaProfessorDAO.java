@@ -11,7 +11,7 @@ import model.ReservaSalaProfessor;
 import model.Sala;
 
 import exception.ClientException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 public class ResSalaProfessorDAO extends DAO{
@@ -47,8 +47,8 @@ public class ResSalaProfessorDAO extends DAO{
 			}
 			private String select_id_sala(Sala sala){
 				return "SELECT id_sala FROM sala WHERE " +
-						"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-						"sala.descricao = \"" + sala.getDescricao() +  "\" and " +
+						"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
+						"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
 						"sala.capacidade = " + sala.getCapacidade();
 			}
 			private String where_reserva_sala_professor(ReservaSalaProfessor r){
@@ -158,7 +158,7 @@ public class ResSalaProfessorDAO extends DAO{
 	}
 
 	@SuppressWarnings("unchecked")
-	public Vector<ReservaSalaProfessor> buscarTodos() throws SQLException, ClientException, PatrimonioException, ReservaException{
+	public Vector<ReservaSalaProfessor> buscarTodos() throws SQLException, ClientException, PatrimonyException, ReservaException{
 		return super.buscar("SELECT * FROM reserva_sala_professor " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala " +
 				"INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor;");
@@ -166,7 +166,7 @@ public class ResSalaProfessorDAO extends DAO{
 
 	
 	@SuppressWarnings("unchecked")
-	public Vector<ReservaSalaProfessor> buscarPorData(String data) throws SQLException, ClientException, PatrimonioException, ReservaException{
+	public Vector<ReservaSalaProfessor> buscarPorData(String data) throws SQLException, ClientException, PatrimonyException, ReservaException{
 		return super.buscar("SELECT * FROM reserva_sala_professor " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala " +
 				"INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor" +
@@ -175,7 +175,7 @@ public class ResSalaProfessorDAO extends DAO{
 	
 	
 	@Override
-	protected Object fetch(ResultSet rs) throws SQLException, ClientException, PatrimonioException, ReservaException {
+	protected Object fetch(ResultSet rs) throws SQLException, ClientException, PatrimonyException, ReservaException {
 		Professor p = new Professor(rs.getString("nome"), rs.getString("cpf"), rs.getString("matricula"),
 				rs.getString("telefone"), rs.getString("email"));
 		
@@ -198,8 +198,8 @@ public class ResSalaProfessorDAO extends DAO{
 	
 	private boolean salainDB(Sala sala) throws SQLException{
 		return super.inDBGeneric("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-				"sala.descricao = \"" + sala.getDescricao() + "\" and " +
+				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
+				"sala.descricao = \"" + sala.getDescriptionEquipment() + "\" and " +
 				"sala.capacidade = " + sala.getCapacidade() +
 				";");
 	}
@@ -209,8 +209,8 @@ public class ResSalaProfessorDAO extends DAO{
 				"data = \"" + data + "\" and " +
 				"hora = \"" + hora + "\" and " +
 				"id_sala = (SELECT id_sala FROM sala WHERE " +
-				"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-				"sala.descricao = \"" + sala.getDescricao() +  "\" and " +
+				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
+				"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
 				"sala.capacidade = " + sala.getCapacidade() +" );");
 	}
 	
@@ -223,8 +223,8 @@ public class ResSalaProfessorDAO extends DAO{
 							"professor.email = \"" + r.getProfessor().getEmailPerson() + "\" and " +
 							"professor.matricula = \"" + r.getProfessor().getIdRegister() + "\") and " +
 					"id_sala = (SELECT id_sala FROM sala WHERE " +
-									"sala.codigo = \"" + r.getSala().getCodigo() + "\" and " +
-									"sala.descricao = \"" + r.getSala().getDescricao() +  "\" and " +
+									"sala.codigo = \"" + r.getSala().getIdEquipment() + "\" and " +
+									"sala.descricao = \"" + r.getSala().getDescriptionEquipment() +  "\" and " +
 									"sala.capacidade = " + r.getSala().getCapacidade() +" ) and " +
 					"finalidade = \"" + r.getFinalidade() + "\" and " +
 					"hora = \"" + r.getHora() + "\" and " +
