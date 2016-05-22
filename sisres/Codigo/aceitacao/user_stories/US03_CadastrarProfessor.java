@@ -15,26 +15,26 @@ import org.junit.Test;
 
 import persistence.ProfessorDAO;
 import view.Main2;
-import exception.ClienteException;
+import exception.ClientException;
 
 /**
- * US3 Título: Cadastrar Professor. Como professor Eu quero me cadastrar Para poder
+ * US3 Tï¿½tulo: Cadastrar Professor. Como professor Eu quero me cadastrar Para poder
  * realizar reservas de salas.
  * 
- * Cenário 1: Não há cadastro e dados inseridos são válidos. Dado que não há
- * cadastro do professor, E os dados inseridos todos são válidos, Quando o usuário
- * solicitar o cadastro do professor, Então o sistema deve registrar o novo
- * cadastro, E informar o sucesso da operação.
+ * Cenï¿½rio 1: Nï¿½o hï¿½ cadastro e dados inseridos sï¿½o vï¿½lidos. Dado que nï¿½o hï¿½
+ * cadastro do professor, E os dados inseridos todos sï¿½o vï¿½lidos, Quando o usuï¿½rio
+ * solicitar o cadastro do professor, Entï¿½o o sistema deve registrar o novo
+ * cadastro, E informar o sucesso da operaï¿½ï¿½o.
  * 
- * Cenário 2: Há cadastro e dados inseridos são válidos. Dado que há o cadastro
- * do professor, E os dados do novo cadastro são válidos, Quando o usuário solicitar
- * o cadastro do professor, Então o sistema deve informar que o professor já está
- * cadastrado, E não deve registrar um novo cadastro.
+ * Cenï¿½rio 2: Hï¿½ cadastro e dados inseridos sï¿½o vï¿½lidos. Dado que hï¿½ o cadastro
+ * do professor, E os dados do novo cadastro sï¿½o vï¿½lidos, Quando o usuï¿½rio solicitar
+ * o cadastro do professor, Entï¿½o o sistema deve informar que o professor jï¿½ estï¿½
+ * cadastrado, E nï¿½o deve registrar um novo cadastro.
  * 
- * Cenário 3: Não há cadastro e dados inseridos são inválidos. Dado que não há o
- * cadastro do professor, E os dados do novo cadastro são inválidos, Quando o
- * usuário solicitar o cadastro do professor, Então o sistema deve exibir a seguinte
- * mensagem: “O campo [campo] é inválido”, E não deve registrar um novo
+ * Cenï¿½rio 3: Nï¿½o hï¿½ cadastro e dados inseridos sï¿½o invï¿½lidos. Dado que nï¿½o hï¿½ o
+ * cadastro do professor, E os dados do novo cadastro sï¿½o invï¿½lidos, Quando o
+ * usuï¿½rio solicitar o cadastro do professor, Entï¿½o o sistema deve exibir a seguinte
+ * mensagem: ï¿½O campo [campo] ï¿½ invï¿½lidoï¿½, E nï¿½o deve registrar um novo
  * cadastro.
  * 
  */
@@ -59,9 +59,9 @@ public class US03_CadastrarProfessor {
 	}
 	
 	@After
-	public void tearDown() throws SQLException, ClienteException {
+	public void tearDown() throws SQLException, ClientException {
 		if(professor != null)
-			ProfessorDAO.getInstance().excluir(professor);
+			ProfessorDAO.getNewProfessor().delete(professor);
 		window.cleanUp();
 	}
 
@@ -82,7 +82,7 @@ public class US03_CadastrarProfessor {
 	}
 		
 	@Test
-	public void testCenario1() throws SQLException, ClienteException {
+	public void testCenario1() throws SQLException, ClientException {
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");
 
@@ -97,15 +97,15 @@ public class US03_CadastrarProfessor {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		index = ProfessorDAO.getInstance().buscarTodos().size() - 1;
-		professor = ProfessorDAO.getInstance().buscarTodos().get(index);
+		index = ProfessorDAO.getNewProfessor().seachAll().size() - 1;
+		professor = ProfessorDAO.getNewProfessor().seachAll().get(index);
 	}
 	
 	@Test
-	public void testCenario2() throws SQLException, ClienteException {
+	public void testCenario2() throws SQLException, ClientException {
 
 		professor = new Professor("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
-		ProfessorDAO.getInstance().incluir(professor);
+		ProfessorDAO.getNewProfessor().include(professor);
 		
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");
@@ -124,7 +124,7 @@ public class US03_CadastrarProfessor {
 
 	@Test
 	public void testCenario3NomeInvalido() throws SQLException,
-			ClienteException {
+			ClientException {
 
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");
@@ -144,7 +144,7 @@ public class US03_CadastrarProfessor {
 
 	@Test
 	public void testCenario3NomeBranco() throws SQLException,
-			ClienteException {
+			ClientException {
 
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");
@@ -163,7 +163,7 @@ public class US03_CadastrarProfessor {
 
 	@Test
 	public void testCenario3CpfInvalido() throws SQLException,
-			ClienteException {
+			ClientException {
 		
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");
@@ -182,7 +182,7 @@ public class US03_CadastrarProfessor {
 	
 	@Test
 	public void testCenario3CpfBranco() throws SQLException,
-			ClienteException {
+			ClientException {
 		
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");
@@ -201,7 +201,7 @@ public class US03_CadastrarProfessor {
 	
 	@Test
 	public void testCenario3TelefoneInvalido() throws SQLException,
-			ClienteException {
+			ClientException {
 		
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroProfessor");

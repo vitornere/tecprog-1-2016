@@ -47,11 +47,11 @@ public abstract class ClienteView extends javax.swing.JDialog {
             return null;
         }
 
-        nomesTabela.add(cliente.getMatricula());
-        nomesTabela.add(cliente.getNome());
-        nomesTabela.add(cliente.getTelefone());
-        nomesTabela.add(cliente.getCpf());
-        nomesTabela.add(cliente.getEmail());
+        nomesTabela.add(cliente.getIdProfessor());
+        nomesTabela.add(cliente.getName());
+        nomesTabela.add(cliente.getPhoneProfessor());
+        nomesTabela.add(cliente.getCpfProfessor());
+        nomesTabela.add(cliente.getEmailProfessor());
 
         return nomesTabela;
 

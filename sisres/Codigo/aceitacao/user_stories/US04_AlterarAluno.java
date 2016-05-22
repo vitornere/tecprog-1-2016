@@ -15,25 +15,25 @@ import org.junit.Test;
 
 import persistence.AlunoDAO;
 import view.Main2;
-import exception.ClienteException;
+import exception.ClientException;
 
 /**
- * US4 Título: Alterar Aluno. Como aluno Eu quero alterar meus dados Para
+ * US4 Tï¿½tulo: Alterar Aluno. Como aluno Eu quero alterar meus dados Para
  * que meu cadastro esteja sempre atualizado.
  * 
- * Cenário 1: Não há cadastro do aluno. Dado que o aluno não está
- * cadastrado, Quando o usuário solicita a alteração do cadastro, Então o
- * sistema informa que o cadastro não existe.
+ * Cenï¿½rio 1: Nï¿½o hï¿½ cadastro do aluno. Dado que o aluno nï¿½o estï¿½
+ * cadastrado, Quando o usuï¿½rio solicita a alteraï¿½ï¿½o do cadastro, Entï¿½o o
+ * sistema informa que o cadastro nï¿½o existe.
  * 
- * Cenário 2: Há cadastro e o novos dados todos são válidos. Dado que há o
- * cadastro do aluno, E todos os novos dados inseridos são válidos, Quando o
- * usuário solicita alteração do cadastro do aluno, Então o sistema altera
+ * Cenï¿½rio 2: Hï¿½ cadastro e o novos dados todos sï¿½o vï¿½lidos. Dado que hï¿½ o
+ * cadastro do aluno, E todos os novos dados inseridos sï¿½o vï¿½lidos, Quando o
+ * usuï¿½rio solicita alteraï¿½ï¿½o do cadastro do aluno, Entï¿½o o sistema altera
  * os dados, E informa que os dados foram alterados.
  * 
- * Cenário 3: Há cadastro e algum novo(s) dado(s) é (são) inválidos. Dado
- * que há o cadastro do aluno, E algum novo dado inserido é inválido, Quando
- * o usuário solicita alteração do cadastro do aluno, Então o sistema deve
- * exibir a seguinte mensagem: “O campo [campo] é inválido”, E o sistema não
+ * Cenï¿½rio 3: Hï¿½ cadastro e algum novo(s) dado(s) ï¿½ (sï¿½o) invï¿½lidos. Dado
+ * que hï¿½ o cadastro do aluno, E algum novo dado inserido ï¿½ invï¿½lido, Quando
+ * o usuï¿½rio solicita alteraï¿½ï¿½o do cadastro do aluno, Entï¿½o o sistema deve
+ * exibir a seguinte mensagem: ï¿½O campo [campo] ï¿½ invï¿½lidoï¿½, E o sistema nï¿½o
  * altera os dados.
  */
 
@@ -45,7 +45,7 @@ public class US04_AlterarAluno {
 	private int index;
 	
 	@Before
-	public void setUp() throws ClienteException, SQLException {
+	public void setUp() throws ClientException, SQLException {
 		robot = BasicRobot.robotWithNewAwtHierarchy();
 		robot.settings().delayBetweenEvents(5);
 
@@ -62,7 +62,7 @@ public class US04_AlterarAluno {
 	}
 	
 	@After
-	public void tearDown() throws SQLException, ClienteException {
+	public void tearDown() throws SQLException, ClientException {
 		if(aluno != null)
 			AlunoDAO.getInstance().excluir(aluno);
 		window.cleanUp();
@@ -86,7 +86,7 @@ public class US04_AlterarAluno {
 	}
 	
 	@Test
-	public void testCenario1() throws SQLException, ClienteException{
+	public void testCenario1() throws SQLException, ClientException{
 		if(aluno != null)
 			AlunoDAO.getInstance().excluir(aluno);
 		dialog.button("Alterar").click();
@@ -95,7 +95,7 @@ public class US04_AlterarAluno {
 	}
 	
 	@Test
-	public void testCenario2() throws SQLException, ClienteException{
+	public void testCenario2() throws SQLException, ClientException{
 		
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Alterar").click();
@@ -114,7 +114,7 @@ public class US04_AlterarAluno {
 	}
 	
 	@Test
-	public void testCenario3NomeInvalido() throws SQLException, ClienteException{
+	public void testCenario3NomeInvalido() throws SQLException, ClientException{
 		
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Alterar").click();
@@ -133,7 +133,7 @@ public class US04_AlterarAluno {
 	}
 	
 	@Test
-	public void testCenario3NomeEmBranco() throws SQLException, ClienteException{
+	public void testCenario3NomeEmBranco() throws SQLException, ClientException{
 		
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Alterar").click();
@@ -152,7 +152,7 @@ public class US04_AlterarAluno {
 	}
 	
 	@Test
-	public void testCenario3CpfInvalido() throws SQLException, ClienteException{
+	public void testCenario3CpfInvalido() throws SQLException, ClientException{
 		
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Alterar").click();
@@ -171,7 +171,7 @@ public class US04_AlterarAluno {
 	}
 	
 	@Test
-	public void testCenario3CpfEmBranco() throws SQLException, ClienteException{
+	public void testCenario3CpfEmBranco() throws SQLException, ClientException{
 		
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Alterar").click();
@@ -190,7 +190,7 @@ public class US04_AlterarAluno {
 	}
 	
 	@Test
-	public void testCenario3TelefeoneInvalido() throws SQLException, ClienteException{
+	public void testCenario3TelefeoneInvalido() throws SQLException, ClientException{
 		
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Alterar").click();

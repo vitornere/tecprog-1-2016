@@ -10,9 +10,9 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 
 import model.Professor;
-import control.ManterProfessor;
+import control.ProfessorRegister;
 import control.ManterResEquipamentoProfessor;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
@@ -22,7 +22,7 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
     protected Professor prof;
 
     public ReservaEquipamentoView(java.awt.Frame parent, boolean modal) throws SQLException, PatrimonioException,
-            PatrimonioException, ClienteException, ReservaException {
+            PatrimonioException, ClientException, ReservaException {
         super(parent, modal);
         this.instanceProf = ManterResEquipamentoProfessor.getInstance();
 
@@ -33,7 +33,7 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
 
     protected void getProfessor() {
         try {
-            Vector<Professor> professor = ManterProfessor.getInstance().buscarCpf(this.cpfTextField.getText());
+            Vector<Professor> professor = ProfessorRegister.getInstance().searchCpfProfessor(this.cpfTextField.getText());
             if (professor.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Professor nao Cadastrado."
                         + " Digite o CPF correto ou cadastre o professor desejado", "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -41,7 +41,7 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
             }
             this.prof = professor.firstElement();
             this.professorTextArea.setText(professor.firstElement().toString());
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

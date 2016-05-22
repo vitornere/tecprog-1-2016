@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
@@ -46,11 +46,11 @@ public class ResSalaAlunoDAO extends DAO{
 	//Querys de Reuso
 		private String select_id_aluno(Aluno a){
 			return "SELECT id_aluno FROM aluno WHERE " +
-					"aluno.nome = \"" + a.getNome() + "\" and " +
-					"aluno.cpf = \"" + a.getCpf() + "\" and " +
-					"aluno.telefone = \"" + a.getTelefone() + "\" and " +
-					"aluno.email = \"" + a.getEmail() + "\" and " +
-					"aluno.matricula = \"" + a.getMatricula() + "\"";
+					"aluno.nome = \"" + a.getName() + "\" and " +
+					"aluno.cpf = \"" + a.getCpfProfessor() + "\" and " +
+					"aluno.telefone = \"" + a.getPhoneProfessor() + "\" and " +
+					"aluno.email = \"" + a.getEmailProfessor() + "\" and " +
+					"aluno.matricula = \"" + a.getIdProfessor() + "\"";
 		}
 		private String select_id_sala(Sala sala){
 			return "SELECT id_sala FROM sala WHERE " +
@@ -99,7 +99,7 @@ public class ResSalaAlunoDAO extends DAO{
 
 		
 		
-	public void incluir(ReservaSalaAluno r) throws ReservaException, SQLException, ClienteException, PatrimonioException {
+	public void incluir(ReservaSalaAluno r) throws ReservaException, SQLException, ClientException, PatrimonioException {
 		if(r == null)
 			throw new ReservaException(NULA);
 		else if(!this.alunoinDB(r.getAluno()))
@@ -125,7 +125,7 @@ public class ResSalaAlunoDAO extends DAO{
 			super.executeQuery(this.insert_into(r));
 	}
 	
-	public void alterar(ReservaSalaAluno r, ReservaSalaAluno r_new) throws ReservaException, SQLException, ClienteException, PatrimonioException{
+	public void alterar(ReservaSalaAluno r, ReservaSalaAluno r_new) throws ReservaException, SQLException, ClientException, PatrimonioException{
 		if(r == null)
 			throw new ReservaException(NULA);
 		else if(r_new == null)
@@ -167,12 +167,12 @@ public class ResSalaAlunoDAO extends DAO{
 			super.executeQuery(this.delete_from(r));
 	}
 	
-	public Vector<ReservaSalaAluno> buscarTodos() throws SQLException, ClienteException, PatrimonioException, ReservaException{
+	public Vector<ReservaSalaAluno> buscarTodos() throws SQLException, ClientException, PatrimonioException, ReservaException{
 		return super.buscar("SELECT * FROM reserva_sala_aluno " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala " +
 				"INNER JOIN aluno ON aluno.id_aluno = reserva_sala_aluno.id_aluno;");
 	}
-	public Vector<ReservaSalaAluno> buscarPorDia(String data) throws SQLException, ClienteException, PatrimonioException, ReservaException{
+	public Vector<ReservaSalaAluno> buscarPorDia(String data) throws SQLException, ClientException, PatrimonioException, ReservaException{
 		data = this.padronizarData(data);
 		return super.buscar("SELECT * FROM reserva_sala_aluno " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala " +
@@ -180,7 +180,7 @@ public class ResSalaAlunoDAO extends DAO{
 				"WHERE data = \""+ data + "\";");
 	}
 	public Vector<ReservaSalaAluno> buscarPorHora(String hora) 
-			throws SQLException, ClienteException, PatrimonioException, ReservaException{
+			throws SQLException, ClientException, PatrimonioException, ReservaException{
 		hora = this.padronizarHora(hora);
 		return super.buscar("SELECT * FROM reserva_sala_aluno " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala " +
@@ -190,7 +190,7 @@ public class ResSalaAlunoDAO extends DAO{
 
 	
 	public int cadeirasDisponiveis(Sala sala, String data, String hora) 
-			throws SQLException, PatrimonioException, ClienteException, ReservaException{
+			throws SQLException, PatrimonioException, ClientException, ReservaException{
 		data = this.padronizarData(data);
 		hora = this.padronizarHora(hora);
 		Vector<ReservaSalaAluno> vet = this.buscarTodos();
@@ -206,14 +206,14 @@ public class ResSalaAlunoDAO extends DAO{
 	
 	
 	private boolean haCadeiras(String cadeiras_reservadas, Sala sala, String data, String hora) 
-			throws SQLException, ClienteException, PatrimonioException, ReservaException {
+			throws SQLException, ClientException, PatrimonioException, ReservaException {
 		if(this.cadeirasDisponiveis(sala, data, hora) >= Integer.parseInt(cadeiras_reservadas))
 			return true;
 		return false;
 	}
 	
 	@Override
-	protected Object fetch(ResultSet rs) throws SQLException, ClienteException, PatrimonioException, ReservaException {
+	protected Object fetch(ResultSet rs) throws SQLException, ClientException, PatrimonioException, ReservaException {
 		Aluno a = new Aluno(rs.getString("nome"), rs.getString("cpf"), rs.getString("matricula"),
 				rs.getString("telefone"), rs.getString("email"));
 		
@@ -227,11 +227,11 @@ public class ResSalaAlunoDAO extends DAO{
 	
 	private boolean alunoinDB(Aluno aluno) throws SQLException{
 		return super.inDBGeneric("SELECT * FROM aluno WHERE " +
-				"aluno.nome = \"" + aluno.getNome() + "\" and " +
-				"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
-				"aluno.telefone = \"" + aluno.getTelefone() + "\" and " +
-				"aluno.email = \"" + aluno.getEmail() + "\" and " +
-				"aluno.matricula = \"" + aluno.getMatricula() + "\";");
+				"aluno.nome = \"" + aluno.getName() + "\" and " +
+				"aluno.cpf = \"" + aluno.getCpfProfessor() + "\" and " +
+				"aluno.telefone = \"" + aluno.getPhoneProfessor() + "\" and " +
+				"aluno.email = \"" + aluno.getEmailProfessor() + "\" and " +
+				"aluno.matricula = \"" + aluno.getIdProfessor() + "\";");
 	}
 	
 	private boolean salainDB(Sala sala) throws SQLException{
@@ -247,11 +247,11 @@ public class ResSalaAlunoDAO extends DAO{
 				"data = \"" + data + "\" and " +
 				"hora = \"" + hora + "\" and " +
 				"id_aluno = (SELECT id_aluno FROM aluno WHERE " +
-				"aluno.nome = \"" + aluno.getNome() + "\" and " +
-				"aluno.cpf = \"" + aluno.getCpf() + "\" and " +
-				"aluno.telefone = \"" + aluno.getTelefone() + "\" and " +
-				"aluno.email = \"" + aluno.getEmail() + "\" and " +
-				"aluno.matricula = \"" + aluno.getMatricula() + "\");");
+				"aluno.nome = \"" + aluno.getName() + "\" and " +
+				"aluno.cpf = \"" + aluno.getCpfProfessor() + "\" and " +
+				"aluno.telefone = \"" + aluno.getPhoneProfessor() + "\" and " +
+				"aluno.email = \"" + aluno.getEmailProfessor() + "\" and " +
+				"aluno.matricula = \"" + aluno.getIdProfessor() + "\");");
 	}
 	private boolean salainReservaProfessorDB(Sala sala, String data, String hora) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE " +
@@ -266,11 +266,11 @@ public class ResSalaAlunoDAO extends DAO{
 	private boolean reservainDB(ReservaSalaAluno r) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_aluno WHERE " +
 					"id_aluno = (SELECT id_aluno FROM aluno WHERE " +
-							"aluno.nome = \"" + r.getAluno().getNome() + "\" and " +
-							"aluno.cpf = \"" + r.getAluno().getCpf() + "\" and " +
-							"aluno.telefone = \"" + r.getAluno().getTelefone() + "\" and " +
-							"aluno.email = \"" + r.getAluno().getEmail() + "\" and " +
-							"aluno.matricula = \"" + r.getAluno().getMatricula() + "\") and " +
+							"aluno.nome = \"" + r.getAluno().getName() + "\" and " +
+							"aluno.cpf = \"" + r.getAluno().getCpfProfessor() + "\" and " +
+							"aluno.telefone = \"" + r.getAluno().getPhoneProfessor() + "\" and " +
+							"aluno.email = \"" + r.getAluno().getEmailProfessor() + "\" and " +
+							"aluno.matricula = \"" + r.getAluno().getIdProfessor() + "\") and " +
 					"id_sala = (SELECT id_sala FROM sala WHERE " +
 									"sala.codigo = \"" + r.getSala().getCodigo() + "\" and " +
 									"sala.descricao = \"" + r.getSala().getDescricao() +  "\" and " +

@@ -15,19 +15,19 @@ import org.junit.Test;
 
 import persistence.ProfessorDAO;
 import view.Main2;
-import exception.ClienteException;
+import exception.ClientException;
 
 /**
- * US5 Título: Excluir Professor. Como professor Eu quero solicitar a exclusão do meu
- * cadastro Para não utilizar o serviço.
+ * US5 Tï¿½tulo: Excluir Professor. Como professor Eu quero solicitar a exclusï¿½o do meu
+ * cadastro Para nï¿½o utilizar o serviï¿½o.
  * 
- * Cenário 1: Professor cadastrado. Dado que o professor está cadastrado; Quando o
- * usuário solicita a exclusão do registro; Então o sistema deve eliminar os
- * registros do professor, E informar o sucesso da exclusão.
+ * Cenï¿½rio 1: Professor cadastrado. Dado que o professor estï¿½ cadastrado; Quando o
+ * usuï¿½rio solicita a exclusï¿½o do registro; Entï¿½o o sistema deve eliminar os
+ * registros do professor, E informar o sucesso da exclusï¿½o.
  * 
- * Cenário 2: Não existe professor cadastrado. Dado que não existe o registro do
- * professor, Quando o usuário solicita a exclusão do registro, Então o sistema não
- * exclui nenhum registro de professor, E informa que não há o registro.
+ * Cenï¿½rio 2: Nï¿½o existe professor cadastrado. Dado que nï¿½o existe o registro do
+ * professor, Quando o usuï¿½rio solicita a exclusï¿½o do registro, Entï¿½o o sistema nï¿½o
+ * exclui nenhum registro de professor, E informa que nï¿½o hï¿½ o registro.
  */
 
 public class US05_ExcluirProfessor {
@@ -38,7 +38,7 @@ public class US05_ExcluirProfessor {
 	private int index;
 	
 	@Before
-	public void setUp() throws ClienteException, SQLException {
+	public void setUp() throws ClientException, SQLException {
 		robot = BasicRobot.robotWithNewAwtHierarchy();
 		robot.settings().delayBetweenEvents(5);
 
@@ -46,9 +46,9 @@ public class US05_ExcluirProfessor {
 		window.show(new Dimension(900, 500)); // shows the frame to test
 
 		professor = new Professor("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
-		ProfessorDAO.getInstance().incluir(professor);
+		ProfessorDAO.getNewProfessor().include(professor);
 
-		index = ProfessorDAO.getInstance().buscarTodos().size() - 1;
+		index = ProfessorDAO.getNewProfessor().seachAll().size() - 1;
 		
 		window.button("Professor").click();
 		dialog = window.dialog("ProfessorView");
@@ -56,9 +56,9 @@ public class US05_ExcluirProfessor {
 	}
 	
 	@After
-	public void tearDown() throws SQLException, ClienteException {
+	public void tearDown() throws SQLException, ClientException {
 		if(professor != null)
-			ProfessorDAO.getInstance().excluir(professor);
+			ProfessorDAO.getNewProfessor().delete(professor);
 		window.cleanUp();
 	}
 
@@ -72,7 +72,7 @@ public class US05_ExcluirProfessor {
 	}
 
 	@Test
-	public void testCenario1() throws SQLException, ClienteException{
+	public void testCenario1() throws SQLException, ClientException{
 		dialog.button("Excluir").click();
 		dialog.optionPane().requireMessage("Selecione uma linha!");
 		sleep();
@@ -80,10 +80,10 @@ public class US05_ExcluirProfessor {
 	}
 	
 	@Test
-	public void testCenario2() throws SQLException, ClienteException{
+	public void testCenario2() throws SQLException, ClientException{
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Excluir").click();
-		dialog.optionPane().requireMessage("Deseja mesmo excluir Professor: " + professor.getNome() + "?");
+		dialog.optionPane().requireMessage("Deseja mesmo excluir Professor: " + professor.getName() + "?");
 		sleep();
 		dialog.optionPane().yesButton().click();
 		sleep();

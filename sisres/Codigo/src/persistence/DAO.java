@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
@@ -19,7 +19,7 @@ public abstract class DAO {
 	 * do tipo que se vai utilizar, se necessario.
 	 * */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	protected Vector buscar(String query) throws SQLException, ClienteException, 
+	protected Vector buscar(String query) throws SQLException, ClientException, 
 													PatrimonioException, ReservaException{
 		Vector vet = new Vector();
 		
@@ -65,7 +65,7 @@ public abstract class DAO {
 	 * Ja foi implementada nas outras classes DAO. A implementacao eh
 	 * semelhante.
 	 * */
-	protected abstract Object fetch(ResultSet rs) throws SQLException, ClienteException,
+	protected abstract Object fetch(ResultSet rs) throws SQLException, ClientException,
 														PatrimonioException, ReservaException;
 	
 	

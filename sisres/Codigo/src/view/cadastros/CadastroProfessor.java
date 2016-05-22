@@ -8,8 +8,8 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import control.ManterProfessor;
-import exception.ClienteException;
+import control.ProfessorRegister;
+import exception.ClientException;
 
 /**
  * 
@@ -27,7 +27,7 @@ public class CadastroProfessor extends CadastroCliente {
         try {
             if (cadastroBtn.getText().equals("Cadastrar")) {
                 // TODO add your handling code here:
-                ManterProfessor.getInstance().inserir(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
+                ProfessorRegister.getInstance().insert(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
                         telefoneTxtField.getText(), emailTxtField.getText());
 
                 JOptionPane.showMessageDialog(this, "Professor Cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
@@ -35,7 +35,7 @@ public class CadastroProfessor extends CadastroCliente {
 
                 this.setVisible(false);
             }
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

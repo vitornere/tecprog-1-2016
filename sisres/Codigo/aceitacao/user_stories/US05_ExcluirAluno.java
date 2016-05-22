@@ -15,19 +15,19 @@ import org.junit.Test;
 
 import persistence.AlunoDAO;
 import view.Main2;
-import exception.ClienteException;
+import exception.ClientException;
 
 /**
- * US5 Título: Excluir Aluno. Como aluno Eu quero solicitar a exclusão do meu
- * cadastro Para não utilizar o serviço.
+ * US5 Tï¿½tulo: Excluir Aluno. Como aluno Eu quero solicitar a exclusï¿½o do meu
+ * cadastro Para nï¿½o utilizar o serviï¿½o.
  * 
- * Cenário 1: Aluno cadastrado. Dado que o aluno está cadastrado; Quando o
- * usuário solicita a exclusão do registro; Então o sistema deve eliminar os
- * registros do aluno, E informar o sucesso da exclusão.
+ * Cenï¿½rio 1: Aluno cadastrado. Dado que o aluno estï¿½ cadastrado; Quando o
+ * usuï¿½rio solicita a exclusï¿½o do registro; Entï¿½o o sistema deve eliminar os
+ * registros do aluno, E informar o sucesso da exclusï¿½o.
  * 
- * Cenário 2: Não existe aluno cadastrado. Dado que não existe o registro do
- * aluno, Quando o usuário solicita a exclusão do registro, Então o sistema não
- * exclui nenhum registro de aluno, E informa que não há o registro.
+ * Cenï¿½rio 2: Nï¿½o existe aluno cadastrado. Dado que nï¿½o existe o registro do
+ * aluno, Quando o usuï¿½rio solicita a exclusï¿½o do registro, Entï¿½o o sistema nï¿½o
+ * exclui nenhum registro de aluno, E informa que nï¿½o hï¿½ o registro.
  */
 
 public class US05_ExcluirAluno {
@@ -38,7 +38,7 @@ public class US05_ExcluirAluno {
 	private int index;
 	
 	@Before
-	public void setUp() throws ClienteException, SQLException {
+	public void setUp() throws ClientException, SQLException {
 		robot = BasicRobot.robotWithNewAwtHierarchy();
 		robot.settings().delayBetweenEvents(5);
 
@@ -56,7 +56,7 @@ public class US05_ExcluirAluno {
 	}
 	
 	@After
-	public void tearDown() throws SQLException, ClienteException {
+	public void tearDown() throws SQLException, ClientException {
 		if(aluno != null)
 			AlunoDAO.getInstance().excluir(aluno);
 		window.cleanUp();
@@ -72,7 +72,7 @@ public class US05_ExcluirAluno {
 	}
 
 	@Test
-	public void testCenario1() throws SQLException, ClienteException{
+	public void testCenario1() throws SQLException, ClientException{
 		dialog.button("Excluir").click();
 		dialog.optionPane().requireMessage("Selecione uma linha!");
 		sleep();
@@ -80,10 +80,10 @@ public class US05_ExcluirAluno {
 	}
 	
 	@Test
-	public void testCenario2() throws SQLException, ClienteException{
+	public void testCenario2() throws SQLException, ClientException{
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Excluir").click();
-		dialog.optionPane().requireMessage("Deseja mesmo excluir Aluno: " + aluno.getNome() + "?");
+		dialog.optionPane().requireMessage("Deseja mesmo excluir Aluno: " + aluno.getName() + "?");
 		sleep();
 		dialog.optionPane().yesButton().click();
 		sleep();

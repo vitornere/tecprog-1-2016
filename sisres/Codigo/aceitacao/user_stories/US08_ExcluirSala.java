@@ -17,20 +17,20 @@ import org.junit.Test;
 import persistence.AlunoDAO;
 import persistence.SalaDAO;
 import view.Main2;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonioException;
 
 /**
- * US8 Título: Excluir sala. Como usuário Eu quero excluir uma sala Para que a
+ * US8 Tï¿½tulo: Excluir sala. Como usuï¿½rio Eu quero excluir uma sala Para que a
  * mesma seja indisponibilizada para reserva.
  * 
- * Cenário 1: Existe sala cadastrada. Dado que a sala está cadastrada; Quando o
- * usuário solicita a exclusão; Então o sistema deve eliminar os registros da
- * sala, E informar o sucesso da exclusão.
+ * Cenï¿½rio 1: Existe sala cadastrada. Dado que a sala estï¿½ cadastrada; Quando o
+ * usuï¿½rio solicita a exclusï¿½o; Entï¿½o o sistema deve eliminar os registros da
+ * sala, E informar o sucesso da exclusï¿½o.
  * 
- * Cenário 2: Não existe sala cadastrada. Dado que não existe o registro da
- * sala; Quando o usuário solicita exclusão; Então o sistema não exclui nenhum
- * registro de sala, E informa que não há o registro.
+ * Cenï¿½rio 2: Nï¿½o existe sala cadastrada. Dado que nï¿½o existe o registro da
+ * sala; Quando o usuï¿½rio solicita exclusï¿½o; Entï¿½o o sistema nï¿½o exclui nenhum
+ * registro de sala, E informa que nï¿½o hï¿½ o registro.
  */
 
 public class US08_ExcluirSala {
@@ -73,7 +73,7 @@ public class US08_ExcluirSala {
 
     }
     @Test
-    public void testCenario1() throws SQLException, ClienteException{
+    public void testCenario1() throws SQLException, ClientException{
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Excluir").click();
         dialog.optionPane().requireMessage("Deseja mesmo excluir Sala: " + sala.getDescricao() + "?");
@@ -86,7 +86,7 @@ public class US08_ExcluirSala {
     }
     
     @Test
-    public void testCenario2() throws SQLException, ClienteException{
+    public void testCenario2() throws SQLException, ClientException{
         
         dialog.button("Excluir").click();
         dialog.optionPane().requireMessage("Selecione uma linha!");

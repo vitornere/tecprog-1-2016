@@ -1,6 +1,6 @@
 package model;
 
-import exception.ClienteException;
+import exception.ClientException;
 
 public class Professor extends Cliente {
 	
@@ -11,15 +11,15 @@ public class Professor extends Cliente {
 		
 	
 	public Professor(String nome, String cpf, String matricula,
-			String telefone, String email) throws ClienteException {
+			String telefone, String email) throws ClientException {
 		super(nome, cpf, matricula, telefone, email);
 	}
 
-	public void setMatricula(String matricula) throws ClienteException {
+	public void setIdProfessor(String matricula) throws ClientException {
 		if(matricula == null)
-			throw new ClienteException(MATRICULA_NULO);
+			throw new ClientException(MATRICULA_NULO);
 		else if("".equals(matricula.trim()))
-			throw new ClienteException(MATRICULA_BRANCO);
+			throw new ClientException(MATRICULA_BRANCO);
 		//else if(matricula.matches("PATTERN"))
 			//super.matricula = matricula;
 		//else

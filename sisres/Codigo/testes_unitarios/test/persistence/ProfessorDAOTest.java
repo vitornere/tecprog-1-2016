@@ -15,7 +15,7 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import exception.ClienteException;
+import exception.ClientException;
 
 import persistence.FactoryConnection;
 import persistence.ProfessorDAO;
@@ -34,271 +34,271 @@ public class ProfessorDAOTest {
 	
 	@Test
 	public void testInstance() {
-		assertTrue("Instanciando ProfessorDAO", ProfessorDAO.getInstance() instanceof ProfessorDAO);
+		assertTrue("Instanciando ProfessorDAO", ProfessorDAO.getNewProfessor() instanceof ProfessorDAO);
 	}
 	
 	@Test
 	public void testSingleton() {
-		ProfessorDAO p = ProfessorDAO.getInstance();
-		ProfessorDAO q = ProfessorDAO.getInstance();
+		ProfessorDAO p = ProfessorDAO.getNewProfessor();
+		ProfessorDAO q = ProfessorDAO.getNewProfessor();
 		assertSame("Testando o Padrao Singleton", p, q);
 	}
 	
 	
 	
 	@Test
-	public void testIncluir() throws ClienteException, SQLException {
+	public void testIncluir() throws ClientException, SQLException {
 		boolean resultado = false;
 		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		ProfessorDAO.getInstance().incluir(prof);
+		ProfessorDAO.getNewProfessor().include(prof);
 		
 		resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
-		"professor.nome = \"" + prof.getNome() + "\" and " +
-		"professor.cpf = \"" + prof.getCpf() + "\" and " +
-		"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-		"professor.email = \"" + prof.getEmail() + "\" and " +
-		"professor.matricula = \"" + prof.getMatricula() + "\";");
+		"professor.nome = \"" + prof.getName() + "\" and " +
+		"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+		"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+		"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+		"professor.matricula = \"" + prof.getIdProfessor() + "\";");
 		
 		if(resultado){
 			this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + prof.getNome() + "\" and " +
-					"professor.cpf = \"" + prof.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-					"professor.email = \"" + prof.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof.getMatricula() + "\";");
+					"professor.nome = \"" + prof.getName() + "\" and " +
+					"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof.getIdProfessor() + "\";");
 		}
-		assertTrue("Teste de Inclusão.", resultado);
+		assertTrue("Teste de Inclusï¿½o.", resultado);
 	}
-	@Test (expected= ClienteException.class)
-	public void testIncluirNulo() throws ClienteException, SQLException {
-		ProfessorDAO.getInstance().incluir(null);
+	@Test (expected= ClientException.class)
+	public void testIncluirNulo() throws ClientException, SQLException {
+		ProfessorDAO.getNewProfessor().include(null);
 	}
-	@Test (expected= ClienteException.class)
-	public void testIncluirComMesmoCpf() throws ClienteException, SQLException {
+	@Test (expected= ClientException.class)
+	public void testIncluirComMesmoCpf() throws ClientException, SQLException {
 		boolean resultado = true;
 		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		Professor prof2 = new Professor("Nome para Incluir Segundo", "868.563.327-34", "0987", "5678-5555", "");
-		ProfessorDAO.getInstance().incluir(prof);
+		ProfessorDAO.getNewProfessor().include(prof);
 		try{
-			ProfessorDAO.getInstance().incluir(prof2);
+			ProfessorDAO.getNewProfessor().include(prof2);
 			this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + prof2.getNome() + "\" and " +
-					"professor.cpf = \"" + prof2.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof2.getTelefone() + "\" and " +
-					"professor.email = \"" + prof2.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof2.getMatricula() + "\";");
+					"professor.nome = \"" + prof2.getName() + "\" and " +
+					"professor.cpf = \"" + prof2.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof2.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof2.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof2.getIdProfessor() + "\";");
 			
 		} finally {
 			this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + prof.getNome() + "\" and " +
-					"professor.cpf = \"" + prof.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-					"professor.email = \"" + prof.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof.getMatricula() + "\";");
+					"professor.nome = \"" + prof.getName() + "\" and " +
+					"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof.getIdProfessor() + "\";");
 			resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
-					"professor.nome = \"" + prof2.getNome() + "\" and " +
-					"professor.cpf = \"" + prof2.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof2.getTelefone() + "\" and " +
-					"professor.email = \"" + prof2.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof2.getMatricula() + "\";");
+					"professor.nome = \"" + prof2.getName() + "\" and " +
+					"professor.cpf = \"" + prof2.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof2.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof2.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof2.getIdProfessor() + "\";");
 		}
 		
-		assertFalse("Teste de Inclusão.", resultado);
+		assertFalse("Teste de Inclusï¿½o.", resultado);
 	}
-	@Test (expected= ClienteException.class)
-	public void testIncluirComMesmaMatricula() throws ClienteException, SQLException {
+	@Test (expected= ClientException.class)
+	public void testIncluirComMesmaMatricula() throws ClientException, SQLException {
 		boolean resultado = true;
 		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		Professor prof2 = new Professor("Nome para Incluir Segundo", "387.807.647-97", "123456", "5678-5555", "");
-		ProfessorDAO.getInstance().incluir(prof);
+		ProfessorDAO.getNewProfessor().include(prof);
 		try{
-			ProfessorDAO.getInstance().incluir(prof2);
+			ProfessorDAO.getNewProfessor().include(prof2);
 			this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + prof2.getNome() + "\" and " +
-					"professor.cpf = \"" + prof2.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof2.getTelefone() + "\" and " +
-					"professor.email = \"" + prof2.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof2.getMatricula() + "\";");
+					"professor.nome = \"" + prof2.getName() + "\" and " +
+					"professor.cpf = \"" + prof2.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof2.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof2.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof2.getIdProfessor() + "\";");
 			
 		} finally {
 			this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + prof.getNome() + "\" and " +
-					"professor.cpf = \"" + prof.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-					"professor.email = \"" + prof.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof.getMatricula() + "\";");
+					"professor.nome = \"" + prof.getName() + "\" and " +
+					"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof.getIdProfessor() + "\";");
 			resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
-					"professor.nome = \"" + prof2.getNome() + "\" and " +
-					"professor.cpf = \"" + prof2.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof2.getTelefone() + "\" and " +
-					"professor.email = \"" + prof2.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof2.getMatricula() + "\";");
+					"professor.nome = \"" + prof2.getName() + "\" and " +
+					"professor.cpf = \"" + prof2.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof2.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof2.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof2.getIdProfessor() + "\";");
 		}
 		
-		assertFalse("Teste de Inclusão.", resultado);
+		assertFalse("Teste de Inclusï¿½o.", resultado);
 	}
-	@Test (expected= ClienteException.class)
-	public void testIncluirJaExistente() throws ClienteException, SQLException {
+	@Test (expected= ClientException.class)
+	public void testIncluirJaExistente() throws ClientException, SQLException {
 		boolean resultado = true;
 		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		Professor prof2 = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		ProfessorDAO.getInstance().incluir(prof);
+		ProfessorDAO.getNewProfessor().include(prof);
 		try{
-			ProfessorDAO.getInstance().incluir(prof2);
+			ProfessorDAO.getNewProfessor().include(prof2);
 			this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + prof2.getNome() + "\" and " +
-					"professor.cpf = \"" + prof2.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof2.getTelefone() + "\" and " +
-					"professor.email = \"" + prof2.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof2.getMatricula() + "\";");
+					"professor.nome = \"" + prof2.getName() + "\" and " +
+					"professor.cpf = \"" + prof2.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof2.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof2.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof2.getIdProfessor() + "\";");
 			
 		} finally {
 			this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + prof.getNome() + "\" and " +
-					"professor.cpf = \"" + prof.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-					"professor.email = \"" + prof.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof.getMatricula() + "\";");
+					"professor.nome = \"" + prof.getName() + "\" and " +
+					"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof.getIdProfessor() + "\";");
 			resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
-					"professor.nome = \"" + prof2.getNome() + "\" and " +
-					"professor.cpf = \"" + prof2.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof2.getTelefone() + "\" and " +
-					"professor.email = \"" + prof2.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof2.getMatricula() + "\";");
+					"professor.nome = \"" + prof2.getName() + "\" and " +
+					"professor.cpf = \"" + prof2.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof2.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof2.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof2.getIdProfessor() + "\";");
 		}
 		
-		assertFalse("Teste de Inclusão.", resultado);
+		assertFalse("Teste de Inclusï¿½o.", resultado);
 	}
 	
 	
 	
 	@Test
-	public void testAlterar() throws ClienteException, SQLException {
+	public void testAlterar() throws ClientException, SQLException {
 		boolean resultado = false;
 		Professor p = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		Professor pn = new Professor("Nome para Alterar", "387.807.647-97", "098765", "(123)4567-8899", "email@Nome");
 		this.executaNoBanco("INSERT INTO " +
 						"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-						"\"" + p.getNome() + "\", " +
-						"\"" + p.getCpf()+ "\", " +
-						"\"" + p.getTelefone() + "\", " +
-						"\"" + p.getEmail() + "\", " +
-						"\"" + p.getMatricula() + "\"); ");
+						"\"" + p.getName() + "\", " +
+						"\"" + p.getCpfProfessor()+ "\", " +
+						"\"" + p.getPhoneProfessor() + "\", " +
+						"\"" + p.getEmailProfessor() + "\", " +
+						"\"" + p.getIdProfessor() + "\"); ");
 		
-		ProfessorDAO.getInstance().alterar(p, pn);
+		ProfessorDAO.getNewProfessor().update(p, pn);
 		
 		resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + pn.getNome() + "\" and " +
-				"professor.cpf = \"" + pn.getCpf() + "\" and " +
-				"professor.telefone = \"" + pn.getTelefone() + "\" and " +
-				"professor.email = \"" + pn.getEmail() + "\" and " +
-				"professor.matricula = \"" + pn.getMatricula() + "\";");
+				"professor.nome = \"" + pn.getName() + "\" and " +
+				"professor.cpf = \"" + pn.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + pn.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + pn.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + pn.getIdProfessor() + "\";");
 		boolean resultado2 =  this.estaNoBanco("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + p.getNome() + "\" and " +
-				"professor.cpf = \"" + p.getCpf() + "\" and " +
-				"professor.telefone = \"" + p.getTelefone() + "\" and " +
-				"professor.email = \"" + p.getEmail() + "\" and " +
-				"professor.matricula = \"" + p.getMatricula() + "\";");
+				"professor.nome = \"" + p.getName() + "\" and " +
+				"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + p.getIdProfessor() + "\";");
 		if(resultado)
 			this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + pn.getNome() + "\" and " +
-					"professor.cpf = \"" + pn.getCpf() + "\" and " +
-					"professor.telefone = \"" + pn.getTelefone() + "\" and " +
-					"professor.email = \"" + pn.getEmail() + "\" and " +
-					"professor.matricula = \"" + pn.getMatricula() + "\";");
+					"professor.nome = \"" + pn.getName() + "\" and " +
+					"professor.cpf = \"" + pn.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + pn.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + pn.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + pn.getIdProfessor() + "\";");
 		if(resultado2)
 			this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + p.getNome() + "\" and " +
-					"professor.cpf = \"" + p.getCpf() + "\" and " +
-					"professor.telefone = \"" + p.getTelefone() + "\" and " +
-					"professor.email = \"" + p.getEmail() + "\" and " +
-					"professor.matricula = \"" + p.getMatricula() + "\";");
+					"professor.nome = \"" + p.getName() + "\" and " +
+					"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + p.getIdProfessor() + "\";");
 		
-		assertTrue("Teste de Alteração.", resultado == true && resultado2 == false);
+		assertTrue("Teste de Alteraï¿½ï¿½o.", resultado == true && resultado2 == false);
 	}
-	@Test (expected= ClienteException.class)
-	public void testAlterarPrimeiroArgNulo() throws ClienteException, SQLException {
+	@Test (expected= ClientException.class)
+	public void testAlterarPrimeiroArgNulo() throws ClientException, SQLException {
 		Professor pn = new Professor("Nome para Alterar", "868.563.327-34", "098765", "(123)4567-8899", "email@Nome");
-		ProfessorDAO.getInstance().alterar(null, pn);
+		ProfessorDAO.getNewProfessor().update(null, pn);
 	}
-	@Test (expected= ClienteException.class)
-	public void testAlterarSegundoArgNulo() throws ClienteException, SQLException {
+	@Test (expected= ClientException.class)
+	public void testAlterarSegundoArgNulo() throws ClientException, SQLException {
 		Professor pn = new Professor("Nome para Alterar", "868.563.327-34", "098765", "(123)4567-8899", "email@Nome");
-		ProfessorDAO.getInstance().alterar(pn, null);
+		ProfessorDAO.getNewProfessor().update(pn, null);
 	}
-	@Test (expected= ClienteException.class)
-	public void testAlterarNaoExistente() throws ClienteException, SQLException {
+	@Test (expected= ClientException.class)
+	public void testAlterarNaoExistente() throws ClientException, SQLException {
 		boolean resultado = true;
 		Professor p = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		Professor pn = new Professor("Nome para Alterar", "387.807.647-97", "098765", "(123)4567-8899", "email@Nome");
 		
 		try{
-			ProfessorDAO.getInstance().alterar(p, pn);
+			ProfessorDAO.getNewProfessor().update(p, pn);
 		} finally {
 			resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + pn.getNome() + "\" and " +
-				"professor.cpf = \"" + pn.getCpf() + "\" and " +
-				"professor.telefone = \"" + pn.getTelefone() + "\" and " +
-				"professor.email = \"" + pn.getEmail() + "\" and " +
-				"professor.matricula = \"" + pn.getMatricula() + "\";");
+				"professor.nome = \"" + pn.getName() + "\" and " +
+				"professor.cpf = \"" + pn.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + pn.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + pn.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + pn.getIdProfessor() + "\";");
 			if(resultado)
 				this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + pn.getNome() + "\" and " +
-					"professor.cpf = \"" + pn.getCpf() + "\" and " +
-					"professor.telefone = \"" + pn.getTelefone() + "\" and " +
-					"professor.email = \"" + pn.getEmail() + "\" and " +
-					"professor.matricula = \"" + pn.getMatricula() + "\";");
+					"professor.nome = \"" + pn.getName() + "\" and " +
+					"professor.cpf = \"" + pn.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + pn.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + pn.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + pn.getIdProfessor() + "\";");
 		}
-		assertFalse("Teste de Alteração.", resultado);
+		assertFalse("Teste de Alteraï¿½ï¿½o.", resultado);
 	}
-	@Test (expected= ClienteException.class)
-	public void testAlterarParaJaExistente() throws ClienteException, SQLException {
+	@Test (expected= ClientException.class)
+	public void testAlterarParaJaExistente() throws ClientException, SQLException {
 		boolean resultado = true;
 		boolean resultado2 = false;
 		Professor p = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		Professor pn = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		this.executaNoBanco("INSERT INTO " +
 						"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-						"\"" + p.getNome() + "\", " +
-						"\"" + p.getCpf()+ "\", " +
-						"\"" + p.getTelefone() + "\", " +
-						"\"" + p.getEmail() + "\", " +
-						"\"" + p.getMatricula() + "\"); ");
+						"\"" + p.getName() + "\", " +
+						"\"" + p.getCpfProfessor()+ "\", " +
+						"\"" + p.getPhoneProfessor() + "\", " +
+						"\"" + p.getEmailProfessor() + "\", " +
+						"\"" + p.getIdProfessor() + "\"); ");
 		
 		try{
-			ProfessorDAO.getInstance().alterar(p, pn);
+			ProfessorDAO.getNewProfessor().update(p, pn);
 		} finally {
 			resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + pn.getNome() + "\" and " +
-				"professor.cpf = \"" + pn.getCpf() + "\" and " +
-				"professor.telefone = \"" + pn.getTelefone() + "\" and " +
-				"professor.email = \"" + pn.getEmail() + "\" and " +
-				"professor.matricula = \"" + pn.getMatricula() + "\";");
+				"professor.nome = \"" + pn.getName() + "\" and " +
+				"professor.cpf = \"" + pn.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + pn.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + pn.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + pn.getIdProfessor() + "\";");
 			resultado2 =  this.estaNoBanco("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + p.getNome() + "\" and " +
-				"professor.cpf = \"" + p.getCpf() + "\" and " +
-				"professor.telefone = \"" + p.getTelefone() + "\" and " +
-				"professor.email = \"" + p.getEmail() + "\" and " +
-				"professor.matricula = \"" + p.getMatricula() + "\";");
+				"professor.nome = \"" + p.getName() + "\" and " +
+				"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + p.getIdProfessor() + "\";");
 			if(resultado)
 				this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + pn.getNome() + "\" and " +
-					"professor.cpf = \"" + pn.getCpf() + "\" and " +
-					"professor.telefone = \"" + pn.getTelefone() + "\" and " +
-					"professor.email = \"" + pn.getEmail() + "\" and " +
-					"professor.matricula = \"" + pn.getMatricula() + "\";");
+					"professor.nome = \"" + pn.getName() + "\" and " +
+					"professor.cpf = \"" + pn.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + pn.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + pn.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + pn.getIdProfessor() + "\";");
 			if(resultado2)
 				this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + p.getNome() + "\" and " +
-					"professor.cpf = \"" + p.getCpf() + "\" and " +
-					"professor.telefone = \"" + p.getTelefone() + "\" and " +
-					"professor.email = \"" + p.getEmail() + "\" and " +
-					"professor.matricula = \"" + p.getMatricula() + "\";");
+					"professor.nome = \"" + p.getName() + "\" and " +
+					"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + p.getIdProfessor() + "\";");
 		}
-		assertTrue("Teste de Alteração.", resultado == false && resultado2 == true);
+		assertTrue("Teste de Alteraï¿½ï¿½o.", resultado == false && resultado2 == true);
 	}
-	@Test (expected= ClienteException.class)
-	public void testAlterarParaCpfExistente() throws ClienteException, SQLException {
+	@Test (expected= ClientException.class)
+	public void testAlterarParaCpfExistente() throws ClientException, SQLException {
 		boolean resultado = true;
 		boolean resultado2 = false;
 		boolean resultado3 = false;
@@ -307,66 +307,66 @@ public class ProfessorDAOTest {
 		Professor pnn = new Professor("Nome para Incluir Segundo", "868.563.327-34", "0987", "5555-5678", "Ne@email");
 		this.executaNoBanco("INSERT INTO " +
 						"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-						"\"" + p.getNome() + "\", " +
-						"\"" + p.getCpf()+ "\", " +
-						"\"" + p.getTelefone() + "\", " +
-						"\"" + p.getEmail() + "\", " +
-						"\"" + p.getMatricula() + "\"); ");
+						"\"" + p.getName() + "\", " +
+						"\"" + p.getCpfProfessor()+ "\", " +
+						"\"" + p.getPhoneProfessor() + "\", " +
+						"\"" + p.getEmailProfessor() + "\", " +
+						"\"" + p.getIdProfessor() + "\"); ");
 		this.executaNoBanco("INSERT INTO " +
 				"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-				"\"" + pn.getNome() + "\", " +
-				"\"" + pn.getCpf()+ "\", " +
-				"\"" + pn.getTelefone() + "\", " +
-				"\"" + pn.getEmail() + "\", " +
-				"\"" + pn.getMatricula() + "\"); ");
+				"\"" + pn.getName() + "\", " +
+				"\"" + pn.getCpfProfessor()+ "\", " +
+				"\"" + pn.getPhoneProfessor() + "\", " +
+				"\"" + pn.getEmailProfessor() + "\", " +
+				"\"" + pn.getIdProfessor() + "\"); ");
 		
 		try{
-			ProfessorDAO.getInstance().alterar(pn, pnn);
+			ProfessorDAO.getNewProfessor().update(pn, pnn);
 		} finally {
 			resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + pn.getNome() + "\" and " +
-				"professor.cpf = \"" + pn.getCpf() + "\" and " +
-				"professor.telefone = \"" + pn.getTelefone() + "\" and " +
-				"professor.email = \"" + pn.getEmail() + "\" and " +
-				"professor.matricula = \"" + pn.getMatricula() + "\";");
+				"professor.nome = \"" + pn.getName() + "\" and " +
+				"professor.cpf = \"" + pn.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + pn.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + pn.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + pn.getIdProfessor() + "\";");
 			resultado2 =  this.estaNoBanco("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + p.getNome() + "\" and " +
-				"professor.cpf = \"" + p.getCpf() + "\" and " +
-				"professor.telefone = \"" + p.getTelefone() + "\" and " +
-				"professor.email = \"" + p.getEmail() + "\" and " +
-				"professor.matricula = \"" + p.getMatricula() + "\";");
+				"professor.nome = \"" + p.getName() + "\" and " +
+				"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + p.getIdProfessor() + "\";");
 			resultado3 =  this.estaNoBanco("SELECT * FROM professor WHERE " +
-					"professor.nome = \"" + pnn.getNome() + "\" and " +
-					"professor.cpf = \"" + pnn.getCpf() + "\" and " +
-					"professor.telefone = \"" + pnn.getTelefone() + "\" and " +
-					"professor.email = \"" + pnn.getEmail() + "\" and " +
-					"professor.matricula = \"" + pnn.getMatricula() + "\";");
+					"professor.nome = \"" + pnn.getName() + "\" and " +
+					"professor.cpf = \"" + pnn.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + pnn.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + pnn.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + pnn.getIdProfessor() + "\";");
 			if(resultado)
 				this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + pn.getNome() + "\" and " +
-					"professor.cpf = \"" + pn.getCpf() + "\" and " +
-					"professor.telefone = \"" + pn.getTelefone() + "\" and " +
-					"professor.email = \"" + pn.getEmail() + "\" and " +
-					"professor.matricula = \"" + pn.getMatricula() + "\";");
+					"professor.nome = \"" + pn.getName() + "\" and " +
+					"professor.cpf = \"" + pn.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + pn.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + pn.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + pn.getIdProfessor() + "\";");
 			if(resultado2)
 				this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + p.getNome() + "\" and " +
-					"professor.cpf = \"" + p.getCpf() + "\" and " +
-					"professor.telefone = \"" + p.getTelefone() + "\" and " +
-					"professor.email = \"" + p.getEmail() + "\" and " +
-					"professor.matricula = \"" + p.getMatricula() + "\";");
+					"professor.nome = \"" + p.getName() + "\" and " +
+					"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + p.getIdProfessor() + "\";");
 			if(resultado3)
 				this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + pnn.getNome() + "\" and " +
-					"professor.cpf = \"" + pnn.getCpf() + "\" and " +
-					"professor.telefone = \"" + pnn.getTelefone() + "\" and " +
-					"professor.email = \"" + pnn.getEmail() + "\" and " +
-					"professor.matricula = \"" + pnn.getMatricula() + "\";");
+					"professor.nome = \"" + pnn.getName() + "\" and " +
+					"professor.cpf = \"" + pnn.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + pnn.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + pnn.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + pnn.getIdProfessor() + "\";");
 		}
-		assertTrue("Teste de Alteração.", resultado == true && resultado2 == true && resultado3 == false);
+		assertTrue("Teste de Alteraï¿½ï¿½o.", resultado == true && resultado2 == true && resultado3 == false);
 	}
-	@Test (expected= ClienteException.class)
-	public void testAlterarParaMatriculaExistente() throws ClienteException, SQLException {
+	@Test (expected= ClientException.class)
+	public void testAlterarParaMatriculaExistente() throws ClientException, SQLException {
 		boolean resultado = true;
 		boolean resultado2 = false;
 		boolean resultado3 = false;
@@ -375,227 +375,227 @@ public class ProfessorDAOTest {
 		Professor pnn = new Professor("Nome para Incluir Segundo", "387.807.647-97", "123456", "5555-5678", "Ne@email");
 		this.executaNoBanco("INSERT INTO " +
 						"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-						"\"" + p.getNome() + "\", " +
-						"\"" + p.getCpf()+ "\", " +
-						"\"" + p.getTelefone() + "\", " +
-						"\"" + p.getEmail() + "\", " +
-						"\"" + p.getMatricula() + "\"); ");
+						"\"" + p.getName() + "\", " +
+						"\"" + p.getCpfProfessor()+ "\", " +
+						"\"" + p.getPhoneProfessor() + "\", " +
+						"\"" + p.getEmailProfessor() + "\", " +
+						"\"" + p.getIdProfessor() + "\"); ");
 		this.executaNoBanco("INSERT INTO " +
 				"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-				"\"" + pn.getNome() + "\", " +
-				"\"" + pn.getCpf()+ "\", " +
-				"\"" + pn.getTelefone() + "\", " +
-				"\"" + pn.getEmail() + "\", " +
-				"\"" + pn.getMatricula() + "\"); ");
+				"\"" + pn.getName() + "\", " +
+				"\"" + pn.getCpfProfessor()+ "\", " +
+				"\"" + pn.getPhoneProfessor() + "\", " +
+				"\"" + pn.getEmailProfessor() + "\", " +
+				"\"" + pn.getIdProfessor() + "\"); ");
 		
 		try{
-			ProfessorDAO.getInstance().alterar(pn, pnn);
+			ProfessorDAO.getNewProfessor().update(pn, pnn);
 		} finally {
 			resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + pn.getNome() + "\" and " +
-				"professor.cpf = \"" + pn.getCpf() + "\" and " +
-				"professor.telefone = \"" + pn.getTelefone() + "\" and " +
-				"professor.email = \"" + pn.getEmail() + "\" and " +
-				"professor.matricula = \"" + pn.getMatricula() + "\";");
+				"professor.nome = \"" + pn.getName() + "\" and " +
+				"professor.cpf = \"" + pn.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + pn.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + pn.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + pn.getIdProfessor() + "\";");
 			resultado2 =  this.estaNoBanco("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + p.getNome() + "\" and " +
-				"professor.cpf = \"" + p.getCpf() + "\" and " +
-				"professor.telefone = \"" + p.getTelefone() + "\" and " +
-				"professor.email = \"" + p.getEmail() + "\" and " +
-				"professor.matricula = \"" + p.getMatricula() + "\";");
+				"professor.nome = \"" + p.getName() + "\" and " +
+				"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + p.getIdProfessor() + "\";");
 			resultado3 =  this.estaNoBanco("SELECT * FROM professor WHERE " +
-					"professor.nome = \"" + pnn.getNome() + "\" and " +
-					"professor.cpf = \"" + pnn.getCpf() + "\" and " +
-					"professor.telefone = \"" + pnn.getTelefone() + "\" and " +
-					"professor.email = \"" + pnn.getEmail() + "\" and " +
-					"professor.matricula = \"" + pnn.getMatricula() + "\";");
+					"professor.nome = \"" + pnn.getName() + "\" and " +
+					"professor.cpf = \"" + pnn.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + pnn.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + pnn.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + pnn.getIdProfessor() + "\";");
 			if(resultado)
 				this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + pn.getNome() + "\" and " +
-					"professor.cpf = \"" + pn.getCpf() + "\" and " +
-					"professor.telefone = \"" + pn.getTelefone() + "\" and " +
-					"professor.email = \"" + pn.getEmail() + "\" and " +
-					"professor.matricula = \"" + pn.getMatricula() + "\";");
+					"professor.nome = \"" + pn.getName() + "\" and " +
+					"professor.cpf = \"" + pn.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + pn.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + pn.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + pn.getIdProfessor() + "\";");
 			if(resultado2)
 				this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + p.getNome() + "\" and " +
-					"professor.cpf = \"" + p.getCpf() + "\" and " +
-					"professor.telefone = \"" + p.getTelefone() + "\" and " +
-					"professor.email = \"" + p.getEmail() + "\" and " +
-					"professor.matricula = \"" + p.getMatricula() + "\";");
+					"professor.nome = \"" + p.getName() + "\" and " +
+					"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + p.getIdProfessor() + "\";");
 			if(resultado3)
 				this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + pnn.getNome() + "\" and " +
-					"professor.cpf = \"" + pnn.getCpf() + "\" and " +
-					"professor.telefone = \"" + pnn.getTelefone() + "\" and " +
-					"professor.email = \"" + pnn.getEmail() + "\" and " +
-					"professor.matricula = \"" + pnn.getMatricula() + "\";");
+					"professor.nome = \"" + pnn.getName() + "\" and " +
+					"professor.cpf = \"" + pnn.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + pnn.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + pnn.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + pnn.getIdProfessor() + "\";");
 		}
-		assertTrue("Teste de Alteração.", resultado == true && resultado2 == true && resultado3 == false);
+		assertTrue("Teste de Alteraï¿½ï¿½o.", resultado == true && resultado2 == true && resultado3 == false);
 	}
 	@Ignore // (expected= ClienteException.class)
-	public void testAlterarEnvolvidoEmReserva() throws ClienteException, SQLException {
+	public void testAlterarEnvolvidoEmReserva() throws ClientException, SQLException {
 		fail();
 	}
 	
 	
 	
 	@Test
-	public void testExcluir() throws ClienteException, SQLException {
+	public void testExcluir() throws ClientException, SQLException {
 		boolean resultado = true;
 		Professor p = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		this.executaNoBanco("INSERT INTO " +
 						"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-						"\"" + p.getNome() + "\", " +
-						"\"" + p.getCpf()+ "\", " +
-						"\"" + p.getTelefone() + "\", " +
-						"\"" + p.getEmail() + "\", " +
-						"\"" + p.getMatricula() + "\"); ");
+						"\"" + p.getName() + "\", " +
+						"\"" + p.getCpfProfessor()+ "\", " +
+						"\"" + p.getPhoneProfessor() + "\", " +
+						"\"" + p.getEmailProfessor() + "\", " +
+						"\"" + p.getIdProfessor() + "\"); ");
 		
-		ProfessorDAO.getInstance().excluir(p);
+		ProfessorDAO.getNewProfessor().delete(p);
 		
 
 		resultado =  this.estaNoBanco("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + p.getNome() + "\" and " +
-				"professor.cpf = \"" + p.getCpf() + "\" and " +
-				"professor.telefone = \"" + p.getTelefone() + "\" and " +
-				"professor.email = \"" + p.getEmail() + "\" and " +
-				"professor.matricula = \"" + p.getMatricula() + "\";");
+				"professor.nome = \"" + p.getName() + "\" and " +
+				"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + p.getIdProfessor() + "\";");
 		if(resultado)
 			this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + p.getNome() + "\" and " +
-					"professor.cpf = \"" + p.getCpf() + "\" and " +
-					"professor.telefone = \"" + p.getTelefone() + "\" and " +
-					"professor.email = \"" + p.getEmail() + "\" and " +
-					"professor.matricula = \"" + p.getMatricula() + "\";");
+					"professor.nome = \"" + p.getName() + "\" and " +
+					"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + p.getIdProfessor() + "\";");
 		
-		assertFalse("Teste de Alteração.", resultado);
+		assertFalse("Teste de Alteraï¿½ï¿½o.", resultado);
 	}
-	@Test (expected= ClienteException.class)
-	public void testExcluirNulo() throws ClienteException, SQLException {
-		ProfessorDAO.getInstance().excluir(null);
+	@Test (expected= ClientException.class)
+	public void testExcluirNulo() throws ClientException, SQLException {
+		ProfessorDAO.getNewProfessor().delete(null);
 	}
 	@Ignore //(expected= ClienteException.class)
-	public void testExcluirEnvolvidoEmReserva() throws ClienteException, SQLException {
+	public void testExcluirEnvolvidoEmReserva() throws ClientException, SQLException {
 		fail();
 	}
-	@Test (expected= ClienteException.class)
-	public void testExcluirNaoExistente() throws ClienteException, SQLException {
+	@Test (expected= ClientException.class)
+	public void testExcluirNaoExistente() throws ClientException, SQLException {
 		Professor p = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		ProfessorDAO.getInstance().excluir(p);
+		ProfessorDAO.getNewProfessor().delete(p);
 	}
 	
 	
 	
 	@Test
-	public void testBuscarNome() throws ClienteException, SQLException {
+	public void testBuscarNome() throws ClientException, SQLException {
 		Professor p = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		this.executaNoBanco("INSERT INTO " +
 						"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-						"\"" + p.getNome() + "\", " +
-						"\"" + p.getCpf()+ "\", " +
-						"\"" + p.getTelefone() + "\", " +
-						"\"" + p.getEmail() + "\", " +
-						"\"" + p.getMatricula() + "\"); ");
+						"\"" + p.getName() + "\", " +
+						"\"" + p.getCpfProfessor()+ "\", " +
+						"\"" + p.getPhoneProfessor() + "\", " +
+						"\"" + p.getEmailProfessor() + "\", " +
+						"\"" + p.getIdProfessor() + "\"); ");
 		
-		Vector<Professor> vet = ProfessorDAO.getInstance().buscarNome("Nome para Incluir");
+		Vector<Professor> vet = ProfessorDAO.getNewProfessor().searchNameProfessor("Nome para Incluir");
 
 		this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + p.getNome() + "\" and " +
-					"professor.cpf = \"" + p.getCpf() + "\" and " +
-					"professor.telefone = \"" + p.getTelefone() + "\" and " +
-					"professor.email = \"" + p.getEmail() + "\" and " +
-					"professor.matricula = \"" + p.getMatricula() + "\";");
+					"professor.nome = \"" + p.getName() + "\" and " +
+					"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + p.getIdProfessor() + "\";");
 		
-		assertTrue("Teste de Alteração.", vet.size() > 0);
+		assertTrue("Teste de Alteraï¿½ï¿½o.", vet.size() > 0);
 	}
 	@Test
-	public void testBuscarCpf() throws ClienteException, SQLException {
+	public void testBuscarCpf() throws ClientException, SQLException {
 		Professor p = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		this.executaNoBanco("INSERT INTO " +
 						"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-						"\"" + p.getNome() + "\", " +
-						"\"" + p.getCpf()+ "\", " +
-						"\"" + p.getTelefone() + "\", " +
-						"\"" + p.getEmail() + "\", " +
-						"\"" + p.getMatricula() + "\"); ");
+						"\"" + p.getName() + "\", " +
+						"\"" + p.getCpfProfessor()+ "\", " +
+						"\"" + p.getPhoneProfessor() + "\", " +
+						"\"" + p.getEmailProfessor() + "\", " +
+						"\"" + p.getIdProfessor() + "\"); ");
 		
-		Vector<Professor> vet = ProfessorDAO.getInstance().buscarCpf("868.563.327-34");
+		Vector<Professor> vet = ProfessorDAO.getNewProfessor().searchCpfProfessor("868.563.327-34");
 
 		this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + p.getNome() + "\" and " +
-					"professor.cpf = \"" + p.getCpf() + "\" and " +
-					"professor.telefone = \"" + p.getTelefone() + "\" and " +
-					"professor.email = \"" + p.getEmail() + "\" and " +
-					"professor.matricula = \"" + p.getMatricula() + "\";");
+					"professor.nome = \"" + p.getName() + "\" and " +
+					"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + p.getIdProfessor() + "\";");
 		
-		assertTrue("Teste de Alteração.", vet.size() > 0);
+		assertTrue("Teste de Alteraï¿½ï¿½o.", vet.size() > 0);
 	}
 	@Test
-	public void testBuscarMatricula() throws ClienteException, SQLException {
+	public void testBuscarMatricula() throws ClientException, SQLException {
 		Professor p = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		this.executaNoBanco("INSERT INTO " +
 						"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-						"\"" + p.getNome() + "\", " +
-						"\"" + p.getCpf()+ "\", " +
-						"\"" + p.getTelefone() + "\", " +
-						"\"" + p.getEmail() + "\", " +
-						"\"" + p.getMatricula() + "\"); ");
+						"\"" + p.getName() + "\", " +
+						"\"" + p.getCpfProfessor()+ "\", " +
+						"\"" + p.getPhoneProfessor() + "\", " +
+						"\"" + p.getEmailProfessor() + "\", " +
+						"\"" + p.getIdProfessor() + "\"); ");
 		
-		Vector<Professor> vet = ProfessorDAO.getInstance().buscarMatricula("123456");
+		Vector<Professor> vet = ProfessorDAO.getNewProfessor().searchIdProfessor("123456");
 
 		this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + p.getNome() + "\" and " +
-					"professor.cpf = \"" + p.getCpf() + "\" and " +
-					"professor.telefone = \"" + p.getTelefone() + "\" and " +
-					"professor.email = \"" + p.getEmail() + "\" and " +
-					"professor.matricula = \"" + p.getMatricula() + "\";");
+					"professor.nome = \"" + p.getName() + "\" and " +
+					"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + p.getIdProfessor() + "\";");
 		
-		assertTrue("Teste de Alteração.", vet.size() > 0);
+		assertTrue("Teste de Alteraï¿½ï¿½o.", vet.size() > 0);
 	}
 	@Test
-	public void testBuscarTelefone() throws ClienteException, SQLException {
+	public void testBuscarTelefone() throws ClientException, SQLException {
 		Professor p = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		this.executaNoBanco("INSERT INTO " +
 						"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-						"\"" + p.getNome() + "\", " +
-						"\"" + p.getCpf()+ "\", " +
-						"\"" + p.getTelefone() + "\", " +
-						"\"" + p.getEmail() + "\", " +
-						"\"" + p.getMatricula() + "\"); ");
+						"\"" + p.getName() + "\", " +
+						"\"" + p.getCpfProfessor()+ "\", " +
+						"\"" + p.getPhoneProfessor() + "\", " +
+						"\"" + p.getEmailProfessor() + "\", " +
+						"\"" + p.getIdProfessor() + "\"); ");
 		
-		Vector<Professor> vet = ProfessorDAO.getInstance().buscarTelefone("1234-5678");
+		Vector<Professor> vet = ProfessorDAO.getNewProfessor().searchPhoneProfessor("1234-5678");
 
 		this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + p.getNome() + "\" and " +
-					"professor.cpf = \"" + p.getCpf() + "\" and " +
-					"professor.telefone = \"" + p.getTelefone() + "\" and " +
-					"professor.email = \"" + p.getEmail() + "\" and " +
-					"professor.matricula = \"" + p.getMatricula() + "\";");
+					"professor.nome = \"" + p.getName() + "\" and " +
+					"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + p.getIdProfessor() + "\";");
 		
-		assertTrue("Teste de Alteração.", vet.size() > 0);
+		assertTrue("Teste de Alteraï¿½ï¿½o.", vet.size() > 0);
 	}
 	@Test
-	public void testBuscarEmail() throws ClienteException, SQLException {
+	public void testBuscarEmail() throws ClientException, SQLException {
 		Professor p = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		this.executaNoBanco("INSERT INTO " +
 						"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-						"\"" + p.getNome() + "\", " +
-						"\"" + p.getCpf()+ "\", " +
-						"\"" + p.getTelefone() + "\", " +
-						"\"" + p.getEmail() + "\", " +
-						"\"" + p.getMatricula() + "\"); ");
+						"\"" + p.getName() + "\", " +
+						"\"" + p.getCpfProfessor()+ "\", " +
+						"\"" + p.getPhoneProfessor() + "\", " +
+						"\"" + p.getEmailProfessor() + "\", " +
+						"\"" + p.getIdProfessor() + "\"); ");
 		
-		Vector<Professor> vet = ProfessorDAO.getInstance().buscarEmail("Nome@email");
+		Vector<Professor> vet = ProfessorDAO.getNewProfessor().searchEmailProfessor("Nome@email");
 
 		this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + p.getNome() + "\" and " +
-					"professor.cpf = \"" + p.getCpf() + "\" and " +
-					"professor.telefone = \"" + p.getTelefone() + "\" and " +
-					"professor.email = \"" + p.getEmail() + "\" and " +
-					"professor.matricula = \"" + p.getMatricula() + "\";");
+					"professor.nome = \"" + p.getName() + "\" and " +
+					"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + p.getIdProfessor() + "\";");
 		
-		assertTrue("Teste de Alteração.", vet.size() > 0);
+		assertTrue("Teste de Alteraï¿½ï¿½o.", vet.size() > 0);
 	}
 	
 	private void executaNoBanco(String msg) throws SQLException{

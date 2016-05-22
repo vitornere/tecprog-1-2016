@@ -10,7 +10,7 @@ import model.Professor;
 import model.ReservaSalaProfessor;
 import model.Sala;
 
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
@@ -39,11 +39,11 @@ public class ResSalaProfessorDAO extends DAO{
 		//Querys de Reuso
 			private String select_id_professor(Professor p){
 				return "SELECT id_professor FROM professor WHERE " +
-						"professor.nome = \"" + p.getNome() + "\" and " +
-						"professor.cpf = \"" + p.getCpf() + "\" and " +
-						"professor.telefone = \"" + p.getTelefone() + "\" and " +
-						"professor.email = \"" + p.getEmail() + "\" and " +
-						"professor.matricula = \"" + p.getMatricula() + "\"";
+						"professor.nome = \"" + p.getName() + "\" and " +
+						"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+						"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+						"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+						"professor.matricula = \"" + p.getIdProfessor() + "\"";
 			}
 			private String select_id_sala(Sala sala){
 				return "SELECT id_sala FROM sala WHERE " +
@@ -158,7 +158,7 @@ public class ResSalaProfessorDAO extends DAO{
 	}
 
 	@SuppressWarnings("unchecked")
-	public Vector<ReservaSalaProfessor> buscarTodos() throws SQLException, ClienteException, PatrimonioException, ReservaException{
+	public Vector<ReservaSalaProfessor> buscarTodos() throws SQLException, ClientException, PatrimonioException, ReservaException{
 		return super.buscar("SELECT * FROM reserva_sala_professor " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala " +
 				"INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor;");
@@ -166,7 +166,7 @@ public class ResSalaProfessorDAO extends DAO{
 
 	
 	@SuppressWarnings("unchecked")
-	public Vector<ReservaSalaProfessor> buscarPorData(String data) throws SQLException, ClienteException, PatrimonioException, ReservaException{
+	public Vector<ReservaSalaProfessor> buscarPorData(String data) throws SQLException, ClientException, PatrimonioException, ReservaException{
 		return super.buscar("SELECT * FROM reserva_sala_professor " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala " +
 				"INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor" +
@@ -175,7 +175,7 @@ public class ResSalaProfessorDAO extends DAO{
 	
 	
 	@Override
-	protected Object fetch(ResultSet rs) throws SQLException, ClienteException, PatrimonioException, ReservaException {
+	protected Object fetch(ResultSet rs) throws SQLException, ClientException, PatrimonioException, ReservaException {
 		Professor p = new Professor(rs.getString("nome"), rs.getString("cpf"), rs.getString("matricula"),
 				rs.getString("telefone"), rs.getString("email"));
 		
@@ -189,11 +189,11 @@ public class ResSalaProfessorDAO extends DAO{
 	
 	private boolean professorinDB(Professor professor) throws SQLException{
 		return super.inDBGeneric("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + professor.getNome() + "\" and " +
-				"professor.cpf = \"" + professor.getCpf() + "\" and " +
-				"professor.telefone = \"" + professor.getTelefone() + "\" and " +
-				"professor.email = \"" + professor.getEmail() + "\" and " +
-				"professor.matricula = \"" + professor.getMatricula() + "\";");
+				"professor.nome = \"" + professor.getName() + "\" and " +
+				"professor.cpf = \"" + professor.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + professor.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + professor.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + professor.getIdProfessor() + "\";");
 	}
 	
 	private boolean salainDB(Sala sala) throws SQLException{
@@ -217,11 +217,11 @@ public class ResSalaProfessorDAO extends DAO{
 	private boolean reservainDB(ReservaSalaProfessor r) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE " +
 					"id_professor = (SELECT id_professor FROM professor WHERE " +
-							"professor.nome = \"" + r.getProfessor().getNome() + "\" and " +
-							"professor.cpf = \"" + r.getProfessor().getCpf() + "\" and " +
-							"professor.telefone = \"" + r.getProfessor().getTelefone() + "\" and " +
-							"professor.email = \"" + r.getProfessor().getEmail() + "\" and " +
-							"professor.matricula = \"" + r.getProfessor().getMatricula() + "\") and " +
+							"professor.nome = \"" + r.getProfessor().getName() + "\" and " +
+							"professor.cpf = \"" + r.getProfessor().getCpfProfessor() + "\" and " +
+							"professor.telefone = \"" + r.getProfessor().getPhoneProfessor() + "\" and " +
+							"professor.email = \"" + r.getProfessor().getEmailProfessor() + "\" and " +
+							"professor.matricula = \"" + r.getProfessor().getIdProfessor() + "\") and " +
 					"id_sala = (SELECT id_sala FROM sala WHERE " +
 									"sala.codigo = \"" + r.getSala().getCodigo() + "\" and " +
 									"sala.descricao = \"" + r.getSala().getDescricao() +  "\" and " +

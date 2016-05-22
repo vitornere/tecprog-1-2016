@@ -17,7 +17,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import control.ManterResSalaProfessor;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
@@ -36,13 +36,13 @@ public class ManterResSalaProfessorTest {
 		sala1 = new Sala("123", "Sala de Aula", "120");
 		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
 		
-		ProfessorDAO.getInstance().incluir(professor1);
+		ProfessorDAO.getNewProfessor().include(professor1);
 		SalaDAO.getInstance().incluir(sala1);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ProfessorDAO.getInstance().excluir(professor1);
+		ProfessorDAO.getNewProfessor().delete(professor1);
 		SalaDAO.getInstance().excluir(sala1);
 	}
 
@@ -57,7 +57,7 @@ public class ManterResSalaProfessorTest {
 	
 	
 	@Test
-	public void testInserir() throws SQLException, ReservaException, ClienteException, PatrimonioException {
+	public void testInserir() throws SQLException, ReservaException, ClientException, PatrimonioException {
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
 		String hora = "9:11";
@@ -70,7 +70,7 @@ public class ManterResSalaProfessorTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
-	public void testAlterar() throws ReservaException, SQLException, ClienteException, PatrimonioException {
+	public void testAlterar() throws ReservaException, SQLException, ClientException, PatrimonioException {
 		
 		ReservaSalaProfessor reserva = new ReservaSalaProfessor("20/12/33", "9:11", sala1, "Pesquisa", professor1);
 		this.insert_into(reserva);
@@ -104,11 +104,11 @@ public class ManterResSalaProfessorTest {
 
 	private String select_id_professor(Professor prof){
 		return "SELECT id_professor FROM professor WHERE " +
-				"professor.nome = \"" + prof.getNome() + "\" and " +
-				"professor.cpf = \"" + prof.getCpf() + "\" and " +
-				"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-				"professor.email = \"" + prof.getEmail() + "\" and " +
-				"professor.matricula = \"" + prof.getMatricula() + "\"";
+				"professor.nome = \"" + prof.getName() + "\" and " +
+				"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + prof.getIdProfessor() + "\"";
 	}
 	private String select_id_sala(Sala sala){
 		return "SELECT id_sala FROM sala WHERE " +

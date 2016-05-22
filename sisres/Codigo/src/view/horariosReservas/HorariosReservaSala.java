@@ -23,7 +23,7 @@ import view.reservasSalas.FazerReservaSalaView;
 import view.reservasSalas.ReservaSalaView;
 import control.ManterResSalaAluno;
 import control.ManterResSalaProfessor;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
@@ -51,8 +51,8 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 nomesTabela.add(String.valueOf(index));
                 nomesTabela.add("Aluno");
                 nomesTabela.add(r.getHora());
-                nomesTabela.add(r.getAluno().getNome());
-                nomesTabela.add(r.getAluno().getMatricula());
+                nomesTabela.add(r.getAluno().getName());
+                nomesTabela.add(r.getAluno().getIdProfessor());
                 nomesTabela.add(r.getFinalidade());
                 nomesTabela.add(r.getSala().getCodigo());
                 nomesTabela.add(r.getSala().getDescricao());
@@ -66,8 +66,8 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 nomesTabela.add(String.valueOf(index));
                 nomesTabela.add("Professor");
                 nomesTabela.add(r.getHora());
-                nomesTabela.add(r.getProfessor().getNome());
-                nomesTabela.add(r.getProfessor().getMatricula());
+                nomesTabela.add(r.getProfessor().getName());
+                nomesTabela.add(r.getProfessor().getIdProfessor());
                 nomesTabela.add(r.getFinalidade());
                 nomesTabela.add(r.getSala().getCodigo());
                 nomesTabela.add(r.getSala().getDescricao());
@@ -123,7 +123,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
         } catch (PatrimonioException ex) {
             Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ReservaException ex) {
             Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
@@ -165,7 +165,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (PatrimonioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (ReservaException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -180,7 +180,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (PatrimonioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (ReservaException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -202,7 +202,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (PatrimonioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (ReservaException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

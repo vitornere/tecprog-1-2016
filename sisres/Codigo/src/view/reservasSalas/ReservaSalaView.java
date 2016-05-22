@@ -13,10 +13,10 @@ import model.Aluno;
 import model.Professor;
 import model.Sala;
 import control.ManterAluno;
-import control.ManterProfessor;
+import control.ProfessorRegister;
 import control.ManterResSalaAluno;
 import control.ManterResSalaProfessor;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
@@ -36,7 +36,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
     protected Professor prof;
 
     public ReservaSalaView(java.awt.Frame parent, boolean modal) throws SQLException, PatrimonioException, PatrimonioException,
-            ClienteException, ReservaException {
+            ClientException, ReservaException {
         super(parent, modal);
         this.instanceProf = ManterResSalaProfessor.getInstance();
         this.instanceAluno = ManterResSalaAluno.getInstance();
@@ -68,7 +68,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
             }
             this.aluno = alunos.firstElement();
             this.alunoTextArea.setText(aluno.toString());
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -79,7 +79,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
 
     protected void getProfessor() {
         try {
-            Vector<Professor> professor = ManterProfessor.getInstance().buscarCpf(this.cpfTextField.getText());
+            Vector<Professor> professor = ProfessorRegister.getInstance().searchCpfProfessor(this.cpfTextField.getText());
             if (professor.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Professor nao Cadastrado."
                         + " Digite o CPF correto ou cadastre o professor desejado", "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -89,7 +89,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
             }
             this.prof = professor.firstElement();
             this.alunoTextArea.setText(professor.firstElement().toString());
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

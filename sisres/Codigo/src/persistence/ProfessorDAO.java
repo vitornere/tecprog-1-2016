@@ -5,7 +5,7 @@ import model.Professor;
 import java.sql.*;
 import java.util.Vector;
 
-import exception.ClienteException;
+import exception.ClientException;
 
 public class ProfessorDAO {
 
@@ -21,7 +21,7 @@ public class ProfessorDAO {
 		private static ProfessorDAO instance;
 		private ProfessorDAO(){
 		}
-		public static ProfessorDAO getInstance(){
+		public static ProfessorDAO getNewProfessor(){
 			if(instance == null)
 				instance = new ProfessorDAO();
 			return instance;
@@ -29,100 +29,100 @@ public class ProfessorDAO {
 	//
 	
 	
-	public void incluir(Professor prof) throws SQLException, ClienteException {
+	public void include(Professor prof) throws SQLException, ClientException {
 			if(prof == null)
-				throw new ClienteException(PROFESSOR_NULO);
-			else if(this.inDBCpf(prof.getCpf()))
-				throw new ClienteException(CPF_JA_EXISTENTE);
-			else if(this.inDBMatricula(prof.getMatricula()))
-				throw new ClienteException(MATRICULA_JA_EXISTENTE);
+				throw new ClientException(PROFESSOR_NULO);
+			else if(this.inDBCpf(prof.getCpfProfessor()))
+				throw new ClientException(CPF_JA_EXISTENTE);
+			else if(this.inDBMatricula(prof.getIdProfessor()))
+				throw new ClientException(MATRICULA_JA_EXISTENTE);
 			this.updateQuery("INSERT INTO " +
 						"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-						"\"" + prof.getNome() + "\", " +
-						"\"" + prof.getCpf()+ "\", " +
-						"\"" + prof.getTelefone() + "\", " +
-						"\"" + prof.getEmail() + "\", " +
-						"\"" + prof.getMatricula() + "\"); "
+						"\"" + prof.getName() + "\", " +
+						"\"" + prof.getCpfProfessor()+ "\", " +
+						"\"" + prof.getPhoneProfessor() + "\", " +
+						"\"" + prof.getEmailProfessor() + "\", " +
+						"\"" + prof.getIdProfessor() + "\"); "
 					);			
 	}
 
-	public void alterar(Professor prof_velho, Professor prof_novo) throws SQLException, ClienteException {
+	public void update(Professor prof_velho, Professor prof_novo) throws SQLException, ClientException {
 		if(prof_velho == null)
-			throw new ClienteException(PROFESSOR_NULO);
+			throw new ClientException(PROFESSOR_NULO);
 		if(prof_novo == null)
-			throw new ClienteException(PROFESSOR_NULO);
+			throw new ClientException(PROFESSOR_NULO);
 		
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst;
 		
 		if(!this.inDB(prof_velho))
-			throw new ClienteException(PROFESSOR_NAO_EXISTENTE);
+			throw new ClientException(PROFESSOR_NAO_EXISTENTE);
 		if(this.inOtherDB(prof_velho))
-			throw new ClienteException(PROFESSOR_EM_USO);
-		else if(!prof_velho.getCpf().equals(prof_novo.getCpf()) && this.inDBCpf(prof_novo.getCpf()))
-			throw new ClienteException(CPF_JA_EXISTENTE);
-		else if(!prof_velho.getMatricula().equals(prof_novo.getMatricula()) && this.inDBMatricula(prof_novo.getMatricula()))
-			throw new ClienteException(MATRICULA_JA_EXISTENTE);
+			throw new ClientException(PROFESSOR_EM_USO);
+		else if(!prof_velho.getCpfProfessor().equals(prof_novo.getCpfProfessor()) && this.inDBCpf(prof_novo.getCpfProfessor()))
+			throw new ClientException(CPF_JA_EXISTENTE);
+		else if(!prof_velho.getIdProfessor().equals(prof_novo.getIdProfessor()) && this.inDBMatricula(prof_novo.getIdProfessor()))
+			throw new ClientException(MATRICULA_JA_EXISTENTE);
 		else if(!this.inDB(prof_novo)){
 			String msg = "UPDATE professor SET " +
-					"nome = \"" + prof_novo.getNome() + "\", " +
-					"cpf = \"" + prof_novo.getCpf() + "\", " +
-					"telefone = \"" + prof_novo.getTelefone() + "\", " +
-					"email = \"" + prof_novo.getEmail() + "\", " +
-					"matricula = \"" + prof_novo.getMatricula() + "\""+
+					"nome = \"" + prof_novo.getName() + "\", " +
+					"cpf = \"" + prof_novo.getCpfProfessor() + "\", " +
+					"telefone = \"" + prof_novo.getPhoneProfessor() + "\", " +
+					"email = \"" + prof_novo.getEmailProfessor() + "\", " +
+					"matricula = \"" + prof_novo.getIdProfessor() + "\""+
 					" WHERE " +
-					"professor.nome = \"" + prof_velho.getNome() + "\" and " +
-					"professor.cpf = \"" + prof_velho.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof_velho.getTelefone() + "\" and " +
-					"professor.email = \"" + prof_velho.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof_velho.getMatricula() + "\";";
+					"professor.nome = \"" + prof_velho.getName() + "\" and " +
+					"professor.cpf = \"" + prof_velho.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof_velho.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof_velho.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof_velho.getIdProfessor() + "\";";
 			con.setAutoCommit(false);
 			pst = con.prepareStatement(msg);
 			pst.executeUpdate();
 			con.commit();
 		}else
-			throw new ClienteException(PROFESSOR_JA_EXISTENTE);
+			throw new ClientException(PROFESSOR_JA_EXISTENTE);
 		
 		pst.close();
 		con.close();
 	}
 
-	public void excluir(Professor prof) throws SQLException, ClienteException {
+	public void delete(Professor prof) throws SQLException, ClientException {
 		if(prof == null)
-			throw new ClienteException(PROFESSOR_NULO);
+			throw new ClientException(PROFESSOR_NULO);
 		if(this.inOtherDB(prof))
-			throw new ClienteException(PROFESSOR_EM_USO);
+			throw new ClientException(PROFESSOR_EM_USO);
 		else if(this.inDB(prof)){
 			this.updateQuery("DELETE FROM professor WHERE " +
-				"professor.nome = \"" + prof.getNome() + "\" and " +
-				"professor.cpf = \"" + prof.getCpf() + "\" and " +
-				"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-				"professor.email = \"" + prof.getEmail() + "\" and " +
-				"professor.matricula = \"" + prof.getMatricula() + "\";"
+				"professor.nome = \"" + prof.getName() + "\" and " +
+				"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + prof.getIdProfessor() + "\";"
 				);
 		}
 		else
-			throw new ClienteException(PROFESSOR_NAO_EXISTENTE);
+			throw new ClientException(PROFESSOR_NAO_EXISTENTE);
 	}
 
 	
 	
-	public Vector<Professor> buscarTodos() throws SQLException, ClienteException {
+	public Vector<Professor> seachAll() throws SQLException, ClientException {
 		return this.buscar("SELECT * FROM professor;");
 	}
-	public Vector<Professor> buscarNome(String valor) throws SQLException, ClienteException {
+	public Vector<Professor> searchNameProfessor(String valor) throws SQLException, ClientException {
 		return this.buscar("SELECT * FROM professor WHERE nome = " + "\"" + valor + "\";");
 	}
-	public Vector<Professor> buscarCpf(String valor) throws SQLException, ClienteException {
+	public Vector<Professor> searchCpfProfessor(String valor) throws SQLException, ClientException {
 		return this.buscar("SELECT * FROM professor WHERE cpf = " + "\"" + valor + "\";");
 	}
-	public Vector<Professor> buscarMatricula(String valor) throws SQLException, ClienteException {
+	public Vector<Professor> searchIdProfessor(String valor) throws SQLException, ClientException {
 		return this.buscar("SELECT * FROM professor WHERE matricula = " + "\"" + valor + "\";");
 	}
-	public Vector<Professor> buscarEmail(String valor) throws SQLException, ClienteException {
+	public Vector<Professor> searchEmailProfessor(String valor) throws SQLException, ClientException {
 		return this.buscar("SELECT * FROM professor WHERE email = " + "\"" + valor + "\";");
 	}
-	public Vector<Professor> buscarTelefone(String valor) throws SQLException, ClienteException {
+	public Vector<Professor> searchPhoneProfessor(String valor) throws SQLException, ClientException {
 		return this.buscar("SELECT * FROM professor WHERE telefone = " + "\"" + valor + "\";");
 	}
 
@@ -131,7 +131,7 @@ public class ProfessorDAO {
 	 * Metodos Privados
 	 * */
 	
-	private Vector<Professor> buscar(String query) throws SQLException, ClienteException {		
+	private Vector<Professor> buscar(String query) throws SQLException, ClientException {		
 		Vector<Professor> vet = new Vector<Professor>();
 		
 		Connection con =  FactoryConnection.getInstance().getConnection();
@@ -170,11 +170,11 @@ public class ProfessorDAO {
 	}
 	private boolean inDB(Professor prof) throws SQLException{
 		return this.inDBGeneric("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + prof.getNome() + "\" and " +
-				"professor.cpf = \"" + prof.getCpf() + "\" and " +
-				"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-				"professor.email = \"" + prof.getEmail() + "\" and " +
-				"professor.matricula = \"" + prof.getMatricula() + "\";");
+				"professor.nome = \"" + prof.getName() + "\" and " +
+				"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + prof.getIdProfessor() + "\";");
 	}
 	private boolean inDBCpf(String codigo) throws SQLException{
 		return this.inDBGeneric("SELECT * FROM professor WHERE " +
@@ -188,20 +188,20 @@ public class ProfessorDAO {
 		if ( this.inDBGeneric(
 				"SELECT * FROM reserva_sala_professor WHERE " +
 				"id_professor = (SELECT id_professor FROM professor WHERE " +
-				"professor.nome = \"" + prof.getNome() + "\" and " +
-				"professor.cpf = \"" + prof.getCpf() + "\" and " +
-				"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-				"professor.email = \"" + prof.getEmail() + "\" and " +
-				"professor.matricula = \"" + prof.getMatricula() + "\");") == false)
+				"professor.nome = \"" + prof.getName() + "\" and " +
+				"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + prof.getIdProfessor() + "\");") == false)
 		{
 			if(this.inDBGeneric(
 					"SELECT * FROM reserva_equipamento WHERE " +
 					"id_professor = (SELECT id_professor FROM professor WHERE " +
-					"professor.nome = \"" + prof.getNome() + "\" and " +
-					"professor.cpf = \"" + prof.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-					"professor.email = \"" + prof.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof.getMatricula() + "\");") == false)
+					"professor.nome = \"" + prof.getName() + "\" and " +
+					"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof.getIdProfessor() + "\");") == false)
 			{
 				return false;
 			}
@@ -211,7 +211,7 @@ public class ProfessorDAO {
 	}
 	
 	
-	private Professor fetchProfessor(ResultSet rs) throws ClienteException, SQLException{
+	private Professor fetchProfessor(ResultSet rs) throws ClientException, SQLException{
 		return new Professor(rs.getString("nome"), rs.getString("cpf"), rs.getString("matricula"),
 				rs.getString("telefone"), rs.getString("email"));
 	}

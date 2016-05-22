@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 import model.ReservaSalaAluno;
 import model.ReservaSalaProfessor;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
@@ -35,7 +35,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
     }
 
     public AlterarReservaAlunoSalaView(Frame parent, boolean modal, int index, String data) throws SQLException,
-            PatrimonioException, PatrimonioException, ClienteException, ReservaException {
+            PatrimonioException, PatrimonioException, ClientException, ReservaException {
         super(parent, modal);
         this.setName("AlterarReservaSalaView");
         this.reservaAluno = instanceAluno.getReservasMes(data).get(index);
@@ -54,7 +54,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (PatrimonioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -97,7 +97,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (PatrimonioException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {

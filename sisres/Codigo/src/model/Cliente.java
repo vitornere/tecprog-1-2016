@@ -1,6 +1,6 @@
 package model;
 
-import exception.ClienteException;
+import exception.ClientException;
 
 
 /*Para fazer uma melhor validacoa e captura do dados
@@ -31,50 +31,50 @@ public abstract class Cliente {
 	
 	
 	public Cliente(String nome, String cpf, String matricula,
-			String telefone, String email) throws ClienteException{
-		this.setNome(nome);
-		this.setCpf(cpf);
-        this.setMatricula(matricula);
-		this.setTelefone(telefone);
-		this.setEmail(email);
+			String telefone, String email) throws ClientException{
+		this.setName(nome);
+		this.setCpfProfessor(cpf);
+        this.setIdProfessor(matricula);
+		this.setPhoneProfessor(telefone);
+		this.setEmailProfessor(email);
 	}
 
-	public String getNome() {
+	public String getName() {
 		return nome;
 	}
 	
-	public String getCpf() {
+	public String getCpfProfessor() {
 		return cpf;
 	}
 	
-	public String getTelefone() {
+	public String getPhoneProfessor() {
 		return telefone;
 	}
 	
-	public String getEmail() {
+	public String getEmailProfessor() {
 		return email;
 	}
 	
-	public String getMatricula() {
+	public String getIdProfessor() {
 		return matricula;
 	}
 	
-	public void setNome(String nome) throws ClienteException{
+	public void setName(String nome) throws ClientException{
 		if(nome == null)
-			throw new ClienteException(NOME_NULO);
+			throw new ClientException(NOME_NULO);
 		else if("".equals(nome.trim()))
-			throw new ClienteException(NOME_BRANCO);
+			throw new ClientException(NOME_BRANCO);
 		else if(nome.trim().matches("[a-zA-Z][a-zA-Z\\s]+"))
 			this.nome = nome.trim();
 		else
-			throw new ClienteException(NOME_INVALIDO);
+			throw new ClientException(NOME_INVALIDO);
 	}
 	
-	public void setCpf(String cpf) throws ClienteException {
+	public void setCpfProfessor(String cpf) throws ClientException {
 		if(cpf == null)
-			throw new ClienteException(CPF_NULO);
+			throw new ClientException(CPF_NULO);
 		else if("".equals(cpf))
-			throw new ClienteException(CPF_BRANCO);
+			throw new ClientException(CPF_BRANCO);
 		else if(cpf.matches("[\\d]{3,3}.[\\d]{3,3}.[\\d]{3,3}-[\\d]{2,2}$"))
 		{
 			if(this.validarCpf(
@@ -84,32 +84,32 @@ public abstract class Cliente {
 					cpf.split("[\\. | -]")[3]))
 				this.cpf = cpf;
 			else
-				throw new ClienteException(CPF_INVALIDO);
+				throw new ClientException(CPF_INVALIDO);
 		}
 		else
-			throw new ClienteException(CPF_INVALIDO);
+			throw new ClientException(CPF_INVALIDO);
 	}
 	
-	public void setTelefone(String telefone) throws ClienteException {
+	public void setPhoneProfessor(String telefone) throws ClientException {
 		if(telefone == null)
-			throw new ClienteException(TELEFONE_NULO);
+			throw new ClientException(TELEFONE_NULO);
 		else if("".equals(telefone))
 			this.telefone = telefone;
 		//Telefone ser� guardado sem espa�os.
 		else if(telefone.matches("(\\([ ]*[\\d]{2,3}[ ]*\\))?[ ]*[\\d]{4,4}[ ]*-?[ ]*[\\d]{4,4}[ ]*$"))
 			this.telefone = telefone.replaceAll(" ", "");
 		else
-			throw new ClienteException(TELEFONE_INVALIDO);
+			throw new ClientException(TELEFONE_INVALIDO);
 	}
 	
-	public void setEmail(String email) throws ClienteException {
+	public void setEmailProfessor(String email) throws ClientException {
 		if(email == null)
-			throw new ClienteException(EMAIL_NULO);
+			throw new ClientException(EMAIL_NULO);
 		else
 			this.email = email;
 	}
 	
-	public abstract void setMatricula(String matricula) throws ClienteException;
+	public abstract void setIdProfessor(String matricula) throws ClientException;
 	
 	@Override
 	public String toString() {
@@ -121,11 +121,11 @@ public abstract class Cliente {
 	}
 
 	public boolean equals(Cliente b){
-		if(	this.getNome().equals(b.getNome()) &&
-			this.getCpf().equals(b.getCpf()) &&
-			this.getMatricula().equals(b.getMatricula()) &&
-			this.getTelefone().equals(b.getTelefone()) &&
-			this.getEmail().equals(b.getEmail())){
+		if(	this.getName().equals(b.getName()) &&
+			this.getCpfProfessor().equals(b.getCpfProfessor()) &&
+			this.getIdProfessor().equals(b.getIdProfessor()) &&
+			this.getPhoneProfessor().equals(b.getPhoneProfessor()) &&
+			this.getEmailProfessor().equals(b.getEmailProfessor())){
 			
 			return true;
 		}

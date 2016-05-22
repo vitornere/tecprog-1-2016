@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import model.ReservaSalaProfessor;
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
@@ -33,7 +33,7 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
     }
 
     public AlterarReservaProfSalaView(Frame parent, boolean modal, int index, String data) throws SQLException,
-            PatrimonioException, PatrimonioException, ClienteException, ReservaException {
+            PatrimonioException, PatrimonioException, ClientException, ReservaException {
         super(parent, modal);
         this.setName("AlterarReservaSalaView");
         this.reservaProfessor = instanceProf.buscarPorData(data).get(index);

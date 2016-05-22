@@ -17,8 +17,8 @@ import org.junit.Test;
 import persistence.FactoryConnection;
 
 
-import control.ManterProfessor;
-import exception.ClienteException;
+import control.ProfessorRegister;
+import exception.ClientException;
 
 public class ManterProfessorTest {
 
@@ -26,7 +26,7 @@ public class ManterProfessorTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		vet = ManterProfessor.getInstance().getProfessores_vet();
+		vet = ProfessorRegister.getInstance().getVectorProfessors();
 	}
 
 	@AfterClass
@@ -37,37 +37,37 @@ public class ManterProfessorTest {
 	
 	@Test
 	public void testInstance() {
-		assertTrue("Teste de Intancia de ManterProfessor", ManterProfessor.getInstance() instanceof ManterProfessor);
+		assertTrue("Teste de Intancia de ManterProfessor", ProfessorRegister.getInstance() instanceof ProfessorRegister);
 	}
 	
 	@Test
 	public void testSingleton() {
-		ManterProfessor p = ManterProfessor.getInstance();
-		ManterProfessor q = ManterProfessor.getInstance();
+		ProfessorRegister p = ProfessorRegister.getInstance();
+		ProfessorRegister q = ProfessorRegister.getInstance();
 		assertSame("Teste Singleton de ManterProfessor", p, q);
 	}
 	
 	
 	
 	@Test
-	public void testInserirVet() throws ClienteException, SQLException {
+	public void testInserirVet() throws ClientException, SQLException {
 		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		ManterProfessor.getInstance().inserir("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
+		ProfessorRegister.getInstance().insert("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		
 		boolean resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + prof.getNome() + "\" and " +
-				"professor.cpf = \"" + prof.getCpf() + "\" and " +
-				"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-				"professor.email = \"" + prof.getEmail() + "\" and " +
-				"professor.matricula = \"" + prof.getMatricula() + "\";");
+				"professor.nome = \"" + prof.getName() + "\" and " +
+				"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + prof.getIdProfessor() + "\";");
 				
 		if(resultado){
 			this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + prof.getNome() + "\" and " +
-					"professor.cpf = \"" + prof.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-					"professor.email = \"" + prof.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof.getMatricula() + "\";");
+					"professor.nome = \"" + prof.getName() + "\" and " +
+					"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof.getIdProfessor() + "\";");
 		}
 		
 		Professor p = vet.lastElement();
@@ -77,65 +77,65 @@ public class ManterProfessorTest {
 	}
 	
 	@Test
-	public void testAlterarVet() throws ClienteException, SQLException {
+	public void testAlterarVet() throws ClientException, SQLException {
 		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		Professor p = new Professor("Nome para Alterar", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		
 		this.executaNoBanco("INSERT INTO " +
 				"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-				"\"" + prof.getNome() + "\", " +
-				"\"" + prof.getCpf()+ "\", " +
-				"\"" + prof.getTelefone() + "\", " +
-				"\"" + prof.getEmail() + "\", " +
-				"\"" + prof.getMatricula() + "\"); ");
+				"\"" + prof.getName() + "\", " +
+				"\"" + prof.getCpfProfessor()+ "\", " +
+				"\"" + prof.getPhoneProfessor() + "\", " +
+				"\"" + prof.getEmailProfessor() + "\", " +
+				"\"" + prof.getIdProfessor() + "\"); ");
 		
-		ManterProfessor.getInstance().alterar("Nome para Alterar", "868.563.327-34", "123456", 
+		ProfessorRegister.getInstance().update("Nome para Alterar", "868.563.327-34", "123456", 
 				"1234-5678", "Nome@email", prof);
 		
 		boolean resultado =  this.estaNoBanco("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + p.getNome() + "\" and " +
-				"professor.cpf = \"" + p.getCpf() + "\" and " +
-				"professor.telefone = \"" + p.getTelefone() + "\" and " +
-				"professor.email = \"" + p.getEmail() + "\" and " +
-				"professor.matricula = \"" + p.getMatricula() + "\";");
+				"professor.nome = \"" + p.getName() + "\" and " +
+				"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + p.getIdProfessor() + "\";");
 		if(resultado)
 			this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + p.getNome() + "\" and " +
-					"professor.cpf = \"" + p.getCpf() + "\" and " +
-					"professor.telefone = \"" + p.getTelefone() + "\" and " +
-					"professor.email = \"" + p.getEmail() + "\" and " +
-					"professor.matricula = \"" + p.getMatricula() + "\";");
+					"professor.nome = \"" + p.getName() + "\" and " +
+					"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + p.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + p.getIdProfessor() + "\";");
 		
 		assertTrue("Teste de Alteracao do Professor.", resultado);
 	}
 	
 	@Test
-	public void testExcluirVet() throws ClienteException, SQLException {
+	public void testExcluirVet() throws ClientException, SQLException {
 		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		
 		this.executaNoBanco("INSERT INTO " +
 				"professor (nome, cpf, telefone, email, matricula) VALUES (" +
-				"\"" + prof.getNome() + "\", " +
-				"\"" + prof.getCpf()+ "\", " +
-				"\"" + prof.getTelefone() + "\", " +
-				"\"" + prof.getEmail() + "\", " +
-				"\"" + prof.getMatricula() + "\");");
+				"\"" + prof.getName() + "\", " +
+				"\"" + prof.getCpfProfessor()+ "\", " +
+				"\"" + prof.getPhoneProfessor() + "\", " +
+				"\"" + prof.getEmailProfessor() + "\", " +
+				"\"" + prof.getIdProfessor() + "\");");
 		
-		ManterProfessor.getInstance().excluir(prof);
+		ProfessorRegister.getInstance().delete(prof);
 		
 		boolean resultado =  this.estaNoBanco("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + prof.getNome() + "\" and " +
-				"professor.cpf = \"" + prof.getCpf() + "\" and " +
-				"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-				"professor.email = \"" + prof.getEmail() + "\" and " +
-				"professor.matricula = \"" + prof.getMatricula() + "\";");
+				"professor.nome = \"" + prof.getName() + "\" and " +
+				"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+				"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+				"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+				"professor.matricula = \"" + prof.getIdProfessor() + "\";");
 		if(resultado)
 			this.executaNoBanco("DELETE FROM professor WHERE " +
-					"professor.nome = \"" + prof.getNome() + "\" and " +
-					"professor.cpf = \"" + prof.getCpf() + "\" and " +
-					"professor.telefone = \"" + prof.getTelefone() + "\" and " +
-					"professor.email = \"" + prof.getEmail() + "\" and " +
-					"professor.matricula = \"" + prof.getMatricula() + "\";");
+					"professor.nome = \"" + prof.getName() + "\" and " +
+					"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
+					"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
+					"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
+					"professor.matricula = \"" + prof.getIdProfessor() + "\";");
 		
 		boolean resultado2 = true;
 		if(vet.size() > 0)
