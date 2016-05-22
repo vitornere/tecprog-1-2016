@@ -9,14 +9,14 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import model.Professor;
-import model.ReservaSalaProfessor;
+import model.ReserveClassroomForProfessor;
 import model.Classroom;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import control.ManterResSalaProfessor;
+import control.ReserveClassroomForProfessorRegister;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -28,11 +28,11 @@ import persistence.SalaDAO;
 public class ManterResSalaProfessorTest {
 	private static Classroom sala1;
 	private static Professor professor1;
-	private static Vector<ReservaSalaProfessor> vet;
+	private static Vector<ReserveClassroomForProfessor> vet;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		vet = ManterResSalaProfessor.getInstance().getResProfessorSala_vet();
+		vet = ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor().getVectorReserveClassroomForProfessor();
 		sala1 = new Classroom("123", "Sala de Aula", "120");
 		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
 		
@@ -48,11 +48,11 @@ public class ManterResSalaProfessorTest {
 
 	@Test
 	public void testInstance() {
-		assertTrue("Teste de Instancia.", ManterResSalaProfessor.getInstance() instanceof ManterResSalaProfessor);
+		assertTrue("Teste de Instancia.", ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor() instanceof ReserveClassroomForProfessorRegister);
 	}
 	@Test
 	public void testSingleton() {
-		assertSame("Teste de Instancia.", ManterResSalaProfessor.getInstance(), ManterResSalaProfessor.getInstance());
+		assertSame("Teste de Instancia.", ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor(), ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor());
 	}
 	
 	
@@ -61,8 +61,8 @@ public class ManterResSalaProfessorTest {
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
 		String hora = "9:11";
-		ReservaSalaProfessor reserva = new ReservaSalaProfessor(data, hora, sala1, finalidade, professor1);
-		ManterResSalaProfessor.getInstance().inserir(sala1, professor1, data, hora, finalidade);
+		ReserveClassroomForProfessor reserva = new ReserveClassroomForProfessor(data, hora, sala1, finalidade, professor1);
+		ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor().insert(sala1, professor1, data, hora, finalidade);
 		boolean resultado = this.inDB(reserva);
 		boolean resultado2 = reserva.equals(vet.lastElement());
 		if(resultado)
@@ -72,11 +72,11 @@ public class ManterResSalaProfessorTest {
 	@Test
 	public void testAlterar() throws ReserveException, SQLException, ClientException, PatrimonyException {
 		
-		ReservaSalaProfessor reserva = new ReservaSalaProfessor("20/12/33", "9:11", sala1, "Pesquisa", professor1);
+		ReserveClassroomForProfessor reserva = new ReserveClassroomForProfessor("20/12/33", "9:11", sala1, "Pesquisa", professor1);
 		this.insert_into(reserva);
 		vet.add(reserva);
-		ReservaSalaProfessor reserva2 = new ReservaSalaProfessor("20/12/33", "9:11", sala1, "Reuniao", professor1);
-		ManterResSalaProfessor.getInstance().alterar("Reuniao", vet.lastElement());
+		ReserveClassroomForProfessor reserva2 = new ReserveClassroomForProfessor("20/12/33", "9:11", sala1, "Reuniao", professor1);
+		ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor().update("Reuniao", vet.lastElement());
 		boolean resultado = this.inDB(reserva2);
 		boolean resultado2 = reserva2.equals(vet.lastElement());
 		if(resultado)
@@ -90,10 +90,10 @@ public class ManterResSalaProfessorTest {
 		String finalidade = "Pesquisa";
 		String data = "20/12/33";
 		String hora = "9:11";
-		ReservaSalaProfessor reserva = new ReservaSalaProfessor(data, hora, sala1, finalidade, professor1);
+		ReserveClassroomForProfessor reserva = new ReserveClassroomForProfessor(data, hora, sala1, finalidade, professor1);
 		this.insert_into(reserva);
 		vet.add(reserva);
-		ManterResSalaProfessor.getInstance().excluir(reserva);
+		ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor().delete(reserva);
 		boolean resultado = this.inDB(reserva);
 		vet.remove(reserva);
 
@@ -116,7 +116,7 @@ public class ManterResSalaProfessorTest {
 				"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
 				"sala.capacidade = " + sala.getCapacidade();
 	}
-	private String where_reserva_sala_professor(ReservaSalaProfessor reserva){
+	private String where_reserva_sala_professor(ReserveClassroomForProfessor reserva){
 		return " WHERE " +
 		"id_professor = ( " + select_id_professor(reserva.getProfessor()) + " ) and " +
 		"id_sala = ( " + select_id_sala(reserva.getClassroom()) + " ) and " +
@@ -124,14 +124,14 @@ public class ManterResSalaProfessorTest {
 		"hora = \"" + reserva.getHour() + "\" and " +
 		"data = \"" + reserva.getDate() + "\" ";
 	}
-	private String values_reserva_sala_professor(ReservaSalaProfessor reserva){
+	private String values_reserva_sala_professor(ReserveClassroomForProfessor reserva){
 		return "( " + select_id_professor(reserva.getProfessor()) + " ), " +
 		"( " + select_id_sala(reserva.getClassroom()) + " ), " +
 		"\"" + reserva.getFinality() + "\", " +
 		"\"" + reserva.getHour() + "\", " +
 		"\"" + reserva.getDate() + "\"";
 	}
-	private void insert_into(ReservaSalaProfessor reserva){
+	private void insert_into(ReserveClassroomForProfessor reserva){
 		try {
 			this.executeQuery("INSERT INTO " +
 					"reserva_sala_professor (id_professor, id_sala, finalidade, hora, data) " +
@@ -140,7 +140,7 @@ public class ManterResSalaProfessorTest {
 			e.printStackTrace();
 		}
 	}
-	private void delete_from(ReservaSalaProfessor reserva){
+	private void delete_from(ReserveClassroomForProfessor reserva){
 		try {
 			this.executeQuery("DELETE FROM reserva_sala_professor " + 
 								this.where_reserva_sala_professor(reserva) + " ;");
@@ -148,7 +148,7 @@ public class ManterResSalaProfessorTest {
 			e.printStackTrace();
 		}
 	}
-	private boolean inDB(ReservaSalaProfessor reserva) throws SQLException{
+	private boolean inDB(ReserveClassroomForProfessor reserva) throws SQLException{
 		return this.inDBGeneric("SELECT * FROM reserva_sala_professor " + 
 								this.where_reserva_sala_professor(reserva) + " ;");
 	}

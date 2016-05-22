@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import model.ReservaSalaProfessor;
+import model.ReserveClassroomForProfessor;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -22,7 +22,7 @@ import exception.ReserveException;
 public class AlterarReservaProfSalaView extends ReservaSalaView {
 
     int index;
-    ReservaSalaProfessor reservaProfessor;
+    ReserveClassroomForProfessor reservaProfessor;
 
     private void resetComponents() {
         this.reservarButton.setText("Alterar");
@@ -36,14 +36,14 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
             PatrimonyException, PatrimonyException, ClientException, ReserveException {
         super(parent, modal);
         this.setName("AlterarReservaSalaView");
-        this.reservaProfessor = instanceProf.buscarPorData(data).get(index);
+        this.reservaProfessor = instanceProf.searchForDate(data).get(index);
         resetComponents();
 
     }
 
     @Override protected void reservarProfessor() {
         try {
-            instanceProf.alterar(this.finalidadeTextField.getText(), reservaProfessor);
+            instanceProf.update(this.finalidadeTextField.getText(), reservaProfessor);
 
             JOptionPane.showMessageDialog(this, "Reserva alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
 

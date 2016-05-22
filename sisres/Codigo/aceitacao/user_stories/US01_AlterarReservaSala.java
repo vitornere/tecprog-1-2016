@@ -8,7 +8,7 @@ import java.util.Date;
 import model.Student;
 import model.Professor;
 import model.ReserveClassroomForStudent;
-import model.ReservaSalaProfessor;
+import model.ReserveClassroomForProfessor;
 import model.Classroom;
 
 import org.fest.swing.core.BasicRobot;
@@ -22,7 +22,7 @@ import org.junit.Test;
 import persistence.StudentDAO;
 import persistence.ProfessorDAO;
 import persistence.ReserveClassroomForStudentDAO;
-import persistence.ResSalaProfessorDAO;
+import persistence.ReserveClassroomForProfessorDAO;
 import persistence.SalaDAO;
 import view.Main2;
 import exception.ClientException;
@@ -33,7 +33,7 @@ public class US01_AlterarReservaSala {
     private FrameFixture window;
     private Robot robot;
     private Classroom sala;
-    private ReservaSalaProfessor reservaProf;
+    private ReserveClassroomForProfessor reservaProf;
     private ReserveClassroomForStudent reservaAluno;
     private Student aluno;
     private Professor prof;
@@ -68,7 +68,7 @@ public class US01_AlterarReservaSala {
         dataAtual();
                 
         index = SalaDAO.getInstance().buscarTodos().size() - 1;
-        indexReserva = ResSalaProfessorDAO.getInstance().buscarPorData(data).size() - 1;
+        indexReserva = ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().searchForDate(data).size() - 1;
 
         StudentDAO.getNewStudent().include(aluno);
 
@@ -81,7 +81,7 @@ public class US01_AlterarReservaSala {
 
     @After public void tearDown() throws SQLException, PatrimonyException, ClientException, ReserveException {
         if (reservaProf != null)
-            ResSalaProfessorDAO.getInstance().excluir(reservaProf);
+            ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().delete(reservaProf);
         if (reservaAluno != null)
             ReserveClassroomForStudentDAO.getReserveClassroomForStudent().delete(reservaAluno);
         if (sala != null)

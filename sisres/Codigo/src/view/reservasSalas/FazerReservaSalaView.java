@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 import model.Classroom;
 import control.ReserveClassroomForStudentRegister;
-import control.ManterResSalaProfessor;
+import control.ReserveClassroomForProfessorRegister;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -65,7 +65,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
     @Override protected void reservarProfessor() {
         try {
 
-            instanceProf.inserir(sala, prof, this.dataTextField.getText(), this.horaTextField.getText(),
+            instanceProf.insert(sala, prof, this.dataTextField.getText(), this.horaTextField.getText(),
                     this.finalidadeTextField.getText());
 
             JOptionPane.showMessageDialog(this, "Reserva feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
@@ -85,7 +85,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
         this.qntCadeirasReservadasTextField.setEditable(false);
         this.qntCadeirasReservadasTextField.setBackground(new Color(200, 208, 254));
         this.qntCadeirasReservadasTextField.setText(this.qntCadeirasTxtField.getText());
-        this.instanceProf = ManterResSalaProfessor.getInstance();
+        this.instanceProf = ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor();
         this.instanceAluno = null;
         this.verificarCadeiraButton.setEnabled(false);
         

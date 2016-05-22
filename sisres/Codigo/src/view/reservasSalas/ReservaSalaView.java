@@ -15,7 +15,7 @@ import model.Classroom;
 import control.StudentRegister;
 import control.ProfessorRegister;
 import control.ReserveClassroomForStudentRegister;
-import control.ManterResSalaProfessor;
+import control.ReserveClassroomForProfessorRegister;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -30,7 +30,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
     protected final int PROF = 2;
     protected final int ERRO = -1;
     protected ReserveClassroomForStudentRegister instanceAluno;
-    protected ManterResSalaProfessor instanceProf;
+    protected ReserveClassroomForProfessorRegister instanceProf;
     protected Classroom sala;
     protected Student aluno;
     protected Professor prof;
@@ -38,7 +38,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
     public ReservaSalaView(java.awt.Frame parent, boolean modal) throws SQLException, PatrimonyException, PatrimonyException,
             ClientException, ReserveException {
         super(parent, modal);
-        this.instanceProf = ManterResSalaProfessor.getInstance();
+        this.instanceProf = ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor();
         this.instanceAluno = ReserveClassroomForStudentRegister.getReserveClassroomForStudent();
         initComponents();
         this.bucarCpfButton.setName("BuscarCpfButton");

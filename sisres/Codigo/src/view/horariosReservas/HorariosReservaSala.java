@@ -15,14 +15,14 @@ import javax.swing.table.DefaultTableModel;
 
 import model.Patrimonio;
 import model.ReserveClassroomForStudent;
-import model.ReservaSalaProfessor;
+import model.ReserveClassroomForProfessor;
 import model.Classroom;
 import view.reservasSalas.AlterarReservaAlunoSalaView;
 import view.reservasSalas.AlterarReservaProfSalaView;
 import view.reservasSalas.FazerReservaSalaView;
 import view.reservasSalas.ReservaSalaView;
 import control.ReserveClassroomForStudentRegister;
-import control.ManterResSalaProfessor;
+import control.ReserveClassroomForProfessorRegister;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -34,7 +34,7 @@ import exception.ReserveException;
 public class HorariosReservaSala extends HorariosReservaPatrimonio {
 
     ReserveClassroomForStudentRegister instanceAluno;
-    ManterResSalaProfessor instanceProf;
+    ReserveClassroomForProfessorRegister instanceProf;
     Classroom sala;
 
     public HorariosReservaSala(java.awt.Frame parent, boolean modal, String data, Classroom sala) {
@@ -59,8 +59,8 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 nomesTabela.add(r.getReservedChairs());
                 nomesTabela.add(r.getClassroom().getCapacidade());
             }
-        } else if (o instanceof ReservaSalaProfessor) {
-            ReservaSalaProfessor r = (ReservaSalaProfessor) o;
+        } else if (o instanceof ReserveClassroomForProfessor) {
+            ReserveClassroomForProfessor r = (ReserveClassroomForProfessor) o;
             if (this.sala != null && (r.getClassroom().equals(this.sala))) {
 
                 nomesTabela.add(String.valueOf(index));
@@ -84,7 +84,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         this.sala = (Classroom) sala;
         DefaultTableModel table = new DefaultTableModel();
         instanceAluno = ReserveClassroomForStudentRegister.getReserveClassroomForStudent();
-        instanceProf = ManterResSalaProfessor.getInstance();
+        instanceProf = ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor();
         table.addColumn("");
         table.addColumn("Tipo:");
         table.addColumn("Hora:");
@@ -99,7 +99,7 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         this.mes = Integer.parseInt(this.data.substring(3, 5));
 
         try {
-            Vector v = instanceProf.buscarPorData(this.data);
+            Vector v = instanceProf.searchForDate(this.data);
 
             if (v != null)
                 for (int i = 0; i < v.size(); i++) {
@@ -151,11 +151,11 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 }
             } else if (tipoCliente.equals("Professor")) {
                 int confirm = JOptionPane.showConfirmDialog(this,
-                        "Deseja mesmo excluir Reserva?\n" + instanceProf.buscarPorData(data).get(index).toString(), "Excluir",
+                        "Deseja mesmo excluir Reserva?\n" + instanceProf.searchForDate(data).get(index).toString(), "Excluir",
                         JOptionPane.YES_NO_OPTION);
 
                 if (confirm == JOptionPane.YES_OPTION) {
-                    this.instanceProf.excluir(instanceProf.buscarPorData(data).get(index));
+                    this.instanceProf.delete(instanceProf.searchForDate(data).get(index));
                     JOptionPane.showMessageDialog(this, "Reserva excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                             null);
                 }
