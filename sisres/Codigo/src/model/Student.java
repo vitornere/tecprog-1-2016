@@ -3,28 +3,22 @@ package model;
 import exception.ClientException;
 
 public class Student extends Client {
-	
-	//Mensagens de Erro e Alertas
-		//private final String MATRICULA_INVALIDO = "Matricula Invalido.";
-		private final String MATRICULA_BRANCO = "Matricula em Branco.";
-		private final String MATRICULA_NULO = "Matricula esta Nula.";
-		
-	
-	public Student(String nome, String cpf, String matricula,
-			String telefone, String email) throws ClientException {
-		super(nome, cpf, matricula, telefone, email);
+
+	private final String EMPTY_ID_STUDENT = "Matricula em Branco.";
+	private final String NULL_ID_STUDENT = "Matricula esta Nula.";
+
+	public Student(String nameStudent, String cpfStudent, String idStudent,
+			String phoneStudent, String emailStudent) throws ClientException {
+		super(nameStudent, cpfStudent, idStudent, phoneStudent, emailStudent);
 	}
 
-	public void setIdPerson(String matricula) throws ClientException {
-		if(matricula == null)
-			throw new ClientException(MATRICULA_NULO);
-		else if("".equals(matricula.trim()))
-			throw new ClientException(MATRICULA_BRANCO);
-		//else if(matricula.matches("^[\\d]{2,2}/[\\d]{5,7}$"))
-			//super.matricula = matricula;
-		//else
-			//throw new ClienteException(MATRICULA_INVALIDO);
-		super.idClient = matricula;//
+	public void setIdPerson(String idStudent) throws ClientException {
+		if (idStudent.matches("^[\\d]{2,2}/[\\d]{5,7}$")) {
+			super.idClient = idStudent;
+		} else if (idStudent == null) {
+			throw new ClientException(NULL_ID_STUDENT);
+		} else {
+			throw new ClientException(EMPTY_ID_STUDENT);
+		}
 	}
 }
-
