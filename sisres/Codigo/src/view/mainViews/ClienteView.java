@@ -10,7 +10,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import model.Cliente;
+import model.Client;
 
 /**
  * 
@@ -39,7 +39,7 @@ public abstract class ClienteView extends javax.swing.JDialog {
 
     public abstract void excluirAction();
 
-    protected Vector<String> fillDataVector(Cliente cliente) {
+    protected Vector<String> fillDataVector(Client cliente) {
 
         Vector<String> nomesTabela = new Vector<String>();
 
@@ -60,7 +60,7 @@ public abstract class ClienteView extends javax.swing.JDialog {
     protected DefaultTableModel fillTable() {
         DefaultTableModel table = new DefaultTableModel();
 
-        Iterator<Cliente> i = getIterator();
+        Iterator<Client> i = getIterator();
 
         table.addColumn("Matricula");
         table.addColumn("Nome");
@@ -70,7 +70,7 @@ public abstract class ClienteView extends javax.swing.JDialog {
 
         while (i.hasNext()) {
             // int col, row = 0;
-            Cliente cliente = i.next();
+            Client cliente = i.next();
             table.addRow(fillDataVector(cliente));
         }
 

@@ -2,7 +2,7 @@ package model;
 
 import exception.ClientException;
 
-public class Student extends Cliente {
+public class Student extends Client {
 	
 	//Mensagens de Erro e Alertas
 		//private final String MATRICULA_INVALIDO = "Matricula Invalido.";
@@ -24,7 +24,7 @@ public class Student extends Cliente {
 			//super.matricula = matricula;
 		//else
 			//throw new ClienteException(MATRICULA_INVALIDO);
-		super.matricula = matricula;//
+		super.idClient = matricula;//
 	}
 }
 
