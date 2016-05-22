@@ -28,7 +28,7 @@ public class ProfessorView extends ClienteView {
 
     public Iterator getIterator() {
         try {
-            return ProfessorRegister.getInstance().getVectorProfessors().iterator();
+            return ProfessorRegister.getNewProfessor().getVectorProfessors().iterator();
 
         } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -64,10 +64,10 @@ public class ProfessorView extends ClienteView {
             }
 
             int confirm = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Professor: "
-                    + ProfessorRegister.getInstance().getVectorProfessors().get(index).getName() + "?", "Excluir",
+                    + ProfessorRegister.getNewProfessor().getVectorProfessors().get(index).getNamePerson() + "?", "Excluir",
                     JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-                ProfessorRegister.getInstance().delete(ProfessorRegister.getInstance().getVectorProfessors().get(index));
+                ProfessorRegister.getNewProfessor().delete(ProfessorRegister.getNewProfessor().getVectorProfessors().get(index));
                 JOptionPane.showMessageDialog(this, "Professor excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null);
             }

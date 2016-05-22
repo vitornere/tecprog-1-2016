@@ -3,7 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Aluno;
+import model.Student;
 import model.Sala;
 
 import org.fest.swing.core.BasicRobot;
@@ -14,7 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.AlunoDAO;
+import persistence.StudentDAO;
 import persistence.SalaDAO;
 import view.Main2;
 import exception.ClientException;

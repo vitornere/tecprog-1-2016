@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import view.alteracoes.AlterarAluno;
 import view.cadastros.CadastroAluno;
 import view.cadastros.CadastroCliente;
-import control.ManterAluno;
+import control.StudentRegister;
 import exception.ClientException;
 
 /**
@@ -28,7 +28,7 @@ public class AlunoView extends ClienteView {
 
     public Iterator getIterator() {
         try {
-            return ManterAluno.getInstance().getAluno_vet().iterator();
+            return StudentRegister.getNewStudent().getVectorStudents().iterator();
 
         } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -64,9 +64,9 @@ public class AlunoView extends ClienteView {
             }
 
             int confirm = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Aluno: "
-                    + ManterAluno.getInstance().getAluno_vet().get(index).getName() + "?", "Excluir", JOptionPane.YES_NO_OPTION);
+                    + StudentRegister.getNewStudent().getVectorStudents().get(index).getNamePerson() + "?", "Excluir", JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-                ManterAluno.getInstance().excluir(ManterAluno.getInstance().getAluno_vet().get(index));
+                StudentRegister.getNewStudent().delete(StudentRegister.getNewStudent().getVectorStudents().get(index));
                 JOptionPane.showMessageDialog(this, "Aluno excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             }
             this.tabelaCliente.setModel(fillTable());

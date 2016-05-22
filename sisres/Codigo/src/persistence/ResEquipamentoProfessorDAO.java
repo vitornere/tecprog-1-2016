@@ -38,9 +38,9 @@ public class ResEquipamentoProfessorDAO extends DAO {
 
     // Querys de Reuso
     private String select_id_professor(Professor p) {
-        return "SELECT id_professor FROM professor WHERE " + "professor.nome = \"" + p.getName() + "\" and " + "professor.cpf = \""
-                + p.getCpfProfessor() + "\" and " + "professor.telefone = \"" + p.getPhoneProfessor() + "\" and " + "professor.email = \""
-                + p.getEmailProfessor() + "\" and " + "professor.matricula = \"" + p.getIdProfessor() + "\"";
+        return "SELECT id_professor FROM professor WHERE " + "professor.nome = \"" + p.getNamePerson() + "\" and " + "professor.cpf = \""
+                + p.getCpfPerson() + "\" and " + "professor.telefone = \"" + p.getPhonePerson() + "\" and " + "professor.email = \""
+                + p.getEmailPerson() + "\" and " + "professor.matricula = \"" + p.getIdRegister() + "\"";
     }
 
     private String select_id_equipamento(Equipamento equipamento) {
@@ -182,10 +182,10 @@ public class ResEquipamentoProfessorDAO extends DAO {
     }
 
     private boolean professorinDB(Professor professor) throws SQLException {
-        return super.inDBGeneric("SELECT * FROM professor WHERE " + "professor.nome = \"" + professor.getName() + "\" and "
-                + "professor.cpf = \"" + professor.getCpfProfessor() + "\" and " + "professor.telefone = \"" + professor.getPhoneProfessor()
-                + "\" and " + "professor.email = \"" + professor.getEmailProfessor() + "\" and " + "professor.matricula = \""
-                + professor.getIdProfessor() + "\";");
+        return super.inDBGeneric("SELECT * FROM professor WHERE " + "professor.nome = \"" + professor.getNamePerson() + "\" and "
+                + "professor.cpf = \"" + professor.getCpfPerson() + "\" and " + "professor.telefone = \"" + professor.getPhonePerson()
+                + "\" and " + "professor.email = \"" + professor.getEmailPerson() + "\" and " + "professor.matricula = \""
+                + professor.getIdRegister() + "\";");
     }
 
     private boolean equipamentoinDB(Equipamento equipamento) throws SQLException {
@@ -196,9 +196,9 @@ public class ResEquipamentoProfessorDAO extends DAO {
     private boolean professorinReservaDB(Professor professor, String data, String hora) throws SQLException {
         return super.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE " + "data = \"" + data + "\" and " + "hora = \""
                 + hora + "\" and " + "id_professor = (SELECT id_professor FROM professor WHERE " + "professor.nome = \""
-                + professor.getName() + "\" and " + "professor.cpf = \"" + professor.getCpfProfessor() + "\" and "
-                + "professor.telefone = \"" + professor.getPhoneProfessor() + "\" and " + "professor.email = \"" + professor.getEmailProfessor()
-                + "\" and " + "professor.matricula = \"" + professor.getIdProfessor() + "\");");
+                + professor.getNamePerson() + "\" and " + "professor.cpf = \"" + professor.getCpfPerson() + "\" and "
+                + "professor.telefone = \"" + professor.getPhonePerson() + "\" and " + "professor.email = \"" + professor.getEmailPerson()
+                + "\" and " + "professor.matricula = \"" + professor.getIdRegister() + "\");");
     }
 
     private boolean equipamentoinReservaDB(Equipamento equipamento, String data, String hora) throws SQLException {
@@ -211,19 +211,19 @@ public class ResEquipamentoProfessorDAO extends DAO {
     private boolean reservainDB(ReservaEquipamentoProfessor r) throws SQLException {
         return super.inDBGeneric("SELECT * FROM reserva_equipamento_professor WHERE "
                 + "id_professor = (SELECT id_professor FROM professor WHERE " + "professor.nome = \""
-                + r.getProfessor().getName()
+                + r.getProfessor().getNamePerson()
                 + "\" and "
                 + "professor.cpf = \""
-                + r.getProfessor().getCpfProfessor()
+                + r.getProfessor().getCpfPerson()
                 + "\" and "
                 + "professor.telefone = \""
-                + r.getProfessor().getPhoneProfessor()
+                + r.getProfessor().getPhonePerson()
                 + "\" and "
                 + "professor.email = \""
-                + r.getProfessor().getEmailProfessor()
+                + r.getProfessor().getEmailPerson()
                 + "\" and "
                 + "professor.matricula = \""
-                + r.getProfessor().getIdProfessor()
+                + r.getProfessor().getIdRegister()
                 + "\") and "
                 + "id_equipamento = (SELECT id_equipamento FROM equipamento WHERE "
                 + "equipamento.codigo = \""

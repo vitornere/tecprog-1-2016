@@ -104,11 +104,11 @@ public class ManterResSalaProfessorTest {
 
 	private String select_id_professor(Professor prof){
 		return "SELECT id_professor FROM professor WHERE " +
-				"professor.nome = \"" + prof.getName() + "\" and " +
-				"professor.cpf = \"" + prof.getCpfProfessor() + "\" and " +
-				"professor.telefone = \"" + prof.getPhoneProfessor() + "\" and " +
-				"professor.email = \"" + prof.getEmailProfessor() + "\" and " +
-				"professor.matricula = \"" + prof.getIdProfessor() + "\"";
+				"professor.nome = \"" + prof.getNamePerson() + "\" and " +
+				"professor.cpf = \"" + prof.getCpfPerson() + "\" and " +
+				"professor.telefone = \"" + prof.getPhonePerson() + "\" and " +
+				"professor.email = \"" + prof.getEmailPerson() + "\" and " +
+				"professor.matricula = \"" + prof.getIdRegister() + "\"";
 	}
 	private String select_id_sala(Sala sala){
 		return "SELECT id_sala FROM sala WHERE " +

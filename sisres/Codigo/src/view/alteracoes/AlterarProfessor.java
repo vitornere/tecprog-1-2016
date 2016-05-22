@@ -28,11 +28,11 @@ public class AlterarProfessor extends CadastroCliente {
         this.index2 = index;
 
         try {
-            this.nomeTxtField.setText(ProfessorRegister.getInstance().getVectorProfessors().get(index).getName());
-            this.emailTxtField.setText(ProfessorRegister.getInstance().getVectorProfessors().get(index).getEmailProfessor());
-            this.telefoneTxtField.setText(ProfessorRegister.getInstance().getVectorProfessors().get(index).getPhoneProfessor());
-            this.matriculaTxtField.setText(ProfessorRegister.getInstance().getVectorProfessors().get(index).getIdProfessor());
-            this.cpfTxtField.setText(ProfessorRegister.getInstance().getVectorProfessors().get(index).getCpfProfessor());
+            this.nomeTxtField.setText(ProfessorRegister.getNewProfessor().getVectorProfessors().get(index).getNamePerson());
+            this.emailTxtField.setText(ProfessorRegister.getNewProfessor().getVectorProfessors().get(index).getEmailPerson());
+            this.telefoneTxtField.setText(ProfessorRegister.getNewProfessor().getVectorProfessors().get(index).getPhonePerson());
+            this.matriculaTxtField.setText(ProfessorRegister.getNewProfessor().getVectorProfessors().get(index).getIdRegister());
+            this.cpfTxtField.setText(ProfessorRegister.getNewProfessor().getVectorProfessors().get(index).getCpfPerson());
 
         } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -43,9 +43,9 @@ public class AlterarProfessor extends CadastroCliente {
 
     @Override public void cadastroAction() {
         try {
-            ProfessorRegister.getInstance().update(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
+            ProfessorRegister.getNewProfessor().update(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
                     telefoneTxtField.getText(), emailTxtField.getText(),
-                    ProfessorRegister.getInstance().getVectorProfessors().get(index2));
+                    ProfessorRegister.getNewProfessor().getVectorProfessors().get(index2));
 
             JOptionPane.showMessageDialog(this, "Cadastro alterado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             this.setVisible(false);

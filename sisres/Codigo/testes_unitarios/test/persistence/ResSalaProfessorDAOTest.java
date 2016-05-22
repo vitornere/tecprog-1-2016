@@ -472,7 +472,7 @@ public class ResSalaProfessorDAOTest {
 				"Grupo de Pesquisa", professor1);
 		
 		this.executeQuery("INSERT INTO reserva_sala_professor (id_professor,id_sala,finalidade,hora,data) "+
-				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva.getProfessor().getCpfProfessor() + "\")," + 
+				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva.getProfessor().getCpfPerson() + "\")," + 
 						"(SELECT id_sala FROM sala WHERE codigo = \"" + sala_a.getCodigo() + "\")," +
 						"\"Grupo de Pesquisa\", \"08:00\", \"20/12/2034\");");
 		
@@ -508,13 +508,13 @@ public class ResSalaProfessorDAOTest {
 				"Reuniao", professor1);
 		
 		this.executeQuery("INSERT INTO reserva_sala_professor (id_professor,id_sala,finalidade,hora,data) "+
-				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva.getProfessor().getCpfProfessor() + "\")," + 
+				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva.getProfessor().getCpfPerson() + "\")," + 
 						"(SELECT id_sala FROM sala WHERE codigo = \"" + sala_a.getCodigo() + "\")," +
 						"\"" + reserva.getFinalidade() + "\", \"" +
 						reserva.getHora() + "\", \"" + reserva.getData() +"\");");
 		
 		this.executeQuery("INSERT INTO reserva_sala_professor (id_professor,id_sala,finalidade,hora,data) "+
-				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva2.getProfessor().getCpfProfessor() + "\")," + 
+				"VALUES ((SELECT id_professor FROM professor WHERE cpf = \"" + reserva2.getProfessor().getCpfPerson() + "\")," + 
 						"(SELECT id_sala FROM sala WHERE codigo = \"" + sala_a.getCodigo() + "\")," +
 						"\"" + reserva2.getFinalidade() + "\", \"" +
 						reserva2.getHora() + "\", \"" + reserva2.getData() +"\");");
@@ -541,11 +541,11 @@ public class ResSalaProfessorDAOTest {
 		
 	private String select_id_professor(Professor p){
 		return "SELECT id_professor FROM professor WHERE " +
-				"professor.nome = \"" + p.getName() + "\" and " +
-				"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
-				"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
-				"professor.email = \"" + p.getEmailProfessor() + "\" and " +
-				"professor.matricula = \"" + p.getIdProfessor() + "\"";
+				"professor.nome = \"" + p.getNamePerson() + "\" and " +
+				"professor.cpf = \"" + p.getCpfPerson() + "\" and " +
+				"professor.telefone = \"" + p.getPhonePerson() + "\" and " +
+				"professor.email = \"" + p.getEmailPerson() + "\" and " +
+				"professor.matricula = \"" + p.getIdRegister() + "\"";
 	}
 	private String select_id_sala(Sala sala){
 		return "SELECT id_sala FROM sala WHERE " +

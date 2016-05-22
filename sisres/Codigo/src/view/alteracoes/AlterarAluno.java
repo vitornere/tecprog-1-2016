@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import view.cadastros.CadastroCliente;
-import control.ManterAluno;
+import control.StudentRegister;
 import exception.ClientException;
 
 /**
@@ -29,11 +29,11 @@ public class AlterarAluno extends CadastroCliente {
         this.index2 = index;
 
         try {
-            this.nomeTxtField.setText(ManterAluno.getInstance().getAluno_vet().get(index).getName());
-            this.emailTxtField.setText(ManterAluno.getInstance().getAluno_vet().get(index).getEmailProfessor());
-            this.telefoneTxtField.setText(ManterAluno.getInstance().getAluno_vet().get(index).getPhoneProfessor());
-            this.matriculaTxtField.setText(ManterAluno.getInstance().getAluno_vet().get(index).getIdProfessor());
-            this.cpfTxtField.setText(ManterAluno.getInstance().getAluno_vet().get(index).getCpfProfessor());
+            this.nomeTxtField.setText(StudentRegister.getNewStudent().getVectorStudents().get(index).getNamePerson());
+            this.emailTxtField.setText(StudentRegister.getNewStudent().getVectorStudents().get(index).getEmailPerson());
+            this.telefoneTxtField.setText(StudentRegister.getNewStudent().getVectorStudents().get(index).getPhonePerson());
+            this.matriculaTxtField.setText(StudentRegister.getNewStudent().getVectorStudents().get(index).getIdRegister());
+            this.cpfTxtField.setText(StudentRegister.getNewStudent().getVectorStudents().get(index).getCpfPerson());
 
         } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -44,8 +44,8 @@ public class AlterarAluno extends CadastroCliente {
 
     @Override public void cadastroAction() {
         try {
-            ManterAluno.getInstance().alterar(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
-                    telefoneTxtField.getText(), emailTxtField.getText(), ManterAluno.getInstance().getAluno_vet().get(index2));
+            StudentRegister.getNewStudent().update(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
+                    telefoneTxtField.getText(), emailTxtField.getText(), StudentRegister.getNewStudent().getVectorStudents().get(index2));
 
             JOptionPane.showMessageDialog(this, "Aluno alterado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             this.setVisible(false);

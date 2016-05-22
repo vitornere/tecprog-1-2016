@@ -39,11 +39,11 @@ public class ResSalaProfessorDAO extends DAO{
 		//Querys de Reuso
 			private String select_id_professor(Professor p){
 				return "SELECT id_professor FROM professor WHERE " +
-						"professor.nome = \"" + p.getName() + "\" and " +
-						"professor.cpf = \"" + p.getCpfProfessor() + "\" and " +
-						"professor.telefone = \"" + p.getPhoneProfessor() + "\" and " +
-						"professor.email = \"" + p.getEmailProfessor() + "\" and " +
-						"professor.matricula = \"" + p.getIdProfessor() + "\"";
+						"professor.nome = \"" + p.getNamePerson() + "\" and " +
+						"professor.cpf = \"" + p.getCpfPerson() + "\" and " +
+						"professor.telefone = \"" + p.getPhonePerson() + "\" and " +
+						"professor.email = \"" + p.getEmailPerson() + "\" and " +
+						"professor.matricula = \"" + p.getIdRegister() + "\"";
 			}
 			private String select_id_sala(Sala sala){
 				return "SELECT id_sala FROM sala WHERE " +
@@ -189,11 +189,11 @@ public class ResSalaProfessorDAO extends DAO{
 	
 	private boolean professorinDB(Professor professor) throws SQLException{
 		return super.inDBGeneric("SELECT * FROM professor WHERE " +
-				"professor.nome = \"" + professor.getName() + "\" and " +
-				"professor.cpf = \"" + professor.getCpfProfessor() + "\" and " +
-				"professor.telefone = \"" + professor.getPhoneProfessor() + "\" and " +
-				"professor.email = \"" + professor.getEmailProfessor() + "\" and " +
-				"professor.matricula = \"" + professor.getIdProfessor() + "\";");
+				"professor.nome = \"" + professor.getNamePerson() + "\" and " +
+				"professor.cpf = \"" + professor.getCpfPerson() + "\" and " +
+				"professor.telefone = \"" + professor.getPhonePerson() + "\" and " +
+				"professor.email = \"" + professor.getEmailPerson() + "\" and " +
+				"professor.matricula = \"" + professor.getIdRegister() + "\";");
 	}
 	
 	private boolean salainDB(Sala sala) throws SQLException{
@@ -217,11 +217,11 @@ public class ResSalaProfessorDAO extends DAO{
 	private boolean reservainDB(ReservaSalaProfessor r) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE " +
 					"id_professor = (SELECT id_professor FROM professor WHERE " +
-							"professor.nome = \"" + r.getProfessor().getName() + "\" and " +
-							"professor.cpf = \"" + r.getProfessor().getCpfProfessor() + "\" and " +
-							"professor.telefone = \"" + r.getProfessor().getPhoneProfessor() + "\" and " +
-							"professor.email = \"" + r.getProfessor().getEmailProfessor() + "\" and " +
-							"professor.matricula = \"" + r.getProfessor().getIdProfessor() + "\") and " +
+							"professor.nome = \"" + r.getProfessor().getNamePerson() + "\" and " +
+							"professor.cpf = \"" + r.getProfessor().getCpfPerson() + "\" and " +
+							"professor.telefone = \"" + r.getProfessor().getPhonePerson() + "\" and " +
+							"professor.email = \"" + r.getProfessor().getEmailPerson() + "\" and " +
+							"professor.matricula = \"" + r.getProfessor().getIdRegister() + "\") and " +
 					"id_sala = (SELECT id_sala FROM sala WHERE " +
 									"sala.codigo = \"" + r.getSala().getCodigo() + "\" and " +
 									"sala.descricao = \"" + r.getSala().getDescricao() +  "\" and " +

@@ -3,7 +3,7 @@ package control;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import model.Aluno;
+import model.Student;
 import model.ReservaSalaAluno;
 import model.Sala;
 import persistence.ResSalaAlunoDAO;
@@ -46,7 +46,7 @@ public class ManterResSalaAluno {
 		return ResSalaAlunoDAO.getInstance().cadeirasDisponiveis(sala, data, hora);
 	}
 
-	public void inserir(Sala sala, Aluno aluno,
+	public void inserir(Sala sala, Student aluno,
 		String data, String hora, String finalidade, String cadeiras_reservadas)
 		throws SQLException, ReservaException, ClientException, PatrimonioException {
 

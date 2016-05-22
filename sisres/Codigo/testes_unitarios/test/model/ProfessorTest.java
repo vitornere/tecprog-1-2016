@@ -37,31 +37,31 @@ public class ProfessorTest {
 	@Test
 	public void testNome() throws ClientException {
 		Professor p = new Professor("Nome", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		assertTrue("Teste do Nome do Professor", "Nome" == p.getName());
+		assertTrue("Teste do Nome do Professor", "Nome" == p.getNamePerson());
 	}
 
 	@Test
 	public void testCpf() throws ClientException {
 		Professor p = new Professor("Nome", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		assertTrue("Teste do CPF do Professor", "868.563.327-34" == p.getCpfProfessor());
+		assertTrue("Teste do CPF do Professor", "868.563.327-34" == p.getCpfPerson());
 	}
 	
 	@Test
 	public void testMatricula() throws ClientException {
 		Professor p = new Professor("Nome", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		assertTrue("Teste da Matricula do Professor", "123456" == p.getIdProfessor());
+		assertTrue("Teste da Matricula do Professor", "123456" == p.getIdRegister());
 	}
 	
 	@Test
 	public void testTelefone() throws ClientException {
 		Professor p = new Professor("Nome", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		assertTrue("Teste de Telefone do Professor", "1234-5678" == p.getPhoneProfessor());
+		assertTrue("Teste de Telefone do Professor", "1234-5678" == p.getPhonePerson());
 	}
 	
 	@Test
 	public void testEmail() throws ClientException {
 		Professor p = new Professor("Nome", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		assertTrue("Teste do E-mail do Professor", "Nome@email" == p.getEmailProfessor());
+		assertTrue("Teste do E-mail do Professor", "Nome@email" == p.getEmailPerson());
 	}
 
 	
@@ -130,7 +130,7 @@ public class ProfessorTest {
 	@Test
 	public void testTelefoneVazio() throws ClientException {
 		Professor p = new Professor("Nome", "868.563.327-34", "123456", "", "Nome@email");
-		assertTrue("Teste de Telefone Vazio do Professor", "" == p.getPhoneProfessor());
+		assertTrue("Teste de Telefone Vazio do Professor", "" == p.getPhonePerson());
 	}
 	
 	@Test (expected= ClientException.class)
@@ -148,7 +148,7 @@ public class ProfessorTest {
 	@Test
 	public void testEmailVazio() throws ClientException {
 		Professor p = new Professor("Nome", "868.563.327-34", "123456", "1234-5678", "");
-		assertTrue("Teste de Email Vazio do Professor", "" == p.getEmailProfessor());
+		assertTrue("Teste de Email Vazio do Professor", "" == p.getEmailPerson());
 	}
 	
 	@Test (expected= ClientException.class)

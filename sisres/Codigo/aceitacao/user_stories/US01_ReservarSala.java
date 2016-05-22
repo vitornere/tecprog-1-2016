@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import model.Aluno;
+import model.Student;
 import model.Professor;
 import model.ReservaSalaAluno;
 import model.ReservaSalaProfessor;
@@ -19,7 +19,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.AlunoDAO;
+import persistence.StudentDAO;
 import persistence.ProfessorDAO;
 import persistence.ResSalaAlunoDAO;
 import persistence.ResSalaProfessorDAO;
@@ -67,7 +67,7 @@ public class US01_ReservarSala {
     private Sala sala;
     private ReservaSalaProfessor reservaProf;
     private ReservaSalaAluno reservaAluno;
-    private Aluno aluno;
+    private Student aluno;
     private Professor prof;
     private DialogFixture dialog;
     private int index;
@@ -95,8 +95,8 @@ public class US01_ReservarSala {
         prof = new Professor("Professor Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
         ProfessorDAO.getNewProfessor().include(prof);
 
-        aluno = new Aluno("Aluno Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
-        AlunoDAO.getInstance().incluir(aluno);
+        aluno = new Student("Aluno Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
+        StudentDAO.getNewStudent().include(aluno);
 
         dataAtual();
 
@@ -115,7 +115,7 @@ public class US01_ReservarSala {
         if (sala != null)
             SalaDAO.getInstance().excluir(sala);
         if (aluno != null)
-            AlunoDAO.getInstance().excluir(aluno);
+            StudentDAO.getNewStudent().delete(aluno);
         if (prof != null)
             ProfessorDAO.getNewProfessor().delete(prof);
         window.cleanUp();
@@ -334,8 +334,8 @@ public class US01_ReservarSala {
 
     
     @Test public void testCenario3AlunoReserva() throws SQLException, ClientException, PatrimonioException, ReservaException {
-        Aluno aluno2 = new Aluno("Aluno Teste", "382.808.446-00", "110", "", "abc");
-        AlunoDAO.getInstance().incluir(aluno2);
+        Student aluno2 = new Student("Aluno Teste", "382.808.446-00", "110", "", "abc");
+        StudentDAO.getNewStudent().include(aluno2);
 
         ReservaSalaAluno reservaAluno2 = new ReservaSalaAluno(data, "23:59", sala, "abc", "100", aluno2);
         ResSalaAlunoDAO.getInstance().incluir(reservaAluno2);
@@ -366,7 +366,7 @@ public class US01_ReservarSala {
         reservaAluno = ResSalaAlunoDAO.getInstance().buscarPorDia(data).get(indexReserva);
         
         ResSalaAlunoDAO.getInstance().excluir(reservaAluno2);
-        AlunoDAO.getInstance().excluir(aluno2);        
+        StudentDAO.getNewStudent().delete(aluno2);        
     }
 
     

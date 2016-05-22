@@ -3,7 +3,7 @@ package user_stories;
 import java.awt.Dimension;
 import java.sql.SQLException;
 
-import model.Aluno;
+import model.Student;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.AlunoDAO;
+import persistence.StudentDAO;
 import view.Main2;
 import exception.ClientException;
 
@@ -43,7 +43,7 @@ public class US03_CadastrarAluno {
 
 	private FrameFixture window;
 	private Robot robot;
-	private Aluno aluno;
+	private Student aluno;
 	private DialogFixture dialog;
 	private int index;
 	
@@ -61,7 +61,7 @@ public class US03_CadastrarAluno {
 	@After
 	public void tearDown() throws SQLException, ClientException {
 		if(aluno != null)
-			AlunoDAO.getInstance().excluir(aluno);
+			StudentDAO.getNewStudent().delete(aluno);
 		window.cleanUp();
 	}
 
@@ -97,15 +97,15 @@ public class US03_CadastrarAluno {
 		sleep();
 		cadastro.optionPane().okButton().click();
 
-		index = AlunoDAO.getInstance().buscarTodos().size() - 1;
-		aluno = AlunoDAO.getInstance().buscarTodos().get(index);
+		index = StudentDAO.getNewStudent().searchAll().size() - 1;
+		aluno = StudentDAO.getNewStudent().searchAll().get(index);
 	}
 	
 	@Test
 	public void testCenario2() throws SQLException, ClientException {
 
-		aluno = new Aluno("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
-		AlunoDAO.getInstance().incluir(aluno);
+		aluno = new Student("Teste", "658.535.144-40", "110038096","9211-2144", "teste incluir repetido");
+		StudentDAO.getNewStudent().include(aluno);
 		
 		dialog.button("Cadastrar").click();
 		DialogFixture cadastro = dialog.dialog("CadastroAluno");

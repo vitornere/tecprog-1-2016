@@ -16,11 +16,12 @@ public class ProfessorRegister {
 	private ProfessorRegister() {
 	}
 
-	public static ProfessorRegister getInstance() {
+	public static ProfessorRegister getNewProfessor() {
 		if (newProfessor != null) {
 
 			// Nothing to do.
-		} else {
+		} 
+		else {
 
 			newProfessor = new ProfessorRegister();
 		}
@@ -70,14 +71,14 @@ public class ProfessorRegister {
 	public void update(String nameProfessor, String cpfProfessor,
 			String idProfessor, String phoneProfessor, String emailProfessor,
 			Professor professor) throws ClientException, SQLException {
-		Professor oldTeacherData = new Professor(professor.getName(),
-				professor.getCpfProfessor(), professor.getIdProfessor(),
-				professor.getPhoneProfessor(), professor.getEmailProfessor());
-		professor.setName(nameProfessor);
-		professor.setCpfProfessor(cpfProfessor);
-		professor.setIdProfessor(idProfessor);
-		professor.setPhoneProfessor(phoneProfessor);
-		professor.setEmailProfessor(emailProfessor);
+		Professor oldTeacherData = new Professor(professor.getNamePerson(),
+				professor.getCpfPerson(), professor.getIdRegister(),
+				professor.getPhonePerson(), professor.getEmailPerson());
+		professor.setNamePerson(nameProfessor);
+		professor.setCpfPerson(cpfProfessor);
+		professor.setIdPerson(idProfessor);
+		professor.setPhonePerson(phoneProfessor);
+		professor.setEmailPerson(emailProfessor);
 		ProfessorDAO.getNewProfessor().update(oldTeacherData, professor);
 	}
 

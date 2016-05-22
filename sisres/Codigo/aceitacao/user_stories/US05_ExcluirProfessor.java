@@ -83,7 +83,7 @@ public class US05_ExcluirProfessor {
 	public void testCenario2() throws SQLException, ClientException{
 		dialog.table("tabelaCliente").selectRows(index);
 		dialog.button("Excluir").click();
-		dialog.optionPane().requireMessage("Deseja mesmo excluir Professor: " + professor.getName() + "?");
+		dialog.optionPane().requireMessage("Deseja mesmo excluir Professor: " + professor.getNamePerson() + "?");
 		sleep();
 		dialog.optionPane().yesButton().click();
 		sleep();

@@ -45,8 +45,8 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
 
                 nomesTabela.add(String.valueOf(index));
                 nomesTabela.add(r.getHora());
-                nomesTabela.add(r.getProfessor().getName());
-                nomesTabela.add(r.getProfessor().getIdProfessor());
+                nomesTabela.add(r.getProfessor().getNamePerson());
+                nomesTabela.add(r.getProfessor().getIdRegister());
                 nomesTabela.add(r.getEquipamento().getCodigo());
                 nomesTabela.add(r.getEquipamento().getDescricao());
             }

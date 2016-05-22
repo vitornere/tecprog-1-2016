@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import model.Aluno;
+import model.Student;
 import model.Professor;
 import model.ReservaSalaAluno;
 import model.ReservaSalaProfessor;
@@ -19,7 +19,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import persistence.AlunoDAO;
+import persistence.StudentDAO;
 import persistence.ProfessorDAO;
 import persistence.ResSalaAlunoDAO;
 import persistence.ResSalaProfessorDAO;
@@ -35,7 +35,7 @@ public class US01_AlterarReservaSala {
     private Sala sala;
     private ReservaSalaProfessor reservaProf;
     private ReservaSalaAluno reservaAluno;
-    private Aluno aluno;
+    private Student aluno;
     private Professor prof;
     private DialogFixture dialog;
     private int index;
@@ -62,15 +62,15 @@ public class US01_AlterarReservaSala {
         prof = new Professor("Professor Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
         ProfessorDAO.getNewProfessor().include(prof);
 
-        aluno = new Aluno("Aluno Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
-        AlunoDAO.getInstance().incluir(aluno);
+        aluno = new Student("Aluno Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
+        StudentDAO.getNewStudent().include(aluno);
 
         dataAtual();
                 
         index = SalaDAO.getInstance().buscarTodos().size() - 1;
         indexReserva = ResSalaProfessorDAO.getInstance().buscarPorData(data).size() - 1;
 
-        AlunoDAO.getInstance().incluir(aluno);
+        StudentDAO.getNewStudent().include(aluno);
 
         reservaAluno = new ReservaSalaAluno(data, "23:59", sala, "abc", "100", aluno);
         ResSalaAlunoDAO.getInstance().incluir(reservaAluno);
@@ -87,7 +87,7 @@ public class US01_AlterarReservaSala {
         if (sala != null)
             SalaDAO.getInstance().excluir(sala);
         if (aluno != null)
-            AlunoDAO.getInstance().excluir(aluno);
+            StudentDAO.getNewStudent().delete(aluno);
         if (prof != null)
             ProfessorDAO.getNewProfessor().delete(prof);
         window.cleanUp();

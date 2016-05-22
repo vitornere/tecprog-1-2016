@@ -11,7 +11,7 @@ import exception.ClientException;
 import exception.PatrimonioException;
 import exception.ReservaException;
 
-import model.Aluno;
+import model.Student;
 import model.ReservaSalaAluno;
 import model.Sala;
 
@@ -44,13 +44,13 @@ public class ResSalaAlunoDAO extends DAO{
 		
 		
 	//Querys de Reuso
-		private String select_id_aluno(Aluno a){
+		private String select_id_aluno(Student a){
 			return "SELECT id_aluno FROM aluno WHERE " +
-					"aluno.nome = \"" + a.getName() + "\" and " +
-					"aluno.cpf = \"" + a.getCpfProfessor() + "\" and " +
-					"aluno.telefone = \"" + a.getPhoneProfessor() + "\" and " +
-					"aluno.email = \"" + a.getEmailProfessor() + "\" and " +
-					"aluno.matricula = \"" + a.getIdProfessor() + "\"";
+					"aluno.nome = \"" + a.getNamePerson() + "\" and " +
+					"aluno.cpf = \"" + a.getCpfPerson() + "\" and " +
+					"aluno.telefone = \"" + a.getPhonePerson() + "\" and " +
+					"aluno.email = \"" + a.getEmailPerson() + "\" and " +
+					"aluno.matricula = \"" + a.getIdRegister() + "\"";
 		}
 		private String select_id_sala(Sala sala){
 			return "SELECT id_sala FROM sala WHERE " +
@@ -214,7 +214,7 @@ public class ResSalaAlunoDAO extends DAO{
 	
 	@Override
 	protected Object fetch(ResultSet rs) throws SQLException, ClientException, PatrimonioException, ReservaException {
-		Aluno a = new Aluno(rs.getString("nome"), rs.getString("cpf"), rs.getString("matricula"),
+		Student a = new Student(rs.getString("nome"), rs.getString("cpf"), rs.getString("matricula"),
 				rs.getString("telefone"), rs.getString("email"));
 		
 		Sala s = new Sala(rs.getString("codigo"), rs.getString("descricao"), rs.getString("capacidade"));
@@ -225,13 +225,13 @@ public class ResSalaAlunoDAO extends DAO{
 		return r;
 	}
 	
-	private boolean alunoinDB(Aluno aluno) throws SQLException{
+	private boolean alunoinDB(Student aluno) throws SQLException{
 		return super.inDBGeneric("SELECT * FROM aluno WHERE " +
-				"aluno.nome = \"" + aluno.getName() + "\" and " +
-				"aluno.cpf = \"" + aluno.getCpfProfessor() + "\" and " +
-				"aluno.telefone = \"" + aluno.getPhoneProfessor() + "\" and " +
-				"aluno.email = \"" + aluno.getEmailProfessor() + "\" and " +
-				"aluno.matricula = \"" + aluno.getIdProfessor() + "\";");
+				"aluno.nome = \"" + aluno.getNamePerson() + "\" and " +
+				"aluno.cpf = \"" + aluno.getCpfPerson() + "\" and " +
+				"aluno.telefone = \"" + aluno.getPhonePerson() + "\" and " +
+				"aluno.email = \"" + aluno.getEmailPerson() + "\" and " +
+				"aluno.matricula = \"" + aluno.getIdRegister() + "\";");
 	}
 	
 	private boolean salainDB(Sala sala) throws SQLException{
@@ -242,16 +242,16 @@ public class ResSalaAlunoDAO extends DAO{
 				";");
 	}
 	
-	private boolean alunoinReservaDB(Aluno aluno, String data, String hora) throws SQLException {
+	private boolean alunoinReservaDB(Student aluno, String data, String hora) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_aluno WHERE " +
 				"data = \"" + data + "\" and " +
 				"hora = \"" + hora + "\" and " +
 				"id_aluno = (SELECT id_aluno FROM aluno WHERE " +
-				"aluno.nome = \"" + aluno.getName() + "\" and " +
-				"aluno.cpf = \"" + aluno.getCpfProfessor() + "\" and " +
-				"aluno.telefone = \"" + aluno.getPhoneProfessor() + "\" and " +
-				"aluno.email = \"" + aluno.getEmailProfessor() + "\" and " +
-				"aluno.matricula = \"" + aluno.getIdProfessor() + "\");");
+				"aluno.nome = \"" + aluno.getNamePerson() + "\" and " +
+				"aluno.cpf = \"" + aluno.getCpfPerson() + "\" and " +
+				"aluno.telefone = \"" + aluno.getPhonePerson() + "\" and " +
+				"aluno.email = \"" + aluno.getEmailPerson() + "\" and " +
+				"aluno.matricula = \"" + aluno.getIdRegister() + "\");");
 	}
 	private boolean salainReservaProfessorDB(Sala sala, String data, String hora) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE " +
@@ -266,11 +266,11 @@ public class ResSalaAlunoDAO extends DAO{
 	private boolean reservainDB(ReservaSalaAluno r) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_aluno WHERE " +
 					"id_aluno = (SELECT id_aluno FROM aluno WHERE " +
-							"aluno.nome = \"" + r.getAluno().getName() + "\" and " +
-							"aluno.cpf = \"" + r.getAluno().getCpfProfessor() + "\" and " +
-							"aluno.telefone = \"" + r.getAluno().getPhoneProfessor() + "\" and " +
-							"aluno.email = \"" + r.getAluno().getEmailProfessor() + "\" and " +
-							"aluno.matricula = \"" + r.getAluno().getIdProfessor() + "\") and " +
+							"aluno.nome = \"" + r.getAluno().getNamePerson() + "\" and " +
+							"aluno.cpf = \"" + r.getAluno().getCpfPerson() + "\" and " +
+							"aluno.telefone = \"" + r.getAluno().getPhonePerson() + "\" and " +
+							"aluno.email = \"" + r.getAluno().getEmailPerson() + "\" and " +
+							"aluno.matricula = \"" + r.getAluno().getIdRegister() + "\") and " +
 					"id_sala = (SELECT id_sala FROM sala WHERE " +
 									"sala.codigo = \"" + r.getSala().getCodigo() + "\" and " +
 									"sala.descricao = \"" + r.getSala().getDescricao() +  "\" and " +

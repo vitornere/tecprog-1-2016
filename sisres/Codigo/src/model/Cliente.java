@@ -32,34 +32,34 @@ public abstract class Cliente {
 	
 	public Cliente(String nome, String cpf, String matricula,
 			String telefone, String email) throws ClientException{
-		this.setName(nome);
-		this.setCpfProfessor(cpf);
-        this.setIdProfessor(matricula);
-		this.setPhoneProfessor(telefone);
-		this.setEmailProfessor(email);
+		this.setNamePerson(nome);
+		this.setCpfPerson(cpf);
+        this.setIdPerson(matricula);
+		this.setPhonePerson(telefone);
+		this.setEmailPerson(email);
 	}
 
-	public String getName() {
+	public String getNamePerson() {
 		return nome;
 	}
 	
-	public String getCpfProfessor() {
+	public String getCpfPerson() {
 		return cpf;
 	}
 	
-	public String getPhoneProfessor() {
+	public String getPhonePerson() {
 		return telefone;
 	}
 	
-	public String getEmailProfessor() {
+	public String getEmailPerson() {
 		return email;
 	}
 	
-	public String getIdProfessor() {
+	public String getIdRegister() {
 		return matricula;
 	}
 	
-	public void setName(String nome) throws ClientException{
+	public void setNamePerson(String nome) throws ClientException{
 		if(nome == null)
 			throw new ClientException(NOME_NULO);
 		else if("".equals(nome.trim()))
@@ -70,7 +70,7 @@ public abstract class Cliente {
 			throw new ClientException(NOME_INVALIDO);
 	}
 	
-	public void setCpfProfessor(String cpf) throws ClientException {
+	public void setCpfPerson(String cpf) throws ClientException {
 		if(cpf == null)
 			throw new ClientException(CPF_NULO);
 		else if("".equals(cpf))
@@ -90,7 +90,7 @@ public abstract class Cliente {
 			throw new ClientException(CPF_INVALIDO);
 	}
 	
-	public void setPhoneProfessor(String telefone) throws ClientException {
+	public void setPhonePerson(String telefone) throws ClientException {
 		if(telefone == null)
 			throw new ClientException(TELEFONE_NULO);
 		else if("".equals(telefone))
@@ -102,14 +102,14 @@ public abstract class Cliente {
 			throw new ClientException(TELEFONE_INVALIDO);
 	}
 	
-	public void setEmailProfessor(String email) throws ClientException {
+	public void setEmailPerson(String email) throws ClientException {
 		if(email == null)
 			throw new ClientException(EMAIL_NULO);
 		else
 			this.email = email;
 	}
 	
-	public abstract void setIdProfessor(String matricula) throws ClientException;
+	public abstract void setIdPerson(String matricula) throws ClientException;
 	
 	@Override
 	public String toString() {
@@ -121,11 +121,11 @@ public abstract class Cliente {
 	}
 
 	public boolean equals(Cliente b){
-		if(	this.getName().equals(b.getName()) &&
-			this.getCpfProfessor().equals(b.getCpfProfessor()) &&
-			this.getIdProfessor().equals(b.getIdProfessor()) &&
-			this.getPhoneProfessor().equals(b.getPhoneProfessor()) &&
-			this.getEmailProfessor().equals(b.getEmailProfessor())){
+		if(	this.getNamePerson().equals(b.getNamePerson()) &&
+			this.getCpfPerson().equals(b.getCpfPerson()) &&
+			this.getIdRegister().equals(b.getIdRegister()) &&
+			this.getPhonePerson().equals(b.getPhonePerson()) &&
+			this.getEmailPerson().equals(b.getEmailPerson())){
 			
 			return true;
 		}

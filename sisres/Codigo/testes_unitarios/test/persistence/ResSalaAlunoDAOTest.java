@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 
-import model.Aluno;
+import model.Student;
 import model.ReservaSalaAluno;
 import model.Sala;
 
@@ -19,7 +19,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import persistence.AlunoDAO;
+import persistence.StudentDAO;
 import persistence.FactoryConnection;
 import persistence.ResSalaAlunoDAO;
 import persistence.SalaDAO;
@@ -32,26 +32,26 @@ public class ResSalaAlunoDAOTest {
 
 	private static Sala sala1;
 	private static Sala sala2;
-	private static Aluno aluno1;
-	private static Aluno aluno2;
+	private static Student aluno1;
+	private static Student aluno2;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		sala1 = new Sala("123", "Sala de Aula", "120");
 		sala2 = new Sala("543", "Laboratorio", "30");
-		aluno1 = new Aluno("testInstance", "501.341.852-69", "456678", "", "");
-		aluno2 = new Aluno("Incluindo Matricula Igual", "490.491.781-20", "345543", "2222-2222", "aluno2@email");
+		aluno1 = new Student("testInstance", "501.341.852-69", "456678", "", "");
+		aluno2 = new Student("Incluindo Matricula Igual", "490.491.781-20", "345543", "2222-2222", "aluno2@email");
 		
-		AlunoDAO.getInstance().incluir(aluno1);
-		AlunoDAO.getInstance().incluir(aluno2);
+		StudentDAO.getNewStudent().include(aluno1);
+		StudentDAO.getNewStudent().include(aluno2);
 		SalaDAO.getInstance().incluir(sala1);
 		SalaDAO.getInstance().incluir(sala2);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		AlunoDAO.getInstance().excluir(aluno1);
-		AlunoDAO.getInstance().excluir(aluno2);
+		StudentDAO.getNewStudent().delete(aluno1);
+		StudentDAO.getNewStudent().delete(aluno2);
 		SalaDAO.getInstance().excluir(sala1);
 		SalaDAO.getInstance().excluir(sala2);
 	}
@@ -86,7 +86,7 @@ public class ResSalaAlunoDAOTest {
 	@Test (expected= ReservaException.class)
 	public void testIncluirAlunoInexistente() throws ReservaException, ClientException, PatrimonioException, SQLException {
 		ReservaSalaAluno reserva = new ReservaSalaAluno("20/12/34", "8:00", sala1,
-				"Grupo de Estudos", "120", new Aluno("tepp", "501.341.852-69", "456678", "", ""));
+				"Grupo de Estudos", "120", new Student("tepp", "501.341.852-69", "456678", "", ""));
 		
 		try{
 			ResSalaAlunoDAO.getInstance().incluir(reserva);
@@ -354,7 +354,7 @@ public class ResSalaAlunoDAOTest {
 		this.insert_into(reserva);
 		
 		ReservaSalaAluno reserva2 = new ReservaSalaAluno("20/12/34", "8:00", sala1,
-				"Grupo de Estudos", "120", new Aluno("tepp", "501.341.852-69", "456678", "", ""));
+				"Grupo de Estudos", "120", new Student("tepp", "501.341.852-69", "456678", "", ""));
 		
 		try{
 			ResSalaAlunoDAO.getInstance().alterar(reserva, reserva2);
@@ -633,13 +633,13 @@ public class ResSalaAlunoDAOTest {
 	}
 	
 	
-	private String select_id_aluno(Aluno a){
+	private String select_id_aluno(Student a){
 		return "SELECT id_aluno FROM aluno WHERE " +
-				"aluno.nome = \"" + a.getName() + "\" and " +
-				"aluno.cpf = \"" + a.getCpfProfessor() + "\" and " +
-				"aluno.telefone = \"" + a.getPhoneProfessor() + "\" and " +
-				"aluno.email = \"" + a.getEmailProfessor() + "\" and " +
-				"aluno.matricula = \"" + a.getIdProfessor() + "\"";
+				"aluno.nome = \"" + a.getNamePerson() + "\" and " +
+				"aluno.cpf = \"" + a.getCpfPerson() + "\" and " +
+				"aluno.telefone = \"" + a.getPhonePerson() + "\" and " +
+				"aluno.email = \"" + a.getEmailPerson() + "\" and " +
+				"aluno.matricula = \"" + a.getIdRegister() + "\"";
 	}
 	private String select_id_sala(Sala sala){
 		return "SELECT id_sala FROM sala WHERE " +

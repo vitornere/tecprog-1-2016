@@ -4,7 +4,7 @@ import exception.ReservaException;
 
 public class ReservaSalaAluno extends ReservaSala{
 	
-	private Aluno aluno;
+	private Student aluno;
 	private String cadeiras_reservadas;
 	
 	//Mensagens
@@ -16,13 +16,13 @@ public class ReservaSalaAluno extends ReservaSala{
 		private final String CADEIRAS_PATTERN = "^[\\d]+$";
 
 	public ReservaSalaAluno(String data, String hora, Sala sala,
-			String finalidade, String cadeiras_reservadas, Aluno aluno) throws ReservaException {
+			String finalidade, String cadeiras_reservadas, Student aluno) throws ReservaException {
 		super(data, hora, sala, finalidade);
 		this.setAluno(aluno);
 		this.setCadeiras_reservadas(cadeiras_reservadas);
 	}
 	
-	public Aluno getAluno() {
+	public Student getAluno() {
 		return this.aluno;
 	}
 
@@ -30,7 +30,7 @@ public class ReservaSalaAluno extends ReservaSala{
 		return this.cadeiras_reservadas;
 	}
 
-	public void setAluno(Aluno aluno) throws ReservaException {
+	public void setAluno(Student aluno) throws ReservaException {
 		if(aluno == null)
 			throw new ReservaException(ALUNO_NULO);
 		this.aluno = aluno;
