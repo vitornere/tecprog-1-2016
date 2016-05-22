@@ -4,60 +4,63 @@ import exception.PatrimonyException;
 
 public class Patrimony {
 
-	private String codigo;
-	private String descricao;
-	//Mensagens de Erro e Alertas
-	//private final String CODIGO_INVALIDO = "Codigo Invalido.";
-	private final String CODIGO_BRANCO = "Codigo em Branco.";
-	private final String CODIGO_NULO = "Codigo esta Nulo.";
-	//private final String DESCRICAO_INVALIDO = "Descricao Invalido.";
-	private final String DESCRICAO_BRANCO = "Descricao em Branco.";
-	private final String DESCRICAO_NULO = "Descricao esta Nula.";
+	private String idPatrimony;
+	private String descriptionPatrimony;
 
-	public Patrimony(String codigo, String descricao) throws PatrimonyException {
-		this.setIdEquipment(codigo);
-		this.setDescriptionEquipment(descricao);
+	private final String EMPTY_ID_PATRIMONY = "Codigo em Branco.";
+	private final String NULL_ID_PATRIMONY = "Codigo esta Nulo.";
+	private final String EMPTY_DESCRIPTION_PATRIMONY = "Descricao em Branco.";
+	private final String NULL_DESCRIPTION_PATRIMONY = "Descricao esta Nula.";
+
+	public Patrimony(String idPatrimony, String descriptionPatrimony)
+			throws PatrimonyException {
+		this.setIdEquipment(idPatrimony);
+		this.setDescriptionEquipment(descriptionPatrimony);
 	}
 
 	public String getIdEquipment() {
-		return codigo;
+		return idPatrimony;
 	}
 
 	public String getDescriptionEquipment() {
-		return descricao;
+		return descriptionPatrimony;
 	}
 
-	public void setIdEquipment(String codigo) throws PatrimonyException {
-		if(codigo == null)
-			throw new PatrimonyException(CODIGO_NULO);
-		else if ("".equals(codigo.trim())) 
-			throw new PatrimonyException(CODIGO_BRANCO);
-		//else if(codigo.matches("PATTERN"))
-			//this.codigo = codigo;
-		//else
-			//throw new PatrimonioException(CODIGO_INVALIDO);
-		this.codigo = codigo;//
+	public void setIdEquipment(String idPatrimony) throws PatrimonyException {
+		if ((idPatrimony != null) || (!("".equals(idPatrimony.trim())))) {
+			this.idPatrimony = idPatrimony;
+		} else if (idPatrimony == null) {
+			throw new PatrimonyException(NULL_ID_PATRIMONY);
+		} else {
+			throw new PatrimonyException(EMPTY_ID_PATRIMONY);
+		}
 	}
 
-	public void setDescriptionEquipment(String descricao) throws PatrimonyException {
-		if(descricao == null)
-			throw new PatrimonyException(DESCRICAO_NULO);
-		else if ("".equals(descricao.trim())) 
-			throw new PatrimonyException(DESCRICAO_BRANCO);
-		this.descricao = descricao;
+	public void setDescriptionEquipment(String descriptionPatrimony)
+			throws PatrimonyException {
+		if ((descriptionPatrimony != null)
+				|| (!("".equals(descriptionPatrimony.trim())))) {
+			this.descriptionPatrimony = descriptionPatrimony;
+		} else if (descriptionPatrimony == null) {
+			throw new PatrimonyException(NULL_DESCRIPTION_PATRIMONY);
+		} else {
+			throw new PatrimonyException(EMPTY_DESCRIPTION_PATRIMONY);
+		}
 	}
 
-	public boolean equals(Patrimony e){
-		if( this.getIdEquipment().equals(e.getIdEquipment()) && 
-			this.getDescriptionEquipment().equals(e.getDescriptionEquipment()))
+	public boolean equals(Patrimony patrimony) {
+		if (this.getIdEquipment().equals(patrimony.getIdEquipment())
+				&& this.getDescriptionEquipment().equals(
+						patrimony.getDescriptionEquipment())) {
 			return true;
-		
-		return false;
+		} else {
+			return false;
+		}
+
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Codigo=" + codigo +
-			"\nDescricao=" + descricao;
+		return "Codigo=" + idPatrimony + "\nDescricao=" + descriptionPatrimony;
 	}
 }
