@@ -20,11 +20,11 @@ public class Console {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		scanner = new Scanner(System.in);
-
+		
 		// Atributos
-
+		
 		ArrayList<Balconista> listaDeBalconistas = new ArrayList<Balconista>();
 		ArrayList<Caixa> listaDeCaixas = new ArrayList<Caixa>();
 		ArrayList<Cliente> listaDeClientes = new ArrayList<Cliente>();
@@ -64,7 +64,7 @@ public class Console {
 
 				assert ((operacao >= 0) && (operacao <= 5)) : "Numero invalido: " + operacao; // Se digitar numero errado, sai do programa
 
-				// Amarração para sair
+				// Amarraï¿½ï¿½o para sair
 				if (operacao == 0) {
 					estados = complementar.ConfirmacaoGeral2(estados);
 				}
@@ -136,6 +136,7 @@ public class Console {
 							if (operacao == 3) {
 								estados = 4;
 							}
+							try{
 							while (estados == 4) {
 
 								cliente.menuCliente();// Menu cliente
@@ -158,7 +159,10 @@ public class Console {
 									cliente.excluirCliente(listaDeClientes);
 									estados = 4;
 								}
-
+							  }
+							}
+							catch(Exception e){
+								e.getStackTrace();
 							}
 							break;
 
@@ -199,12 +203,12 @@ public class Console {
 							while (estados == 6) {
 								estados = complementar.menuAjuda(estados);
 							}
+							}
 
 						}// Saindo do Switch principal
 					}// Saindo do if de estados = 1
 				}
 			}// Estados = 0
 		}// Saindo do While de estados != 100 / fim do programa
-		System.out.println("Obrigado por usar nosso sistema de gerência!" + " Saindo do programa!");
 	}
-}
+
