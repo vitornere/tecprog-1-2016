@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.cadastros;
 
 import java.sql.SQLException;
@@ -11,10 +7,6 @@ import javax.swing.JOptionPane;
 import control.ManterProfessor;
 import exception.ClienteException;
 
-/**
- * 
- * @author Parley
- */
 public class ProfessorRegistration extends ClientRegistration {
 
     public ProfessorRegistration(java.awt.Frame parent, boolean modal) {
@@ -23,10 +15,10 @@ public class ProfessorRegistration extends ClientRegistration {
 
     }
 
-    @Override public void registrationAction() {
+public void registrationAction() {
         try {
             if (btnRegistration.getText().equals("Cadastrar")) {
-                // TODO add your handling code here:
+           
                 ManterProfessor.getInstance().inserir(nameTxtField.getText(), cpfTxtField.getText(), enrollmentTxtField.getText(),
                         phoneTxtField.getText(), emailTxtField.getText());
 

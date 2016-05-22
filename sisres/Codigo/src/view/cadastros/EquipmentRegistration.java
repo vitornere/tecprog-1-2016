@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.cadastros;
 
 import java.sql.SQLException;
@@ -11,10 +7,6 @@ import javax.swing.JOptionPane;
 import control.ManterEquipamento;
 import exception.PatrimonyException;
 
-/**
- * @author Parley
- * @editor Aulus
- */
 public class EquipmentRegistration extends PatrimonyRegistration {
 
     public EquipmentRegistration(java.awt.Frame parent, boolean modal) {
@@ -24,7 +16,7 @@ public class EquipmentRegistration extends PatrimonyRegistration {
         this.capacityTxtField.setVisible(false);
     }
 
-    @Override protected void registrationAction() {
+   protected void registrationAction() {
 
         try {
             ManterEquipamento.getInstance().inserir(codeTxtField.getText(), discriptionTextArea.getText());

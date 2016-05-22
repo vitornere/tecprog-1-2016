@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package view.cadastros;
 
 import java.sql.SQLException;
@@ -11,10 +7,6 @@ import javax.swing.JOptionPane;
 import control.ManterAluno;
 import exception.ClienteException;
 
-/**
- * 
- * @author Parley
- */
 public class StudentRegistration extends ClientRegistration {
 
     public StudentRegistration(java.awt.Frame parent, boolean modal) {
@@ -22,7 +14,7 @@ public class StudentRegistration extends ClientRegistration {
         this.setName("CadastroAluno");
     }
 
-    @Override public void registrationAction() {
+   public void registrationAction() {
         try {
             if (btnRegistration.getText().equals("Cadastrar")) {
                 ManterAluno.getInstance().inserir(nameTxtField.getText(), cpfTxtField.getText(), enrollmentTxtField.getText(),
