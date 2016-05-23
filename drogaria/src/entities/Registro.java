@@ -1,27 +1,27 @@
-package entidades;
+package entities;
 
 public class Registro {
 
 	protected String codigo;
-	protected Medicamento medicamento;
+	protected Medicament medicament;
 
 	// Construtor Vazio
 	public Registro() {
 	}
 
-	// Construtor utilizando-se herança
+	// Construtor utilizando-se heranï¿½a
 	public Registro(String codigoAnvisa) {
 		this.codigo = codigoAnvisa;
 	}
 
-	// Agregação - Listagem e Adição
+	// Agregaï¿½ï¿½o - Listagem e Adiï¿½ï¿½o
 	public void listarMedicamento() {
-		System.out.println("O medicamento do registro " + this.codigo + " é:" + medicamento.nome);
+		System.out.println("O medicamento do registro " + this.codigo + " ï¿½:" + medicament.nome);
 	}
 
 	public void adicionarMedicamento() {
-		Medicamento novoMedicamento = new Medicamento();
-		novoMedicamento = this.medicamento;
+		Medicament novoMedicamento = new Medicament();
+		novoMedicamento = this.medicament;
 		this.setMedicamento(novoMedicamento);
 	}// Fim Agregacao
 
@@ -35,12 +35,12 @@ public class Registro {
 		this.codigo = codigo;
 	}
 
-	public Medicamento getMedicamento() {
-		return medicamento;
+	public Medicament getMedicamento() {
+		return medicament;
 	}
 
-	public void setMedicamento(Medicamento medicamento) {
-		this.medicamento = medicamento;
+	public void setMedicamento(Medicament medicament) {
+		this.medicament = medicament;
 	}
 
 }

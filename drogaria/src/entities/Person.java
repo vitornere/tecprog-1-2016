@@ -1,4 +1,4 @@
-package entidades;
+package entities;
 
 //Super classe de balconista,cliente e caixa
 public class Person extends Administrativo {

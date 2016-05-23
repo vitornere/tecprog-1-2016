@@ -15,7 +15,7 @@ import model.Classroom;
 import view.alteracoes.ChangeClassroom;
 import view.cadastros.PatrimonyRegistration;
 import view.cadastros.ClassroomRegistration;
-import view.diasReservas.DiaReservaSala;
+import view.diasReservas.ClassRoomReserveDay;
 import control.ManterSala;
 import exception.PatrimonyException;
 
@@ -23,11 +23,11 @@ import exception.PatrimonyException;
  * 
  * @author Parley
  */
-public class SalaView extends PatrimonioView {
+public class SalaView extends PratimonyView {
 
     public SalaView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        pesquisarLbl.setText("Digite a sala desejada: ");
+        searchLbl.setText("Digite a sala desejada: ");
         this.setName("SalaView");
     }
 
@@ -72,19 +72,19 @@ public class SalaView extends PatrimonioView {
         return null;
     }
 
-    @Override protected void cadastrarAction() {
-        PatrimonyRegistration cadastro = new ClassroomRegistration(new javax.swing.JFrame(), true);
+    @Override protected void registerAction() {
+	PatrimonyRegistration cadastro = new ClassroomRegistration(new javax.swing.JFrame(), true);
         cadastro.setResizable(false);
         cadastro.setVisible(true);
-        this.tabelaPatrimonio.setModel(fillTable());
+        this.patrimonyTable.setModel(fillTable());
     }
 
-    @Override protected void alterarAction(int index) {
+    @Override protected void changeAction(int index) {
 
         ChangeClassroom alteracao = new ChangeClassroom(new javax.swing.JFrame(), true, index);
         alteracao.setResizable(false);
         alteracao.setVisible(true);
-        this.tabelaPatrimonio.setModel(fillTable());
+        this.patrimonyTable.setModel(fillTable());
     }
 
     @Override protected void excluirAction(int index) {
@@ -98,7 +98,7 @@ public class SalaView extends PatrimonioView {
                 ManterSala.getInstance().excluir(ManterSala.getInstance().getSalas_vet().get(index));
                 JOptionPane.showMessageDialog(this, "Sala excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             }
-            this.tabelaPatrimonio.setModel(fillTable());
+            this.patrimonyTable.setModel(fillTable());
 
         } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -109,7 +109,7 @@ public class SalaView extends PatrimonioView {
 
     @Override protected void visualizarAction(int index) {
         try {
-            DiaReservaSala reserva = new DiaReservaSala(new javax.swing.JFrame(), true, index);
+            ClassRoomReserveDay reserva = new ClassRoomReserveDay(new javax.swing.JFrame(), true, index);
             reserva.setResizable(false);
             reserva.setVisible(true);
         } catch (PatrimonyException ex) {

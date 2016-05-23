@@ -25,7 +25,7 @@ import persistence.ResSalaAlunoDAO;
 import persistence.ReserveClassroomProfessorDAO;
 import persistence.ClassroomDAO;
 import view.Main2;
-import view.mainViews.AlunoView;
+import view.mainViews.StudentView;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReservaException;

@@ -1,4 +1,4 @@
-package entidades;
+package entities;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -71,28 +71,28 @@ public class Client extends Person implements Recommended {
 	public void clientRegister(ArrayList<Client> clientsList) {
 
 		System.out.println("Digite o rg do Cliente: ");
-		String rgPessoa = Complementary.readString();
+		String rgPessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o cpf do Cliente: ");
-		String cpfPerson = Complementary.readString();
+		String cpfPerson = ConsoleMenu.readString();
 
 		System.out.println("Digite o digito do cpf do Cliente: ");
-		int cpfDigitPerson = Complementary.readInt();
+		int cpfDigitPerson = ConsoleMenu.readInt();
 
 		System.out.println("Digite o nome do Cliente: ");
-		String personName = Complementary.readString();
+		String personName = ConsoleMenu.readString();
 
 		System.out.println("Digite o sobrenome completo do Cliente: ");
-		String personLastName = Complementary.readString();
+		String personLastName = ConsoleMenu.readString();
 
 		System.out.println("Digite o endereco do Cliente: ");
-		String personAddress = Complementary.readString();
+		String personAddress = ConsoleMenu.readString();
 
 		System.out.println("Digite o telefone do Cliente:");
-		String personPhone = Complementary.readString();
+		String personPhone = ConsoleMenu.readString();
 
 		System.out.println("Digite o email do Cliente");
-		String emailClient = Complementary.readString();
+		String emailClient = ConsoleMenu.readString();
 
 		Client client = new Client(rgPessoa, cpfPerson, cpfDigitPerson, personName, personLastName,
 				personAddress, personPhone, emailClient);

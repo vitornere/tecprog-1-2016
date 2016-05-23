@@ -1,6 +1,6 @@
 package interfaces;
 
-import entidades.Client;
+import entities.Client;
 	//Testando a Interface
 	public class Teste {
 		public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package entidades;
+package entities;
 
 public abstract class Administrativo {
 

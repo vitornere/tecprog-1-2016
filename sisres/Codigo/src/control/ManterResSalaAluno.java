@@ -6,7 +6,7 @@ import java.util.Vector;
 import model.Aluno;
 import model.ReservaSalaAluno;
 import model.Classroom;
-import persistence.ResSalaAlunoDAO;
+import persistence.ReservationRoomForStudentDAO;
 import exception.ClienteException;
 import exception.PatrimonyException;
 import exception.ReservaException;
@@ -29,21 +29,21 @@ public class ManterResSalaAluno {
 	//
 
 	public Vector<ReservaSalaAluno> getReservasHora(String hora) throws SQLException, PatrimonyException, ClienteException, ReservaException{
-		return ResSalaAlunoDAO.getInstance().buscarPorHora(hora);
+		return ReservationRoomForStudentDAO.getInstance().searchByHour(hora);
 		
 	}
 	
 	public Vector<ReservaSalaAluno> getReservasMes(String data) throws SQLException, PatrimonyException, ClienteException, ReservaException{
-		return ResSalaAlunoDAO.getInstance().buscarPorDia(data);
+		return ReservationRoomForStudentDAO.getInstance().searchbyDay(data);
 	}
 	
 	public Vector<ReservaSalaAluno> getResAlunoSala_vet() throws SQLException, PatrimonyException, ClienteException, ReservaException {
-		this.rev_sala_aluno_vet = ResSalaAlunoDAO.getInstance().buscarTodos();
+		this.rev_sala_aluno_vet = ReservationRoomForStudentDAO.getInstance().searchAll();
 		return this.rev_sala_aluno_vet;
 	}
 
 	public int cadeirasDisponveis(Classroom sala, String data, String hora) throws SQLException, PatrimonyException, ClienteException, ReservaException {
-		return ResSalaAlunoDAO.getInstance().cadeirasDisponiveis(sala, data, hora);
+		return ReservationRoomForStudentDAO.getInstance().availableChair(sala, data, hora);
 	}
 
 	public void inserir(Classroom sala, Aluno aluno,
@@ -51,7 +51,7 @@ public class ManterResSalaAluno {
 		throws SQLException, ReservaException, ClienteException, PatrimonyException {
 
 		ReservaSalaAluno r = new ReservaSalaAluno(data, hora, sala, finalidade, cadeiras_reservadas, aluno);
-		ResSalaAlunoDAO.getInstance().incluir(r);
+		ReservationRoomForStudentDAO.getInstance().add(r);
 		this.rev_sala_aluno_vet.add(r);
 	}
 
@@ -62,11 +62,11 @@ public class ManterResSalaAluno {
 			r.getFinalidade(), r.getCadeiras_reservadas(), r.getAluno());
 		r.setFinalidade(finalidade);
 		r.setCadeiras_reservadas(cadeiras_reservadas);
-		ResSalaAlunoDAO.getInstance().alterar(res_old, r);
+		ReservationRoomForStudentDAO.getInstance().alterar(res_old, r);
 	}
 
 	public void excluir(ReservaSalaAluno r) throws SQLException, ReservaException {
-		ResSalaAlunoDAO.getInstance().excluir(r);
+		ReservationRoomForStudentDAO.getInstance().delete(r);
 		this.rev_sala_aluno_vet.remove(r);
 	}
 }

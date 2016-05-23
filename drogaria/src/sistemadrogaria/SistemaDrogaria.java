@@ -4,13 +4,14 @@ package sistemadrogaria;
 
 import java.text.DecimalFormat;
 
-import entidades.Clerk;
-import entidades.Cashier;
-import entidades.Client;
-import entidades.Administrativo;
-import entidades.Medicamento;
-import entidades.Person;
-import entidades.Registro;
+import entities.Clerk;
+import entities.Cashier;
+import entities.Client;
+import entities.Administrativo;
+import entities.Medicament;
+import entities.Person;
+import entities.Registro;
+
 
 public class SistemaDrogaria {
 
@@ -28,7 +29,7 @@ public class SistemaDrogaria {
 				"(61)-1234-5678", "cliente1@gmail.com");
 
 		// Criando e cadastrando um medicamento
-		Medicamento novoMedicamento = new Medicamento("NomeTeste", "LaboratorioTeste", "Adulto", "Comprimido",
+		Medicament novoMedicamento = new Medicament("NomeTeste", "LaboratorioTeste", "Adulto", "Comprimido",
 				"10/10/2020", "1cp. a cada 8 horas");
 
 		// Criando e cadastrando uma transacao do caixa
@@ -37,6 +38,7 @@ public class SistemaDrogaria {
 
 		// Imprimindo no console as informacoes do Funcion�rio
 		System.out.println("Funcionario:" + funcionarioDrogaria.getName() + funcionarioDrogaria.getLastName());
+
 		System.out.println("CPF: " + funcionarioDrogaria.getCpf() + "-" + funcionarioDrogaria.getDigitoCpf());
 		System.out.println("Senha: " + funcionarioDrogaria.getSenha() + ". Codigo: "
 				+ funcionarioDrogaria.getCodigo() + ". Fator de comissao: "
@@ -86,6 +88,7 @@ public class SistemaDrogaria {
 		double salarioCaixaMes;
 		// Utiliza��o de upcasting (Polimorfismo) e classe abstrata para o Caixa
 		Cashier funcionarioDrogaria2 = new Cashier("25.555.444-DF", "123.456.789", 15, "Henrique", "Augusto",
+
 				"SHCES Qd 1000", "(61)-1224-5678", 1, 50, "2/10/2012", "Descricao teste!", 1);
 		administrativo = funcionarioDrogaria2;
 		salarioCaixaSemana = administrativo.calculateSalary() / 30 * 4;
@@ -94,22 +97,22 @@ public class SistemaDrogaria {
 				+ df.format(salarioCaixaSemana) + " E por mes: RS " + df.format(salarioCaixaMes));
 
 		// Associacao
-		Medicamento medicamento1 = new Medicamento("NomeTeste", "LaboratorioTeste", "Adulto", "Comprimido",
+		Medicament medicamento1 = new Medicament("NomeTeste", "LaboratorioTeste", "Adulto", "Comprimido",
 				"10/10/2020", "1cp. a cada 8 horas");
-		Medicamento medicamento2 = new Medicamento("NomeTeste 2", "LaboratorioTeste 2", "Crian�a", "L�quido",
+		Medicament medicamento2 = new Medicament("NomeTeste 2", "LaboratorioTeste 2", "Crian�a", "L�quido",
 				"01/07/2014", "5 ml de 6 em 6 horas");
 
 		// Lista de medicamentos para associacao
-		Medicamento[] medicamentosAs = { medicamento1, medicamento2 };
-		funcionarioDrogaria.setMedicamentos(medicamentosAs);
+		Medicament[] medicamentosAs = { medicamento1, medicamento2 };
+		funcionarioDrogaria.setMedicaments(medicamentosAs);
 		// Listando
-		funcionarioDrogaria.listarMedicamentosAssociados();
+		funcionarioDrogaria.listarMedicamentsAssociados();
 		// Fim Associacao
 
 		// Agregacao
-		Medicamento medicamento3 = new Medicamento("Paracetamol", "Germed", "Infantil", "L�quido", "01/08/2015",
+		Medicament medicamento3 = new Medicament("Paracetamol", "Germed", "Infantil", "L�quido", "01/08/2015",
 				"2,5 ml a cada 4 horas");
-		Medicamento medicamento4 = new Medicamento("Aspirina", "Germed", "Adulto", "Comprimido", "01/08/2015",
+		Medicament medicamento4 = new Medicament("Aspirina", "Germed", "Adulto", "Comprimido", "01/08/2015",
 				"8 em 8 horas");
 
 		Registro registro1 = new Registro("12.345");
@@ -134,6 +137,7 @@ public class SistemaDrogaria {
 
 		System.out.println("O Funcionario do Caixa �:" + caixaComposicao.getClerk().getName());
 
+
 		// Fim Composicao
 
 		// Polimorfismo
@@ -146,6 +150,7 @@ public class SistemaDrogaria {
 		pessoa = caixa;
 		System.out.println("A confirma��o do pagamento do Caixa (1: Confirmado e 0:Rejeitado) �: "
 				+ pessoa.paymentConfirmation());
+
 
 		// Interface
 		Client novoClienteInterface = new Client("13.999.888-DF", "444.555.666", 11, "INTERFACE", "INTERFACE",
