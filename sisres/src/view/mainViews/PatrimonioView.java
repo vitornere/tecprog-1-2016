@@ -191,7 +191,10 @@ public abstract class PatrimonioView extends JDialog {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
+    /*
+     * </editor-fold>//GEN-END:initComponents
+     */
 
     private void visualizarActionPerformed(java.awt.event.ActionEvent evt) {
         int index = this.tabelaPatrimonio.getSelectedRow();
@@ -236,8 +239,11 @@ public abstract class PatrimonioView extends JDialog {
 
         excluirAction(index);
 
-    }// GEN-LAST:event_excluirActionPerformed
-
+    }
+    
+    /*
+     * GEN-LAST:event_excluirActionPerformed
+	 */
     protected javax.swing.JButton alterar;
     protected javax.swing.JButton cadastrar;
     protected javax.swing.JButton excluir;
