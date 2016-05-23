@@ -1,4 +1,5 @@
 /*
+ * This Class is responsible to make a view
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
