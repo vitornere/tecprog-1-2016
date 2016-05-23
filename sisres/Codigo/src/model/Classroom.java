@@ -4,18 +4,19 @@ import exception.PatrimonyException;
 
 public class Classroom extends Patrimony {
 
-	private String capacity;
 
-	private final String INVALID_CAPACITY = "Capacidade Invalida.";
-	private final String EMPTY_CAPACITY = "Capacidade em Branco.";
-	private final String NULL_CAPACITY = "Capacidade esta nula.";
-
+	private static final String INVALID_CAPACITY = "Capacidade Invalida.";
+	private static final String EMPTY_CAPACITY = "Capacidade em Branco.";
+	private static final String NULL_CAPACITY = "Capacidade esta nula.";
+	
 	public Classroom(String idClassroom, String descriptionClassroom,
 			String capacityClassroom) throws PatrimonyException {
 		super(idClassroom, descriptionClassroom);
 		this.setCapacity(capacityClassroom);
 	}
-
+	
+	private String capacity;
+	
 	public String getCapacity() {
 		return capacity;
 	}
