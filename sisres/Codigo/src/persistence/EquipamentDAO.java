@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import model.Equipamento;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 public class EquipamentDAO {
 
@@ -45,24 +45,24 @@ public class EquipamentDAO {
 	/** Method to add equipament in the database
 	 * @param equipament Equipamento - Object to add in database
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws PatrimonioException happens when equipament is null or his code exist
+	 * @throws PatrimonyException happens when equipament is null or his code exist
 	 */
 	public void add(Equipamento equipament) throws SQLException,
-			PatrimonioException {
+			PatrimonyException {
 		
 		if (equipament == null) {
-			throw new PatrimonioException(NULLEQUIPAMENT);
+			throw new PatrimonyException(NULLEQUIPAMENT);
 		}
 		else {
-			if (this.inDBcode(equipament.getCodigo())) {
-				throw new PatrimonioException(EXISTENTCODE);
+			if (this.inDBcode(equipament.getCode())) {
+				throw new PatrimonyException(EXISTENTCODE);
 			} 
 			else {
 				if (!this.inDB(equipament)) {
 					this.updateQuery("INSERT INTO "
 							+ "equipamento (codigo, descricao) VALUES (" + "\""
-							+ equipament.getCodigo() + "\", " + "\""
-							+ equipament.getDescricao() + "\");");
+							+ equipament.getCode() + "\", " + "\""
+							+ equipament.getDescription() + "\");");
 				}
 			}
 		}
@@ -73,43 +73,43 @@ public class EquipamentDAO {
 	 * @param old_equipment Equipamento - has the equipment to update
 	 * @param new_equipment - has the update equipment
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws PatrimonioException happens when old or new equipment is null or his code exist
+	 * @throws PatrimonyException happens when old or new equipment is null or his code exist
 	 */
 	public void change(Equipamento old_equipment, Equipamento new_equipment)
-			throws SQLException, PatrimonioException {
+			throws SQLException, PatrimonyException {
 		
 		//Verify if the old equipment and new equipment is valid
 		if (old_equipment != null) {
 			// Nothing to do
 		}
 		else{
-			throw new PatrimonioException(NULLEQUIPAMENT);	
+			throw new PatrimonyException(NULLEQUIPAMENT);	
 		}
 		if (new_equipment != null) {
 			// Nothing to do
 		}
 		else{
-			throw new PatrimonioException(NULLEQUIPAMENT);
+			throw new PatrimonyException(NULLEQUIPAMENT);
 		}
 		if (this.inDB(old_equipment)) {
 			// Nothing to do
 		} 
 		else{
-			throw new PatrimonioException(EQUIPAMENTNOTEXIST);
+			throw new PatrimonyException(EQUIPAMENTNOTEXIST);
 		}
 		if (this.inOtherDB(old_equipment)) {
 			// Nothing to do
 		} 
 		else{
-			throw new PatrimonioException(EQUIPAMENTINUSE);
+			throw new PatrimonyException(EQUIPAMENTINUSE);
 		}
-		if (new_equipment.getCodigo().equals(
-				old_equipment.getCodigo())
-				&& this.inDBcode(new_equipment.getCodigo())) {
+		if (new_equipment.getCode().equals(
+				old_equipment.getCode())
+				&& this.inDBcode(new_equipment.getCode())) {
 			// Nothing to do
 		} 
 		else {
-			throw new PatrimonioException(EXISTENTCODE);
+			throw new PatrimonyException(EXISTENTCODE);
 		}
 			
 		
@@ -120,13 +120,13 @@ public class EquipamentDAO {
 		//try update in database
 		if (!this.inDB(new_equipment)) {
 			String msg = "UPDATEequipament SET " + "codigo = \""
-					+ new_equipment.getCodigo() + "\", "
+					+ new_equipment.getCode() + "\", "
 					+ "descricao = \""
-					+ new_equipment.getDescricao() + "\""
+					+ new_equipment.getDescription() + "\""
 					+ " WHERE " + "equipamento.codigo = \""
-					+ old_equipment.getCodigo() + "\" and "
+					+ old_equipment.getCode() + "\" and "
 					+ "equipamento.descricao = \""
-					+ old_equipment.getDescricao() + "\";";
+					+ old_equipment.getDescription() + "\";";
 
 			connection.setAutoCommit(false);
 			prepare_query_to_database = connection.prepareStatement(msg);
@@ -137,7 +137,7 @@ public class EquipamentDAO {
 
 		} 
 		else {
-			throw new PatrimonioException(EXISTENTEQUIPAMENT);
+			throw new PatrimonyException(EXISTENTEQUIPAMENT);
 		}
 		
 		//close connection
@@ -147,33 +147,33 @@ public class EquipamentDAO {
 	/** Method to remove equipment from database
 	 * @param equipament Equipamento - equipment to remove
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws PatrimonioException happens when old or new equipment is null, not exist or in use
+	 * @throws PatrimonyException happens when old or new equipment is null, not exist or in use
 	 */
 	public void delete(Equipamento equipament) throws SQLException,
-			PatrimonioException {
+			PatrimonyException {
 		//Verify is valid equipment
 		if (equipament != null) {
 			//Nothing to do
 		} 
 		else{
-			throw new PatrimonioException(NULLEQUIPAMENT);
+			throw new PatrimonyException(NULLEQUIPAMENT);
 		}
 		if (!this.inOtherDB(equipament)) {
 			//Nothing to do
 		}
 		else{
-			throw new PatrimonioException(EQUIPAMENTINUSE);
+			throw new PatrimonyException(EQUIPAMENTINUSE);
 		}
 		
 		//try remove equipment from database
 		if (this.inDB(equipament)) {
 			this.updateQuery("DELETE FROM equipamento WHERE "
-					+ "equipamento.codigo = \"" + equipament.getCodigo()
+					+ "equipamento.codigo = \"" + equipament.getCode()
 					+ "\" and " + "equipamento.descricao = \""
-					+ equipament.getDescricao() + "\";");
+					+ equipament.getDescription() + "\";");
 		}
 		else {
-			throw new PatrimonioException(EQUIPAMENTNOTEXIST);
+			throw new PatrimonyException(EQUIPAMENTNOTEXIST);
 		}
 		
 	}
@@ -182,10 +182,10 @@ public class EquipamentDAO {
 	 * Method to return all data in database
 	 * @return Vector<Equipamento> data when all registers
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws PatrimonioException don't happens
+	 * @throws PatrimonyException don't happens
 	 */
 	public Vector<Equipamento> searchAll() throws SQLException,
-			PatrimonioException {
+			PatrimonyException {
 		return this.search("SELECT * FROM equipamento;");
 	}
 
@@ -195,10 +195,10 @@ public class EquipamentDAO {
 	 * @param code String - Restriction in sql consult
 	 * @return Vector<Equipamento> data when all registers
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws PatrimonioException don't happens
+	 * @throws PatrimonyException don't happens
 	 */
 	public Vector<Equipamento> searchByCode(String code) throws SQLException,
-			PatrimonioException {
+			PatrimonyException {
 		return this.search("SELECT * FROM equipamento WHERE codigo = " + "\""
 				+ code + "\";");
 	}
@@ -208,10 +208,10 @@ public class EquipamentDAO {
 	 * @param description String - Restriction in sql consult
 	 * @return Vector<Equipamento> data when all registers
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws PatrimonioException don't happens
+	 * @throws PatrimonyException don't happens
 	 */
 	public Vector<Equipamento> searchByDescription(String description)
-			throws SQLException, PatrimonioException {
+			throws SQLException, PatrimonyException {
 		return this.search("SELECT * FROM equipamento WHERE descricao = " + "\""
 				+ description + "\";");
 	}
@@ -222,10 +222,10 @@ public class EquipamentDAO {
 	 * @param query String - Select query 
 	 * @return Vector<Equipamento> data when all registers
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws PatrimonioException don't happens
+	 * @throws PatrimonyException don't happens
 	 */
 	private Vector<Equipamento> search(String query) throws SQLException,
-			PatrimonioException {
+			PatrimonyException {
 
 		//Start connection
 		Connection connection = FactoryConnection.getInstance().getConnection();
@@ -287,10 +287,10 @@ public class EquipamentDAO {
 	 * @throws SQLException happens when sql code is wrong
 	 */
 	private boolean inDB(Equipamento equipament) throws SQLException,
-			PatrimonioException {
+			PatrimonyException {
 		return this.inDBGeneric("SELECT * FROM equipamento WHERE "
-				+ "equipamento.codigo = \"" + equipament.getCodigo() + "\" and "
-				+ "equipamento.descricao = \"" + equipament.getDescricao() + "\";");
+				+ "equipamento.codigo = \"" + equipament.getCode() + "\" and "
+				+ "equipamento.descricao = \"" + equipament.getDescription() + "\";");
 	}
 
 
@@ -315,8 +315,8 @@ public class EquipamentDAO {
 		return this
 				.inDBGeneric("SELECT * FROM reserva_equipamento WHERE "
 						+ "id_equipamento = (SELECT id_equipamento FROM equipamento WHERE "
-						+ "equipamento.codigo = \"" + equipament.getCodigo() + "\" and "
-						+ "equipamento.descricao = \"" + equipament.getDescricao()
+						+ "equipamento.codigo = \"" + equipament.getCode() + "\" and "
+						+ "equipamento.descricao = \"" + equipament.getDescription()
 						+ "\");");
 	}
 
@@ -324,11 +324,11 @@ public class EquipamentDAO {
 	 * Method to convert result set in Equipment
 	 * @param equipament_data result set contain equipment data
 	 * @return new Equipment with data in result set
-	 * @throws PatrimonioException  will occur if the code is invalid, can no longer exist and not be null
+	 * @throws PatrimonyException  will occur if the code is invalid, can no longer exist and not be null
 	 * @throws SQLException happens when sql code is wrong
 	 */
 	private Equipamento fetchEquipamento(ResultSet equipament_data)
-			throws PatrimonioException, SQLException {
+			throws PatrimonyException, SQLException {
 		return new Equipamento(equipament_data.getString("codigo"),
 				equipament_data.getString("descricao"));
 	}

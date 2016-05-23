@@ -9,30 +9,30 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import control.ManterEquipamento;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * @author Parley
  * @editor Aulus
  */
-public class CadastroEquipamento extends CadastroPatrimonio {
+public class EquipmentRegistration extends PatrimonyRegistration {
 
-    public CadastroEquipamento(java.awt.Frame parent, boolean modal) {
+    public EquipmentRegistration(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setName("CadastroEquipamento");
-        this.capacidadeLbl.setVisible(false);
-        this.capacidadeTxtField.setVisible(false);
+        this.lblCapacity.setVisible(false);
+        this.capacityTxtField.setVisible(false);
     }
 
-    @Override protected void cadastroAction() {
+    @Override protected void registrationAction() {
 
         try {
-            ManterEquipamento.getInstance().inserir(codigoTxtField.getText(), descricaoTextArea.getText());
+            ManterEquipamento.getInstance().inserir(codeTxtField.getText(), discriptionTextArea.getText());
             JOptionPane.showMessageDialog(this, "Equipamento Cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                     null);
             this.setVisible(false);
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

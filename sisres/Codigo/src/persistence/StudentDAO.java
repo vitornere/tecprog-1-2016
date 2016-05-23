@@ -11,7 +11,6 @@ import java.sql.*;
 import java.util.Vector;
 
 import exception.ClienteException;
-import exception.PatrimonioException;
 
 public class StudentDAO {
 

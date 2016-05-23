@@ -20,7 +20,7 @@ import view.reservasEquipamentos.FazerReservaEquipamentoView;
 import view.reservasEquipamentos.ReservaEquipamentoView;
 import control.ManterResEquipamentoProfessor;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 /**
@@ -43,14 +43,14 @@ public class HoursEquipamentReservation extends HoursPatrimonyReservation {
         
         if (o instanceof ReservaEquipamentoProfessor) {
             ReservaEquipamentoProfessor r = (ReservaEquipamentoProfessor) o;
-            
+           
             if (this.equipament != null && (r.getEquipamento().equals(this.equipament))) {
                 tableNames.add(String.valueOf(index));                
                 tableNames.add(r.getHora());                
                 tableNames.add(r.getProfessor().getNome());
                 tableNames.add(r.getProfessor().getMatricula());                
-                tableNames.add(r.getEquipamento().getCodigo());                
-                tableNames.add(r.getEquipamento().getDescricao());
+                tableNames.add(r.getEquipamento().getCode());                
+                tableNames.add(r.getEquipamento().getDescription());
             }
             else {
             	// Nothing to do
@@ -93,7 +93,7 @@ public class HoursEquipamentReservation extends HoursPatrimonyReservation {
             }
         } catch (SQLException ex) {
             Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClienteException ex) {
             Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
@@ -123,7 +123,7 @@ public class HoursEquipamentReservation extends HoursPatrimonyReservation {
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (ClienteException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -139,7 +139,7 @@ public class HoursEquipamentReservation extends HoursPatrimonyReservation {
             reserva.setVisible(true);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (ClienteException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

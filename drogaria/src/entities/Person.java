@@ -1,7 +1,7 @@
 package entities;
 
 //Super classe de balconista,cliente e caixa
-public class Pessoa extends Administrativo {
+public class Person extends Administrativo {
 
 	protected String rg;
 	protected String cpf;
@@ -13,18 +13,18 @@ public class Pessoa extends Administrativo {
 	private static double confirmacaoPagamento;// Polimorfismo
 	protected double salario;// Classe Abstrata
 
-	public Pessoa() {
+	public Person() {
 	}
 
 	// Documentos
-	public Pessoa(String rgPessoa, String cpfPessoa, int digitoCpfPessoa) {
+	public Person(String rgPessoa, String cpfPessoa, int digitoCpfPessoa) {
 		this.rg = rgPessoa;
 		this.cpf = cpfPessoa;
 		this.digitoCpf = digitoCpfPessoa;
 	}
 
 	// Nomes
-	public Pessoa(String nomePessoa, String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
+	public Person(String nomePessoa, String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
 		this.nome = nomePessoa;
 		this.sobrenome = sobrenomePessoa;
 		this.endereco = enderecoPessoa;
@@ -32,7 +32,7 @@ public class Pessoa extends Administrativo {
 	}
 
 	// Todos os parametros
-	public Pessoa(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
+	public Person(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
 			String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
 		this.rg = rgPessoa;
 		this.cpf = cpfPessoa;
@@ -76,8 +76,8 @@ public class Pessoa extends Administrativo {
 		}
 	}
 
-	public double confirmacaoPagamento() {
-		if (this.getConfirmacaoPagamento() == 1) {
+	public double paymentConfirmation() {
+		if (this.getPaymentConfirmation() == 1) {
 			return 1; // Confirma que o pagamento foi aceito.
 		}
 		else {
@@ -86,7 +86,7 @@ public class Pessoa extends Administrativo {
 	}
 
 	// Metodo de calculo do salario do funcionario
-	public double calcularSalario() {
+	public double calculateSalary() {
 		return this.salario;
 	}
 
@@ -114,7 +114,7 @@ public class Pessoa extends Administrativo {
 		this.digitoCpf = digitoCpf;
 	}
 
-	public String getNome() {
+	public String getName() {
 		return nome;
 	}
 
@@ -122,7 +122,7 @@ public class Pessoa extends Administrativo {
 		this.nome = nome;
 	}
 
-	public String getSobrenome() {
+	public String getLastName() {
 		return sobrenome;
 	}
 
@@ -138,7 +138,7 @@ public class Pessoa extends Administrativo {
 		this.endereco = endereco;
 	}
 
-	public String getTelefone() {
+	public String getPhone() {
 		return telefone;
 	}
 
@@ -146,12 +146,12 @@ public class Pessoa extends Administrativo {
 		this.telefone = telefone;
 	}
 
-	public static double getConfirmacaoPagamento() {
+	public static double getPaymentConfirmation() {
 		return confirmacaoPagamento;
 	}
 
 	public static void setConfirmacaoPagamento(double confirmacaoPagamento) {
-		Pessoa.confirmacaoPagamento = confirmacaoPagamento;
+		Person.confirmacaoPagamento = confirmacaoPagamento;
 	}
 
 }

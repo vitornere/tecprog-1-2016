@@ -4,13 +4,14 @@ package sistemadrogaria;
 
 import java.text.DecimalFormat;
 
+import entities.Clerk;
+import entities.Cashier;
+import entities.Client;
 import entities.Administrativo;
-import entities.Balconista;
-import entities.Caixa;
-import entities.Cliente;
 import entities.Medicament;
-import entities.Pessoa;
+import entities.Person;
 import entities.Registro;
+
 
 public class SistemaDrogaria {
 
@@ -20,11 +21,11 @@ public class SistemaDrogaria {
 	public static void main(String[] args) {
 
 		// Instanciando um objeto da classe dos funcionarios.
-		Balconista funcionarioDrogaria = new Balconista("13.523.542-PA", "123.456.789", 12, "Victor", "Fellipe",
+		Clerk funcionarioDrogaria = new Clerk("13.523.542-PA", "123.456.789", 12, "Victor", "Fellipe",
 				"SHCES Qd 1000", "(61)1234-5678", 1234, 5678, 20, 2, 20);
 
 		// Instanciando um objeto da classe dos clientes - DEPENDENCIA CORRIGIDA
-		Cliente novoCliente = new Cliente("13.999.888-DF", "444.555.666", 11, "Teste", "Teste", "Gama qd. 1000",
+		Client novoCliente = new Client("13.999.888-DF", "444.555.666", 11, "Teste", "Teste", "Gama qd. 1000",
 				"(61)-1234-5678", "cliente1@gmail.com");
 
 		// Criando e cadastrando um medicamento
@@ -32,21 +33,22 @@ public class SistemaDrogaria {
 				"10/10/2020", "1cp. a cada 8 horas");
 
 		// Criando e cadastrando uma transacao do caixa
-		Caixa caixa = new Caixa("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100,
+		Cashier caixa = new Cashier("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100,
 				"10/10/2020", "transacaoTeste", 1);
 
 		// Imprimindo no console as informacoes do Funcion�rio
-		System.out.println("Funcionario:" + funcionarioDrogaria.getNome() + funcionarioDrogaria.getSobrenome());
+		System.out.println("Funcionario:" + funcionarioDrogaria.getName() + funcionarioDrogaria.getLastName());
+
 		System.out.println("CPF: " + funcionarioDrogaria.getCpf() + "-" + funcionarioDrogaria.getDigitoCpf());
 		System.out.println("Senha: " + funcionarioDrogaria.getSenha() + ". Codigo: "
 				+ funcionarioDrogaria.getCodigo() + ". Fator de comissao: "
 				+ funcionarioDrogaria.getFatorComissao() + " %");
 		System.out.println("Endereco: " + funcionarioDrogaria.getEndereco() + ".Telefone: "
-				+ funcionarioDrogaria.getTelefone());
+				+ funcionarioDrogaria.getPhone());
 
 		// Imprimindo no console as informacoes do Cliente
-		System.out.println("Nome do Cliente cadastrado: " + novoCliente.getNome() + novoCliente.getSobrenome()
-				+ ".Endereco: " + novoCliente.getEndereco() + ".Telefone: " + novoCliente.getTelefone());
+		System.out.println("Nome do Cliente cadastrado: " + novoCliente.getName() + novoCliente.getLastName()
+				+ ".Endereco: " + novoCliente.getEndereco() + ".Telefone: " + novoCliente.getPhone());
 		System.out.println("RG: " + novoCliente.getRg());
 		System.out.println("CPF: " + novoCliente.getCpf());
 		System.out.println("Email: " + novoCliente.getEmail());
@@ -59,13 +61,13 @@ public class SistemaDrogaria {
 		System.out.println("Validade: " + novoMedicamento.getValidade());
 
 		// Imprimindo no console as informacoes do Caixa
-		System.out.println("\nTipo da transa��o:" + caixa.getTipo());
-		System.out.printf("Valor da transa��o: R$ %.2f\n", caixa.getValor());
-		System.out.println("Data da transa��o: " + caixa.getData());
-		System.out.println("Descri��o: " + caixa.getDescricao());
-		System.out.println("Saldo atual: " + caixa.getSaldoAtual());
-		caixa.depositar(150);
-		System.out.println("\nSaldo atual: " + caixa.getSaldoAtual());
+		System.out.println("\nTipo da transa��o:" + caixa.getType());
+		System.out.printf("Valor da transa��o: R$ %.2f\n", caixa.getValue());
+		System.out.println("Data da transa��o: " + caixa.getDate());
+		System.out.println("Descri��o: " + caixa.getDescription());
+		System.out.println("Saldo atual: " + caixa.getCurrentBalance());
+		caixa.deposito(150);
+		System.out.println("\nSaldo atual: " + caixa.getCurrentBalance());
 
 		// Decimal Format para restringir o numero de casas decimais dos valores a serem apresentados
 		DecimalFormat df = new DecimalFormat("0.00");
@@ -73,24 +75,25 @@ public class SistemaDrogaria {
 
 		double salarioSemana, salarioMes;
 		// Utiliza��o de upcasting (Polimorfismo) e classe abstrata
-		Balconista funcionarioDrogaria1 = new Balconista("13.523.542-PA", "123.456.789", 12, "Victor", "Fellipe",
+		Clerk funcionarioDrogaria1 = new Clerk("13.523.542-PA", "123.456.789", 12, "Victor", "Fellipe",
 				"SHCES Qd 1000", "(61)-1234-5678", 1234, 5678, 20, 10, 40);
 		administrativo = funcionarioDrogaria1;
-		salarioSemana = administrativo.calcularSalario();
-		salarioMes = (administrativo.calcularSalario()) / 7 * 30;
-		System.out.println("Salario do balconista " + funcionarioDrogaria1.getNome() + " por semana e: RS"
+		salarioSemana = administrativo.calculateSalary();
+		salarioMes = (administrativo.calculateSalary()) / 7 * 30;
+		System.out.println("Salario do balconista " + funcionarioDrogaria1.getName() + " por semana e: RS"
 				+ df.format(salarioSemana));
 		System.out.println(" E por mes: RS " + df.format(salarioMes));
 
 		double salarioCaixaSemana;
 		double salarioCaixaMes;
 		// Utiliza��o de upcasting (Polimorfismo) e classe abstrata para o Caixa
-		Caixa funcionarioDrogaria2 = new Caixa("25.555.444-DF", "123.456.789", 15, "Henrique", "Augusto",
+		Cashier funcionarioDrogaria2 = new Cashier("25.555.444-DF", "123.456.789", 15, "Henrique", "Augusto",
+
 				"SHCES Qd 1000", "(61)-1224-5678", 1, 50, "2/10/2012", "Descricao teste!", 1);
 		administrativo = funcionarioDrogaria2;
-		salarioCaixaSemana = administrativo.calcularSalario() / 30 * 4;
-		salarioCaixaMes = administrativo.calcularSalario();
-		System.out.println("Salario do balconista " + funcionarioDrogaria2.getNome() + " por semana e: RS "
+		salarioCaixaSemana = administrativo.calculateSalary() / 30 * 4;
+		salarioCaixaMes = administrativo.calculateSalary();
+		System.out.println("Salario do balconista " + funcionarioDrogaria2.getName() + " por semana e: RS "
 				+ df.format(salarioCaixaSemana) + " E por mes: RS " + df.format(salarioCaixaMes));
 
 		// Associacao
@@ -101,9 +104,9 @@ public class SistemaDrogaria {
 
 		// Lista de medicamentos para associacao
 		Medicament[] medicamentosAs = { medicamento1, medicamento2 };
-		funcionarioDrogaria.setMedicamentos(medicamentosAs);
+		funcionarioDrogaria.setMedicaments(medicamentosAs);
 		// Listando
-		funcionarioDrogaria.listarMedicamentosAssociados();
+		funcionarioDrogaria.listarMedicamentsAssociados();
 		// Fim Associacao
 
 		// Agregacao
@@ -125,32 +128,34 @@ public class SistemaDrogaria {
 		// Fim Agregacao
 
 		// Composicao3
-		Caixa caixaComposicao = new Caixa("25.555.444-DF", "123.456.789", 15, "Henrique", "Augusto",
+		Cashier caixaComposicao = new Cashier("25.555.444-DF", "123.456.789", 15, "Henrique", "Augusto",
 				"SHCES Qd 1000", "(61)-1224-5678", 1, 50, "2/10/2012", "Descricao teste!", 1);
 
-		caixaComposicao.criarBalconista();
-		caixaComposicao.getBalconista().cadastraBalconista("13.523.542-PA", "123.456.789", 12, "Joao", "Augusto",
+		caixaComposicao.createClerk();
+		caixaComposicao.getClerk().cadastraBalconista("13.523.542-PA", "123.456.789", 12, "Joao", "Augusto",
 				"Asa sul", "(61)1234-5678");
 
-		System.out.println("O Funcionario do Caixa �:" + caixaComposicao.getBalconista().getNome());
+		System.out.println("O Funcionario do Caixa �:" + caixaComposicao.getClerk().getName());
+
 
 		// Fim Composicao
 
 		// Polimorfismo
-		Pessoa pessoa;
+		Person pessoa;
 		// Upcasting
 		pessoa = funcionarioDrogaria;
 		System.out.println("A confirma��o do pagamento do Funcion�rio (1: Confirmado e 0:Rejeitado) �: "
-				+ pessoa.confirmacaoPagamento());
+				+ pessoa.paymentConfirmation());
 		// Upcasting
 		pessoa = caixa;
 		System.out.println("A confirma��o do pagamento do Caixa (1: Confirmado e 0:Rejeitado) �: "
-				+ pessoa.confirmacaoPagamento());
+				+ pessoa.paymentConfirmation());
+
 
 		// Interface
-		Cliente novoClienteInterface = new Cliente("13.999.888-DF", "444.555.666", 11, "INTERFACE", "INTERFACE",
+		Client novoClienteInterface = new Client("13.999.888-DF", "444.555.666", 11, "INTERFACE", "INTERFACE",
 				"Gama qd. 1000", "(61)-1234-5678", "cliente1@gmail.com");
-		novoClienteInterface.remediosRecomendados("GENERICO", "PEDIATRICO");
+		novoClienteInterface.recommendedMedicines("GENERICO", "PEDIATRICO");
 	}
 
 }

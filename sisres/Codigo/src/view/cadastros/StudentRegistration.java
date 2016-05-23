@@ -15,18 +15,18 @@ import exception.ClienteException;
  * 
  * @author Parley
  */
-public class CadastroAluno extends CadastroCliente {
+public class StudentRegistration extends ClientRegistration {
 
-    public CadastroAluno(java.awt.Frame parent, boolean modal) {
+    public StudentRegistration(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setName("CadastroAluno");
     }
 
-    @Override public void cadastroAction() {
+    @Override public void registrationAction() {
         try {
-            if (cadastroBtn.getText().equals("Cadastrar")) {
-                ManterAluno.getInstance().inserir(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
-                        telefoneTxtField.getText(), emailTxtField.getText());
+            if (btnRegistration.getText().equals("Cadastrar")) {
+                ManterAluno.getInstance().inserir(nameTxtField.getText(), cpfTxtField.getText(), enrollmentTxtField.getText(),
+                        phoneTxtField.getText(), emailTxtField.getText());
 
                 JOptionPane.showMessageDialog(this, "Aluno Cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null);

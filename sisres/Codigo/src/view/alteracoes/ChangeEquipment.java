@@ -4,35 +4,35 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import view.cadastros.CadastroPatrimonio;
+import view.cadastros.PatrimonyRegistration;
 import control.ManterEquipamento;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * 
  * @author Parley
  */
-public class AlterarEquipamento extends CadastroPatrimonio {
+public class ChangeEquipment extends PatrimonyRegistration {
 
     private int index2 = 0;
 
-    public AlterarEquipamento(java.awt.Frame parent, boolean modal, int index) {
+    public ChangeEquipment(java.awt.Frame parent, boolean modal, int index) {
         super(parent, modal);
         this.setTitle("Alterar");
         this.setName("AlterarEquipamento");
-        this.cadastroBtn.setText("Alterar");
-        this.cadastroBtn.setName("Alterar");
-        this.capacidadeLbl.setVisible(false);
-        this.capacidadeTxtField.setVisible(false);
+        this.btnRegistration.setText("Alterar");
+        this.btnRegistration.setName("Alterar");
+        this.lblCapacity.setVisible(false);
+        this.capacityTxtField.setVisible(false);
         index2 = index;
 
         try {
 
-            this.codigoTxtField.setText(ManterEquipamento.getInstance().getEquipamento_vet().get(index).getCodigo());
-            this.descricaoTextArea.setText(ManterEquipamento.getInstance().getEquipamento_vet().get(index).getDescricao());
+            this.codeTxtField.setText(ManterEquipamento.getInstance().getEquipamento_vet().get(index).getCode());
+            this.discriptionTextArea.setText(ManterEquipamento.getInstance().getEquipamento_vet().get(index).getDescription());
             this.index2 = index;
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -42,17 +42,17 @@ public class AlterarEquipamento extends CadastroPatrimonio {
 
     }
 
-    @Override protected void cadastroAction() {
+    @Override protected void registrationAction() {
         try {
 
-            ManterEquipamento.getInstance().alterar(codigoTxtField.getText(), descricaoTextArea.getText(),
+            ManterEquipamento.getInstance().alterar(codeTxtField.getText(), discriptionTextArea.getText(),
                     ManterEquipamento.getInstance().getEquipamento_vet().get(index2));
 
             JOptionPane.showMessageDialog(this, "Equipamento alterado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                     null);
             this.setVisible(false);
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

@@ -177,8 +177,8 @@ public class TesteFuncionario {
 
 	@Test
 	public void getTestBoolean() {
-		balconista.setStatusBalconista(true);
-		assertTrue(balconista.isStatusBalconista());
+		balconista.setStatusClerk(true);
+		assertTrue(balconista.isStatusClerk());
 	}
 
 	@Test

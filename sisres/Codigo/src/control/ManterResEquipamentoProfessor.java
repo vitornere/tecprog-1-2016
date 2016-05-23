@@ -8,7 +8,7 @@ import model.Professor;
 import model.ReservaEquipamentoProfessor;
 import persistence.EquipamentReservationForTeacherDAO;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 public class ManterResEquipamentoProfessor {
@@ -28,18 +28,18 @@ public class ManterResEquipamentoProfessor {
 
     //
 
-    public Vector<ReservaEquipamentoProfessor> getReservasHora(String hora) throws SQLException, PatrimonioException,
+    public Vector<ReservaEquipamentoProfessor> getReservasHora(String hora) throws SQLException, PatrimonyException,
             ClienteException, ReservaException {
         return EquipamentReservationForTeacherDAO.getInstance().buscarPorHora(hora);
 
     }
 
-    public Vector<ReservaEquipamentoProfessor> getReservasMes(int mes) throws SQLException, PatrimonioException, ClienteException,
+    public Vector<ReservaEquipamentoProfessor> getReservasMes(int mes) throws SQLException, PatrimonyException, ClienteException,
             ReservaException {
         return EquipamentReservationForTeacherDAO.getInstance().buscarPorMes(mes);
     }
 
-    public Vector<Object> getResEquipamentoProfessor_vet() throws SQLException, ClienteException, PatrimonioException,
+    public Vector<Object> getResEquipamentoProfessor_vet() throws SQLException, ClienteException, PatrimonyException,
             ReservaException {
         this.rev_equipamento_professor_vet = EquipamentReservationForTeacherDAO.getInstance().buscarTodos();
         return this.rev_equipamento_professor_vet;

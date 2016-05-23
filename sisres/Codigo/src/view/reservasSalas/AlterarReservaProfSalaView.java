@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 import model.ReservaSalaProfessor;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 /**
@@ -33,7 +33,7 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
     }
 
     public AlterarReservaProfSalaView(Frame parent, boolean modal, int index, String data) throws SQLException,
-            PatrimonioException, PatrimonioException, ClienteException, ReservaException {
+            PatrimonyException, PatrimonyException, ClienteException, ReservaException {
         super(parent, modal);
         this.setName("AlterarReservaSalaView");
         this.reservaProfessor = instanceProf.buscarPorData(data).get(index);
@@ -71,8 +71,8 @@ public class AlterarReservaProfSalaView extends ReservaSalaView {
         this.alunoTextArea.setText(reservaProfessor.getProfessor().toString());
         this.salaTextArea.setText(reservaProfessor.getSala().toString());
         this.dataTextField.setText(reservaProfessor.getData());
-        this.qntCadeirasTxtField.setText(reservaProfessor.getSala().getCapacidade());
-        this.qntCadeirasReservadasTextField.setText(reservaProfessor.getSala().getCapacidade());
+        this.qntCadeirasTxtField.setText(reservaProfessor.getSala().getCapacity());
+        this.qntCadeirasReservadasTextField.setText(reservaProfessor.getSala().getCapacity());
         this.qntCadeirasReservadasTextField.setBackground(blue);
         this.qntCadeirasReservadasTextField.setEditable(false);
         this.finalidadeTextField.setText(reservaProfessor.getFinalidade());

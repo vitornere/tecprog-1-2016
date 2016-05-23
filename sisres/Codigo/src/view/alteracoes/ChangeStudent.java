@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import view.cadastros.CadastroCliente;
+import view.cadastros.ClientRegistration;
 import control.ManterAluno;
 import exception.ClienteException;
 
@@ -16,23 +16,23 @@ import exception.ClienteException;
  * 
  * @author Parley
  */
-public class AlterarAluno extends CadastroCliente {
+public class ChangeStudent extends ClientRegistration {
 
     int index2 = 0;
 
-    public AlterarAluno(java.awt.Frame parent, boolean modal, int index) {
+    public ChangeStudent(java.awt.Frame parent, boolean modal, int index) {
         super(parent, modal);
         this.setTitle("Alterar");
         this.setName("AlterarAluno");
-        this.cadastroBtn.setText("Alterar");
-        this.cadastroBtn.setName("Alterar");
+        this.btnRegistration.setText("Alterar");
+        this.btnRegistration.setName("Alterar");
         this.index2 = index;
 
         try {
-            this.nomeTxtField.setText(ManterAluno.getInstance().getAluno_vet().get(index).getNome());
+            this.nameTxtField.setText(ManterAluno.getInstance().getAluno_vet().get(index).getNome());
             this.emailTxtField.setText(ManterAluno.getInstance().getAluno_vet().get(index).getEmail());
-            this.telefoneTxtField.setText(ManterAluno.getInstance().getAluno_vet().get(index).getTelefone());
-            this.matriculaTxtField.setText(ManterAluno.getInstance().getAluno_vet().get(index).getMatricula());
+            this.phoneTxtField.setText(ManterAluno.getInstance().getAluno_vet().get(index).getTelefone());
+            this.enrollmentTxtField.setText(ManterAluno.getInstance().getAluno_vet().get(index).getMatricula());
             this.cpfTxtField.setText(ManterAluno.getInstance().getAluno_vet().get(index).getCpf());
 
         } catch (ClienteException ex) {
@@ -42,10 +42,10 @@ public class AlterarAluno extends CadastroCliente {
         }
     }
 
-    @Override public void cadastroAction() {
+    @Override public void registrationAction() {
         try {
-            ManterAluno.getInstance().alterar(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
-                    telefoneTxtField.getText(), emailTxtField.getText(), ManterAluno.getInstance().getAluno_vet().get(index2));
+            ManterAluno.getInstance().alterar(nameTxtField.getText(), cpfTxtField.getText(), enrollmentTxtField.getText(),
+                    phoneTxtField.getText(), emailTxtField.getText(), ManterAluno.getInstance().getAluno_vet().get(index2));
 
             JOptionPane.showMessageDialog(this, "Aluno alterado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             this.setVisible(false);

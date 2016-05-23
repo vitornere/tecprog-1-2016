@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 public abstract class DAO {
@@ -22,10 +22,13 @@ public abstract class DAO {
 	 * @return Vector - vector with the select result
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
+
 	protected Vector search(String query) throws SQLException, ClienteException, 
-													PatrimonioException, ReservaException{
+													PatrimonyException, ReservaException{
 		//Start connection with database
 		Connection connection =  FactoryConnection.getInstance().getConnection();
+		
+		Vector vet = new Vector();
 		
 		//Execute consult into database
 		PreparedStatement prepare_query_to_execute = connection.prepareStatement(query);
@@ -66,12 +69,13 @@ public abstract class DAO {
 		return has_value;
 	}
 
-	/** Method abstract to receive a result set and convert to other object
-	 * @param data ResultSet - result set with the result with the object data
-	 * @return boolean - object with your value
-	 */
-	protected abstract Object fetch(ResultSet data) throws SQLException, ClienteException,
-														PatrimonioException, ReservaException;
+	/**
+	 * Funcao utilizada no buscar, por isso precisa ser implementada
+	 * Ja foi implementada nas outras classes DAO. A implementacao eh
+	 * semelhante.
+	 * */
+	protected abstract Object fetch(ResultSet rs) throws SQLException, ClienteException,
+														PatrimonyException, ReservaException;
 	
 	
 	/** Method to execute data manipulate in database, except consults and updates

@@ -9,20 +9,20 @@ package view.cadastros;
  * 
  * @author Parley
  */
-public abstract class CadastroCliente extends javax.swing.JDialog {// implements
+public abstract class ClientRegistration extends javax.swing.JDialog {// implements
                                                                    // CadastroGeral
                                                                    // {
 
     /**
      * Creates new form CadastroCliente
      */
-    public CadastroCliente(java.awt.Frame parent, boolean modal) {
+    public ClientRegistration(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
     }
 
-    public abstract void cadastroAction();
+    public abstract void registrationAction();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,12 +39,12 @@ public abstract class CadastroCliente extends javax.swing.JDialog {// implements
         cpfLbl = new javax.swing.JLabel();
         emailLbl = new javax.swing.JLabel();
         telefoneLbl = new javax.swing.JLabel();
-        nomeTxtField = new javax.swing.JTextField();
-        matriculaTxtField = new javax.swing.JTextField();
+        nameTxtField = new javax.swing.JTextField();
+        enrollmentTxtField = new javax.swing.JTextField();
         cpfTxtField = new javax.swing.JTextField();
         emailTxtField = new javax.swing.JTextField();
-        telefoneTxtField = new javax.swing.JTextField();
-        cadastroBtn = new javax.swing.JButton();
+        phoneTxtField = new javax.swing.JTextField();
+        btnRegistration = new javax.swing.JButton();
         cancelBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -61,20 +61,20 @@ public abstract class CadastroCliente extends javax.swing.JDialog {// implements
 
         telefoneLbl.setText("Telefone: ");
 
-        nomeTxtField.setName("Nome");
+        nameTxtField.setName("Nome");
 
-        matriculaTxtField.setName("Matricula");
-        matriculaTxtField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        enrollmentTxtField.setName("Matricula");
+        enrollmentTxtField.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 
         cpfTxtField.setName("CPF");
 
         emailTxtField.setName("E-mail");
 
-        telefoneTxtField.setName("Telefone");
+        phoneTxtField.setName("Telefone");
 
-        cadastroBtn.setText("Cadastrar");
-        cadastroBtn.setName("Cadastrar");
-        cadastroBtn.addActionListener(new java.awt.event.ActionListener() {
+        btnRegistration.setText("Cadastrar");
+        btnRegistration.setName("Cadastrar");
+        btnRegistration.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cadastroBtnActionPerformed(evt);
             }
@@ -125,8 +125,8 @@ public abstract class CadastroCliente extends javax.swing.JDialog {// implements
                                                         .addGroup(
                                                                 layout.createParallelGroup(
                                                                         javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(nomeTxtField)
-                                                                        .addComponent(matriculaTxtField,
+                                                                        .addComponent(nameTxtField)
+                                                                        .addComponent(enrollmentTxtField,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE, 453,
                                                                                 Short.MAX_VALUE)
                                                                         .addComponent(cpfTxtField,
@@ -136,14 +136,14 @@ public abstract class CadastroCliente extends javax.swing.JDialog {// implements
                                                                         .addComponent(emailTxtField,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE, 453,
                                                                                 Short.MAX_VALUE)
-                                                                        .addComponent(telefoneTxtField,
+                                                                        .addComponent(phoneTxtField,
                                                                                 javax.swing.GroupLayout.Alignment.TRAILING,
                                                                                 javax.swing.GroupLayout.DEFAULT_SIZE, 453,
                                                                                 Short.MAX_VALUE)))
                                         .addGroup(
                                                 javax.swing.GroupLayout.Alignment.TRAILING,
                                                 layout.createSequentialGroup().addGap(0, 0, Short.MAX_VALUE)
-                                                        .addComponent(cadastroBtn)
+                                                        .addComponent(btnRegistration)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                         .addComponent(cancelBtn))).addContainerGap()));
         layout.setVerticalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGroup(
@@ -153,14 +153,14 @@ public abstract class CadastroCliente extends javax.swing.JDialog {// implements
                                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(nomeLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 21,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(nomeTxtField, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        .addComponent(nameTxtField, javax.swing.GroupLayout.PREFERRED_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(
                                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(matriculaLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 19,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(matriculaTxtField, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        .addComponent(enrollmentTxtField, javax.swing.GroupLayout.PREFERRED_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(
@@ -181,11 +181,11 @@ public abstract class CadastroCliente extends javax.swing.JDialog {// implements
                                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(telefoneLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 23,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(telefoneTxtField, javax.swing.GroupLayout.PREFERRED_SIZE,
+                                        .addComponent(phoneTxtField, javax.swing.GroupLayout.PREFERRED_SIZE,
                                                 javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(
-                                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(cadastroBtn)
+                                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE).addComponent(btnRegistration)
                                         .addComponent(cancelBtn))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
@@ -193,7 +193,7 @@ public abstract class CadastroCliente extends javax.swing.JDialog {// implements
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadastroBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cadastroBtnActionPerformed
-        cadastroAction();
+        registrationAction();
     }// GEN-LAST:event_cadastroBtnActionPerformed
 
     private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cancelBtnActionPerformed
@@ -201,17 +201,17 @@ public abstract class CadastroCliente extends javax.swing.JDialog {// implements
     }// GEN-LAST:event_cancelBtnActionPerformed
      // Variables declaration - do not modify//GEN-BEGIN:variables
 
-    protected javax.swing.JButton cadastroBtn;
+    protected javax.swing.JButton btnRegistration;
     private javax.swing.JButton cancelBtn;
     private javax.swing.JLabel cpfLbl;
     protected javax.swing.JTextField cpfTxtField;
     private javax.swing.JLabel emailLbl;
     protected javax.swing.JTextField emailTxtField;
     private javax.swing.JLabel matriculaLbl;
-    protected javax.swing.JTextField matriculaTxtField;
+    protected javax.swing.JTextField enrollmentTxtField;
     private javax.swing.JLabel nomeLbl;
-    protected javax.swing.JTextField nomeTxtField;
+    protected javax.swing.JTextField nameTxtField;
     private javax.swing.JLabel telefoneLbl;
-    protected javax.swing.JTextField telefoneTxtField;
+    protected javax.swing.JTextField phoneTxtField;
     // End of variables declaration//GEN-END:variables
 }

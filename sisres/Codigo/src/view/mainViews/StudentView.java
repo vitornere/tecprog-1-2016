@@ -9,9 +9,9 @@ import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
-import view.alteracoes.AlterarAluno;
-import view.cadastros.CadastroAluno;
-import view.cadastros.CadastroCliente;
+import view.alteracoes.ChangeStudent;
+import view.cadastros.StudentRegistration;
+import view.cadastros.ClientRegistration;
 import control.ManterAluno;
 import exception.ClienteException;
 
@@ -40,16 +40,15 @@ public class StudentView extends ClientView {
 
     @Override public void registerAction() {
 
-        CadastroCliente studentRegister = new CadastroAluno(new javax.swing.JFrame(), true);
+		ClientRegistration studentRegister = new StudentRegistration(new javax.swing.JFrame(), true);
         studentRegister.setResizable(false);
         studentRegister.setVisible(true);
         clientTable.setModel(fillTable());
-
     }
 
     @Override public void alterarAction(int index) {
 
-        AlterarAluno studentChange = new AlterarAluno(new javax.swing.JFrame(), true, index);
+		ChangeStudent studentChange = new ChangeStudent(new javax.swing.JFrame(), true, index);
         studentChange.setResizable(false);
         studentChange.setVisible(true);
         this.clientTable.setModel(fillTable());

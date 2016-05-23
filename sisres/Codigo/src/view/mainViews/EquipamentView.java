@@ -8,11 +8,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import model.Equipamento;
-import view.alteracoes.AlterarEquipamento;
-import view.cadastros.CadastroEquipamento;
+import view.alteracoes.ChangeEquipment;
+import view.cadastros.EquipmentRegistration;
 import view.diasReservas.EquipmentReserveDay;
 import control.ManterEquipamento;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * 
@@ -35,8 +35,8 @@ public class EquipamentView extends PratimonyView {
 
         Vector<String> tableNames = new Vector<String>();
 
-        tableNames.add(equipament.getCodigo());
-        tableNames.add(equipament.getDescricao());
+        tableNames.add(equipament.getCode());
+        tableNames.add(equipament.getDescription());
 
         return tableNames;
 
@@ -58,7 +58,7 @@ public class EquipamentView extends PratimonyView {
             
             return table;
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -70,7 +70,7 @@ public class EquipamentView extends PratimonyView {
     }
 
     @Override protected void registerAction() {
-        CadastroEquipamento newRegister = new CadastroEquipamento(new javax.swing.JFrame(), true);
+	EquipmentRegistration newRegister = new EquipmentRegistration(new javax.swing.JFrame(), true);
         newRegister.setResizable(false);
         newRegister.setVisible(true);
         this.patrimonyTable.setModel(fillTable());
@@ -78,7 +78,7 @@ public class EquipamentView extends PratimonyView {
 
     @Override protected void changeAction(int index) {
 
-        AlterarEquipamento newChange = new AlterarEquipamento(new javax.swing.JFrame(), true, index);
+		ChangeEquipment newChange = new ChangeEquipment(new javax.swing.JFrame(), true, index);
         newChange.setResizable(false);
         newChange.setVisible(true);
         this.patrimonyTable.setModel(fillTable());
@@ -88,10 +88,10 @@ public class EquipamentView extends PratimonyView {
     @Override protected void excluirAction(int index) {
 
         try {
-            int confirm = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Equipamento: " +
-                     									ManterEquipamento.getInstance().getEquipamento_vet()
-                     									.get(index).getDescricao() + "?", "Excluir", JOptionPane
-                     									.YES_NO_OPTION);
+            int confirm = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Equipamento: "
+                    + ManterEquipamento.getInstance().getEquipamento_vet().get(index).getDescription() + "?", "Excluir",
+                    JOptionPane.YES_NO_OPTION);
+
 
             if (confirm == JOptionPane.YES_OPTION) {
                 ManterEquipamento.getInstance().excluir(ManterEquipamento.getInstance().getEquipamento_vet()
@@ -101,7 +101,7 @@ public class EquipamentView extends PratimonyView {
             }
             this.patrimonyTable.setModel(fillTable());
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -116,7 +116,7 @@ public class EquipamentView extends PratimonyView {
             EquipmentReserveDay reserva = new EquipmentReserveDay(new javax.swing.JFrame(), true, index);
             reserva.setResizable(false);
             reserva.setVisible(true);
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

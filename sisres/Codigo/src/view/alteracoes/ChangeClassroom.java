@@ -8,34 +8,34 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import view.cadastros.CadastroPatrimonio;
+import view.cadastros.PatrimonyRegistration;
 import control.ManterSala;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * 
  * @author Parley
  */
-public class AlterarSala extends CadastroPatrimonio {
+public class ChangeClassroom extends PatrimonyRegistration {
 
     private int index2 = 0;
 
-    public AlterarSala(java.awt.Frame parent, boolean modal, int index) {
+    public ChangeClassroom(java.awt.Frame parent, boolean modal, int index) {
         super(parent, modal);
         this.setTitle("Alterar");
         this.setName("AlterarSala");
-        this.cadastroBtn.setText("Alterar");
-        this.cadastroBtn.setName("Alterar");
+        this.btnRegistration.setText("Alterar");
+        this.btnRegistration.setName("Alterar");
         index2 = index;
 
         try {
 
-            this.codigoTxtField.setText(ManterSala.getInstance().getSalas_vet().get(index).getCodigo());
-            this.capacidadeTxtField.setText(ManterSala.getInstance().getSalas_vet().get(index).getCapacidade());
-            this.descricaoTextArea.setText(ManterSala.getInstance().getSalas_vet().get(index).getDescricao());
+            this.codeTxtField.setText(ManterSala.getInstance().getSalas_vet().get(index).getCode());
+            this.capacityTxtField.setText(ManterSala.getInstance().getSalas_vet().get(index).getCapacity());
+            this.discriptionTextArea.setText(ManterSala.getInstance().getSalas_vet().get(index).getDescription());
             this.index2 = index;
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -45,16 +45,16 @@ public class AlterarSala extends CadastroPatrimonio {
 
     }
 
-    @Override protected void cadastroAction() {
+    @Override protected void registrationAction() {
         try {
 
-            ManterSala.getInstance().alterar(codigoTxtField.getText(), descricaoTextArea.getText(), capacidadeTxtField.getText(),
+            ManterSala.getInstance().alterar(codeTxtField.getText(), discriptionTextArea.getText(), capacityTxtField.getText(),
                     ManterSala.getInstance().getSalas_vet().get(index2));
 
             JOptionPane.showMessageDialog(this, "Sala Alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             this.setVisible(false);
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

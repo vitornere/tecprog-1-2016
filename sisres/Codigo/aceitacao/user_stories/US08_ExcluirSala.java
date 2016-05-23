@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.sql.SQLException;
 
 import model.Aluno;
-import model.Sala;
+import model.Classroom;
 
 import org.fest.swing.core.BasicRobot;
 import org.fest.swing.core.Robot;
@@ -15,52 +15,52 @@ import org.junit.Before;
 import org.junit.Test;
 
 import persistence.AlunoDAO;
-import persistence.SalaDAO;
+import persistence.ClassroomDAO;
 import view.Main2;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
- * US8 Título: Excluir sala. Como usuário Eu quero excluir uma sala Para que a
+ * US8 Tï¿½tulo: Excluir sala. Como usuï¿½rio Eu quero excluir uma sala Para que a
  * mesma seja indisponibilizada para reserva.
  * 
- * Cenário 1: Existe sala cadastrada. Dado que a sala está cadastrada; Quando o
- * usuário solicita a exclusão; Então o sistema deve eliminar os registros da
- * sala, E informar o sucesso da exclusão.
+ * Cenï¿½rio 1: Existe sala cadastrada. Dado que a sala estï¿½ cadastrada; Quando o
+ * usuï¿½rio solicita a exclusï¿½o; Entï¿½o o sistema deve eliminar os registros da
+ * sala, E informar o sucesso da exclusï¿½o.
  * 
- * Cenário 2: Não existe sala cadastrada. Dado que não existe o registro da
- * sala; Quando o usuário solicita exclusão; Então o sistema não exclui nenhum
- * registro de sala, E informa que não há o registro.
+ * Cenï¿½rio 2: Nï¿½o existe sala cadastrada. Dado que nï¿½o existe o registro da
+ * sala; Quando o usuï¿½rio solicita exclusï¿½o; Entï¿½o o sistema nï¿½o exclui nenhum
+ * registro de sala, E informa que nï¿½o hï¿½ o registro.
  */
 
 public class US08_ExcluirSala {
 
     private FrameFixture window;
     private Robot robot;
-    private Sala sala;
+    private Classroom sala;
     private DialogFixture dialog;
     private int index;
 
-    @Before public void setUp() throws PatrimonioException, SQLException {
+    @Before public void setUp() throws PatrimonyException, SQLException {
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
 
         window = new FrameFixture(robot, new Main2());
         window.show(new Dimension(900, 500)); // shows the frame to test
 
-        sala = new Sala("code", "Sala para testes de aceitacao", "123");
-        SalaDAO.getInstance().incluir(sala);
+        sala = new Classroom("code", "Sala para testes de aceitacao", "123");
+        ClassroomDAO.getInstance().add(sala);
 
-        index = SalaDAO.getInstance().buscarTodos().size() - 1;
+        index = ClassroomDAO.getInstance().searchAll().size() - 1;
 
         window.button("Sala").click();
         dialog = window.dialog("SalaView");
 
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException {
+    @After public void tearDown() throws SQLException, PatrimonyException {
         if (sala != null)
-            SalaDAO.getInstance().excluir(sala);
+            ClassroomDAO.getInstance().delete(sala);
         window.cleanUp();
     }
 
@@ -76,7 +76,7 @@ public class US08_ExcluirSala {
     public void testCenario1() throws SQLException, ClienteException{
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Excluir").click();
-        dialog.optionPane().requireMessage("Deseja mesmo excluir Sala: " + sala.getDescricao() + "?");
+        dialog.optionPane().requireMessage("Deseja mesmo excluir Sala: " + sala.getDescription() + "?");
         sleep();
         dialog.optionPane().yesButton().click();
         sleep();

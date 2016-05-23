@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import view.cadastros.CadastroCliente;
+import view.cadastros.ClientRegistration;
 import control.ManterProfessor;
 import exception.ClienteException;
 
@@ -16,22 +16,22 @@ import exception.ClienteException;
  * 
  * @author Parley
  */
-public class AlterarProfessor extends CadastroCliente {
+public class ChangeProfessor extends ClientRegistration {
 
     int index2 = 0;
 
-    public AlterarProfessor(java.awt.Frame parent, boolean modal, int index) {
+    public ChangeProfessor(java.awt.Frame parent, boolean modal, int index) {
         super(parent, modal);
         this.setName("AlterarProfessor");
-        this.cadastroBtn.setText("Alterar");
-        this.cadastroBtn.setName("Alterar");
+        this.btnRegistration.setText("Alterar");
+        this.btnRegistration.setName("Alterar");
         this.index2 = index;
 
         try {
-            this.nomeTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getNome());
+            this.nameTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getNome());
             this.emailTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getEmail());
-            this.telefoneTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getTelefone());
-            this.matriculaTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getMatricula());
+            this.phoneTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getTelefone());
+            this.enrollmentTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getMatricula());
             this.cpfTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getCpf());
 
         } catch (ClienteException ex) {
@@ -41,10 +41,10 @@ public class AlterarProfessor extends CadastroCliente {
         }
     }
 
-    @Override public void cadastroAction() {
+    @Override public void registrationAction() {
         try {
-            ManterProfessor.getInstance().alterar(nomeTxtField.getText(), cpfTxtField.getText(), matriculaTxtField.getText(),
-                    telefoneTxtField.getText(), emailTxtField.getText(),
+            ManterProfessor.getInstance().alterar(nameTxtField.getText(), cpfTxtField.getText(), enrollmentTxtField.getText(),
+                    phoneTxtField.getText(), emailTxtField.getText(),
                     ManterProfessor.getInstance().getProfessores_vet().get(index2));
 
             JOptionPane.showMessageDialog(this, "Cadastro alterado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);

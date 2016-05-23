@@ -11,13 +11,13 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import model.Sala;
-import view.alteracoes.AlterarSala;
-import view.cadastros.CadastroPatrimonio;
-import view.cadastros.CadastroSala;
+import model.Classroom;
+import view.alteracoes.ChangeClassroom;
+import view.cadastros.PatrimonyRegistration;
+import view.cadastros.ClassroomRegistration;
 import view.diasReservas.ClassRoomReserveDay;
 import control.ManterSala;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * 
@@ -31,7 +31,7 @@ public class SalaView extends PratimonyView {
         this.setName("SalaView");
     }
 
-    protected Vector<String> fillDataVector(Sala sala) {
+    protected Vector<String> fillDataVector(Classroom sala) {
 
         if (sala == null) {
             return null;
@@ -39,9 +39,9 @@ public class SalaView extends PratimonyView {
 
         Vector<String> nomesTabela = new Vector<String>();
 
-        nomesTabela.add(sala.getCodigo());
-        nomesTabela.add(sala.getDescricao());
-        nomesTabela.add(sala.getCapacidade());
+        nomesTabela.add(sala.getCode());
+        nomesTabela.add(sala.getDescription());
+        nomesTabela.add(sala.getCapacity());
 
         return nomesTabela;
 
@@ -51,19 +51,19 @@ public class SalaView extends PratimonyView {
         try {
             DefaultTableModel table = new DefaultTableModel();
 
-            Iterator<Sala> i = ManterSala.getInstance().getSalas_vet().iterator();
+            Iterator<Classroom> i = ManterSala.getInstance().getSalas_vet().iterator();
 
             table.addColumn("Codigo");
             table.addColumn("Nome");
             table.addColumn("Capacidade");
             while (i.hasNext()) {
-                Sala sala = i.next();
+                Classroom sala = i.next();
                 table.addRow(fillDataVector(sala));
             }
 
             return table;
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -73,7 +73,7 @@ public class SalaView extends PratimonyView {
     }
 
     @Override protected void registerAction() {
-        CadastroPatrimonio cadastro = new CadastroSala(new javax.swing.JFrame(), true);
+	PatrimonyRegistration cadastro = new ClassroomRegistration(new javax.swing.JFrame(), true);
         cadastro.setResizable(false);
         cadastro.setVisible(true);
         this.patrimonyTable.setModel(fillTable());
@@ -81,7 +81,7 @@ public class SalaView extends PratimonyView {
 
     @Override protected void changeAction(int index) {
 
-        AlterarSala alteracao = new AlterarSala(new javax.swing.JFrame(), true, index);
+        ChangeClassroom alteracao = new ChangeClassroom(new javax.swing.JFrame(), true, index);
         alteracao.setResizable(false);
         alteracao.setVisible(true);
         this.patrimonyTable.setModel(fillTable());
@@ -91,7 +91,7 @@ public class SalaView extends PratimonyView {
         try {
             int confirm = JOptionPane
                     .showConfirmDialog(this, "Deseja mesmo excluir Sala: "
-                            + ManterSala.getInstance().getSalas_vet().get(index).getDescricao() + "?", "Excluir",
+                            + ManterSala.getInstance().getSalas_vet().get(index).getDescription() + "?", "Excluir",
                             JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
@@ -100,7 +100,7 @@ public class SalaView extends PratimonyView {
             }
             this.patrimonyTable.setModel(fillTable());
 
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -112,7 +112,7 @@ public class SalaView extends PratimonyView {
             ClassRoomReserveDay reserva = new ClassRoomReserveDay(new javax.swing.JFrame(), true, index);
             reserva.setResizable(false);
             reserva.setVisible(true);
-        } catch (PatrimonioException ex) {
+        } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

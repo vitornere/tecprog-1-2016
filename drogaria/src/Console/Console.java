@@ -3,9 +3,9 @@ package Console;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import entities.Balconista;
-import entities.Caixa;
-import entities.Cliente;
+import entities.Clerk;
+import entities.Cashier;
+import entities.Client;
 import entities.ConsoleMenu;
 import entities.Medicament;
 
@@ -25,14 +25,14 @@ public class Console {
 
 		// Atributos
 
-		ArrayList<Balconista> listaDeBalconistas = new ArrayList<Balconista>();
-		ArrayList<Caixa> listaDeCaixas = new ArrayList<Caixa>();
-		ArrayList<Cliente> listaDeClientes = new ArrayList<Cliente>();
+		ArrayList<Clerk> listaDeBalconistas = new ArrayList<Clerk>();
+		ArrayList<Cashier> listaDeCaixas = new ArrayList<Cashier>();
+		ArrayList<Client> clientsList = new ArrayList<Client>();
 		ArrayList<Medicament> listaDeMedicamentos = new ArrayList<Medicament>();
 
-		Balconista balconista = new Balconista();
-		Caixa caixa = new Caixa();
-		Cliente cliente = new Cliente();
+		Clerk balconista = new Clerk();
+		Cashier caixa = new Cashier();
+		Client cliente = new Client();
 		Medicament medicament = new Medicament();
 
 		ConsoleMenu complementar = new ConsoleMenu();
@@ -109,24 +109,24 @@ public class Console {
 							}
 							while (estados == 3) {
 
-								caixa.menuCaixa();// Menu caixa
+								caixa.cashierMenu();// Menu caixa
 								operacaoCaixa = scanner.nextInt();
 								if (operacaoCaixa == 0) {
 									estados = complementar.confirmacaoCaixa(estados);
 								}
 
 								else if (operacaoCaixa == 1) {
-									caixa.cadastrarCaixa(listaDeCaixas);
+									caixa.cashierRegister(listaDeCaixas);
 									estados = 3;
 								}
 
 								else if (operacaoCaixa == 2) {
-									caixa.listarCaixas(listaDeCaixas);
+									caixa.listCashiers(listaDeCaixas);
 									estados = 3;
 								}
 
 								else if (operacaoCaixa == 3) {
-									caixa.excluirCaixa(listaDeCaixas);
+									caixa.deleteCashier(listaDeCaixas);
 									estados = 3;
 								}
 							}
@@ -138,24 +138,24 @@ public class Console {
 							}
 							while (estados == 4) {
 
-								cliente.menuCliente();// Menu cliente
+								cliente.clientMenu();// Menu cliente
 								operacaoCliente = scanner.nextInt();
 								if (operacaoCliente == 0) {
 									estados = complementar.ConfirmacaoCliente(estados);
 								}
 
 								else if (operacaoCliente == 1) {
-									cliente.cadastrarCliente(listaDeClientes);
+									cliente.clientRegister(clientsList);
 									estados = 4;
 								}
 
 								else if (operacaoCliente == 2) {
-									cliente.listarClientes(listaDeClientes);
+									cliente.listCLients(clientsList);
 									estados = 4;
 								}
 
 								else if (operacaoCliente == 3) {
-									cliente.excluirCliente(listaDeClientes);
+									cliente.deleteClient(clientsList);
 									estados = 4;
 								}
 

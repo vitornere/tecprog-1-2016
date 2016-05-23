@@ -14,10 +14,10 @@ import java.util.Vector;
 
 import model.Professor;
 import model.ReservaSalaProfessor;
-import model.Sala;
+import model.Classroom;
 
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 public class ReservationRoomForTeacherDAO extends DAO{
@@ -51,11 +51,11 @@ public class ReservationRoomForTeacherDAO extends DAO{
 						"professor.email = \"" + teacher.getEmail() + "\" and " +
 						"professor.matricula = \"" + teacher.getMatricula() + "\"";
 			}
-			private String selectByIdRoom(Sala room){
+			private String selectByIdRoom(Classroom room){
 				return "SELECT id_sala FROM sala WHERE " +
-						"sala.codigo = \"" + room.getCodigo() + "\" and " +
-						"sala.descricao = \"" + room.getDescricao() +  "\" and " +
-						"sala.capacidade = " + room.getCapacidade();
+						"sala.codigo = \"" + room.getCode() + "\" and " +
+						"sala.descricao = \"" + room.getDescription() +  "\" and " +
+						"sala.capacidade = " + room.getCapacity();
 			}
 			private String whereRoomReservedByTeacher(ReservaSalaProfessor reservation){
 				return " WHERE " +
@@ -210,7 +210,7 @@ public class ReservationRoomForTeacherDAO extends DAO{
 	}
 
 	@SuppressWarnings("unchecked")
-	public Vector<ReservaSalaProfessor> searchAll() throws SQLException, ClienteException, PatrimonioException, ReservaException{
+	public Vector<ReservaSalaProfessor> searchAll() throws SQLException, ClienteException, PatrimonyException, ReservaException{
 		return super.search("SELECT * FROM reserva_sala_professor " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala " +
 				"INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor;");
@@ -218,7 +218,7 @@ public class ReservationRoomForTeacherDAO extends DAO{
 
 	
 	@SuppressWarnings("unchecked")
-	public Vector<ReservaSalaProfessor> searchByDate(String date) throws SQLException, ClienteException, PatrimonioException, ReservaException{
+	public Vector<ReservaSalaProfessor> searchByDate(String date) throws SQLException, ClienteException, PatrimonyException, ReservaException{
 		return super.search("SELECT * FROM reserva_sala_professor " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala " +
 				"INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor" +
@@ -227,11 +227,11 @@ public class ReservationRoomForTeacherDAO extends DAO{
 	
 	
 	@Override
-	protected Object fetch(ResultSet data_teacher) throws SQLException, ClienteException, PatrimonioException, ReservaException {
+	protected Object fetch(ResultSet data_teacher) throws SQLException, ClienteException, PatrimonyException, ReservaException {
 		Professor p = new Professor(data_teacher.getString("nome"), data_teacher.getString("cpf"), data_teacher.getString("matricula"),
 				data_teacher.getString("telefone"), data_teacher.getString("email"));
 		
-		Sala s = new Sala(data_teacher.getString("codigo"), data_teacher.getString("descricao"), data_teacher.getString("capacidade"));
+		Classroom s = new Classroom(data_teacher.getString("codigo"), data_teacher.getString("descricao"), data_teacher.getString("capacidade"));
 		
 		ReservaSalaProfessor r = new ReservaSalaProfessor(data_teacher.getString("data"),data_teacher.getString("hora"),
 				s ,data_teacher.getString("finalidade"), p);
@@ -248,22 +248,22 @@ public class ReservationRoomForTeacherDAO extends DAO{
 				"professor.matricula = \"" + teacher.getMatricula() + "\";");
 	}
 	
-	private boolean roomInDB(Sala room) throws SQLException{
+	private boolean roomInDB(Classroom room) throws SQLException{
 		return super.inDBGeneric("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + room.getCodigo() + "\" and " +
-				"sala.descricao = \"" + room.getDescricao() + "\" and " +
-				"sala.capacidade = " + room.getCapacidade() +
+				"sala.codigo = \"" + room.getCode() + "\" and " +
+				"sala.descricao = \"" + room.getDescription() + "\" and " +
+				"sala.capacidade = " + room.getCapacity() +
 				";");
 	}
 	
-	private boolean roomInReservationDB(Sala room, String date, String hour) throws SQLException {
+	private boolean roomInReservationDB(Classroom room, String date, String hour) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE " +
 				"data = \"" + date + "\" and " +
 				"hora = \"" + hour + "\" and " +
 				"id_sala = (SELECT id_sala FROM sala WHERE " +
-				"sala.codigo = \"" + room.getCodigo() + "\" and " +
-				"sala.descricao = \"" + room.getDescricao() +  "\" and " +
-				"sala.capacidade = " + room.getCapacidade() +" );");
+				"sala.codigo = \"" + room.getCode() + "\" and " +
+				"sala.descricao = \"" + room.getDescription() +  "\" and " +
+				"sala.capacidade = " + room.getCapacity() +" );");
 	}
 	
 	private boolean reservainDB(ReservaSalaProfessor r) throws SQLException {
@@ -275,9 +275,9 @@ public class ReservationRoomForTeacherDAO extends DAO{
 							"professor.email = \"" + r.getProfessor().getEmail() + "\" and " +
 							"professor.matricula = \"" + r.getProfessor().getMatricula() + "\") and " +
 					"id_sala = (SELECT id_sala FROM sala WHERE " +
-									"sala.codigo = \"" + r.getSala().getCodigo() + "\" and " +
-									"sala.descricao = \"" + r.getSala().getDescricao() +  "\" and " +
-									"sala.capacidade = " + r.getSala().getCapacidade() +" ) and " +
+									"sala.codigo = \"" + r.getSala().getCode() + "\" and " +
+									"sala.descricao = \"" + r.getSala().getDescription() +  "\" and " +
+									"sala.capacidade = " + r.getSala().getCapacity() +" ) and " +
 					"finalidade = \"" + r.getFinalidade() + "\" and " +
 					"hora = \"" + r.getHora() + "\" and " +
 					"data = \"" + r.getData() + "\";");
