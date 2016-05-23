@@ -11,9 +11,12 @@ public abstract class DiaReservaPatrimonio extends javax.swing.JDialog {
     }
 
     protected abstract void visualizarAction(String data);
-
-    @SuppressWarnings("unchecked")// <editor-fold defaultstate="collapsed"
-                                  // desc="Generated Code">//GEN-BEGIN:initComponents
+    
+    /*
+     *  <editor-fold defaultstate="collapsed",  desc="Generated Code">//GEN-BEGIN:initComponents
+     */
+    @SuppressWarnings("unchecked")
+                                  
     private void initComponents() {
 
         visualizarButton = new javax.swing.JButton();
@@ -62,7 +65,10 @@ public abstract class DiaReservaPatrimonio extends javax.swing.JDialog {
                         .addComponent(visualizarButton).addContainerGap()));
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
+    /*
+     * </editor-fold>//GEN-END:initComponents
+     */
 
     private void visualizarButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_visualizarButtonActionPerformed
         String data;
@@ -73,11 +79,19 @@ public abstract class DiaReservaPatrimonio extends javax.swing.JDialog {
             data = this.jCalendar1.getDayChooser().getDay() + "/" + mes + "/" + this.jCalendar1.getYearChooser().getYear();
         }
         visualizarAction(data);
-    }// GEN-LAST:event_visualizarButtonActionPerformed
+    }
+    /*
+     * GEN-LAST:event_visualizarButtonActionPerformed
+     */
+  
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    /*
+     * @see Variables declaration - do not modify//GEN-BEGIN:variables
+     */
     private com.toedter.calendar.JCalendar jCalendar1;
     private javax.swing.JPanel jPanel1;
     protected javax.swing.JButton visualizarButton;
-    // End of variables declaration//GEN-END:variables
+    /*
+     * @see End of variables declaration//GEN-END:variables
+     */
 }
