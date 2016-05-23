@@ -37,7 +37,10 @@ public class AlunoView extends ClienteView {
         }
         return null;
     }
-
+    /*
+     * (non-Javadoc)
+     * @see view.mainViews.ClienteView#cadastrarAction()
+     */
     @Override public void cadastrarAction() {
 
         CadastroCliente cadastrar = new CadastroAluno(new javax.swing.JFrame(), true);
@@ -46,7 +49,10 @@ public class AlunoView extends ClienteView {
         tabelaCliente.setModel(fillTable());
 
     }
-
+    /*
+     * (non-Javadoc)
+     * @see view.mainViews.ClienteView#alterarAction(int)
+     */
     @Override public void alterarAction(int index) {
 
         AlterarAluno alterar = new AlterarAluno(new javax.swing.JFrame(), true, index);
@@ -54,7 +60,11 @@ public class AlunoView extends ClienteView {
         alterar.setVisible(true);
         this.tabelaCliente.setModel(fillTable());
     }
-
+    
+    /*
+     * (non-Javadoc)
+     * @see view.mainViews.ClienteView#excluirAction()
+     */
     @Override public void excluirAction() {
         try {
             int index = this.tabelaCliente.getSelectedRow();
