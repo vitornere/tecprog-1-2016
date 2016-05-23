@@ -41,7 +41,10 @@ public class EquipamentoView extends PatrimonioView {
         return nomesTabela;
 
     }
-
+    /*
+     * (non-Javadoc)
+     * @see view.mainViews.PatrimonioView#fillTable()
+     */
     @Override protected DefaultTableModel fillTable() {
         try {
             DefaultTableModel table = new DefaultTableModel();
