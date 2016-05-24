@@ -1,10 +1,10 @@
-package entidades;
+package entities;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import entidades.Client;
-import entidades.Clerk;
+import entities.Client;
+import entities.Clerk;
 
 
 public class Cashier extends Person {
@@ -101,28 +101,28 @@ public class Cashier extends Person {
 	public void cashierRegister(ArrayList<Cashier> cashierList) {
 
 		System.out.println("Digite o rg do Caixa: ");
-		String personIdentity = Complementary.readString();
+		String personIdentity = ConsoleMenu.readString();
 
 		System.out.println("Digite o cpf do Caixa: ");
-		String cpfPerson = Complementary.readString();
+		String cpfPerson = ConsoleMenu.readString();
 
 		System.out.println("Digite o digito do cpf do Caixa: ");
-		int cpfDigitPerson = Complementary.readInt();
+		int cpfDigitPerson = ConsoleMenu.readInt();
 
 		System.out.println("Digite o nome do Caixa: ");
-		String personName = Complementary.readString();
+		String personName = ConsoleMenu.readString();
 
 		System.out.println("Digite o sobrenome completo do Caixa: ");
-		String personLastName = Complementary.readString();
+		String personLastName = ConsoleMenu.readString();
 
 		System.out.println("Digite o endereco do Caixa: ");
-		String personAddress = Complementary.readString();
+		String personAddress = ConsoleMenu.readString();
 
 		System.out.println("Digite o telefone do Caixa:");
-		String personPhone = Complementary.readString();
+		String personPhone = ConsoleMenu.readString();
 
 		System.out.println("Digite o código do Caixa:");
-		int code = Complementary.readInt();
+		int code = ConsoleMenu.readInt();
 
 		Cashier cashier = new Cashier(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress,
 				personPhone, code);

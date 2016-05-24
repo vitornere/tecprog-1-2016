@@ -10,7 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Equipamento;
 import view.alteracoes.ChangeEquipment;
 import view.cadastros.EquipmentRegistration;
-import view.diasReservas.DiaReservaEquipamento;
+import view.diasReservas.EquipmentReserveDay;
 import control.ManterEquipamento;
 import exception.PatrimonyException;
 
@@ -18,27 +18,27 @@ import exception.PatrimonyException;
  * 
  * @author Parley
  */
-public class EquipamentoView extends PatrimonioView {
+public class EquipamentView extends PratimonyView {
 
-    public EquipamentoView(java.awt.Frame parent, boolean modal) {
+    public EquipamentView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        pesquisarLbl.setText("Digite o eqpto. desejado: ");
+        searchLbl.setText("Digite o eqpto. desejado: ");
         this.setTitle("Equipamentos");
         this.setName("EquipamentoView");
     }
 
-    private Vector<String> fillDataVector(Equipamento equipamento) {
+    private Vector<String> fillDataVector(Equipamento equipament) {
 
-        if (equipamento == null) {
+        if (equipament == null) {
             return null;
         }
 
-        Vector<String> nomesTabela = new Vector<String>();
+        Vector<String> tableNames = new Vector<String>();
 
-        nomesTabela.add(equipamento.getCode());
-        nomesTabela.add(equipamento.getDescription());
+        tableNames.add(equipament.getCode());
+        tableNames.add(equipament.getDescription());
 
-        return nomesTabela;
+        return tableNames;
 
     }
 
@@ -55,6 +55,7 @@ public class EquipamentoView extends PatrimonioView {
                 Equipamento equipamento = i.next();
                 table.addRow(fillDataVector(equipamento));
             }
+            
             return table;
 
         } catch (PatrimonyException ex) {
@@ -64,22 +65,23 @@ public class EquipamentoView extends PatrimonioView {
         } catch (NullPointerException ex) {
             JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         }
+        
         return null;
     }
 
-    @Override protected void cadastrarAction() {
-        EquipmentRegistration cadastro = new EquipmentRegistration(new javax.swing.JFrame(), true);
-        cadastro.setResizable(false);
-        cadastro.setVisible(true);
-        this.tabelaPatrimonio.setModel(fillTable());
+    @Override protected void registerAction() {
+	EquipmentRegistration newRegister = new EquipmentRegistration(new javax.swing.JFrame(), true);
+        newRegister.setResizable(false);
+        newRegister.setVisible(true);
+        this.patrimonyTable.setModel(fillTable());
     }
 
-    @Override protected void alterarAction(int index) {
+    @Override protected void changeAction(int index) {
 
-        ChangeEquipment alteracao = new ChangeEquipment(new javax.swing.JFrame(), true, index);
-        alteracao.setResizable(false);
-        alteracao.setVisible(true);
-        this.tabelaPatrimonio.setModel(fillTable());
+		ChangeEquipment newChange = new ChangeEquipment(new javax.swing.JFrame(), true, index);
+        newChange.setResizable(false);
+        newChange.setVisible(true);
+        this.patrimonyTable.setModel(fillTable());
 
     }
 
@@ -90,12 +92,14 @@ public class EquipamentoView extends PatrimonioView {
                     + ManterEquipamento.getInstance().getEquipamento_vet().get(index).getDescription() + "?", "Excluir",
                     JOptionPane.YES_NO_OPTION);
 
+
             if (confirm == JOptionPane.YES_OPTION) {
-                ManterEquipamento.getInstance().excluir(ManterEquipamento.getInstance().getEquipamento_vet().get(index));
-                JOptionPane.showMessageDialog(this, "Equipamento excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
-                        null);
+                ManterEquipamento.getInstance().excluir(ManterEquipamento.getInstance().getEquipamento_vet()
+                				 .get(index));
+                JOptionPane.showMessageDialog(this, "Equipamento excluido com sucesso", "Sucesso", 
+                							  JOptionPane.INFORMATION_MESSAGE, null);
             }
-            this.tabelaPatrimonio.setModel(fillTable());
+            this.patrimonyTable.setModel(fillTable());
 
         } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -109,7 +113,7 @@ public class EquipamentoView extends PatrimonioView {
 
     @Override protected void visualizarAction(int index) {
         try {
-            DiaReservaEquipamento reserva = new DiaReservaEquipamento(new javax.swing.JFrame(), true, index);
+            EquipmentReserveDay reserva = new EquipmentReserveDay(new javax.swing.JFrame(), true, index);
             reserva.setResizable(false);
             reserva.setVisible(true);
         } catch (PatrimonyException ex) {

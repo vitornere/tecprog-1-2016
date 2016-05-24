@@ -19,9 +19,9 @@ import exception.ClienteException;
  * 
  * @author Parley
  */
-public class AlunoView extends ClienteView {
+public class StudentView extends ClientView {
 
-    public AlunoView(java.awt.Frame parent, boolean modal) {
+    public StudentView(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.setName("AlunoView");
     }
@@ -38,39 +38,49 @@ public class AlunoView extends ClienteView {
         return null;
     }
 
-    @Override public void cadastrarAction() {
+    @Override public void registerAction() {
 
-        ClientRegistration cadastrar = new StudentRegistration(new javax.swing.JFrame(), true);
-        cadastrar.setResizable(false);
-        cadastrar.setVisible(true);
-        tabelaCliente.setModel(fillTable());
-
+		ClientRegistration studentRegister = new StudentRegistration(new javax.swing.JFrame(), true);
+        studentRegister.setResizable(false);
+        studentRegister.setVisible(true);
+        clientTable.setModel(fillTable());
     }
 
     @Override public void alterarAction(int index) {
 
-        ChangeStudent alterar = new ChangeStudent(new javax.swing.JFrame(), true, index);
-        alterar.setResizable(false);
-        alterar.setVisible(true);
-        this.tabelaCliente.setModel(fillTable());
+		ChangeStudent studentChange = new ChangeStudent(new javax.swing.JFrame(), true, index);
+        studentChange.setResizable(false);
+        studentChange.setVisible(true);
+        this.clientTable.setModel(fillTable());
     }
 
     @Override public void excluirAction() {
         try {
-            int index = this.tabelaCliente.getSelectedRow();
+            int index = this.clientTable.getSelectedRow();
+            
             if (index < 0) {
                 JOptionPane.showMessageDialog(this, "Selecione uma linha!", "Erro", JOptionPane.ERROR_MESSAGE, null);
                 return;
             }
-
-            int confirm = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Aluno: "
-                    + ManterAluno.getInstance().getAluno_vet().get(index).getNome() + "?", "Excluir", JOptionPane.YES_NO_OPTION);
-            if (confirm == JOptionPane.YES_OPTION) {
-                ManterAluno.getInstance().excluir(ManterAluno.getInstance().getAluno_vet().get(index));
-                JOptionPane.showMessageDialog(this, "Aluno excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
+            else {
+            	// Nothing to do
             }
-            this.tabelaCliente.setModel(fillTable());
 
+            int confirmExclusion = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Aluno: " + 
+            					   ManterAluno.getInstance().getAluno_vet().get(index).getNome() + 
+            					   "?", "Excluir", JOptionPane.YES_NO_OPTION);
+            
+            if (confirmExclusion == JOptionPane.YES_OPTION) {
+                ManterAluno.getInstance().excluir(ManterAluno.getInstance().getAluno_vet().get(index));
+                
+                JOptionPane.showMessageDialog(this, "Aluno excluido com sucesso", "Sucesso", 
+                							  JOptionPane.INFORMATION_MESSAGE, null);
+            }
+            else {
+            	// Nothing to do
+            }
+            
+            this.clientTable.setModel(fillTable());
         } catch (ClienteException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {

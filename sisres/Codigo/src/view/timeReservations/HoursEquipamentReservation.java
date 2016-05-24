@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package view.horariosReservas;
+package view.timeReservations;
 
 import java.sql.SQLException;
 import java.util.Vector;
@@ -27,39 +27,49 @@ import exception.ReservaException;
  * 
  * @author Parley
  */
-public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
+public class HoursEquipamentReservation extends HoursPatrimonyReservation {
 
-    Equipamento eq;
-    ManterResEquipamentoProfessor instance;
+    Equipamento equipament;
+    ManterResEquipamentoProfessor instanceOfProfessorEquipament;
 
-    public HorariosReservaEquipamento(java.awt.Frame parent, boolean modal, String data, Equipamento eq) {
-        super(parent, modal, data, eq);
-        this.eq = eq;
+    public HoursEquipamentReservation(java.awt.Frame parent, boolean modal, String data, Equipamento equipament) {
+        super(parent, modal, data, equipament);
+        
+        this.equipament = equipament;
     }
 
     protected Vector<String> fillDataVector(Object o, int index) {
-        Vector<String> nomesTabela = new Vector<String>();
+        Vector<String> tableNames = new Vector<String>();
+        
         if (o instanceof ReservaEquipamentoProfessor) {
             ReservaEquipamentoProfessor r = (ReservaEquipamentoProfessor) o;
-            if (this.eq != null && (r.getEquipamento().equals(this.eq))) {
-
-                nomesTabela.add(String.valueOf(index));
-                nomesTabela.add(r.getHora());
-                nomesTabela.add(r.getProfessor().getNome());
-                nomesTabela.add(r.getProfessor().getMatricula());
-                nomesTabela.add(r.getEquipamento().getCode());
-                nomesTabela.add(r.getEquipamento().getDescription());
+           
+            if (this.equipament != null && (r.getEquipamento().equals(this.equipament))) {
+                tableNames.add(String.valueOf(index));                
+                tableNames.add(r.getHora());                
+                tableNames.add(r.getProfessor().getNome());
+                tableNames.add(r.getProfessor().getMatricula());                
+                tableNames.add(r.getEquipamento().getCode());                
+                tableNames.add(r.getEquipamento().getDescription());
+            }
+            else {
+            	// Nothing to do
             }
         }
+        else {
+        	// Nothing to do
+        }
 
-        return nomesTabela;
-
+        return tableNames;
     }
 
     @Override protected DefaultTableModel fillTable(Patrimonio equip) {
-        this.eq = (Equipamento) equip;
+        this.equipament = (Equipamento) equip;
+        
         DefaultTableModel table = new DefaultTableModel();
-        instance = ManterResEquipamentoProfessor.getInstance();
+        
+        instanceOfProfessorEquipament = ManterResEquipamentoProfessor.getInstance();
+        
         try {
             table.addColumn("");
             table.addColumn("Hora:");
@@ -68,38 +78,47 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
             table.addColumn("Codigo Eqpt.");
             table.addColumn("Descricao Eqpt.");
 
-            this.mes = Integer.parseInt(this.data.substring(3, 5));
+            this.month = Integer.parseInt(this.data.substring(3, 5));
 
-            Vector<ReservaEquipamentoProfessor> v = instance.getReservasMes(mes);
-            if (v != null)
-                for (int i = 0; i < v.size(); i++) {
-                    table.addRow(fillDataVector(v.get(i), i));
+            Vector<ReservaEquipamentoProfessor> professorEquipament = instanceOfProfessorEquipament.getReservasMes(month);
+            
+            if (professorEquipament != null) {
+                for (int i = 0; i < professorEquipament.size(); i++) {
+                    table.addRow(fillDataVector(professorEquipament.get(i), i));
 
                 }
-
+            }
+            else {
+            	// Nothing to do
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
         } catch (PatrimonyException ex) {
-            Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClienteException ex) {
-            Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ReservaException ex) {
-            Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         return table;
-
     }
 
-    @Override protected void cancelarReservaAction(int index) {
+    @Override protected void cancelActionReservation(int index) {
         try {
             int confirm = JOptionPane.showConfirmDialog(this,
-                    "Deseja mesmo excluir Reserva?\n" + instance.getReservasMes(mes).get(index).toString(), "Excluir",
-                    JOptionPane.YES_NO_OPTION);
+                    "Deseja mesmo excluir Reserva?\n" + 
+                     instanceOfProfessorEquipament.getReservasMes(month).get(index).toString(), 
+                     "Excluir", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                this.instance.excluir(instance.getReservasMes(mes).get(index));
-                JOptionPane.showMessageDialog(this, "Reserva excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
-                        null);
+                this.instanceOfProfessorEquipament.excluir(instanceOfProfessorEquipament.getReservasMes(month).get(index));
+                
+                JOptionPane.showMessageDialog(this, "Reserva excluida com sucesso", "Sucesso", 
+                							  JOptionPane.INFORMATION_MESSAGE, null);
+            }
+            else {
+            	// Nothing to do
             }
 
         } catch (SQLException ex) {
@@ -113,9 +132,10 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
         }
     }
 
-    @Override protected void reservarAction() {
+    @Override protected void actionReservation() {
         try {
-            ReservaEquipamentoView reserva = new FazerReservaEquipamentoView(new JFrame(), true, this.eq, this.data);
+            ReservaEquipamentoView reserva = new FazerReservaEquipamentoView(new JFrame(), true, this.equipament, this.data);
+            
             reserva.setVisible(true);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

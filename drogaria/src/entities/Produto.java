@@ -1,10 +1,10 @@
-package entidades;
+package entities;
 
 public class Produto {
 
 	protected String nome;
 	protected String fabricante;
-	protected String recomendacao; // uso adulto, infantil, todos os públicos etc
+	protected String recomendacao; // uso adulto, infantil, todos os pï¿½blicos etc
 	protected String validade;
 
 	public Produto() {

@@ -18,19 +18,23 @@ import exception.PatrimonyException;
  * 
  * @author Parley
  */
-public class DiaReservaSala extends PatrimonyReserveDay {
+public class ClassRoomReserveDay extends PatrimonyReserveDay {
 
-    Classroom sala;
+    Classroom classRoom;
 
-    public DiaReservaSala(Frame parent, boolean modal, int indexSala) throws SQLException, PatrimonyException {
+    public ClassRoomReserveDay(Frame parent, boolean modal, int indexSala) throws SQLException, PatrimonyException {
         super(parent, modal);
-        sala = ManterSala.getInstance().getSalas_vet().get(indexSala);
+        
+        classRoom = ManterSala.getInstance().getSalas_vet().get(indexSala);
+        
         this.setName("DiaReservaSala");
     }
 
     @Override protected void viewAction(String data) {
-        HoursRoomReservation reserva = new HoursRoomReservation(new JFrame(), true, data, sala);
+        HoursRoomReservation reserva = new HoursRoomReservation(new JFrame(), true, data, classRoom);
+        
         reserva.setVisible(true);
+        
         reserva.setResizable(false);
     }
 

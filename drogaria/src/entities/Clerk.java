@@ -1,11 +1,11 @@
-package entidades;
+package entities;
 
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import entidades.Cashier;
-import entidades.Medicamento;
+import entities.Cashier;
+import entities.Medicament;
 
 public class Clerk extends Person {
 
@@ -15,7 +15,7 @@ public class Clerk extends Person {
 	protected int senhaFarmaciaPopular;
 	protected int codigo; // O funcionario usa o codigo de acesso junto da senha para fazer as vendas.
 	protected int fatorComissao;
-	protected Medicamento[] medicamentos = {};
+	protected Medicament[] Medicaments = {};
 	protected Cashier caixa;
 	private static boolean statusClerk;
 	protected int horas;
@@ -60,36 +60,36 @@ public class Clerk extends Person {
 		}
 	}
 
-	public void setMedicamentos(Medicamento[] medicamentos) {
-		if (medicamentos.length < 1) {
+	public void setMedicaments(Medicament[] Medicaments) {
+		if (Medicaments.length < 1) {
 			System.out
-					.println("O medicamento n�o pode ser vendido sem a identifica��o de 1 funcion�rio cadastrado no Sistema! O medicamento s� poder� ser comercializado por no m�nimo 1 funcion�rio devidamente cadastrado!");
+					.println("O Medicament n�o pode ser vendido sem a identifica��o de 1 funcion�rio cadastrado no Sistema! O Medicament s� poder� ser comercializado por no m�nimo 1 funcion�rio devidamente cadastrado!");
 		}
 		else {
-			this.medicamentos = medicamentos;
+			this.Medicaments = Medicaments;
 		}
 	}
 
-	public void verificarMedicamento(Medicamento[] medicamento) {
-		int tamanhoAntigo = this.medicamentos.length;
+	public void verificarMedicament(Medicament[] Medicament) {
+		int tamanhoAntigo = this.Medicaments.length;
 
-		Medicamento[] novosMedicamentos = new Medicamento[tamanhoAntigo + 1];
+		Medicament[] novosMedicaments = new Medicament[tamanhoAntigo + 1];
 		for (int i = 0; i < tamanhoAntigo; i++) {
-			novosMedicamentos[i] = this.medicamentos[i];
+			novosMedicaments[i] = this.Medicaments[i];
 
 		}
 
-		novosMedicamentos[novosMedicamentos.length - 1] = medicamento[medicamentos.length];
-		this.setMedicamentos(novosMedicamentos);
+		novosMedicaments[novosMedicaments.length - 1] = Medicament[Medicaments.length];
+		this.setMedicaments(novosMedicaments);
 
 	}
 
-	// Listar numero de medicamentos associados aos funcionarios
-	public void listarMedicamentosAssociados() {
-		System.out.println("Os medicamentos vendidos pelo funcionario " + getName() + " foram:");
-		for (int i = 0; (i < medicamentos.length); i++) {
+	// Listar numero de Medicaments associados aos funcionarios
+	public void listarMedicamentsAssociados() {
+		System.out.println("Os Medicaments vendidos pelo funcionario " + getName() + " foram:");
+		for (int i = 0; (i < Medicaments.length); i++) {
 			quantidade++;
-			System.out.println(quantidade + " " + medicamentos[i].nome);
+			System.out.println(quantidade + " " + Medicaments[i].nome);
 		}
 	}
 
@@ -121,7 +121,7 @@ public class Clerk extends Person {
 
 	public void menuInicial() {
 		System.out.println("Qual setor voc� deseja utilizar?" + "\n(0) - Sair" + "\n(1) - Balconista\n"
-				+ "(2) - Caixa\n" + "(3) - Cliente\n" + "(4) - Medicamento\n" + "(5) - Ajuda\n");
+				+ "(2) - Caixa\n" + "(3) - Cliente\n" + "(4) - Medicament\n" + "(5) - Ajuda\n");
 	}
 
 	public void menuBalconista() {
@@ -133,40 +133,40 @@ public class Clerk extends Person {
 	public void cadastrarBalconista(ArrayList<Clerk> listaDeBalconistas) {
 
 		System.out.println("Digite o rg do Balconista(SSP seguido de n�meros): ");
-		String rgPessoa = Complementary.readString();
+		String rgPessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o cpf do Balconista(Sem o d�gito): ");
-		String cpfPessoa = Complementary.readString();
+		String cpfPessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o digito do cpf do Balconista: ");
-		int digitoCpfPessoa = Complementary.readInt();
+		int digitoCpfPessoa = ConsoleMenu.readInt();
 
 		System.out.println("Digite o nome do Balconista: ");
-		String nomePessoa = Complementary.readString();
+		String nomePessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o sobrenome completo do Balconista: ");
-		String sobrenomePessoa = Complementary.readString();
+		String sobrenomePessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o endereco do Balconista: ");
-		String enderecoPessoa = Complementary.readString();
+		String enderecoPessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o telefone do Balconista:");
-		String telefonePessoa = Complementary.readString();
+		String telefonePessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite a senha do Balconista:");
-		int senhaBalconista = Complementary.readInt();
+		int senhaBalconista = ConsoleMenu.readInt();
 
 		System.out.println("Digite a senha de farm�cia popular do Balconista:");
-		int senhaFarmaciaPopularBalconista = Complementary.readInt();
+		int senhaFarmaciaPopularBalconista = ConsoleMenu.readInt();
 
 		System.out.println("Digite o c�digo do Balconista:");
-		int codigoBalconista = Complementary.readInt();
+		int codigoBalconista = ConsoleMenu.readInt();
 
 		System.out.println("Digite o fator de comiss�o de vendas em porcentagem (%) do Balconista:");
-		int fatorComissaoBalconista = Complementary.readInt();
+		int fatorComissaoBalconista = ConsoleMenu.readInt();
 
 		System.out.println("Digite as horas trabalhadas semanalmente pelo Balconista:");
-		int horasTrabalhadas = Complementary.readInt();
+		int horasTrabalhadas = ConsoleMenu.readInt();
 
 		// Repete para todos atributos
 
@@ -286,8 +286,8 @@ public class Clerk extends Person {
 		this.caixa = caixa;
 	}
 
-	public Medicamento[] getMedicamentos() {
-		return medicamentos;
+	public Medicament[] getMedicaments() {
+		return Medicaments;
 	}
 
 	public int getQuantidade() {
