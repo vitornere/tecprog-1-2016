@@ -22,7 +22,6 @@ import exception.ReservaException;
 
 public class ReservationRoomForTeacherDAO extends DAO{
 
-	//Mensagens e Alertas
 	private final String NULL = "Termo nulo.";
 	private final String UNAVAILABLEROOM = "A Sala esta reservada no mesmo dia e horario.";
 	private final String INEXISTENTTEACHER = "Professor inexistente.";
@@ -33,7 +32,7 @@ public class ReservationRoomForTeacherDAO extends DAO{
 	private final String PASTHOUR = "A hora escolhida ja passou.";
 	
 	
-	//Singleton
+	// Singleton
 		private static ReservationRoomForTeacherDAO instance;
 		private ReservationRoomForTeacherDAO(){
 		}
@@ -42,7 +41,7 @@ public class ReservationRoomForTeacherDAO extends DAO{
 				instance = new ReservationRoomForTeacherDAO();
 			return instance;
 		}
-		//Querys de Reuso
+		// Querys de Reuso
 			private String selectIdTeacher(Professor teacher){
 				return "SELECT id_professor FROM professor WHERE " +
 						"professor.nome = \"" + teacher.getNome() + "\" and " +
@@ -393,10 +392,4 @@ public class ReservationRoomForTeacherDAO extends DAO{
 		
 		return date_in_defalut;
 	}
-	/*
-	private String padronizarHora(String hora){
-		if(hora.length() == 4)
-			return "0" + hora;
-		return hora;
-	}*/
 }

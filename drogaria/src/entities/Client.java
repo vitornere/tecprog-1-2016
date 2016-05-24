@@ -8,6 +8,8 @@ import interfaces.*;
 public class Client extends Person implements Recommended {
 
 	private static final int FIRST = 0;
+	private static final int YES = 1;
+	private static final int NO = 0;
 	
 	protected String email;
 	protected Cashier[] cashiers;
@@ -38,26 +40,26 @@ public class Client extends Person implements Recommended {
 	// Interface
 	public void recommendedMedicine(String medicineType, String use) {
 		if (medicineType == "TARJA PRETA" && use == "ADULTO") {
-			System.out.println("A quantidade de remedios recomendados pelo Balconista �: 1");
+			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 1");
 		}
 
 		if (medicineType == "TARJA PRETA" && use == "PEDIATRICO") {
-			System.out.println("A quantidade de remedios recomendados pelo Balconista �: 0");
+			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 0");
 		}
 
 		if (medicineType == "GENERICO" && use == "ADULTO") {
-			System.out.println("A quantidade de remedios recomendados pelo Balconista �: 5");
+			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 5");
 		}
 
 		if (medicineType == "GENERICO" && use == "PEDIATRICO") {
-			System.out.println("A quantidade de remedios recomendados pelo Balconista �: 3");
+			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 3");
 		}
 
 	}
 
 	public void cashierList() {
-		for (int x = 0; x < (cashiers.length); x += 1) {
-			System.out.println(("Caixa [" + x + "]:" + cashiers[x]));
+		for (int position = FIRST; position < (cashiers.length); position += 1) {
+			System.out.println(("Caixa [" + (position + 1) + "]:" + cashiers[position]));
 		}
 	}
 
@@ -141,14 +143,14 @@ public class Client extends Person implements Recommended {
 			System.out.println("Voc� deseja realmente excluir o cadastro de numero: " + this.deleteCode + "?"
 					+ "\n(0) - N�o" + "\n(1) - Sim");
 			this.setConfirmationCodeExclusion(scanner.nextInt());
-			if (confirmationClientExclusion == 1) {
+			if (confirmationClientExclusion == YES) {
 				this.setCodeExclusion(deleteCode - 1);
 				clientList.remove(deleteCode);
 
 				System.out.println("A lista foi alterada");
 				listCLients(clientList);
 			}
-			else if (confirmationClientExclusion == 0) {
+			else if (confirmationClientExclusion == NO) {
 				this.setCodeExclusion(0);
 			}
 			else {
