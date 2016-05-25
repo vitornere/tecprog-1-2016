@@ -1,5 +1,5 @@
 /**
- * This class keep product
+ * This class keep products
  */
 
 package entities;
