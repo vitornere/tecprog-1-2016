@@ -54,6 +54,9 @@ public class SalaView extends PratimonyView {
 
     /**
      * @exception Patrimony null or Database null
+     *
+     * (non-Javadoc)
+     * @see view.mainViews.PratimonyView#fillTable()
      */
     @Override protected DefaultTableModel fillTable() {
         try {
@@ -80,6 +83,10 @@ public class SalaView extends PratimonyView {
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see view.mainViews.PratimonyView#registerAction()
+     */
     @Override protected void registerAction() {
 	PatrimonyRegistration cadastro = new ClassroomRegistration(new javax.swing.JFrame(), true);
         cadastro.setResizable(false);
@@ -87,6 +94,10 @@ public class SalaView extends PratimonyView {
         this.patrimonyTable.setModel(fillTable());
     }
 
+    /*
+     * (non-Javadoc)
+     * @see view.mainViews.PratimonyView#changeAction(int)
+     */
     @Override protected void changeAction(int index) {
 
         ChangeClassroom alteracao = new ChangeClassroom(new javax.swing.JFrame(), true, index);
@@ -97,6 +108,9 @@ public class SalaView extends PratimonyView {
 
     /**
      * @exception Patrimony null or Database null
+     *
+     * (non-Javadoc)
+     * @see view.mainViews.PratimonyView#excluirAction(int)
      */
     @Override protected void excluirAction(int index) {
         try {
@@ -120,6 +134,9 @@ public class SalaView extends PratimonyView {
 
     /**
      * @exception Patrimony null or Database null
+     *
+     * (non-Javadoc)
+     * @see view.mainViews.PratimonyView#visualizarAction(int)
      */
     @Override protected void visualizarAction(int index) {
         try {

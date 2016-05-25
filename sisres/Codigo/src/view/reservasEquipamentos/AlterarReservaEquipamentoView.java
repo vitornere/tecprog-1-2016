@@ -51,6 +51,9 @@ public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
     /**
      * 
      * @exception Rerserve null or Database null
+     *
+     * (non-Javadoc)
+     * @see view.reservasEquipamentos.ReservaEquipamentoView#reservarProfessor()
      */
     @Override protected void reservarProfessor() {
         try {

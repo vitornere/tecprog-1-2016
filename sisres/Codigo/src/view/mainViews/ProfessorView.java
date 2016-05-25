@@ -43,6 +43,10 @@ public class ProfessorView extends ClientView {
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * @see view.mainViews.ClientView#registerAction()
+     */
     @Override public void registerAction() {
 
         ClientRegistration cadastrar = new ProfessorRegistration(new javax.swing.JFrame(), true);
@@ -52,6 +56,10 @@ public class ProfessorView extends ClientView {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * @see view.mainViews.ClientView#alterarAction(int)
+     */
     @Override public void alterarAction(int index) {
 
         ChangeProfessor alterar = new ChangeProfessor(new javax.swing.JFrame(), true, index);
@@ -62,7 +70,10 @@ public class ProfessorView extends ClientView {
 
     /**
 	 * @exception Client null or Database null
-	 */
+	 *
+     * (non-Javadoc)
+     * @see view.mainViews.ClientView#excluirAction()
+     */
     @Override public void excluirAction() {
         try {
             int index = this.clientTable.getSelectedRow();
