@@ -1,15 +1,33 @@
+/**
+ * This class keep products
+ */
+
 package entities;
 
 public class Produto {
 
+	/*
+	 * Product's information attributess
+	 */
 	protected String nome;
 	protected String fabricante;
 	protected String recomendacao; // uso adulto, infantil, todos os p�blicos etc
 	protected String validade;
 
+	/**
+	 * Creates an empty object
+	 */
 	public Produto() {
 	}
 
+	/**
+	 * Creates an object with all params
+	 * 
+	 * @param nomeProduto
+	 * @param fabricanteProduto
+	 * @param recomendacaoProduto
+	 * @param validadeProduto
+	 */
 	public Produto(String nomeProduto, String fabricanteProduto, String recomendacaoProduto, String validadeProduto) {
 		this.nome = nomeProduto;
 		this.fabricante = fabricanteProduto;
@@ -17,6 +35,10 @@ public class Produto {
 		this.validade = validadeProduto;
 	}
 
+	/*
+	 * Getters and Setters
+	 */
+	
 	public String getNome() {
 		return nome;
 	}
