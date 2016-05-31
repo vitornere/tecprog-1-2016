@@ -66,7 +66,7 @@ public class SistemaDrogaria {
 		System.out.println("Data da transa��o: " + caixa.getDate());
 		System.out.println("Descri��o: " + caixa.getDescription());
 		System.out.println("Saldo atual: " + caixa.getCurrentBalance());
-		caixa.deposito(150);
+		caixa.deposit(150);
 		System.out.println("\nSaldo atual: " + caixa.getCurrentBalance());
 
 		// Decimal Format para restringir o numero de casas decimais dos valores a serem apresentados
