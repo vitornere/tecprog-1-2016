@@ -1,3 +1,7 @@
+/**
+ * This class is a subclass of Person and keeps Clients information.
+ */
+
 package entities;
 
 import java.util.ArrayList;
@@ -16,12 +20,27 @@ public class Client extends Person implements Recommended {
 	Clerk[] clerk = {};
 	Client[] client = {};
 	Scanner scanner = new Scanner(System.in);
-	private int deleteCode = 0;
-	private int confirmationClientExclusion = 0;
+	private int deleteCode = 0; //Client code to be deleted.
+	private int confirmationClientExclusion = 0; //Delete confirmation code ( 0 or 1).
 
+	/**
+	 * Creates an empty object.
+     */
+	
 	public Client() {
 		super();
 	}
+	
+	/**
+	 * 
+	 * @param personIdentity
+	 * @param cpfPerson
+	 * @param cpfDigitPerson
+	 * @param personName
+	 * @param personLastName
+	 * @param personAddress
+	 * @param personPhone
+	 */
 
 	public Client(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName,
 			String personLastName, String personAddress, String personPhone) {
@@ -29,6 +48,18 @@ public class Client extends Person implements Recommended {
 		System.out.println("Possui pelo menos um balconista para atend�-lo!!");
 		Clerk.setStatusClerk(true);
 	}
+	
+	/**
+	 * 
+	 * @param personIdentity
+	 * @param cpfPerson
+	 * @param cpfDigitPerson
+	 * @param personName
+	 * @param personLastName
+	 * @param personAddress
+	 * @param personPhone
+	 * @param emailClient
+	 */
 
 	public Client(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName,
 			String personLastName, String personAddress, String personPhone, String emailClient) {
@@ -37,25 +68,43 @@ public class Client extends Person implements Recommended {
 
 	}
 
-	// Interface
+	/**
+	 * Method for the selection of the amount of medicine recommended by the clerk 
+	 * in accordance with the parameters.
+	 * 
+	 * @param medicineType
+	 * @param use
+	 */
 	public void recommendedMedicine(String medicineType, String use) {
 		if (medicineType == "TARJA PRETA" && use == "ADULTO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 1");
+		} else {
+			//Nothing to do.
 		}
 
 		if (medicineType == "TARJA PRETA" && use == "PEDIATRICO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 0");
+		} else {
+			//Nothing to do.
 		}
 
 		if (medicineType == "GENERICO" && use == "ADULTO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 5");
+		} else {
+			//Nothing to do.
 		}
 
 		if (medicineType == "GENERICO" && use == "PEDIATRICO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 3");
+		} else {
+			//Nothing to do.
 		}
 
 	}
+	
+	/**
+	 * Method that lists the registered cashiers.
+	 */
 
 	public void cashierList() {
 		for (int position = FIRST; position < (cashiers.length); position += 1) {
@@ -63,12 +112,21 @@ public class Client extends Person implements Recommended {
 		}
 	}
 
-	// Console
+	/**
+	 * Method that prints a menu with options for customer to choose . The options are 0 to 3. 
+	 * Where 0 is exit, 1 is register a new client, 2  is client list and 3 is to delete a client.
+	 */
 
 	public void clientMenu() {
 		System.out.println("\nInsira o que deseja fazer de acordo com as op��es seguintes:" + "\n(0) - Sair\n"
 				+ "(1) - Cadastrar novo Cliente\n" + "(2) - Listar Clientes\n" + "(3) - Excluir Cliente\n");
 	}
+	
+	/**
+	 * Method to register a client.
+	 * 
+	 * @param clientsList
+	 */
 
 	public void clientRegister(ArrayList<Client> clientsList) {
 
@@ -104,6 +162,11 @@ public class Client extends Person implements Recommended {
 		System.out.println("O(A) Cliente " + client.getName() + " foi cadastrado(a) com sucesso!");
 	}
 
+	/**
+	 * Method to list the clients registered.
+	 * 
+	 * @param clientsList
+	 */
 	public void listCLients(ArrayList<Client> clientsList) {
 		if (clientsList.size() == 0) {
 			System.out.println("Cadastro em branco!\n");
@@ -131,6 +194,12 @@ public class Client extends Person implements Recommended {
 		}
 
 	}
+	
+	/**
+	 * Method to delete a client.
+	 * 
+	 * @param clientList
+	 */
 
 	public void deleteClient(ArrayList<Client> clientList) {
 
@@ -159,6 +228,10 @@ public class Client extends Person implements Recommended {
 		}
 
 	}
+	
+	/**
+	 * Getters and Setters
+	 */
 
 	public String getEmail() {
 		return email;
@@ -216,9 +289,7 @@ public class Client extends Person implements Recommended {
 		this.confirmationClientExclusion = confirmacaoExclusaoCliente;
 	}
 
-	@Override
 	public void recommendedMedicines(String medicineType, String use) {
-		// TODO Auto-generated method stub
 		
 	}
 
