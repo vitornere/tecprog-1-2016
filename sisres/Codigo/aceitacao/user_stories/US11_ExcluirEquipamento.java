@@ -16,26 +16,26 @@ import org.junit.Test;
 import persistence.EquipamentoDAO;
 import view.Main2;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * US11
-Título: Excluir equipamento.
-Como um usuário,
+Tï¿½tulo: Excluir equipamento.
+Como um usuï¿½rio,
 Eu gostaria de excluir o equipamento no sistema,
 Para que o equipamento seja indisponibilizado para reserva.
 
-Cenário 1: Existe equipamento cadastrado.
-Dado que o equipamento está cadastrado;
-Quando o usuário solicita a exclusão;
-Então o sistema deve eliminar os registros do equipamento.
-E informar o sucesso da exclusão.
+Cenï¿½rio 1: Existe equipamento cadastrado.
+Dado que o equipamento estï¿½ cadastrado;
+Quando o usuï¿½rio solicita a exclusï¿½o;
+Entï¿½o o sistema deve eliminar os registros do equipamento.
+E informar o sucesso da exclusï¿½o.
 
-Cenário 2: Não existe equipamento cadastrado.
-Dado que não existe o registro do equipamento;
-Quando o usuário solicita exclusão;
-Então o sistema não exclui nenhum registro de equipamento,
-E informa que não há o registro.
+Cenï¿½rio 2: Nï¿½o existe equipamento cadastrado.
+Dado que nï¿½o existe o registro do equipamento;
+Quando o usuï¿½rio solicita exclusï¿½o;
+Entï¿½o o sistema nï¿½o exclui nenhum registro de equipamento,
+E informa que nï¿½o hï¿½ o registro.
 
 */
 
@@ -46,7 +46,7 @@ public class US11_ExcluirEquipamento {
     private DialogFixture dialog;
     private int index;
 
-    @Before public void setUp() throws PatrimonioException, SQLException {
+    @Before public void setUp() throws PatrimonyException, SQLException {
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
 
@@ -63,7 +63,7 @@ public class US11_ExcluirEquipamento {
 
     }
 
-    @After public void tearDown() throws SQLException, PatrimonioException {
+    @After public void tearDown() throws SQLException, PatrimonyException {
         if (equipamento != null)
             EquipamentoDAO.getInstance().excluir(equipamento);
         window.cleanUp();
@@ -81,7 +81,7 @@ public class US11_ExcluirEquipamento {
     public void testCenario1() throws SQLException, ClienteException{
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Excluir").click();
-        dialog.optionPane().requireMessage("Deseja mesmo excluir Equipamento: " + equipamento.getDescricao() + "?");
+        dialog.optionPane().requireMessage("Deseja mesmo excluir Equipamento: " + equipamento.getDescription() + "?");
         sleep();
         dialog.optionPane().yesButton().click();
         sleep();
