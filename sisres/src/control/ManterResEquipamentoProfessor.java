@@ -7,9 +7,9 @@ import java.util.zip.DataFormatException;
 import model.Equipamento;
 import model.Professor;
 import model.ReservaEquipamentoProfessor;
-import persistence.ResEquipamentoProfessorDAO;
+import persistence.EquipamentReservationForTeacherDAO;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 public class ManterResEquipamentoProfessor {
@@ -29,6 +29,7 @@ public class ManterResEquipamentoProfessor {
 
     //
 
+<<<<<<< HEAD:sisres/src/control/ManterResEquipamentoProfessor.java
     public Vector<ReservaEquipamentoProfessor> getReservasHora(String hora) throws SQLException, PatrimonioException,
             ClienteException, ReservaException, DataFormatException {
         return ResEquipamentoProfessorDAO.getInstance().buscarPorHora(hora);
@@ -43,12 +44,28 @@ public class ManterResEquipamentoProfessor {
     public Vector<Object> getResEquipamentoProfessor_vet() throws SQLException, ClienteException, PatrimonioException,
             ReservaException, DataFormatException {
         this.rev_equipamento_professor_vet = ResEquipamentoProfessorDAO.getInstance().buscarTodos();
+=======
+    public Vector<ReservaEquipamentoProfessor> getReservasHora(String hora) throws SQLException, PatrimonyException,
+            ClienteException, ReservaException {
+        return EquipamentReservationForTeacherDAO.getInstance().buscarPorHora(hora);
+
+    }
+
+    public Vector<ReservaEquipamentoProfessor> getReservasMes(int mes) throws SQLException, PatrimonyException, ClienteException,
+            ReservaException {
+        return EquipamentReservationForTeacherDAO.getInstance().buscarPorMes(mes);
+    }
+
+    public Vector<Object> getResEquipamentoProfessor_vet() throws SQLException, ClienteException, PatrimonyException,
+            ReservaException {
+        this.rev_equipamento_professor_vet = EquipamentReservationForTeacherDAO.getInstance().buscarTodos();
+>>>>>>> devel:sisres/src/control/ManterResEquipamentoProfessor.java
         return this.rev_equipamento_professor_vet;
     }
 
     public void inserir(Equipamento equipamento, Professor prof, String data, String hora) throws SQLException, ReservaException, DataFormatException {
         ReservaEquipamentoProfessor reserva = new ReservaEquipamentoProfessor(data, hora, equipamento, prof);
-        ResEquipamentoProfessorDAO.getInstance().incluir(reserva);
+        EquipamentReservationForTeacherDAO.getInstance().incluir(reserva);
         this.rev_equipamento_professor_vet.add(reserva);
     }
 
@@ -56,12 +73,12 @@ public class ManterResEquipamentoProfessor {
 
         ReservaEquipamentoProfessor reserva_old = new ReservaEquipamentoProfessor(reserva.getData(), reserva.getHora(),
                 reserva.getEquipamento(), reserva.getProfessor());
-        ResEquipamentoProfessorDAO.getInstance().alterar(reserva_old, reserva);
+        EquipamentReservationForTeacherDAO.getInstance().alterar(reserva_old, reserva);
 
     }
 
     public void excluir(ReservaEquipamentoProfessor reserva) throws SQLException, ReservaException {
-        ResEquipamentoProfessorDAO.getInstance().excluir(reserva);
+        EquipamentReservationForTeacherDAO.getInstance().excluir(reserva);
         this.rev_equipamento_professor_vet.remove(reserva);
     }
 }
