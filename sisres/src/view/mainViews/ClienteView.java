@@ -57,6 +57,10 @@ public abstract class ClienteView extends javax.swing.JDialog {
 
     }
 
+    /*
+     * @return 
+     * return a table with data of client
+     */
     protected DefaultTableModel fillTable() {
         DefaultTableModel table = new DefaultTableModel();
 
@@ -77,9 +81,11 @@ public abstract class ClienteView extends javax.swing.JDialog {
         return table;
     }
 
-    // @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed"
-    // desc="Generated Code">//GEN-BEGIN:initComponents
+    /* @SuppressWarnings("unchecked")
+    * <editor-fold defaultstate="collapsed"
+    * desc="Generated Code">//GEN-BEGIN:initComponents
+    */
+    
     private void initComponents() {
 
         panelBotoes = new javax.swing.JPanel();
@@ -214,7 +220,10 @@ public abstract class ClienteView extends javax.swing.JDialog {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
+    /*
+     * </editor-fold>//GEN-END:initComponents
+    */
 
     private void pesquisarTextFieldActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_pesquisarTextFieldActionPerformed
         String nome = this.pesquisarTextField.getText();
@@ -223,14 +232,18 @@ public abstract class ClienteView extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(this, "Funciona", "Teste", JOptionPane.WARNING_MESSAGE, null);
         }
-    }// GEN-LAST:event_pesquisarTextFieldActionPerformed
-
+    }
+    /*
+     * GEN-LAST:event_pesquisarTextFieldActionPerformed
+	*/
     private void cadastrarBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cadastrarBtnActionPerformed
         // TODO add your handling code here:
         cadastrarAction();
 
-    }// GEN-LAST:event_cadastrarBtnActionPerformed
-
+    }
+    /*
+     * GEN-LAST:event_cadastrarBtnActionPerformed
+	*/
     private void alterarBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_alterarBtnActionPerformed
         // TODO add your handling code here:
 
@@ -242,13 +255,23 @@ public abstract class ClienteView extends javax.swing.JDialog {
 
         alterarAction(index);
 
-    }// GEN-LAST:event_alterarBtnActionPerformed
+    }
+    /*
+     * GEN-LAST:event_alterarBtnActionPerformed
+     */
 
     private void excluirBtnActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_excluirBtnActionPerformed
         excluirAction();
 
-    }// GEN-LAST:event_excluirBtnActionPerformed
-     // Variables declaration - do not modify//GEN-BEGIN:variables
+    }
+    /*
+     * GEN-LAST:event_excluirBtnActionPerformed
+     */
+     
+    /*
+     * @see
+     * Variables declaration - do not modify//GEN-BEGIN:variables
+     */
 
     private javax.swing.JButton alterarBtn;
     private javax.swing.JButton cadastrarBtn;
@@ -259,5 +282,8 @@ public abstract class ClienteView extends javax.swing.JDialog {
     private javax.swing.JLabel pesquisarLbl;
     private javax.swing.JTextField pesquisarTextField;
     protected javax.swing.JTable tabelaCliente;
-    // End of variables declaration//GEN-END:variables
+    /*
+     * End of variables declaration
+     * GEN-END:variables
+     */
 }

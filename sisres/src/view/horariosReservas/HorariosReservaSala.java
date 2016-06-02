@@ -45,6 +45,9 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         this.setName("HorarioReservaSala");
     }
 
+    /*
+     * @return a vector with informations about booking room
+     */
     protected Vector<String> fillDataVector(Object o, int index) {
         Vector<String> nomesTabela = new Vector<String>();
         if (o instanceof ReservaSalaAluno) {
@@ -81,7 +84,10 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         return nomesTabela;
 
     }
-
+    /*
+     * (non-Javadoc)
+     * @see view.horariosReservas.HorariosReservaPatrimonio#fillTable(model.Patrimonio)
+     */
     @Override protected DefaultTableModel fillTable(Patrimonio sala) {
         this.sala = (Sala) sala;
         DefaultTableModel table = new DefaultTableModel();
@@ -145,7 +151,10 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         return table;
 
     }
-
+    /*
+     * (non-Javadoc)
+     * @see view.horariosReservas.HorariosReservaPatrimonio#cancelarReservaAction(int)
+     */
     @Override protected void cancelarReservaAction(int index) {
         try {
             String tipoCliente = (String) this.reservasTable.getModel().getValueAt(index, 1);
@@ -202,7 +211,10 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         }
     }
-
+    /*
+     * (non-Javadoc)
+     * @see view.horariosReservas.HorariosReservaPatrimonio#reservarAction()
+     */
     @Override protected void reservarAction() {
         try {
             ReservaSalaView reserva = new FazerReservaSalaView(new JFrame(), true, sala, this.data);
@@ -218,6 +230,10 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * @see view.horariosReservas.HorariosReservaPatrimonio#alterarAction(int)
+     */
     @Override protected void alterarAction(int index) {
         try {
             String tipoCliente = (String) this.reservasTable.getModel().getValueAt(index, 1);
