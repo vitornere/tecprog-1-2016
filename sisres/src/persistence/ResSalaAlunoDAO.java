@@ -6,11 +6,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.zip.DataFormatException;
 
 import exception.ClienteException;
 import exception.PatrimonioException;
 import exception.ReservaException;
-
 import model.Aluno;
 import model.ReservaSalaAluno;
 import model.Sala;
@@ -99,7 +99,7 @@ public class ResSalaAlunoDAO extends DAO{
 
 		
 		
-	public void incluir(ReservaSalaAluno r) throws ReservaException, SQLException, ClienteException, PatrimonioException {
+	public void incluir(ReservaSalaAluno r) throws ReservaException, SQLException, ClienteException, PatrimonioException, NumberFormatException, DataFormatException {
 		if(r == null)
 			throw new ReservaException(NULA);
 		else if(!this.alunoinDB(r.getAluno()))
@@ -145,10 +145,14 @@ public class ResSalaAlunoDAO extends DAO{
 			else if(this.salainReservaProfessorDB(r_new.getSala(), r_new.getData(), r_new.getHora()))
 				throw new ReservaException(SALA_INDISPONIVEL);
 		}
-		if(!this.haCadeiras(""+(Integer.parseInt(r_new.getCadeiras_reservadas()) - 
-				Integer.parseInt(r.getCadeiras_reservadas())), r_new.getSala(), 
-				r_new.getData(), r_new.getHora()))
-			throw new ReservaException(CADEIRAS_INDISPONIVEIS);
+		try {
+			if(!this.haCadeiras(""+(Integer.parseInt(r_new.getCadeiras_reservadas()) - 
+					Integer.parseInt(r.getCadeiras_reservadas())), r_new.getSala(), 
+					r_new.getData(), r_new.getHora()))
+				throw new ReservaException(CADEIRAS_INDISPONIVEIS);
+		} catch (NumberFormatException | DataFormatException e) {
+			e.printStackTrace();
+		}
 		if(this.dataPassou(r_new.getData()))
 			throw new ReservaException(DATA_JA_PASSOU);
 		if(this.horaPassou(r_new.getHora()) && this.dataIgual(r_new.getData()))
@@ -167,12 +171,12 @@ public class ResSalaAlunoDAO extends DAO{
 			super.executeQuery(this.delete_from(r));
 	}
 	
-	public Vector<ReservaSalaAluno> buscarTodos() throws SQLException, ClienteException, PatrimonioException, ReservaException{
+	public Vector<ReservaSalaAluno> buscarTodos() throws SQLException, ClienteException, PatrimonioException, ReservaException, DataFormatException{
 		return super.buscar("SELECT * FROM reserva_sala_aluno " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala " +
 				"INNER JOIN aluno ON aluno.id_aluno = reserva_sala_aluno.id_aluno;");
 	}
-	public Vector<ReservaSalaAluno> buscarPorDia(String data) throws SQLException, ClienteException, PatrimonioException, ReservaException{
+	public Vector<ReservaSalaAluno> buscarPorDia(String data) throws SQLException, ClienteException, PatrimonioException, ReservaException, DataFormatException{
 		data = this.padronizarData(data);
 		return super.buscar("SELECT * FROM reserva_sala_aluno " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala " +
@@ -180,7 +184,7 @@ public class ResSalaAlunoDAO extends DAO{
 				"WHERE data = \""+ data + "\";");
 	}
 	public Vector<ReservaSalaAluno> buscarPorHora(String hora) 
-			throws SQLException, ClienteException, PatrimonioException, ReservaException{
+			throws SQLException, ClienteException, PatrimonioException, ReservaException, DataFormatException{
 		hora = this.padronizarHora(hora);
 		return super.buscar("SELECT * FROM reserva_sala_aluno " +
 				"INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala " +
@@ -190,7 +194,7 @@ public class ResSalaAlunoDAO extends DAO{
 
 	
 	public int cadeirasDisponiveis(Sala sala, String data, String hora) 
-			throws SQLException, PatrimonioException, ClienteException, ReservaException{
+			throws SQLException, PatrimonioException, ClienteException, ReservaException, DataFormatException{
 		data = this.padronizarData(data);
 		hora = this.padronizarHora(hora);
 		Vector<ReservaSalaAluno> vet = this.buscarTodos();
@@ -206,7 +210,7 @@ public class ResSalaAlunoDAO extends DAO{
 	
 	
 	private boolean haCadeiras(String cadeiras_reservadas, Sala sala, String data, String hora) 
-			throws SQLException, ClienteException, PatrimonioException, ReservaException {
+			throws SQLException, ClienteException, PatrimonioException, ReservaException, NumberFormatException, DataFormatException {
 		if(this.cadeirasDisponiveis(sala, data, hora) >= Integer.parseInt(cadeiras_reservadas))
 			return true;
 		return false;

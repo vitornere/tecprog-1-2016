@@ -4,10 +4,12 @@
  */
 package view.horariosReservas;
 
+import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.DataFormatException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -99,7 +101,12 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
         this.mes = Integer.parseInt(this.data.substring(3, 5));
 
         try {
-            Vector v = instanceProf.buscarPorData(this.data);
+            Vector v = null;
+			try {
+				v = instanceProf.buscarPorData(this.data);
+			} catch (DataFormatException e) {
+				e.printStackTrace();
+			}
 
             if (v != null)
                 for (int i = 0; i < v.size(); i++) {
@@ -110,7 +117,11 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
                 }
             v.clear();
 
-            v = instanceAluno.getReservasMes(this.data);
+            try {
+				v = instanceAluno.getReservasMes(this.data);
+			} catch (DataFormatException e) {
+				e.printStackTrace();
+			}
             if (v != null)
                 for (int i = 0; i < v.size(); i++) {
                     Vector<String> linha = fillDataVector(v.get(i), i);
@@ -140,22 +151,42 @@ public class HorariosReservaSala extends HorariosReservaPatrimonio {
             String tipoCliente = (String) this.reservasTable.getModel().getValueAt(index, 1);
             index = Integer.parseInt((String) this.reservasTable.getModel().getValueAt(index, 0));
             if (tipoCliente.equals("Aluno")) {
-                int confirm = JOptionPane.showConfirmDialog(this,
-                        "Deseja mesmo excluir Reserva?\n" + instanceAluno.getReservasMes(data).get(index).toString(), "Excluir",
-                        JOptionPane.YES_NO_OPTION);
+                int confirm = 0;
+				try {
+					confirm = JOptionPane.showConfirmDialog(this,
+					        "Deseja mesmo excluir Reserva?\n" + instanceAluno.getReservasMes(data).get(index).toString(), "Excluir",
+					        JOptionPane.YES_NO_OPTION);
+				} catch (HeadlessException | DataFormatException e) {
+					e.printStackTrace();
+				}
 
                 if (confirm == JOptionPane.YES_OPTION) {
-                    this.instanceAluno.excluir(instanceAluno.getReservasMes(data).get(index));
+                    try {
+						this.instanceAluno.excluir(instanceAluno.getReservasMes(data).get(index));
+					} catch (DataFormatException e) {
+						e.printStackTrace();
+					}
                     JOptionPane.showMessageDialog(this, "Reserva excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                             null);
                 }
             } else if (tipoCliente.equals("Professor")) {
-                int confirm = JOptionPane.showConfirmDialog(this,
-                        "Deseja mesmo excluir Reserva?\n" + instanceProf.buscarPorData(data).get(index).toString(), "Excluir",
-                        JOptionPane.YES_NO_OPTION);
+                int confirm = 0;
+				try {
+					confirm = JOptionPane.showConfirmDialog(this,
+					        "Deseja mesmo excluir Reserva?\n" + instanceProf.buscarPorData(data).get(index).toString(), "Excluir",
+					        JOptionPane.YES_NO_OPTION);
+				} catch (HeadlessException e) {
+					e.printStackTrace();
+				} catch (DataFormatException e) {
+					e.printStackTrace();
+				}
 
                 if (confirm == JOptionPane.YES_OPTION) {
-                    this.instanceProf.excluir(instanceProf.buscarPorData(data).get(index));
+                    try {
+						this.instanceProf.excluir(instanceProf.buscarPorData(data).get(index));
+					} catch (DataFormatException e) {
+						e.printStackTrace();
+					}
                     JOptionPane.showMessageDialog(this, "Reserva excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                             null);
                 }

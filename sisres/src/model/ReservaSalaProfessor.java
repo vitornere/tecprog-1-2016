@@ -1,5 +1,6 @@
 package model;
 
+import exception.ClienteException;
 import exception.ReservaException;
 
 public class ReservaSalaProfessor extends ReservaSala{
@@ -25,7 +26,7 @@ public class ReservaSalaProfessor extends ReservaSala{
 		this.professor = professor;
 	}
 
-	public boolean equals(ReservaSalaProfessor obj) {
+	public boolean equals(ReservaSalaProfessor obj) throws ClienteException {
 		return (super.equals(obj) &&
 				this.getProfessor().equals(obj.getProfessor())
 				);

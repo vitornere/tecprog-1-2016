@@ -1,8 +1,3 @@
-/*
- * File: DAO.java
- * Description: Class to make transactions with database
- * */
-
 package persistence;
 
 import java.sql.Connection;
@@ -10,105 +5,95 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
+import java.util.zip.DataFormatException;
 
 import exception.ClienteException;
-import exception.PatrimonyException;
+import exception.PatrimonioException;
 import exception.ReservaException;
 
 public abstract class DAO {
+	//Esta classe nao sera testada diretamente.
 	
-	/** Method to search data in  database
-	 * @param query String - query with contains the select clause
-	 * @return Vector - vector with the select result
-	 */
+	
+	/**
+	 * O vetor obtido deste metodo deve ser convertido pra o vetor
+	 * do tipo que se vai utilizar, se necessario.
+	 * @throws DataFormatException 
+	 * */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-
-	protected Vector search(String query) throws SQLException, ClienteException, 
-													PatrimonyException, ReservaException{
-		//Start connection with database
-		Connection connection =  FactoryConnection.getInstance().getConnection();
-		
+	protected Vector buscar(String query) throws SQLException, ClienteException, 
+													PatrimonioException, ReservaException, DataFormatException{
 		Vector vet = new Vector();
 		
-		//Execute consult into database
-		PreparedStatement prepare_query_to_execute = connection.prepareStatement(query);
-		ResultSet database_return = prepare_query_to_execute.executeQuery();
+		Connection con =  FactoryConnection.getInstance().getConnection();
 		
-		//Save result of the database in the vector
-		Vector query_result = new Vector();
-		while(database_return.next()){
-			query_result.add(this.fetch(database_return));
-		}
+		PreparedStatement pst = con.prepareStatement(query);
+		ResultSet rs = pst.executeQuery();
 		
-		//Close connection with database
-		prepare_query_to_execute.close();
-		database_return.close();
-		connection.close();
+		while(rs.next())
+			vet.add(this.fetch(rs));
 		
-		return query_result;
+		pst.close();
+		rs.close();
+		con.close();
+		return vet;
 	}
 	
-
-	/** Method to verify if the consult return any value
-	 * @param query String - query with contains the select clause
-	 * @return boolean - true if no exist result else false 
-	 */
+	/**
+	 * Continua funcionando como antes, checa se o resgistro esta no banco.
+	 * */
 	protected boolean inDBGeneric(String query) throws SQLException{
-		//Start connection with database
-		Connection connection =  FactoryConnection.getInstance().getConnection();
+		Connection con = FactoryConnection.getInstance().getConnection();
+		PreparedStatement pst = con.prepareStatement(query);
+		ResultSet rs = pst.executeQuery();
 		
-		//Execute consult into database
-		PreparedStatement prepare_query_to_execute = connection.prepareStatement(query);
-		ResultSet database_return = prepare_query_to_execute.executeQuery();
-		
-		boolean has_value = database_return.next();
-		
-		database_return.close();
-		prepare_query_to_execute.close();
-		connection.close();
-		return has_value;
+		if(!rs.next())
+		{
+			rs.close();
+			pst.close();
+			con.close();
+			return false;
+		}
+		else {
+			rs.close();
+			pst.close();
+			con.close();
+			return true;
+		}
 	}
 
 	/**
 	 * Funcao utilizada no buscar, por isso precisa ser implementada
 	 * Ja foi implementada nas outras classes DAO. A implementacao eh
 	 * semelhante.
+	 * @throws DataFormatException 
 	 * */
 	protected abstract Object fetch(ResultSet rs) throws SQLException, ClienteException,
-														PatrimonyException, ReservaException;
+														PatrimonioException, ReservaException, DataFormatException;
 	
 	
-	/** Method to execute data manipulate in database, except consults and updates
-	 * @param query String - only DML except consult and updates
-	 */
-	protected void executeQuery(String query) throws SQLException{
-		//Prepare statement and start connection with database
-		Connection connection =  FactoryConnection.getInstance().getConnection();
-		PreparedStatement prepare_query_to_execute = connection.prepareStatement(query);
-		
-		//Execute statement
-		prepare_query_to_execute.executeUpdate();		
-		
-		//close connection
-		prepare_query_to_execute.close();
-		connection.close();
+	/**
+	 * Este metodo eh utilizado para Incluir e Excluir algum registro do
+	 * banco, dependendo da query.
+	 * */
+	protected void executeQuery(String msg) throws SQLException{
+		Connection con =  FactoryConnection.getInstance().getConnection();
+		PreparedStatement pst = con.prepareStatement(msg);
+		pst.executeUpdate();		
+		pst.close();
+		con.close();
 	}
 	
-	/** Method to execute update statement
-	 * @param query String - only update statement
-	 */
-	protected void updateQuery(String query) throws SQLException{
-		//Prepare statement and start connection with database
-		Connection connection =  FactoryConnection.getInstance().getConnection();
-		PreparedStatement prepare_query_to_execute = connection.prepareStatement(query);
-		connection.setAutoCommit(false); //Disable autocommit from the database
-		
-		//Execute statement
-		prepare_query_to_execute.executeUpdate();		
-		connection.commit(); //Execute commit in database
-		
-		//close connection
-		prepare_query_to_execute.close();
-		connection.close();
+	/**
+	 * Este metodo eh utilizado para Alterar alguma coisa no Banco
+	 * */
+	protected void updateQuery(String msg) throws SQLException{
+		Connection con =  FactoryConnection.getInstance().getConnection();
+		con.setAutoCommit(false);
+		PreparedStatement pst = con.prepareStatement(msg);
+		pst.executeUpdate();
+		con.commit();
+		pst.close();
+		con.close();
 	}
 }

@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.util.zip.DataFormatException;
 
 import javax.swing.JOptionPane;
 
@@ -50,10 +51,18 @@ public class FazerReservaSalaView extends ReservaSalaView {
 	 */
     @Override protected void reservarAluno() {
         try {
-            instanceAluno.inserir(sala, aluno, this.dataTextField.getText(), this.horaTextField.getText(),
-                    this.finalidadeTextField.getText(), this.qntCadeirasReservadasTextField.getText());
+            try {
+				instanceAluno.inserir(sala, aluno, this.dataTextField.getText(), this.horaTextField.getText(),
+				        this.finalidadeTextField.getText(), this.qntCadeirasReservadasTextField.getText());
+			} catch (NumberFormatException | DataFormatException e) {
+				e.printStackTrace();
+			}
 
-            instanceAluno.getResAlunoSala_vet();
+            try {
+				instanceAluno.getResAlunoSala_vet();
+			} catch (DataFormatException e) {
+				e.printStackTrace();
+			}
             // System.out.println(v.toString());
 
             JOptionPane.showMessageDialog(this, "Reserva feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
@@ -153,6 +162,8 @@ public class FazerReservaSalaView extends ReservaSalaView {
         } catch (NullPointerException ex) {
             
             JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        }
+        } catch (DataFormatException e) {
+			e.printStackTrace();
+		}
     }
 }

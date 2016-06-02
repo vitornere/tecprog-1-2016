@@ -1,5 +1,8 @@
 package model;
 
+import java.io.ObjectStreamException;
+import java.util.zip.DataFormatException;
+
 import exception.ReservaException;
 
 public class ReservaEquipamento extends Reserva {
@@ -9,7 +12,7 @@ public class ReservaEquipamento extends Reserva {
     // Mensagens
     private final String EQUIPAMENTO_NULO = "O equipamneto esta nulo.";
 
-    public ReservaEquipamento(String data, String hora, Equipamento equipamento) throws ReservaException {
+    public ReservaEquipamento(String data, String hora, Equipamento equipamento) throws ReservaException, DataFormatException{
         super(data, hora);
         this.setEquipamento(equipamento);
     }
@@ -24,8 +27,8 @@ public class ReservaEquipamento extends Reserva {
         this.equipamento = equipamento;
     }
 
-    public boolean equals(ReservaEquipamento obj) {
-        return (super.equals(obj) && this.getEquipamento().equals(obj.getEquipamento()));
+    public boolean equals(ReservaEquipamento obj) throws ObjectStreamException {
+    	return (super.equals(obj) && this.getEquipamento().equals(obj.getEquipamento()));
     }
 
     @Override public String toString() {

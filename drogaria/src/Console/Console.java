@@ -20,15 +20,23 @@ public class Console {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		scanner = new Scanner(System.in);
-
+		
 		// Atributos
+<<<<<<< HEAD
+		
+		ArrayList<Balconista> listaDeBalconistas = new ArrayList<Balconista>();
+		ArrayList<Caixa> listaDeCaixas = new ArrayList<Caixa>();
+		ArrayList<Cliente> listaDeClientes = new ArrayList<Cliente>();
+		ArrayList<Medicamento> listaDeMedicamentos = new ArrayList<Medicamento>();
+=======
 
 		ArrayList<Clerk> listaDeBalconistas = new ArrayList<Clerk>();
 		ArrayList<Cashier> listaDeCaixas = new ArrayList<Cashier>();
 		ArrayList<Client> clientsList = new ArrayList<Client>();
 		ArrayList<Medicament> listaDeMedicamentos = new ArrayList<Medicament>();
+>>>>>>> devel
 
 		Clerk balconista = new Clerk();
 		Cashier caixa = new Cashier();
@@ -136,6 +144,7 @@ public class Console {
 							if (operacao == 3) {
 								estados = 4;
 							}
+							try{
 							while (estados == 4) {
 
 								cliente.clientMenu();// Menu cliente
@@ -158,7 +167,10 @@ public class Console {
 									cliente.deleteClient(clientsList);
 									estados = 4;
 								}
-
+							  }
+							}
+							catch(Exception e){
+								e.getStackTrace();
 							}
 							break;
 
@@ -199,12 +211,16 @@ public class Console {
 							while (estados == 6) {
 								estados = complementar.menuAjuda(estados);
 							}
+							}
 
 						}// Saindo do Switch principal
 					}// Saindo do if de estados = 1
 				}
 			}// Estados = 0
 		}// Saindo do While de estados != 100 / fim do programa
+<<<<<<< HEAD
+=======
 		System.out.println("Obrigado por usar nosso sistema de ger�ncia!" + " Saindo do programa!");
+>>>>>>> devel
 	}
-}
+

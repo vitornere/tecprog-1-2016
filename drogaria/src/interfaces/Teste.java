@@ -2,12 +2,23 @@ package interfaces;
 
 import entities.Client;
 	//Testando a Interface
-	public class Teste {
+	public class Teste{
 		public static void main(String[] args) {
+<<<<<<< HEAD
+			try{
+			Cliente novoCliente = new Cliente("13.999.888-DF","444.555.666", 11, "Teste", "Teste2" , "Gama qd. 1000", "(61)-1234-5678","cliente1@gmail.com");
+		    novoCliente.remediosRecomendados("GENERICO", "PEDIATRICO");
+			}catch(Exception exTeste){
+				exTeste.printStackTrace();
+			}
+		    //Lembrando que pode alterar os tipos de remédios, que são: "TARJA PRETA" e "GENÉRICO"
+		    //Também vale o mesmo para o uso: "ADULTO" e "PEDIÁTRICO"
+=======
 			Client novoCliente = new Client("13.999.888-DF","444.555.666", 11, "Teste", "Teste2" , "Gama qd. 1000", "(61)-1234-5678","cliente1@gmail.com");
 		    novoCliente.recommendedMedicines("GENERICO", "PEDIATRICO");
 		    //Lembrando que pode alterar os tipos de rem�dios, que s�o: "TARJA PRETA" e "GEN�RICO"
 		    //Tamb�m vale o mesmo para o uso: "ADULTO" e "PEDI�TRICO"
+>>>>>>> devel
 		}
 
 }

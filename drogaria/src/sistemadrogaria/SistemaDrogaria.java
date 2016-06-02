@@ -28,10 +28,14 @@ public class SistemaDrogaria {
 	public SistemaDrogaria() {
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InstantiationException{
 
+<<<<<<< HEAD
+		Balconista funcionarioDrogaria = new Balconista("13.523.542-PA", "123.456.789", 12, "Victor", "Fellipe",
+=======
 		// Instanciando um objeto da classe dos funcionarios.
 		Clerk funcionarioDrogaria = new Clerk("13.523.542-PA", "123.456.789", 12, "Victor", "Fellipe",
+>>>>>>> devel
 				"SHCES Qd 1000", "(61)1234-5678", 1234, 5678, 20, 2, 20);
 
 		// Instanciando um objeto da classe dos clientes - DEPENDENCIA CORRIGIDA
@@ -45,9 +49,14 @@ public class SistemaDrogaria {
 		// Criando e cadastrando uma transacao do caixa
 		Cashier caixa = new Cashier("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100,
 				"10/10/2020", "transacaoTeste", 1);
+<<<<<<< HEAD
+		
+		// Imprimindo no console as informacoes do Funcion�rio
+=======
 
 		// Imprimindo no console as informacoes do Funcion�rio
 <<<<<<< HEAD
+>>>>>>> devel
 		System.out.println("Funcionario:" + funcionarioDrogaria.getNome() + funcionarioDrogaria.getSobrenome());
 =======
 		System.out.println("Funcionario:" + funcionarioDrogaria.getName() + funcionarioDrogaria.getLastName());
@@ -76,12 +85,18 @@ public class SistemaDrogaria {
 		System.out.println("Nome do medicamento: " + novoMedicamento.getNome());
 		System.out.println("Laboratorio fabricante: " + novoMedicamento.getFabricante());
 		System.out.println("Recomenda��o: " + novoMedicamento.getRecomendacao());
+<<<<<<< HEAD
+=======
 >>>>>>> 7dc6155feb316d34c05aba94bb91558233b9184c
+>>>>>>> devel
 		System.out.println("Tipo: " + novoMedicamento.getTipo());
 		System.out.println("Validade: " + novoMedicamento.getValidity());
 
 		// Imprimindo no console as informacoes do Caixa
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> devel
 		System.out.println("\nTipo da transa��o:" + caixa.getTipo());
 		System.out.printf("Valor da transa��o: R$ %.2f\n", caixa.getValor());
 		System.out.println("Data da transa��o: " + caixa.getData());
@@ -89,6 +104,9 @@ public class SistemaDrogaria {
 		System.out.println("Saldo atual: " + caixa.getSaldoAtual());
 		caixa.depositar(150);
 		System.out.println("\nSaldo atual: " + caixa.getSaldoAtual());
+<<<<<<< HEAD
+		
+=======
 =======
 		System.out.println("\nTipo da transa��o:" + caixa.getType());
 		System.out.printf("Valor da transa��o: R$ %.2f\n", caixa.getValue());
@@ -98,6 +116,7 @@ public class SistemaDrogaria {
 		caixa.deposito(150);
 		System.out.println("\nSaldo atual: " + caixa.getCurrentBalance());
 >>>>>>> 7dc6155feb316d34c05aba94bb91558233b9184c
+>>>>>>> devel
 
 		// Decimal Format para restringir o numero de casas decimais dos valores a serem apresentados
 		DecimalFormat df = new DecimalFormat("0.00");
@@ -106,6 +125,9 @@ public class SistemaDrogaria {
 		double salarioSemana, salarioMes;
 		// Utiliza��o de upcasting (Polimorfismo) e classe abstrata
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> devel
 		Balconista funcionarioDrogaria1 = new Balconista("13.523.542-PA", "123.456.789", 12, "Victor", "Fellipe",
 =======
 		Clerk funcionarioDrogaria1 = new Clerk("13.523.542-PA", "123.456.789", 12, "Victor", "Fellipe",
@@ -122,6 +144,9 @@ public class SistemaDrogaria {
 		double salarioCaixaMes;
 		// Utiliza��o de upcasting (Polimorfismo) e classe abstrata para o Caixa
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> devel
 		Caixa funcionarioDrogaria2 = new Caixa("25.555.444-DF", "123.456.789", 15, "Henrique", "Augusto",
 =======
 		Cashier funcionarioDrogaria2 = new Cashier("25.555.444-DF", "123.456.789", 15, "Henrique", "Augusto",
@@ -140,8 +165,12 @@ public class SistemaDrogaria {
 <<<<<<< HEAD
 		Medicamento medicamento2 = new Medicamento("NomeTeste 2", "LaboratorioTeste 2", "Crian�a", "L�quido",
 =======
+<<<<<<< HEAD
+		Medicamento medicamento2 = new Medicamento("NomeTeste 2", "LaboratorioTeste 2", "Crian�a", "L�quido",
+=======
 		Medicament medicamento2 = new Medicament("NomeTeste 2", "LaboratorioTeste 2", "Crian�a", "L�quido",
 >>>>>>> 7dc6155feb316d34c05aba94bb91558233b9184c
+>>>>>>> devel
 				"01/07/2014", "5 ml de 6 em 6 horas");
 
 		// Lista de medicamentos para associacao
@@ -155,8 +184,12 @@ public class SistemaDrogaria {
 <<<<<<< HEAD
 		Medicamento medicamento3 = new Medicamento("Paracetamol", "Germed", "Infantil", "L�quido", "01/08/2015",
 =======
+<<<<<<< HEAD
+		Medicamento medicamento3 = new Medicamento("Paracetamol", "Germed", "Infantil", "L�quido", "01/08/2015",
+=======
 		Medicament medicamento3 = new Medicament("Paracetamol", "Germed", "Infantil", "L�quido", "01/08/2015",
 >>>>>>> 7dc6155feb316d34c05aba94bb91558233b9184c
+>>>>>>> devel
 				"2,5 ml a cada 4 horas");
 		Medicament medicamento4 = new Medicament("Aspirina", "Germed", "Adulto", "Comprimido", "01/08/2015",
 				"8 em 8 horas");
@@ -172,6 +205,7 @@ public class SistemaDrogaria {
 		registro2.setMedicamento(medicamento4);
 		registro2.listMedicine();
 		// Fim Agregacao
+		
 
 		// Composicao3
 		Cashier caixaComposicao = new Cashier("25.555.444-DF", "123.456.789", 15, "Henrique", "Augusto",
@@ -184,13 +218,27 @@ public class SistemaDrogaria {
 <<<<<<< HEAD
 		System.out.println("O Funcionario do Caixa �:" + caixaComposicao.getBalconista().getNome());
 =======
+<<<<<<< HEAD
+		System.out.println("O Funcionario do Caixa �:" + caixaComposicao.getBalconista().getNome());
+=======
 		System.out.println("O Funcionario do Caixa �:" + caixaComposicao.getClerk().getName());
 
 >>>>>>> 7dc6155feb316d34c05aba94bb91558233b9184c
+>>>>>>> devel
 
 		// Fim Composicao
 
 		// Polimorfismo
+<<<<<<< HEAD
+		Pessoa pessoa;
+		pessoa = funcionarioDrogaria;
+		System.out.println("A confirma��o do pagamento do Funcion�rio (1: Confirmado e 0:Rejeitado) �: "
+				+ pessoa.confirmacaoPagamento());
+		// Upcasting
+		pessoa = caixa;
+		System.out.println("A confirma��o do pagamento do Caixa (1: Confirmado e 0:Rejeitado) �: "
+				+ pessoa.confirmacaoPagamento());
+=======
 <<<<<<< HEAD
 		People people;
 		// Upcasting
@@ -213,11 +261,17 @@ public class SistemaDrogaria {
 				+ pessoa.paymentConfirmation());
 
 >>>>>>> 7dc6155feb316d34c05aba94bb91558233b9184c
+>>>>>>> devel
 
 		// Interface
 		Client novoClienteInterface = new Client("13.999.888-DF", "444.555.666", 11, "INTERFACE", "INTERFACE",
 				"Gama qd. 1000", "(61)-1234-5678", "cliente1@gmail.com");
+<<<<<<< HEAD
+		novoClienteInterface.remediosRecomendados("GENERICO", "PEDIATRICO");
+
+=======
 		novoClienteInterface.recommendedMedicines("GENERICO", "PEDIATRICO");
+>>>>>>> devel
 	}
 
 }
