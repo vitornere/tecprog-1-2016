@@ -1,14 +1,36 @@
+/**
+ * Name:PatrimonyRegistration.java
+ * Class is a super class for adding a new patrimony, 
+ * which can be a classroom or a equipment.
+ */
+
 package view.cadastros;
 
 public abstract class PatrimonyRegistration extends javax.swing.JDialog {
-
+	
+	/**
+	 * Method that builds the heritage of the registration form.
+	 * 
+	 * @param parent
+	 * @param modal
+	 */
+	
 	public PatrimonyRegistration(java.awt.Frame parent, boolean modal) {
 		super(parent, modal);
 		initComponents();
 	}
-
+	
+	/**
+	 * Method constructor that initializes the heritage of the registration form.
+	 */
+	
 	protected abstract void registrationAction();
 
+	/**
+	 * Method that initializes the components of the patrimony of 
+	 * the registration form.
+	 */
+	
 	public void initComponents() {
 
 		codigoLbl = new javax.swing.JLabel();
@@ -111,12 +133,23 @@ public abstract class PatrimonyRegistration extends javax.swing.JDialog {
 
 		pack();
 	}
+	
+	/**
+	 * Method adds the event on the button to register the heritage.
+	 * 
+	 * @param evt
+	 */
 
 	private void cadastroBtnActionPerformed(java.awt.event.ActionEvent evt) {
 		registrationAction();
 
 	}
 
+	/**
+	 * Method adds the event on the button to cancel the registration of the equity
+	 * 
+	 * @param evt
+	 */
 	protected void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {
 		this.setVisible(false);
 	}
