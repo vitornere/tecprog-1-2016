@@ -1,15 +1,35 @@
+/**
+ * Name:ClienteRegistration.java
+ * Class is a super class for adding a new client, which can be
+ * student and professor.
+ */
+
 package view.cadastros;
 
 public abstract class ClientRegistration extends javax.swing.JDialog {
 
+	/**
+	 * Method that builds customer registration form.
+	 * 
+	 * @param parent
+	 * @param modal
+	 */
+	
 	public ClientRegistration(java.awt.Frame parent, boolean modal) {
 		super(parent, modal);
 		initComponents();
 
 	}
 
+	/**
+	 * constructor that initializes in the customer registration form.
+	 */
+	
 	public abstract void registrationAction();
 
+	/**
+	 * Method that initializes the customer registration form components.
+	 */
 	private void initComponents() {
 
 		nomeLbl = new javax.swing.JLabel();
@@ -140,10 +160,22 @@ public abstract class ClientRegistration extends javax.swing.JDialog {
 
 		pack();
 	}
+	
+	/**
+	 * Method adds the event on the button to register the client
+	 * 
+	 * @param evt
+	 */
 
 	private void cadastroBtnActionPerformed(java.awt.event.ActionEvent evt) {
 		registrationAction();
 	}
+	
+	/**
+	 * Method adds the event on the button to cancel the customer registration
+	 * 
+	 * @param evt
+	 */
 
 	private void cancelBtnActionPerformed(java.awt.event.ActionEvent evt) {
 		this.setVisible(false);
