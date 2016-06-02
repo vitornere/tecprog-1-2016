@@ -1,3 +1,8 @@
+/**
+ * Name:ProfessorRegistration.java
+ * Class is a sub class for adding a new professor.
+ */
+
 package view.cadastros;
 
 import java.sql.SQLException;
@@ -9,31 +14,43 @@ import exception.ClienteException;
 
 public class ProfessorRegistration extends ClientRegistration {
 
-    public ProfessorRegistration(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        this.setName("CadastroProfessor");
+	/**
+	 * Method to generate the option screen to add professor.
+	 * 
+	 * @param parent
+	 * @param modal
+	 */
+	
+	public ProfessorRegistration(java.awt.Frame parent, boolean modal) {
+		super(parent, modal);
+		this.setName("CadastroProfessor");
 
-    }
+	}
 
-public void registrationAction() {
-        try {
-            if (btnRegistration.getText().equals("Cadastrar")) {
-           
-                ManterProfessor.getInstance().inserir(nameTxtField.getText(), cpfTxtField.getText(), enrollmentTxtField.getText(),
-                        phoneTxtField.getText(), emailTxtField.getText());
+	/**
+	 * Method to generate the screen to add information from a new professor and advises that 
+	 * was successfully changed
+	 */
+	
+	public void registrationAction() {
+		try {
+			if (btnRegistration.getText().equals("Cadastrar")) {
 
-                JOptionPane.showMessageDialog(this, "Professor Cadastrado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
-                        null);
+				ManterProfessor.getInstance().inserir(nameTxtField.getText(), cpfTxtField.getText(),
+						enrollmentTxtField.getText(), phoneTxtField.getText(), emailTxtField.getText());
 
-                this.setVisible(false);
-            }
-        } catch (ClienteException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        }
-    }
+				JOptionPane.showMessageDialog(this, "Professor Cadastrado com sucesso", "Sucesso",
+						JOptionPane.INFORMATION_MESSAGE, null);
+
+				this.setVisible(false);
+			}
+		} catch (ClienteException ex) {
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+		} catch (NullPointerException ex) {
+			JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+		}
+	}
 
 }
