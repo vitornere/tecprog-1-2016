@@ -1,3 +1,8 @@
+/**
+ * Name:ChangeEquipment.java
+ * Class for change information of a equipment already registered.  
+ */
+
 package view.alteracoes;
 
 import java.sql.SQLException;
@@ -12,6 +17,13 @@ public class ChangeEquipment extends PatrimonyRegistration {
 
 	private int index2 = 0;
 
+	/**
+	 * Method to generate the option screen to change equipment.
+	 * 
+	 * @param parent
+	 * @param modal
+	 * @param index
+	 */
 	public ChangeEquipment(java.awt.Frame parent, boolean modal, int index) {
 		super(parent, modal);
 		this.setTitle("Alterar");
@@ -38,6 +50,11 @@ public class ChangeEquipment extends PatrimonyRegistration {
 
 	}
 
+	/**
+	 * Method to generate the screen to change information from equipment and advises that 
+	 * was successfully changed
+	 */
+	
 	protected void registrationAction() {
 		try {
 

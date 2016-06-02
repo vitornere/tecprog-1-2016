@@ -1,3 +1,7 @@
+/**
+ * 
+ */
+
 package entities;
 
 import java.util.ArrayList;
@@ -17,28 +21,50 @@ public class Cashier extends Person {
 	private static final int YES = 1;
 	private static final int NO = 0;
 	
-	private float CurrentBalance = 0;
-	private int type = 0; 
-	private float value = 0;
+	private float CurrentBalance = 0; //Saves the current value ( total value of past products).
+	private int type = 0; //Informs the type if it is income or expense ( 0 or 1, respectively) .
+	private float value = 0; //Store the value of the last product.
 	private String date;
-	private String description;
+	private String description; //product description.
 	private Clerk clerk;
 	protected Client[] clients;
 	protected Clerk[] employee;
-	private int code = 0;
+	private int code = 0; //Store the product code.
+	private double confirmation = 0;
 
-	Cashier[] cashier = {};
+	Cashier[] cashier = {}; //Store the cashier information that is servicing the client.
 	Scanner scanner = new Scanner(System.in);
 	int operation = 0;
-	int operationCashier = 0, repeatCashierRegister = 0, repeatCashier = 0;
-	int deleteCode = 0;
-	int confirmationExclusionCashier = 0;
+	int operationCashier = 0;
+	int repeatCashierRegister = 0;
+	int repeatCashier = 0;
+	int deleteCode = 0;  //Store the information of exclusion desire ( 0 - no, 1 - yes) .
+	int confirmationExclusionCashier = 0; //Store the confirmation of exclusion desire ( 0 - no, 1 - yes) .
 	
-
+	/**
+	 * Creates an empty object.
+     */
+	
 	public Cashier() {
 		super();
 	}
-
+	
+	/**
+	 * 
+	 * @param personIdentity
+	 * @param cpfPerson
+	 * @param cpfDigitPerson
+	 * @param personName
+	 * @param personLastName
+	 * @param personAddress
+	 * @param personPhone
+	 * @param trasitionType
+	 * @param trasitionValue
+	 * @param trasitionDate
+	 * @param trasitionDescription
+	 * @param code
+	 */
+	
 	public Cashier(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName,
 			String personLastName, String personAddress, String personPhone, int trasitionType,
 			float trasitionValue, String trasitionDate, String trasitionDescription, int code) {
@@ -55,6 +81,7 @@ public class Cashier extends Person {
 
 		}
 		
+
 		Clerk clerk = new Clerk(this);
 		this.clerk = clerk;
 
@@ -62,41 +89,82 @@ public class Cashier extends Person {
 		Clerk.setStatusClerk(true); 
 	}
 
+	/**
+	 * 
+	 * @param personIdentity
+	 * @param cpfPerson
+	 * @param cpfDigitPerson
+	 * @param personName
+	 * @param personLastName
+	 * @param personAddress
+	 * @param personPhone
+	 * @param code
+	 */
+	
 	public Cashier(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName,
 			String personLastName, String personAddress, String personPhone, int code) {
 		super(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress, personPhone);
 		this.code = code;
 	}
+	
+	/**
+	 * Creates a clerk.
+	 */
 
 	public void createClerk() {
 		Clerk clerk = new Clerk(this);
 		this.clerk = clerk;
 	}
+	
+	/**
+	 * Gets the payment confirmation.
+	 */
 
 	public double paymentConfirmation() {
 		if (this.getPaymentConfirmation() == PAYMENT_ACCEPTED) {
-			return PAYMENT_ACCEPTED; 
+			confirmation = PAYMENT_ACCEPTED; 
+		} else {
+			confirmation = PAYMENT_NOT_ACCEPTED; 
 		}
-		else {
-			return PAYMENT_NOT_ACCEPTED; 
-		}
+		return confirmation;
 	}
+	
+	/**
+	 * Puts the value of the current balance.
+	 * 
+	 * @param value
+	 */
 
-	public void deposito(float value) {
+	public void deposit(float value) {
 		System.out.println("Valor do saldo atual: " + CurrentBalance);
 		CurrentBalance += value;
 		System.out.println("Valor após o depósito: " + CurrentBalance);
 	}
 
+	/**
+	 * Calculate the employee's salary.
+	 */
+	
 	public double calculateSalary() {
 		this.setSalary(715);
 		return 715;
 	}
+	
+	/**
+	 * Displays the menu The options are 0 to 3. 
+	 * Where 0 is exit, 1 is register a new cashier, 2  is cashier list and 3 is to delete a cashier.
+	 */
 
 	public void cashierMenu() {
 		System.out.println("\nInsira o que deseja fazer de acordo com as opções seguintes:" + "\n(0) - Sair\n"
 				+ "(1) - Cadastrar novo Caixa\n" + "(2) - Listar Caixas\n" + "(3) - Excluir Caixa\n");
 	}
+	
+	/**
+	 * Register a new cashier
+	 * 
+	 * @param cashierList
+	 */
 
 	public void cashierRegister(ArrayList<Cashier> cashierList) {
 
@@ -132,6 +200,12 @@ public class Cashier extends Person {
 		System.out.println("O(A) caixa " + cashier.getName() + " foi cadastrado(a) com sucesso!");
 
 	}
+	
+	/**
+	 * list cashiers registered
+	 * 
+	 * @param cashierList
+	 */
 
 	public void listCashiers(ArrayList<Cashier> cashierList) {
 		if (cashierList.size() == 0) {
@@ -163,6 +237,12 @@ public class Cashier extends Person {
 		}
 
 	}
+	
+	/**
+	 * Delete cashier registered.
+	 * 
+	 * @param cashierList
+	 */
 
 	public void deleteCashier(ArrayList<Cashier> cashierList) {
 
@@ -191,6 +271,20 @@ public class Cashier extends Person {
 
 	}
 	
+	/**
+	 * Displays the client list.
+	 */
+	
+	public void clientList() {
+		for (int position = FIRST; position < (clients.length); position += 1) {
+			System.out.println(("Clientes: [" + (position + 1) + "]: " + clients[position]));
+		}
+	}
+	
+	/**
+	 * Getters and Setters
+	 */
+	
 	private void setSalary(double i) {
 	}
 
@@ -204,12 +298,6 @@ public class Cashier extends Person {
 
 	public void setClient(Client[] client) {
 		this.clients = client;
-	}
-
-	public void clientList() {
-		for (int position = FIRST; position < (clients.length); position += 1) {
-			System.out.println(("Clientes: [" + (position + 1) + "]: " + clients[position]));
-		}
 	}
 
 	public int getType() {

@@ -1,3 +1,8 @@
+/**
+ * Name:ChangeClassroom.java
+ * Class for change information of a classroom already registered.  
+ */
+
 package view.alteracoes;
 
 import java.sql.SQLException;
@@ -11,7 +16,15 @@ import exception.PatrimonyException;
 public class ChangeClassroom extends PatrimonyRegistration {
 
 	private int index2 = 0;
-
+	
+	/**
+	 * Method to generate the option screen to change classroom.
+	 * 
+	 * @param parent
+	 * @param modal
+	 * @param index
+	 */
+	
 	public ChangeClassroom(java.awt.Frame parent, boolean modal, int index) {
 		super(parent, modal);
 		this.setTitle("Alterar");
@@ -37,6 +50,11 @@ public class ChangeClassroom extends PatrimonyRegistration {
 
 	}
 
+	/**
+	 * Method to generate the screen to change information from classroom and advises that 
+	 * was successfully changed
+	 */
+	
 	protected void registrationAction() {
 		try {
 

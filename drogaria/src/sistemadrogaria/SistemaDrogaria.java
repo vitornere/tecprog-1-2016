@@ -113,7 +113,7 @@ public class SistemaDrogaria {
 		System.out.println("Data da transa��o: " + caixa.getDate());
 		System.out.println("Descri��o: " + caixa.getDescription());
 		System.out.println("Saldo atual: " + caixa.getCurrentBalance());
-		caixa.deposito(150);
+		caixa.deposit(150);
 		System.out.println("\nSaldo atual: " + caixa.getCurrentBalance());
 >>>>>>> 7dc6155feb316d34c05aba94bb91558233b9184c
 >>>>>>> devel
