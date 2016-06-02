@@ -2,6 +2,6 @@ package interfaces;
 
 public interface Recomendavel {
 
-	// Assinatura do método postarRecomendações
+	// Assinatura do mÃ©todo postarRecomendaÃ§Ãµes
 	public void remediosRecomendados(String tipoRemedio, String uso);
 }

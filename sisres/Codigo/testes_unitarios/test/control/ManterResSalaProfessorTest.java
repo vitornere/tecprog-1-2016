@@ -10,7 +10,7 @@ import java.util.Vector;
 
 import model.Professor;
 import model.ReservaSalaProfessor;
-import model.Sala;
+import model.Classroom;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -18,32 +18,32 @@ import org.junit.Test;
 
 import control.ManterResSalaProfessor;
 import exception.ClienteException;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 import exception.ReservaException;
 
 import persistence.FactoryConnection;
 import persistence.ProfessorDAO;
-import persistence.SalaDAO;
+import persistence.ClassroomDAO;
 
 public class ManterResSalaProfessorTest {
-	private static Sala sala1;
+	private static Classroom sala1;
 	private static Professor professor1;
 	private static Vector<ReservaSalaProfessor> vet;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		vet = ManterResSalaProfessor.getInstance().getResProfessorSala_vet();
-		sala1 = new Sala("123", "Sala de Aula", "120");
+		sala1 = new Classroom("123", "Sala de Aula", "120");
 		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
 		
 		ProfessorDAO.getInstance().incluir(professor1);
-		SalaDAO.getInstance().incluir(sala1);
+		ClassroomDAO.getInstance().add(sala1);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 		ProfessorDAO.getInstance().excluir(professor1);
-		SalaDAO.getInstance().excluir(sala1);
+		ClassroomDAO.getInstance().delete(sala1);
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class ManterResSalaProfessorTest {
 	
 	
 	@Test
-	public void testInserir() throws SQLException, ReservaException, ClienteException, PatrimonioException {
+	public void testInserir() throws SQLException, ReservaException, ClienteException, PatrimonyException {
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
 		String hora = "9:11";
@@ -70,7 +70,7 @@ public class ManterResSalaProfessorTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
-	public void testAlterar() throws ReservaException, SQLException, ClienteException, PatrimonioException {
+	public void testAlterar() throws ReservaException, SQLException, ClienteException, PatrimonyException {
 		
 		ReservaSalaProfessor reserva = new ReservaSalaProfessor("20/12/33", "9:11", sala1, "Pesquisa", professor1);
 		this.insert_into(reserva);
@@ -110,11 +110,11 @@ public class ManterResSalaProfessorTest {
 				"professor.email = \"" + prof.getEmail() + "\" and " +
 				"professor.matricula = \"" + prof.getMatricula() + "\"";
 	}
-	private String select_id_sala(Sala sala){
+	private String select_id_sala(Classroom sala){
 		return "SELECT id_sala FROM sala WHERE " +
-				"sala.codigo = \"" + sala.getCodigo() + "\" and " +
-				"sala.descricao = \"" + sala.getDescricao() +  "\" and " +
-				"sala.capacidade = " + sala.getCapacidade();
+				"sala.codigo = \"" + sala.getCode() + "\" and " +
+				"sala.descricao = \"" + sala.getDescription() +  "\" and " +
+				"sala.capacidade = " + sala.getCapacity();
 	}
 	private String where_reserva_sala_professor(ReservaSalaProfessor reserva){
 		return " WHERE " +

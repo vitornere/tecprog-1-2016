@@ -5,10 +5,12 @@
  */
 package view.horariosReservas;
 
+import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.zip.DataFormatException;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -86,16 +88,23 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
             Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ReservaException ex) {
             Logger.getLogger(HorariosReservaPatrimonio.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } catch (DataFormatException e) {
+			e.printStackTrace();
+		}
         return table;
 
     }
 
     @Override protected void cancelarReservaAction(int index) {
         try {
-            int confirm = JOptionPane.showConfirmDialog(this,
-                    "Deseja mesmo excluir Reserva?\n" + instance.getReservasMes(mes).get(index).toString(), "Excluir",
-                    JOptionPane.YES_NO_OPTION);
+            int confirm = 0;
+			try {
+				confirm = JOptionPane.showConfirmDialog(this,
+				        "Deseja mesmo excluir Reserva?\n" + instance.getReservasMes(mes).get(index).toString(), "Excluir",
+				        JOptionPane.YES_NO_OPTION);
+			} catch (HeadlessException | DataFormatException e) {
+				e.printStackTrace();
+			}
 
             if (confirm == JOptionPane.YES_OPTION) {
                 this.instance.excluir(instance.getReservasMes(mes).get(index));
@@ -111,7 +120,9 @@ public class HorariosReservaEquipamento extends HorariosReservaPatrimonio {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (ReservaException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        }
+        } catch (DataFormatException e) {
+			e.printStackTrace();
+		}
     }
 
     @Override protected void reservarAction() {

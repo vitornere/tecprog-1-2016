@@ -2,6 +2,9 @@ package model;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.zip.DataFormatException;
+
+import com.sun.org.apache.xerces.internal.impl.dv.DatatypeException;
 
 import exception.ReservaException;
 
@@ -21,7 +24,11 @@ public class Reserva {
 		private final String DATA_PATTERN = "^[0123]?[\\d]([./-])[01]?[\\d]\\1[\\d]{2,4}$";
 	
 	public Reserva(String data, String hora) throws ReservaException {
-		this.setData(data);
+		try {
+			this.setData(data);
+		} catch (DataFormatException e) {
+			e.printStackTrace();
+		}
 		this.setHora(hora);
 	}
 
@@ -50,7 +57,7 @@ public class Reserva {
 			throw new ReservaException(HORA_INVALIDA);
 	}
 
-	public void setData(String data) throws ReservaException {
+	public void setData(String data) throws ReservaException, DataFormatException {
 		if(data == null)
 			throw new ReservaException(DATA_NULA);
 		
@@ -76,7 +83,7 @@ public class Reserva {
 			+ "\nData=" + this.data;
 	}
 	
-	private static String padronizarData(String data){
+	private static String padronizarData(String data) throws DataFormatException{
 		String agora[] = dataAtual().split("[./-]");
 		String partes[] = data.split("[./-]");
 		String dataNoPadrao = "";
@@ -94,7 +101,7 @@ public class Reserva {
 		return dataNoPadrao;
 	}
 	
-	private static String dataAtual(){
+	private static String dataAtual() throws DataFormatException{
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 		return formatador.format(date);

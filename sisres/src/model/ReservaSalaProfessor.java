@@ -1,5 +1,6 @@
 package model;
 
+import exception.ClienteException;
 import exception.ReservaException;
 
 public class ReservaSalaProfessor extends ReservaSala{
@@ -9,7 +10,7 @@ public class ReservaSalaProfessor extends ReservaSala{
 	//Mensagens
 		private final String PROFESSOR_NULO = "O professor esta nulo.";
 	
-	public ReservaSalaProfessor(String data, String hora, Sala sala,
+	public ReservaSalaProfessor(String data, String hora, Classroom sala,
 			String finalidade, Professor professor) throws ReservaException {
 		super(data, hora, sala, finalidade);
 		this.setProfessor(professor);
@@ -25,7 +26,7 @@ public class ReservaSalaProfessor extends ReservaSala{
 		this.professor = professor;
 	}
 
-	public boolean equals(ReservaSalaProfessor obj) {
+	public boolean equals(ReservaSalaProfessor obj) throws ClienteException {
 		return (super.equals(obj) &&
 				this.getProfessor().equals(obj.getProfessor())
 				);

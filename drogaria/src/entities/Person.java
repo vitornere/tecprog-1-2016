@@ -1,38 +1,70 @@
-package entidades;
+/**
+ * This class is a super class of Clerk, Client and Cashier, and keeps personal information
+ */
 
-//Super classe de balconista,cliente e caixa
-public class Pessoa extends Administrativo {
+package entities;
 
-	protected String rg;
+public class Person extends Administrativo {
+
+	/*
+	 * Personal information attributes
+	 */
+	protected String rg; 
 	protected String cpf;
 	protected int digitoCpf;
 	protected String nome;
 	protected String sobrenome;
 	protected String endereco;
 	protected String telefone;
-	private static double confirmacaoPagamento;// Polimorfismo
-	protected double salario;// Classe Abstrata
+	private static double confirmacaoPagamento; // Used to verify if payment it is released
+	protected double salario;
 
-	public Pessoa() {
+	/**
+	 * Creates an empty object
+	 */
+	public Person() {
 	}
 
-	// Documentos
-	public Pessoa(String rgPessoa, String cpfPessoa, int digitoCpfPessoa) {
+	/**
+	 * Creates an object only with documents' params
+	 * 
+	 * @param rgPessoa
+	 * @param cpfPessoa
+	 * @param digitoCpfPessoa
+	 */
+	public Person(String rgPessoa, String cpfPessoa, int digitoCpfPessoa) {
 		this.rg = rgPessoa;
 		this.cpf = cpfPessoa;
 		this.digitoCpf = digitoCpfPessoa;
 	}
 
-	// Nomes
-	public Pessoa(String nomePessoa, String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
+	/**
+	 * Creates an object only with personal information's params
+	 * 
+	 * @param nomePessoa
+	 * @param sobrenomePessoa
+	 * @param enderecoPessoa
+	 * @param telefonePessoa
+	 */
+	public Person(String nomePessoa, String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
 		this.nome = nomePessoa;
 		this.sobrenome = sobrenomePessoa;
 		this.endereco = enderecoPessoa;
 		this.telefone = telefonePessoa;
 	}
 
-	// Todos os parametros
-	public Pessoa(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
+	/**
+	 * Creates an object with all params
+	 * 
+	 * @param rgPessoa
+	 * @param cpfPessoa
+	 * @param digitoCpfPessoa
+	 * @param nomePessoa
+	 * @param sobrenomePessoa
+	 * @param enderecoPessoa
+	 * @param telefonePessoa
+	 */
+	public Person(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
 			String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
 		this.rg = rgPessoa;
 		this.cpf = cpfPessoa;
@@ -43,7 +75,12 @@ public class Pessoa extends Administrativo {
 		this.telefone = telefonePessoa;
 	}
 
-	// Validacao digito
+	/**
+	 * Verify if digits of CPF are valid
+	 * 
+	 * @param digitoCpfPessoa
+	 * @return valid or invalid
+	 */
 	private boolean validarCpf(int digitoCpfPessoa) {
 		boolean validar1;
 		if (digitoCpfPessoa > 99) {
@@ -56,9 +93,19 @@ public class Pessoa extends Administrativo {
 		return validar1;
 	}
 
+	/**
+	 * Performs the registration of a new person with all your information
+	 * 
+	 * @param rgPessoa
+	 * @param cpfPessoa
+	 * @param digitoCpfPessoa
+	 * @param nomePessoa
+	 * @param sobrenomePessoa
+	 * @param enderecoPessoa
+	 * @param telefonePessoa
+	 */
 	public void cadastrarPessoa(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
 			String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
-		// Atributos
 		this.nome = nomePessoa;
 		this.sobrenome = sobrenomePessoa;
 		this.endereco = enderecoPessoa;
@@ -69,24 +116,34 @@ public class Pessoa extends Administrativo {
 
 		boolean validacaoDigitoCpf = this.validarCpf(digitoCpfPessoa);
 		if (validacaoDigitoCpf == true) {
-			System.out.println("Funcionário cadastrado com sucesso!");
+			System.out.println("Funcionï¿½rio cadastrado com sucesso!");
 		}
 		else {
-			System.out.println("Funcionário não cadastrado!");
+			System.out.println("Funcionï¿½rio nï¿½o cadastrado!");
 		}
 	}
 
-	public double confirmacaoPagamento() {
-		if (this.getConfirmacaoPagamento() == 1) {
-			return 1; // Confirma que o pagamento foi aceito.
+	/**
+	 *  Confirms whether the payment was accepted or not
+	 * 
+	 * @return 1 or 0 to accepted or rejected
+	 */
+	public double paymentConfirmation() {
+		if (this.getPaymentConfirmation() == 1) {
+			return 1;
 		}
 		else {
-			return 0; // Confirma que o pagamento não foi aceito
+			return 0;
 		}
 	}
 
-	// Metodo de calculo do salario do funcionario
-	public double calcularSalario() {
+	/*
+	 * Getters and Setters
+	 * 
+	 * @see entities.Administrativo#calculateSalary()
+	 */
+	
+	public double calculateSalary() {
 		return this.salario;
 	}
 
@@ -114,7 +171,7 @@ public class Pessoa extends Administrativo {
 		this.digitoCpf = digitoCpf;
 	}
 
-	public String getNome() {
+	public String getName() {
 		return nome;
 	}
 
@@ -122,7 +179,7 @@ public class Pessoa extends Administrativo {
 		this.nome = nome;
 	}
 
-	public String getSobrenome() {
+	public String getLastName() {
 		return sobrenome;
 	}
 
@@ -138,7 +195,7 @@ public class Pessoa extends Administrativo {
 		this.endereco = endereco;
 	}
 
-	public String getTelefone() {
+	public String getPhone() {
 		return telefone;
 	}
 
@@ -146,12 +203,12 @@ public class Pessoa extends Administrativo {
 		this.telefone = telefone;
 	}
 
-	public static double getConfirmacaoPagamento() {
+	public static double getPaymentConfirmation() {
 		return confirmacaoPagamento;
 	}
 
 	public static void setConfirmacaoPagamento(double confirmacaoPagamento) {
-		Pessoa.confirmacaoPagamento = confirmacaoPagamento;
+		Person.confirmacaoPagamento = confirmacaoPagamento;
 	}
 
 }

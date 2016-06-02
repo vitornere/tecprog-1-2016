@@ -1,5 +1,8 @@
 package model;
 
+import java.io.ObjectStreamException;
+import java.util.zip.DataFormatException;
+
 import exception.ReservaException;
 
 public class ReservaEquipamentoProfessor extends ReservaEquipamento {
@@ -10,7 +13,7 @@ public class ReservaEquipamentoProfessor extends ReservaEquipamento {
     private final String PROFESSOR_NULO = "O professor esta nulo.";
 
     public ReservaEquipamentoProfessor(String data, String hora, Equipamento equipamento, Professor professor)
-            throws ReservaException {
+            throws ReservaException, DataFormatException {
         super(data, hora, equipamento);
         this.setProfessor(professor);
     }
@@ -25,7 +28,7 @@ public class ReservaEquipamentoProfessor extends ReservaEquipamento {
         this.professor = professor;
     }
 
-    public boolean equals(ReservaEquipamentoProfessor obj) {
+    public boolean equals(ReservaEquipamentoProfessor obj) throws ObjectStreamException {
         return (super.equals(obj) && this.getEquipamento().equals(obj.getEquipamento()));
     }
 

@@ -4,7 +4,7 @@ import exception.ReservaException;
 
 public class ReservaSala extends Reserva{
 
-	private Sala sala;
+	private Classroom sala;
 	private String finalidade;
 	
 	//Mensagens
@@ -13,13 +13,13 @@ public class ReservaSala extends Reserva{
 		private final String FINALIDADE_BRANCO = "A finalidade esta em branco.";
 				
 	
-	public ReservaSala(String data, String hora, Sala sala, String finalidade) throws ReservaException {
+	public ReservaSala(String data, String hora, Classroom sala, String finalidade) throws ReservaException {
 		super(data, hora);
 		this.setSala(sala);
 		this.setFinalidade(finalidade);
 	}
 
-	public Sala getSala() {
+	public Classroom getSala() {
 		return this.sala;
 	}
 
@@ -27,21 +27,21 @@ public class ReservaSala extends Reserva{
 		return this.finalidade;
 	}
 
-	public void setSala(Sala sala) throws ReservaException {
+	public void setSala(Classroom sala) throws ReservaException {
 		if(sala == null)
 			throw new ReservaException(SALA_NULO);
 		this.sala = sala;
 	}
 
-	public void setFinalidade(String finalidade) throws ReservaException {
+	public void setFinalidade(String finalidade) {
+		try{
 		if(finalidade == null)
 			throw new ReservaException(FINALIDADE_NULA);
 		
 		finalidade = finalidade.trim();
-		if(finalidade.equals(""))
-			throw new ReservaException(FINALIDADE_BRANCO);
-		else
-			this.finalidade = finalidade;
+		}catch(Exception ex){
+			System.out.println("erro" + ex.getStackTrace());
+		}
 	}
 
 	public boolean equals(ReservaSala obj) {

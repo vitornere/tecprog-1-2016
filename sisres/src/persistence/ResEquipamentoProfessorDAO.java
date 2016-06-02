@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.Vector;
+import java.util.zip.DataFormatException;
 
 import model.Equipamento;
 import model.Professor;
@@ -136,14 +137,14 @@ public class ResEquipamentoProfessorDAO extends DAO {
     }
 
     @SuppressWarnings("unchecked") public Vector<Object> buscarTodos() throws SQLException, ClienteException, PatrimonioException,
-            ReservaException {
+            ReservaException, DataFormatException {
         return super.buscar("SELECT * FROM reserva_sala_professor "
                 + "INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala "
                 + "INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor;");
     }
 
     @SuppressWarnings("unchecked") public Vector<ReservaEquipamentoProfessor> buscarPorMes(int mes) throws SQLException,
-            ClienteException, PatrimonioException, ReservaException {
+            ClienteException, PatrimonioException, ReservaException, DataFormatException {
         Vector<ReservaEquipamentoProfessor> reservas_prof_mes = super.buscar("SELECT * FROM reserva_equipamento_professor "
                 + "INNER JOIN equipamento ON equipamento.id_equipamento = reserva_equipamento_professor.id_equipamento "
                 + "INNER JOIN professor ON professor.id_professor = reserva_equipamento_professor.id_professor;");
@@ -158,7 +159,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
     }
 
     @SuppressWarnings("unchecked") public Vector<ReservaEquipamentoProfessor> buscarPorHora(String hora) throws SQLException,
-            ClienteException, PatrimonioException, ReservaException {
+            ClienteException, PatrimonioException, ReservaException, DataFormatException {
         String hora_a = "", hora_b = "";
         if (hora.length() == 4)
             hora_a = "0" + hora;
@@ -170,7 +171,7 @@ public class ResEquipamentoProfessorDAO extends DAO {
                 + " WHERE hora = \"" + hora + "\" or hora = \"" + hora_a + "\" or hora = \"" + hora_b + "\";");
     }
 
-    @Override protected Object fetch(ResultSet rs) throws SQLException, ClienteException, PatrimonioException, ReservaException {
+    @Override protected Object fetch(ResultSet rs) throws SQLException, ClienteException, PatrimonioException, ReservaException, DataFormatException {
         Professor p = new Professor(rs.getString("nome"), rs.getString("cpf"), rs.getString("matricula"), rs.getString("telefone"),
                 rs.getString("email"));
 

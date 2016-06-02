@@ -1,5 +1,6 @@
 package model;
 
+import exception.ClienteException;
 import exception.ReservaException;
 
 public class ReservaSalaAluno extends ReservaSala{
@@ -15,7 +16,7 @@ public class ReservaSalaAluno extends ReservaSala{
 		private final String CADEIRAS_ACIMA_DO_LIMITE = "A sala nao possui este numero de cadeiras para reservar.";
 		private final String CADEIRAS_PATTERN = "^[\\d]+$";
 
-	public ReservaSalaAluno(String data, String hora, Sala sala,
+	public ReservaSalaAluno(String data, String hora, Classroom sala,
 			String finalidade, String cadeiras_reservadas, Aluno aluno) throws ReservaException {
 		super(data, hora, sala, finalidade);
 		this.setAluno(aluno);
@@ -36,15 +37,23 @@ public class ReservaSalaAluno extends ReservaSala{
 		this.aluno = aluno;
 	}
 
-	public void setCadeiras_reservadas(String cadeiras_reservadas) throws ReservaException {
+	public void setCadeiras_reservadas(String cadeiras_reservadas) throws ReservaException  {
 		String c = cadeiras_reservadas;
 		if(c == null)
-			throw new ReservaException(CADEIRAS_NULA);
+			try {
+				throw new ReservaException(CADEIRAS_NULA);
+			} catch (ReservaException e) {
+				e.printStackTrace();
+			}
 		c = c.trim();
 		if(c.equals(""))
-			throw new ReservaException(CADEIRAS_BRANCO);
+			try {
+				throw new ReservaException(CADEIRAS_BRANCO);
+			} catch (ReservaException e) {
+				e.printStackTrace();
+			}
 		else if(c.matches(CADEIRAS_PATTERN)){
-			if(Integer.parseInt(super.getSala().getCapacidade()) < Integer.parseInt(cadeiras_reservadas))
+			if(Integer.parseInt(super.getSala().getCapacity()) < Integer.parseInt(cadeiras_reservadas))
 				throw new ReservaException(CADEIRAS_ACIMA_DO_LIMITE);
 			else
 				this.cadeiras_reservadas = cadeiras_reservadas;
@@ -54,7 +63,7 @@ public class ReservaSalaAluno extends ReservaSala{
 	}
 
 
-	public boolean equals(ReservaSalaAluno obj) {
+	public boolean equals(ReservaSalaAluno obj) throws ClienteException {
 		return (super.equals(obj) &&
 				this.getAluno().equals(obj.getAluno()) &&
 				this.getCadeiras_reservadas().equals(obj.getCadeiras_reservadas())

@@ -10,27 +10,27 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
-import model.Sala;
-import view.horariosReservas.HorariosReservaSala;
+import model.Classroom;
+import view.timeReservations.HoursRoomReservation;
 import control.ManterSala;
-import exception.PatrimonioException;
+import exception.PatrimonyException;
 
 /**
  * 
  * @author Parley
  */
-public class DiaReservaSala extends DiaReservaPatrimonio {
+public class DiaReservaSala extends PatrimonyReserveDay {
 
-    Sala sala;
+    Classroom sala;
 
-    public DiaReservaSala(Frame parent, boolean modal, int indexSala) throws SQLException, PatrimonioException {
+    public DiaReservaSala(Frame parent, boolean modal, int indexSala) throws SQLException, PatrimonyException {
         super(parent, modal);
         sala = ManterSala.getInstance().getSalas_vet().get(indexSala);
         this.setName("DiaReservaSala");
     }
 
-    @Override protected void visualizarAction(String data) {
-        HorariosReservaSala reserva = new HorariosReservaSala(new JFrame(), true, data, sala);
+    @Override protected void viewAction(String data) {
+        HoursRoomReservation reserva = new HoursRoomReservation(new JFrame(), true, data, sala);
         reserva.setVisible(true);
         reserva.setResizable(false);
     }
