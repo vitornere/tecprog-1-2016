@@ -5,7 +5,7 @@ import java.util.Date;
 
 import exception.ReserveException;
 
-public class Reserva {
+public class Reserve {
 
 	private String hora;
 	private String data;
@@ -20,7 +20,7 @@ public class Reserva {
 		private final String DATA_BRANCA = "A data esta em branco.";
 		private final String DATA_PATTERN = "^[0123]?[\\d]([./-])[01]?[\\d]\\1[\\d]{2,4}$";
 	
-	public Reserva(String data, String hora) throws ReserveException {
+	public Reserve(String data, String hora) throws ReserveException {
 		this.setData(data);
 		this.setHora(hora);
 	}
@@ -65,7 +65,7 @@ public class Reserva {
 		
 	}
 
-	public boolean equals(Reserva obj) {
+	public boolean equals(Reserve obj) {
 		return (this.hora.equals(obj.getHour()) &&
 			this.data.equals(obj.getDate()));
 	}

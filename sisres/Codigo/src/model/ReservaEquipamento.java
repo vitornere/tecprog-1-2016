@@ -2,7 +2,7 @@ package model;
 
 import exception.ReserveException;
 
-public class ReservaEquipamento extends Reserva {
+public class ReservaEquipamento extends Reserve {
 
     private Equipment equipamento;
 
