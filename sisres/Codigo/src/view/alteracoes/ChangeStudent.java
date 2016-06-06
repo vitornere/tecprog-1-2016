@@ -1,3 +1,8 @@
+/**
+ * Name:ChangeStudent.java
+ * Class for change information of a student already registered.  
+ */
+
 package view.alteracoes;
 
 import java.sql.SQLException;
@@ -12,6 +17,14 @@ public class ChangeStudent extends ClientRegistration {
 
 	int index2 = 0;
 
+	/**
+	 * Method to generate the option screen to change student.
+	 * 
+	 * @param parent
+	 * @param modal
+	 * @param index
+	 */
+	
 	public ChangeStudent(java.awt.Frame parent, boolean modal, int index) {
 		super(parent, modal);
 		this.setTitle("Alterar");
@@ -33,6 +46,11 @@ public class ChangeStudent extends ClientRegistration {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
 		}
 	}
+	
+	/**
+	 * Method to generate the screen to change information from student and advises that 
+	 * was successfully changed
+	 */
 
 	public void registrationAction() {
 		try {

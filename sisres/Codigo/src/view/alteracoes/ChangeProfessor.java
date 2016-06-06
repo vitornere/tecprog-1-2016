@@ -1,3 +1,7 @@
+/**
+ * Name:ChangeProfessor.java
+ * Class for change information of a professor already registered.  
+ */
 package view.alteracoes;
 
 import java.sql.SQLException;
@@ -12,6 +16,14 @@ public class ChangeProfessor extends ClientRegistration {
 
 	int index2 = 0;
 
+	/**
+	 * Method to generate the option screen to change professor.
+	 * 
+	 * @param parent
+	 * @param modal
+	 * @param index
+	 */
+	
 	public ChangeProfessor(java.awt.Frame parent, boolean modal, int index) {
 		super(parent, modal);
 		this.setName("AlterarProfessor");
@@ -33,6 +45,11 @@ public class ChangeProfessor extends ClientRegistration {
 		}
 	}
 
+	/**
+	 * Method to generate the screen to change information from professor and advises that 
+	 * was successfully changed
+	 */
+	
 	public void registrationAction() {
 		try {
 			ManterProfessor.getInstance().alterar(nameTxtField.getText(), cpfTxtField.getText(),
