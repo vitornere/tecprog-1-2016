@@ -2,14 +2,14 @@ package model;
 
 import exception.ReserveException;
 
-public class ReservaEquipamento extends Reserve {
+public class EquipmentReserve extends Reserve {
 
     private Equipment equipamento;
 
     // Mensagens
     private final String EQUIPAMENTO_NULO = "O equipamneto esta nulo.";
 
-    public ReservaEquipamento(String data, String hora, Equipment equipamento) throws ReserveException {
+    public EquipmentReserve(String data, String hora, Equipment equipamento) throws ReserveException {
         super(data, hora);
         this.setEquipamento(equipamento);
     }
@@ -24,7 +24,7 @@ public class ReservaEquipamento extends Reserve {
         this.equipamento = equipamento;
     }
 
-    public boolean equals(ReservaEquipamento obj) {
+    public boolean equals(EquipmentReserve obj) {
         return (super.equals(obj) && this.getEquipment().equals(obj.getEquipment()));
     }
 
