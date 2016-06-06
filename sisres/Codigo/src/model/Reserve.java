@@ -7,96 +7,101 @@ import exception.ReserveException;
 
 public class Reserve {
 
-	private String hora;
-	private String data;
-	
-	//Mesagens, Alertas e Padroes
-		private final String HORA_NULA = "A hora esta nula.";
-		private final String HORA_INVALIDA = "A hora eh invalida.";
-		private final String HORA_BRANCA = "A hora esta em branco.";
-		private final String HORA_PATTERN = "^[012]?[\\d]:[0-5][\\d]$";
-		private final String DATA_NULA = "A data esta nula.";
-		private final String DATA_INVALIDA = "A data eh invalida.";
-		private final String DATA_BRANCA = "A data esta em branco.";
-		private final String DATA_PATTERN = "^[0123]?[\\d]([./-])[01]?[\\d]\\1[\\d]{2,4}$";
-	
-	public Reserve(String data, String hora) throws ReserveException {
-		this.setData(data);
-		this.setHora(hora);
+	private String hour;
+	private String date;
+
+	private final String NULL_HOUR = "A hora esta nula.";
+	private final String INVALID_HOUR = "A hora eh invalida.";
+	private final String EMPTY_HOUR = "A hora esta em branco.";
+	private final String PATTERN_HOUR = "^[012]?[\\d]:[0-5][\\d]$";
+	private final String NULL_DATE = "A data esta nula.";
+	private final String INVALID_DATE = "A data eh invalida.";
+	private final String EMPTY_DATE = "A data esta em branco.";
+	private final String PATTERN_DATE = "^[0123]?[\\d]([./-])[01]?[\\d]\\1[\\d]{2,4}$";
+
+	public Reserve(String date, String hour) throws ReserveException {
+		this.setDate(date);
+		this.setHour(hour);
 	}
 
 	public String getHour() {
-		return this.hora;
+		return this.hour;
 	}
 
 	public String getDate() {
-		return this.data;
+		return this.date;
 	}
 
-	public void setHora(String hora) throws ReserveException {
-		if(hora == null)
-			throw new ReserveException(HORA_NULA);
-		
-		hora = hora.trim();
-		if(hora.equals(""))
-			throw new ReserveException(HORA_BRANCA);
-		else if(hora.matches(HORA_PATTERN)){
-			if(hora.length() == 4)
-				this.hora = "0" + hora;
-			else
-				this.hora = hora;
+	public void setHour(String hour) throws ReserveException {
+		hour = hour.trim();
+		if ((hour != null) && (hour.equals("") == false)
+				&& (hour.matches(PATTERN_HOUR) == false)) {
+			this.hour = hour;
 		}
-		else
-			throw new ReserveException(HORA_INVALIDA);
+
+		else if (hour == null) {
+			throw new ReserveException(NULL_HOUR);
+		} else if (hour.equals("")) {
+			throw new ReserveException(EMPTY_HOUR);
+		} else if (hour.matches(PATTERN_HOUR)) {
+			if (hour.length() == 4) {
+				this.hour = "0" + hour;
+			} else {
+				// Nothing to do.
+			}
+
+		} else {
+			throw new ReserveException(INVALID_HOUR);
+		}
 	}
 
-	public void setData(String data) throws ReserveException {
-		if(data == null)
-			throw new ReserveException(DATA_NULA);
-		
-		data = data.trim();
-		if(data.equals(""))
-			throw new ReserveException(DATA_BRANCA);
-		else if(data.matches(DATA_PATTERN)){
-			this.data = padronizarData(data);
+	public void setDate(String date) throws ReserveException {
+		date = date.trim();
+		if (date.matches(PATTERN_DATE)) {
+			this.date = padronizeDate(date);
+		} else if (date == null) {
+			throw new ReserveException(NULL_DATE);
+		} else if (date.equals("")) {
+			throw new ReserveException(EMPTY_DATE);
+		} else {
+			throw new ReserveException(INVALID_DATE);
 		}
-		else
-			throw new ReserveException(DATA_INVALIDA);
-		
+
 	}
 
 	public boolean equals(Reserve obj) {
-		return (this.hora.equals(obj.getHour()) &&
-			this.data.equals(obj.getDate()));
+		return (this.hour.equals(obj.getHour()) && this.date.equals(obj
+				.getDate()));
 	}
-	
+
 	@Override
 	public String toString() {
-		return "\nHora=" + this.hora 
-			+ "\nData=" + this.data;
+		return "\nHour=" + this.hour + "\nDate=" + this.date;
 	}
-	
-	private static String padronizarData(String data){
-		String agora[] = dataAtual().split("[./-]");
-		String partes[] = data.split("[./-]");
-		String dataNoPadrao = "";
-		
-		for(int i = 0; i < 3; i++){
-			if(i == 0)
-				dataNoPadrao += agora[i].substring(0, 
-						agora[i].length() - partes[i].length()) + partes[i];
+
+	private static String padronizeDate(String date) {
+		String now[] = currentDate().split("[./-]");
+		String parts[] = date.split("[./-]");
+		String dateInThePattern = "";
+
+		for (int i = 0; i < 3; i++) {
+			if (i == 0)
+				dateInThePattern += now[i].substring(0, now[i].length()
+						- parts[i].length())
+						+ parts[i];
 			else
-				dataNoPadrao +=  "/" + agora[i].substring(0, 
-						agora[i].length() - partes[i].length()) + partes[i];
-				
+				dateInThePattern += "/"
+						+ now[i].substring(0,
+								now[i].length() - parts[i].length()) + parts[i];
+
 		}
-		
-		return dataNoPadrao;
+
+		return dateInThePattern;
 	}
-	
-	private static String dataAtual(){
+
+	private static String currentDate() {
 		Date date = new Date(System.currentTimeMillis());
-		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
-		return formatador.format(date);
+		SimpleDateFormat formator = new SimpleDateFormat("dd/MM/yyyy");
+		return formator.format(date);
 	}
 }
