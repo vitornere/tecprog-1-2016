@@ -4,32 +4,37 @@ import exception.ReserveException;
 
 public class EquipmentReserve extends Reserve {
 
-    private Equipment equipamento;
+	private Equipment equipment;
 
-    // Mensagens
-    private final String EQUIPAMENTO_NULO = "O equipamneto esta nulo.";
+	private final String NULL_EQUIPMENT = "O equipamneto esta nulo.";
 
-    public EquipmentReserve(String data, String hora, Equipment equipamento) throws ReserveException {
-        super(data, hora);
-        this.setEquipamento(equipamento);
-    }
+	public EquipmentReserve(String date, String hour, Equipment equipment)
+			throws ReserveException {
+		super(date, hour);
+		this.setEquipment(equipment);
+	}
 
-    public Equipment getEquipment() {
-        return this.equipamento;
-    }
+	public Equipment getEquipment() {
+		return this.equipment;
+	}
 
-    public void setEquipamento(Equipment equipamento) throws ReserveException {
-        if (equipamento == null)
-            throw new ReserveException(EQUIPAMENTO_NULO);
-        this.equipamento = equipamento;
-    }
+	public void setEquipment(Equipment equipment) throws ReserveException {
+		if (equipment != null) {
+			this.equipment = equipment;
+		} else {
+			throw new ReserveException(NULL_EQUIPMENT);
+		}
+	}
 
-    public boolean equals(EquipmentReserve obj) {
-        return (super.equals(obj) && this.getEquipment().equals(obj.getEquipment()));
-    }
+	public boolean equals(EquipmentReserve obj) {
+		return (super.equals(obj) && this.getEquipment().equals(
+				obj.getEquipment()));
+	}
 
-    @Override public String toString() {
-        return "ReservaEquipamento [equipamento=" + this.getEquipment() + ", toString()=" + super.toString() + "]";
-    }
+	@Override
+	public String toString() {
+		return "EquipmentReserve [equipment=" + this.getEquipment()
+				+ ", toString()=" + super.toString() + "]";
+	}
 
 }
