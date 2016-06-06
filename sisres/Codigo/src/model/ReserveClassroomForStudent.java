@@ -2,70 +2,78 @@ package model;
 
 import exception.ReserveException;
 
-public class ReserveClassroomForStudent extends ClassroomReserve{
-	
-	private Student aluno;
-	private String cadeiras_reservadas;
-	
-	//Mensagens
-		private final String ALUNO_NULO = "O aluno esta nulo.";
-		private final String CADEIRAS_NULA = "O numero de cadeiras esta nulo.";
-		private final String CADEIRAS_BRANCO = "O numero de cadeiras esta em branco.";
-		private final String CADEIRAS_INVALIDA = "O numero de cadeira eh invalido.";
-		private final String CADEIRAS_ACIMA_DO_LIMITE = "A sala nao possui este numero de cadeiras para reservar.";
-		private final String CADEIRAS_PATTERN = "^[\\d]+$";
+public class ReserveClassroomForStudent extends ClassroomReserve {
 
-	public ReserveClassroomForStudent(String data, String hora, Classroom sala,
-			String finalidade, String cadeiras_reservadas, Student aluno) throws ReserveException {
-		super(data, hora, sala, finalidade);
-		this.setAluno(aluno);
-		this.setReservedChairs(cadeiras_reservadas);
+	private Student student;
+	private String reservedChairs;
+
+	private final String NULL_STUDENT = "O aluno esta nulo.";
+	private final String NULL_CHAIRS = "O numero de cadeiras esta nulo.";
+	private final String EMPTY_CHAIRS = "O numero de cadeiras esta em branco.";
+	private final String INVALID_CHAIR = "O numero de cadeira eh invalido.";
+	private final String ABOVE_THE_LIMIT_CHAIRS = "A sala nao possui este numero de cadeiras para reservar.";
+	private final String PATTERN_CHAIRS = "^[\\d]+$";
+
+	public ReserveClassroomForStudent(String date, String hour,
+			Classroom classroom, String finality, String reservedChairs,
+			Student student) throws ReserveException {
+		super(date, hour, classroom, finality);
+		this.setStudent(student);
+		this.setReservedChairs(reservedChairs);
 	}
-	
+
 	public Student getStudent() {
-		return this.aluno;
+		return this.student;
 	}
 
 	public String getReservedChairs() {
-		return this.cadeiras_reservadas;
+		return this.reservedChairs;
 	}
 
-	public void setAluno(Student aluno) throws ReserveException {
-		if(aluno == null)
-			throw new ReserveException(ALUNO_NULO);
-		this.aluno = aluno;
-	}
-
-	public void setReservedChairs(String cadeiras_reservadas) throws ReserveException {
-		String c = cadeiras_reservadas;
-		if(c == null)
-			throw new ReserveException(CADEIRAS_NULA);
-		c = c.trim();
-		if(c.equals(""))
-			throw new ReserveException(CADEIRAS_BRANCO);
-		else if(c.matches(CADEIRAS_PATTERN)){
-			if(Integer.parseInt(super.getClassroom().getCapacity()) < Integer.parseInt(cadeiras_reservadas))
-				throw new ReserveException(CADEIRAS_ACIMA_DO_LIMITE);
-			else
-				this.cadeiras_reservadas = cadeiras_reservadas;
+	public void setStudent(Student student) throws ReserveException {
+		if (student != null) {
+			this.student = student;
+		} else {
+			throw new ReserveException(NULL_STUDENT);
 		}
-		else
-			throw new ReserveException(CADEIRAS_INVALIDA);
 	}
 
+	public void setReservedChairs(String reservedChairs)
+			throws ReserveException {
+		String chairs = reservedChairs;
+		chairs = chairs.trim();
+		if ((chairs != null) && (chairs.equals("") == false)
+				&& (chairs.matches(PATTERN_CHAIRS) == false)) {
+			this.reservedChairs = reservedChairs;
+		} else if (chairs == null) {
+			throw new ReserveException(NULL_CHAIRS);
+		} else if (chairs.equals("")) {
+			throw new ReserveException(EMPTY_CHAIRS);
+		}
+
+		else if (chairs.matches(PATTERN_CHAIRS)) {
+			if (Integer.parseInt(super.getClassroom().getCapacity()) < Integer
+					.parseInt(reservedChairs)) {
+				throw new ReserveException(ABOVE_THE_LIMIT_CHAIRS);
+			} else {
+				// Nothing to do.
+			}
+		} else {
+			throw new ReserveException(INVALID_CHAIR);
+		}
+
+	}
 
 	public boolean equals(ReserveClassroomForStudent obj) {
-		return (super.equals(obj) &&
-				this.getStudent().equals(obj.getStudent()) &&
-				this.getReservedChairs().equals(obj.getReservedChairs())
-				);
+		return (super.equals(obj) && this.getStudent().equals(obj.getStudent()) && this
+				.getReservedChairs().equals(obj.getReservedChairs()));
 	}
 
 	@Override
 	public String toString() {
-		return "Aluno: " + this.getStudent().toString()
-			+ "\nCadeiras Reservadas: " + this.getReservedChairs() 
-			+ super.toString();
+		return "Student: " + this.getStudent().toString()
+				+ "\nReserved Chairs: " + this.getReservedChairs()
+				+ super.toString();
 	}
 
 }
