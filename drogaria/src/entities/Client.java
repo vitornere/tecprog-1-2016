@@ -15,7 +15,7 @@ public class Client extends Person implements Recommended {
 	private static final int YES = 1;
 	private static final int NO = 0;
 	
-	protected String email;
+	protected String email = " ";
 	protected Cashier[] cashiers;
 	Clerk[] clerk = {};
 	Client[] client = {};
