@@ -83,16 +83,17 @@ public class Reserve {
 		String now[] = currentDate().split("[./-]");
 		String parts[] = date.split("[./-]");
 		String dateInThePattern = "";
+		final int PARTS_OF_THE_DATE = 3;
 
-		for (int i = 0; i < 3; i++) {
-			if (i == 0)
-				dateInThePattern += now[i].substring(0, now[i].length()
-						- parts[i].length())
-						+ parts[i];
+		for (int dateIndex = 0; dateIndex < PARTS_OF_THE_DATE; dateIndex++) {
+			if (dateIndex == 0)
+				dateInThePattern += now[dateIndex].substring(0,
+						now[dateIndex].length() - parts[dateIndex].length())
+						+ parts[dateIndex];
 			else
 				dateInThePattern += "/"
-						+ now[i].substring(0,
-								now[i].length() - parts[i].length()) + parts[i];
+						+ now[dateIndex].substring(0, now[dateIndex].length()
+								- parts[dateIndex].length()) + parts[dateIndex];
 
 		}
 
