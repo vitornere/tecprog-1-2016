@@ -13,6 +13,7 @@ public class Client extends Person implements Recommended {
 
 	// Console
 	Client[] cliente = {};
+
 	Scanner scanner = new Scanner(System.in);
 	private int codigoExclusao = 0, confirmacaoExclusaoCliente = 0;
 

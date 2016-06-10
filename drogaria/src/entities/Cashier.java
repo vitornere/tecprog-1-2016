@@ -7,6 +7,7 @@ import entities.Clerk;
 import entities.Client;
 
 public class Cashier extends Person {
+
 	private float saldoAtual = 0;
 	private int tipo; // 0-Receita ou 1-Despesa
 	private float valor;
