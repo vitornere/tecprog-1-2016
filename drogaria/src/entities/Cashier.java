@@ -69,6 +69,7 @@ public class Cashier extends Person {
 			String personLastName, String personAddress, String personPhone, int trasitionType,
 			float trasitionValue, String trasitionDate, String trasitionDescription, int code) {
 		super(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress, personPhone);
+		
 		if (type == INCOME || type == OUTGO) {
 			this.type = trasitionType;
 			this.value = trasitionValue;
@@ -121,7 +122,10 @@ public class Cashier extends Person {
 	 */
 
 	public double paymentConfirmation() {
-		if (this.getPaymentConfirmation() == PAYMENT_ACCEPTED) {
+		assert (Person.getPaymentConfirmation() < 2);
+		assert (Person.getPaymentConfirmation() > -1);
+		
+		if (Person.getPaymentConfirmation() == PAYMENT_ACCEPTED) {
 			confirmation = PAYMENT_ACCEPTED; 
 		} else {
 			confirmation = PAYMENT_NOT_ACCEPTED; 
@@ -136,6 +140,8 @@ public class Cashier extends Person {
 	 */
 
 	public void deposit(float value) {
+		assert (value != 0);
+		
 		System.out.println("Valor do saldo atual: " + CurrentBalance);
 		CurrentBalance += value;
 		System.out.println("Valor após o depósito: " + CurrentBalance);
