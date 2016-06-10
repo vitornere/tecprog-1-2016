@@ -24,8 +24,8 @@ public class Cashier extends Person {
 	private float CurrentBalance = 0; //Saves the current value ( total value of past products).
 	private int type = 0; //Informs the type if it is income or expense ( 0 or 1, respectively) .
 	private float value = 0; //Store the value of the last product.
-	private String date;
-	private String description; //product description.
+	private String date = "";
+	private String description = ""; //product description.
 	private Clerk clerk;
 	protected Client[] clients;
 	protected Clerk[] employee;
