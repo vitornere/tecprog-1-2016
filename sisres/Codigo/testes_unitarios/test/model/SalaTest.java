@@ -64,14 +64,22 @@ public class SalaTest {
 	@Test
 	public void testCodigo() throws PatrimonyException {
 		setUp();
+<<<<<<< HEAD
 		assertEquals("codigo diferente instanciado", "codigo", sala.getIdEquipment());
+=======
+		assertEquals("codigo diferente instanciado", "codigo", sala.getCode());
+>>>>>>> devel
 		tearDown();
 	}
 	
 	@Test
 	public void testDescricao() throws PatrimonyException {
 		setUp();
+<<<<<<< HEAD
 		assertEquals("Descricao diferente instanciada", "descricao", sala.getDescriptionEquipment());
+=======
+		assertEquals("Descricao diferente instanciada", "descricao", sala.getDescription());
+>>>>>>> devel
 		tearDown();
 	}	
 	
@@ -85,7 +93,11 @@ public class SalaTest {
 	@Test(expected = exception.PatrimonyException.class)
 	public void testCapacidadeNegativo() throws PatrimonyException {
 		setUp();
+<<<<<<< HEAD
 		sala.setCapacity("-1");
+=======
+		sala.setCapacidade("-1");
+>>>>>>> devel
 		assertEquals("Capacidade diferente instanciada", "1", sala.getCapacity());
 		tearDown();
 	}
@@ -93,7 +105,11 @@ public class SalaTest {
 	@Test(expected = exception.PatrimonyException.class)
 	public void testCapacidadeLetra() throws PatrimonyException {
 		setUp();
+<<<<<<< HEAD
 		sala.setCapacity("a");
+=======
+		sala.setCapacidade("a");
+>>>>>>> devel
 		assertEquals("Capacidade diferente instanciada", "1", sala.getCapacity());
 		tearDown();
 	}

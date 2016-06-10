@@ -9,17 +9,24 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
+<<<<<<< HEAD
 import model.Equipment;
 import view.horariosReservas.HorariosReservaEquipamento;
 import view.horariosReservas.HorariosReservaPatrimonio;
 import control.EquipmentRegister;
+=======
+import model.Equipamento;
+import view.timeReservations.HoursEquipamentReservation;
+import view.timeReservations.HoursPatrimonyReservation;
+import control.ManterEquipamento;
+>>>>>>> devel
 import exception.PatrimonyException;
 
 /**
  * 
  * @author Parley
  */
-public class DiaReservaEquipamento extends DiaReservaPatrimonio {
+public class DiaReservaEquipamento extends PatrimonyReserveDay {
 
     Equipment eq;
 
@@ -28,8 +35,8 @@ public class DiaReservaEquipamento extends DiaReservaPatrimonio {
         eq = EquipmentRegister.getNewEquipment().getVectorEquipments().get(indexEquipamento);
     }
 
-    @Override protected void visualizarAction(String data) {
-        HorariosReservaPatrimonio reserva = new HorariosReservaEquipamento(new JFrame(), true, data, this.eq);
+    @Override protected void viewAction(String data) {
+    	HoursPatrimonyReservation reserva = new HoursEquipamentReservation(new JFrame(), true, data, this.eq);
         reserva.setVisible(true);
         reserva.setResizable(false);
     }

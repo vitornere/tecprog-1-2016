@@ -15,7 +15,11 @@ import org.junit.Test;
 
 import persistence.EquipmentDAO;
 import view.Main2;
+<<<<<<< HEAD
 import exception.ClientException;
+=======
+import exception.ClienteException;
+>>>>>>> devel
 import exception.PatrimonyException;
 
 /**
@@ -81,7 +85,11 @@ public class US11_ExcluirEquipamento {
     public void testCenario1() throws SQLException, ClientException{
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Excluir").click();
+<<<<<<< HEAD
         dialog.optionPane().requireMessage("Deseja mesmo excluir Equipamento: " + equipamento.getDescriptionEquipment() + "?");
+=======
+        dialog.optionPane().requireMessage("Deseja mesmo excluir Equipamento: " + equipamento.getDescription() + "?");
+>>>>>>> devel
         sleep();
         dialog.optionPane().yesButton().click();
         sleep();

@@ -25,7 +25,7 @@ public class Client extends Person implements Recommended {
 			String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
 		super(rgPessoa, cpfPessoa, digitoCpfPessoa, nomePessoa, sobrenomePessoa, enderecoPessoa, telefonePessoa);
 		System.out.println("Possui pelo menos um balconista para atend�-lo!!"); // ---> DEPENDENCIA
-		Clerk.setStatusBalconista(true);
+		Clerk.setStatusClerk(true);
 		// Por ser static, n�o � necess�rio instanciar.
 	}
 

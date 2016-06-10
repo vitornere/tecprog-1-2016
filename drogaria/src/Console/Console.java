@@ -134,7 +134,6 @@ public class Console {
 								status = CLIENT;
 							}
 							while (status == CLIENT) {
-
 								client.menuClient();// Menu of Clients
 								operationOfClient = scanner.nextInt();
 								if (operationOfClient == BEGINNING_OF_THE_PROGRAM) {
@@ -166,7 +165,8 @@ public class Console {
 							}
 							while (status == MEDICAMENT) {
 
-								medicament.menuMedicament();// Menu of Medicaments
+								medicament.menuMedicamento();// Menu of
+															// Medicaments
 								operationOfMedicament = scanner.nextInt();
 								if (operationOfMedicament == BEGINNING_OF_THE_PROGRAM) {
 									status = complementary
@@ -175,19 +175,19 @@ public class Console {
 
 								else if (operationOfMedicament == PASS_OF_START_MENU) {
 									medicament
-											.registerMedicament(listOfMedicaments);
+											.cadastrarMedicamento(listOfMedicaments);
 									status = MEDICAMENT;
 								}
 
 								else if (operationOfMedicament == CLERK) {
 									medicament
-											.listMedicaments(listOfMedicaments);
+											.listarMedicamentos(listOfMedicaments);
 									status = MEDICAMENT;
 								}
 
 								else if (operationOfMedicament == CASHIER) {
 									medicament
-											.deleteMedicament(listOfMedicaments);
+											.excluirMedicamento(listOfMedicaments);
 									status = MEDICAMENT;
 								}
 

@@ -10,15 +10,20 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 
 import model.Classroom;
+<<<<<<< HEAD
 import view.horariosReservas.HorariosReservaSala;
 import control.ClassroomRegister;
+=======
+import view.timeReservations.HoursRoomReservation;
+import control.ManterSala;
+>>>>>>> devel
 import exception.PatrimonyException;
 
 /**
  * 
  * @author Parley
  */
-public class DiaReservaSala extends DiaReservaPatrimonio {
+public class DiaReservaSala extends PatrimonyReserveDay {
 
     Classroom sala;
 
@@ -28,8 +33,8 @@ public class DiaReservaSala extends DiaReservaPatrimonio {
         this.setName("DiaReservaSala");
     }
 
-    @Override protected void visualizarAction(String data) {
-        HorariosReservaSala reserva = new HorariosReservaSala(new JFrame(), true, data, sala);
+    @Override protected void viewAction(String data) {
+        HoursRoomReservation reserva = new HoursRoomReservation(new JFrame(), true, data, sala);
         reserva.setVisible(true);
         reserva.setResizable(false);
     }

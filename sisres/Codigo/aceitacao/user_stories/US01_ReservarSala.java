@@ -7,8 +7,13 @@ import java.util.Date;
 
 import model.Student;
 import model.Professor;
+<<<<<<< HEAD
 import model.ReserveClassroomForStudent;
 import model.ReserveClassroomForProfessor;
+=======
+import model.ReservaSalaAluno;
+import model.ReservaSalaProfessor;
+>>>>>>> devel
 import model.Classroom;
 
 import org.fest.swing.core.BasicRobot;
@@ -21,6 +26,7 @@ import org.junit.Test;
 
 import persistence.StudentDAO;
 import persistence.ProfessorDAO;
+<<<<<<< HEAD
 import persistence.ReserveClassroomForStudentDAO;
 import persistence.ReserveClassroomForProfessorDAO;
 import persistence.ClassroomDAO;
@@ -29,6 +35,16 @@ import view.mainViews.AlunoView;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
+=======
+import persistence.ResSalaAlunoDAO;
+import persistence.ReserveClassroomProfessorDAO;
+import persistence.ClassroomDAO;
+import view.Main2;
+import view.mainViews.StudentView;
+import exception.ClienteException;
+import exception.PatrimonyException;
+import exception.ReservaException;
+>>>>>>> devel
 
 /**
  * US1 T�tulo: Reservar sala. Como cliente (aluno/professor), Eu quero reservar
@@ -65,9 +81,15 @@ public class US01_ReservarSala {
     private FrameFixture window;
     private Robot robot;
     private Classroom sala;
+<<<<<<< HEAD
     private ReserveClassroomForProfessor reservaProf;
     private ReserveClassroomForStudent reservaAluno;
     private Student aluno;
+=======
+    private ReservaSalaProfessor reservaProf;
+    private ReservaSalaAluno reservaAluno;
+    private Aluno aluno;
+>>>>>>> devel
     private Professor prof;
     private DialogFixture dialog;
     private int index;
@@ -82,7 +104,11 @@ public class US01_ReservarSala {
         this.data = formatador.format(date);
     }
 
+<<<<<<< HEAD
     @Before public void setUp() throws PatrimonyException, SQLException, ClientException, ReserveException {
+=======
+    @Before public void setUp() throws PatrimonyException, SQLException, ClienteException, ReservaException {
+>>>>>>> devel
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
 
@@ -90,7 +116,11 @@ public class US01_ReservarSala {
         window.show(new Dimension(900, 500)); // shows the frame to test
 
         sala = new Classroom("code", "Sala para testes de aceitacao", "123");
+<<<<<<< HEAD
         ClassroomDAO.getClassroom().include(sala);
+=======
+        ClassroomDAO.getInstance().add(sala);
+>>>>>>> devel
 
         prof = new Professor("Professor Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
         ProfessorDAO.getNewProfessor().include(prof);
@@ -100,20 +130,35 @@ public class US01_ReservarSala {
 
         dataAtual();
 
+<<<<<<< HEAD
         index = ClassroomDAO.getClassroom().searchAll().size() - 1;
         indexReserva = ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().searchForDate(data).size() - 1;
+=======
+        index = ClassroomDAO.getInstance().searchAll().size() - 1;
+        indexReserva = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).size() - 1;
+>>>>>>> devel
 
         window.button("Sala").click();
         dialog = window.dialog("SalaView");
     }
 
+<<<<<<< HEAD
     @After public void tearDown() throws SQLException, PatrimonyException, ClientException, ReserveException {
         if (reservaProf != null)
             ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().delete(reservaProf);
+=======
+    @After public void tearDown() throws SQLException, PatrimonyException, ClienteException, ReservaException {
+        if (reservaProf != null)
+            ReserveClassroomProfessorDAO.getInstance().delete(reservaProf);
+>>>>>>> devel
         if (reservaAluno != null)
             ReserveClassroomForStudentDAO.getReserveClassroomForStudent().delete(reservaAluno);
         if (sala != null)
+<<<<<<< HEAD
             ClassroomDAO.getClassroom().delete(sala);
+=======
+            ClassroomDAO.getInstance().delete(sala);
+>>>>>>> devel
         if (aluno != null)
             StudentDAO.getNewStudent().delete(aluno);
         if (prof != null)
@@ -130,7 +175,11 @@ public class US01_ReservarSala {
 
     }
 
+<<<<<<< HEAD
     @Test public void testCenario1Professor() throws SQLException, ClientException, PatrimonyException, ReserveException {
+=======
+    @Test public void testCenario1Professor() throws SQLException, ClienteException, PatrimonyException, ReservaException {
+>>>>>>> devel
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -152,11 +201,19 @@ public class US01_ReservarSala {
         fazerReservaSalaView.optionPane().requireMessage("Reserva feita com sucesso");
         fazerReservaSalaView.optionPane().okButton().click();
 
+<<<<<<< HEAD
         indexReserva = ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().searchForDate(data).size() - 1;
         reservaProf = ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().searchForDate(data).get(indexReserva);
     }
 
     @Test public void testCenario1ProfessorCpfInvalido() throws SQLException, ClientException, PatrimonyException, ReserveException {
+=======
+        indexReserva = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).size() - 1;
+        reservaProf = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).get(indexReserva);
+    }
+
+    @Test public void testCenario1ProfessorCpfInvalido() throws SQLException, ClienteException, PatrimonyException, ReservaException {
+>>>>>>> devel
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -177,7 +234,11 @@ public class US01_ReservarSala {
         reservaProf = null;
     }
 
+<<<<<<< HEAD
     @Test public void testProfessorHoraAnterior() throws SQLException, ClientException, PatrimonyException, ReserveException {
+=======
+    @Test public void testProfessorHoraAnterior() throws SQLException, ClienteException, PatrimonyException, ReservaException {
+>>>>>>> devel
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -201,7 +262,11 @@ public class US01_ReservarSala {
         
     }
 
+<<<<<<< HEAD
     @Test public void testCenario2Aluno() throws SQLException, ClientException, PatrimonyException, ReserveException {
+=======
+    @Test public void testCenario2Aluno() throws SQLException, ClienteException, PatrimonyException, ReservaException {
+>>>>>>> devel
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -229,7 +294,11 @@ public class US01_ReservarSala {
         reservaAluno = ReserveClassroomForStudentDAO.getReserveClassroomForStudent().searchAll().lastElement();
     }
 
+<<<<<<< HEAD
     @Test public void testCenario2AlunoCpfInvalido() throws SQLException, ClientException, PatrimonyException, ReserveException {
+=======
+    @Test public void testCenario2AlunoCpfInvalido() throws SQLException, ClienteException, PatrimonyException, ReservaException {
+>>>>>>> devel
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -249,7 +318,11 @@ public class US01_ReservarSala {
         reservaProf = null;
     }
 
+<<<<<<< HEAD
     @Test public void testCenario2AlunoHoraAnterior() throws SQLException, ClientException, PatrimonyException, ReserveException {
+=======
+    @Test public void testCenario2AlunoHoraAnterior() throws SQLException, ClienteException, PatrimonyException, ReservaException {
+>>>>>>> devel
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -275,7 +348,11 @@ public class US01_ReservarSala {
 
     }
 
+<<<<<<< HEAD
     @Test public void testCenario2AlunoCadeirasIndisponiveis() throws SQLException, ClientException, PatrimonyException, ReserveException {
+=======
+    @Test public void testCenario2AlunoCadeirasIndisponiveis() throws SQLException, ClienteException, PatrimonyException, ReservaException {
+>>>>>>> devel
                 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -302,10 +379,17 @@ public class US01_ReservarSala {
     }
 
     
+<<<<<<< HEAD
     @Test public void testCenario3() throws SQLException, ClientException, PatrimonyException, ReserveException {
 
         reservaAluno = new ReserveClassroomForStudent(data, "23:59", sala, "abc", sala.getCapacity(), aluno);
         ReserveClassroomForStudentDAO.getReserveClassroomForStudent().include(reservaAluno);
+=======
+    @Test public void testCenario3() throws SQLException, ClienteException, PatrimonyException, ReservaException {
+
+        reservaAluno = new ReservaSalaAluno(data, "23:59", sala, "abc", sala.getCapacity(), aluno);
+        ResSalaAlunoDAO.getInstance().incluir(reservaAluno);
+>>>>>>> devel
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -327,15 +411,26 @@ public class US01_ReservarSala {
         fazerReservaSalaView.optionPane().requireMessage("Reserva feita com sucesso");
         fazerReservaSalaView.optionPane().okButton().click();
 
+<<<<<<< HEAD
         indexReserva = ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().searchForDate(data).size() - 1;
         reservaProf = ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().searchForDate(data).get(indexReserva);
+=======
+        indexReserva = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).size() - 1;
+        reservaProf = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).get(indexReserva);
+>>>>>>> devel
         reservaAluno = null;
     }
 
     
+<<<<<<< HEAD
     @Test public void testCenario3AlunoReserva() throws SQLException, ClientException, PatrimonyException, ReserveException {
         Student aluno2 = new Student("Aluno Teste", "382.808.446-00", "110", "", "abc");
         StudentDAO.getNewStudent().include(aluno2);
+=======
+    @Test public void testCenario3AlunoReserva() throws SQLException, ClienteException, PatrimonyException, ReservaException {
+        Aluno aluno2 = new Aluno("Aluno Teste", "382.808.446-00", "110", "", "abc");
+        AlunoDAO.getInstance().incluir(aluno2);
+>>>>>>> devel
 
         ReserveClassroomForStudent reservaAluno2 = new ReserveClassroomForStudent(data, "23:59", sala, "abc", "100", aluno2);
         ReserveClassroomForStudentDAO.getReserveClassroomForStudent().include(reservaAluno2);
@@ -370,10 +465,17 @@ public class US01_ReservarSala {
     }
 
     
+<<<<<<< HEAD
     @Test public void testCenario4() throws SQLException, ClientException, ReserveException, PatrimonyException {
 
         reservaProf = new ReserveClassroomForProfessor(data, "23:59", sala, "abc", prof);
         ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().incluir(reservaProf);
+=======
+    @Test public void testCenario4() throws SQLException, ClienteException, ReservaException, PatrimonyException {
+
+        reservaProf = new ReservaSalaProfessor(data, "23:59", sala, "abc", prof);
+        ReserveClassroomProfessorDAO.getInstance().add(reservaProf);
+>>>>>>> devel
 
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();
@@ -392,8 +494,13 @@ public class US01_ReservarSala {
         fazerReservaSalaView.textBox("Hora").enterText("23:59");
         fazerReservaSalaView.button("Reservar").click();
 
+<<<<<<< HEAD
         indexReserva = ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().searchForDate(data).size() - 1;
         reservaProf = ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().searchForDate(data).get(indexReserva);
+=======
+        indexReserva = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).size() - 1;
+        reservaProf = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).get(indexReserva);
+>>>>>>> devel
         reservaAluno = null;
 
         fazerReservaSalaView.optionPane().requireMessage("A Sala esta reservada no mesmo dia e horario.");

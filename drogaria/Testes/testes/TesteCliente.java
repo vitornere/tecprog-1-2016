@@ -11,9 +11,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import entidades.Caixa;
-import entidades.Cliente;
-import entidades.Balconista;
+import entities.Balconista;
+import entities.Caixa;
+import entities.Cliente;
 
 
 public class TesteCliente {

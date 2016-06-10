@@ -7,8 +7,13 @@ import java.util.Date;
 
 import model.Student;
 import model.Professor;
+<<<<<<< HEAD
 import model.ReserveClassroomForStudent;
 import model.ReserveClassroomForProfessor;
+=======
+import model.ReservaSalaAluno;
+import model.ReservaSalaProfessor;
+>>>>>>> devel
 import model.Classroom;
 
 import org.fest.swing.core.BasicRobot;
@@ -21,6 +26,7 @@ import org.junit.Test;
 
 import persistence.StudentDAO;
 import persistence.ProfessorDAO;
+<<<<<<< HEAD
 import persistence.ReserveClassroomForStudentDAO;
 import persistence.ReserveClassroomForProfessorDAO;
 import persistence.ClassroomDAO;
@@ -28,14 +34,29 @@ import view.Main2;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
+=======
+import persistence.ResSalaAlunoDAO;
+import persistence.ReserveClassroomProfessorDAO;
+import persistence.ClassroomDAO;
+import view.Main2;
+import exception.ClienteException;
+import exception.PatrimonyException;
+import exception.ReservaException;
+>>>>>>> devel
 
 public class US01_AlterarReservaSala {
     private FrameFixture window;
     private Robot robot;
     private Classroom sala;
+<<<<<<< HEAD
     private ReserveClassroomForProfessor reservaProf;
     private ReserveClassroomForStudent reservaAluno;
     private Student aluno;
+=======
+    private ReservaSalaProfessor reservaProf;
+    private ReservaSalaAluno reservaAluno;
+    private Aluno aluno;
+>>>>>>> devel
     private Professor prof;
     private DialogFixture dialog;
     private int index;
@@ -49,7 +70,11 @@ public class US01_AlterarReservaSala {
         this.data = formatador.format(date);
     }
 
+<<<<<<< HEAD
     @Before public void setUp() throws PatrimonyException, SQLException, ClientException, ReserveException {
+=======
+    @Before public void setUp() throws PatrimonyException, SQLException, ClienteException, ReservaException {
+>>>>>>> devel
         robot = BasicRobot.robotWithNewAwtHierarchy();
         robot.settings().delayBetweenEvents(5);
 
@@ -57,7 +82,11 @@ public class US01_AlterarReservaSala {
         window.show(new Dimension(900, 500)); // shows the frame to test
 
         sala = new Classroom("code", "Sala para testes de aceitacao", "123");
+<<<<<<< HEAD
         ClassroomDAO.getClassroom().include(sala);
+=======
+        ClassroomDAO.getInstance().add(sala);
+>>>>>>> devel
 
         prof = new Professor("Professor Teste", "658.535.144-40", "110038096", "9211-2144", "teste incluir repetido");
         ProfessorDAO.getNewProfessor().include(prof);
@@ -67,8 +96,13 @@ public class US01_AlterarReservaSala {
 
         dataAtual();
                 
+<<<<<<< HEAD
         index = ClassroomDAO.getClassroom().searchAll().size() - 1;
         indexReserva = ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().searchForDate(data).size() - 1;
+=======
+        index = ClassroomDAO.getInstance().searchAll().size() - 1;
+        indexReserva = ReserveClassroomProfessorDAO.getInstance().buscarPorData(data).size() - 1;
+>>>>>>> devel
 
         StudentDAO.getNewStudent().include(aluno);
 
@@ -79,13 +113,23 @@ public class US01_AlterarReservaSala {
         dialog = window.dialog("SalaView");
     }
 
+<<<<<<< HEAD
     @After public void tearDown() throws SQLException, PatrimonyException, ClientException, ReserveException {
         if (reservaProf != null)
             ReserveClassroomForProfessorDAO.getReserveClassroomForProfessor().delete(reservaProf);
+=======
+    @After public void tearDown() throws SQLException, PatrimonyException, ClienteException, ReservaException {
+        if (reservaProf != null)
+            ReserveClassroomProfessorDAO.getInstance().delete(reservaProf);
+>>>>>>> devel
         if (reservaAluno != null)
             ReserveClassroomForStudentDAO.getReserveClassroomForStudent().delete(reservaAluno);
         if (sala != null)
+<<<<<<< HEAD
             ClassroomDAO.getClassroom().delete(sala);
+=======
+            ClassroomDAO.getInstance().delete(sala);
+>>>>>>> devel
         if (aluno != null)
             StudentDAO.getNewStudent().delete(aluno);
         if (prof != null)
@@ -101,7 +145,11 @@ public class US01_AlterarReservaSala {
         }
 
     }
+<<<<<<< HEAD
     @Test public void testCenario2AlunoCadeirasIndisponiveis() throws SQLException, ClientException, PatrimonyException, ReserveException {
+=======
+    @Test public void testCenario2AlunoCadeirasIndisponiveis() throws SQLException, ClienteException, PatrimonyException, ReservaException {
+>>>>>>> devel
         
         dialog.table("tabelaPatrimonio").selectRows(index);
         dialog.button("Visualizar Horarios").click();

@@ -50,7 +50,7 @@ public class Cashier extends Person {
 		this.balconista = balconista;
 
 		System.out.println("Verificacao de um funcion�rio para atend�-lo.");
-		Clerk.setStatusBalconista(true); // Utilizacao de static para depend�ncia
+		Clerk.setStatusClerk(true); // Utilizacao de static para depend�ncia
 	}
 
 	public Cashier(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
@@ -67,7 +67,7 @@ public class Cashier extends Person {
 
 	// Verifica a confirma��o de pagamento na Caixa (POLIMORFISMO)
 	public double paymentConfirmation() {
-		if (this.getConfirmacaoPagamento() == 1) {
+		if (this.getPaymentConfirmation() == 1) {
 			return 1; // Confirma que o pagamento foi aceito.
 		}
 		else {

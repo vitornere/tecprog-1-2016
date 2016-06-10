@@ -9,17 +9,28 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import model.Professor;
+<<<<<<< HEAD
 import model.ReserveClassroomForProfessor;
+=======
+import model.ReservaSalaProfessor;
+>>>>>>> devel
 import model.Classroom;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+<<<<<<< HEAD
 import control.ReserveClassroomForProfessorRegister;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
+=======
+import control.ManterResSalaProfessor;
+import exception.ClienteException;
+import exception.PatrimonyException;
+import exception.ReservaException;
+>>>>>>> devel
 
 import persistence.FactoryConnection;
 import persistence.ProfessorDAO;
@@ -32,18 +43,32 @@ public class ManterResSalaProfessorTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+<<<<<<< HEAD
 		vet = ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor().getVectorReserveClassroomForProfessor();
 		sala1 = new Classroom("123", "Sala de Aula", "120");
 		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
 		
 		ProfessorDAO.getNewProfessor().include(professor1);
 		ClassroomDAO.getClassroom().include(sala1);
+=======
+		vet = ManterResSalaProfessor.getInstance().getResProfessorSala_vet();
+		sala1 = new Classroom("123", "Sala de Aula", "120");
+		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
+		
+		ProfessorDAO.getInstance().incluir(professor1);
+		ClassroomDAO.getInstance().add(sala1);
+>>>>>>> devel
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+<<<<<<< HEAD
 		ProfessorDAO.getNewProfessor().delete(professor1);
 		ClassroomDAO.getClassroom().delete(sala1);
+=======
+		ProfessorDAO.getInstance().excluir(professor1);
+		ClassroomDAO.getInstance().delete(sala1);
+>>>>>>> devel
 	}
 
 	@Test
@@ -57,7 +82,11 @@ public class ManterResSalaProfessorTest {
 	
 	
 	@Test
+<<<<<<< HEAD
 	public void testInserir() throws SQLException, ReserveException, ClientException, PatrimonyException {
+=======
+	public void testInserir() throws SQLException, ReservaException, ClienteException, PatrimonyException {
+>>>>>>> devel
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
 		String hora = "9:11";
@@ -70,7 +99,11 @@ public class ManterResSalaProfessorTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
+<<<<<<< HEAD
 	public void testAlterar() throws ReserveException, SQLException, ClientException, PatrimonyException {
+=======
+	public void testAlterar() throws ReservaException, SQLException, ClienteException, PatrimonyException {
+>>>>>>> devel
 		
 		ReserveClassroomForProfessor reserva = new ReserveClassroomForProfessor("20/12/33", "9:11", sala1, "Pesquisa", professor1);
 		this.insert_into(reserva);
@@ -112,8 +145,13 @@ public class ManterResSalaProfessorTest {
 	}
 	private String select_id_sala(Classroom sala){
 		return "SELECT id_sala FROM sala WHERE " +
+<<<<<<< HEAD
 				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
+=======
+				"sala.codigo = \"" + sala.getCode() + "\" and " +
+				"sala.descricao = \"" + sala.getDescription() +  "\" and " +
+>>>>>>> devel
 				"sala.capacidade = " + sala.getCapacity();
 	}
 	private String where_reserva_sala_professor(ReserveClassroomForProfessor reserva){

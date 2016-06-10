@@ -67,7 +67,7 @@ public class DrugstoreSystem {
 		System.out.println("Recommendation: "
 				+ newMedicament.getRecommendation());
 		System.out.println("Type Medicament: "
-				+ newMedicament.getMedicamentType());
+				+ newMedicament.getMedicamento());
 		System.out.println("Expiration Date: "
 				+ newMedicament.getExpirationDate());
 
@@ -119,7 +119,7 @@ public class DrugstoreSystem {
 		Medicament[] medicaments = { secondMedicament, thirdMedicament };
 		drugstoreClerk.setMedicaments(medicaments);
 		// Listing
-		drugstoreClerk.listMedicamentsAssociated();
+		drugstoreClerk.listarMedicamentsAssociados();
 
 		Medicament fourthMedicament = new Medicament("Paracetamol", "Germed",
 				"Infant", "Liquid", "01/08/2015",
@@ -132,9 +132,9 @@ public class DrugstoreSystem {
 		Register secondRegister = new Register("P-4.333");
 
 		register.setMedicament(fourthMedicament);
-		fourthMedicament.setRegister(register);
-		fourthMedicament.registerList();
-		fifthMedicament.setRegister(secondRegister);
+		fourthMedicament.setRegistro(register);
+		fourthMedicament.listarRegistro();
+		fifthMedicament.setRegistro(secondRegister);
 		secondRegister.setMedicament(fifthMedicament);
 		secondRegister.medicamentList();
 

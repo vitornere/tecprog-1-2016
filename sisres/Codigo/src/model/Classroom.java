@@ -2,45 +2,47 @@ package model;
 
 import exception.PatrimonyException;
 
-public class Classroom extends Patrimony {
+public class Classroom extends Patrimonio {
 
-
-	private static final String INVALID_CAPACITY = "Capacidade Invalida.";
-	private static final String EMPTY_CAPACITY = "Capacidade em Branco.";
-	private static final String NULL_CAPACITY = "Capacidade esta nula.";
+	private String capacidade;
 	
-	public Classroom(String idClassroom, String descriptionClassroom,
-			String capacityClassroom) throws PatrimonyException {
-		super(idClassroom, descriptionClassroom);
-		this.setCapacity(capacityClassroom);
+
+	//Mensagens de Erro e Alertas
+		private final String CAPACIDADE_INVALIDO = "Capacidade Invalida.";
+		private final String CAPACIDADE_BRANCO = "Capacidade em Branco.";
+		private final String CAPACIDADE_NULA = "Capacidade esta nula.";
+		//private final String CAPACIDADE_NEGATIVA = "Capacidade negativa.";
+			
+		
+	public Classroom(String codigo, String descricao, String capacidade) throws PatrimonyException {
+		super(codigo, descricao);
+		this.setCapacidade(capacidade);
 	}
-	
-	private String capacity;
-	
+
 	public String getCapacity() {
-		return capacity;
+		return capacidade;
 	}
 
-	public void setCapacity(String capacity) throws PatrimonyException {
-		if (capacity.matches("[\\d]+")) {
-			this.capacity = capacity;
-		} else if (capacity == null) {
-			throw new PatrimonyException(NULL_CAPACITY);
-		} else if ("".equals(capacity.trim())) {
-			throw new PatrimonyException(EMPTY_CAPACITY);
+	public void setCapacidade(String capacidade) throws PatrimonyException {
+		if(capacidade == null)
+			throw new PatrimonyException(CAPACIDADE_NULA);
+		else if("".equals(capacidade.trim()))
+			throw new PatrimonyException(CAPACIDADE_BRANCO);
+		else if(capacidade.matches("[\\d]+")){
+				this.capacidade = capacidade;
 		}
-
-		else {
-			throw new PatrimonyException(INVALID_CAPACITY);
+		else
+		{
+			throw new PatrimonyException(CAPACIDADE_INVALIDO);
 		}
 	}
 
-	public boolean equals(Classroom classroom) {
-		if (super.equals(classroom)
-				&& this.getCapacity().equals(classroom.getCapacity())) {
+	public boolean equals(Classroom b){
+		if( super.equals(b) &&
+			this.getCapacity().equals(b.getCapacity())){
 			return true;
 		}
-
+		
 		return false;
 	}
 }

@@ -8,10 +8,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import entidades.Balconista;
-import entidades.Caixa;
-import entidades.Cliente;
-import entidades.Medicamento;
+import entities.Balconista;
+import entities.Caixa;
+import entities.Cliente;
+import entities.Medicament;
 
 public class TesteFuncionario {
 	Balconista balconista;
@@ -81,7 +81,7 @@ public class TesteFuncionario {
 
 	@Test
 	public void testSetMedicamento() {
-		Medicamento[] medicamento = { new Medicamento(), new Medicamento() };
+		Medicament[] medicamento = { new Medicament(), new Medicament() };
 
 		balconista.setMedicaments(medicamento);
 		assertNotNull(balconista.getMedicamentos());
@@ -89,15 +89,20 @@ public class TesteFuncionario {
 
 	@Test
 	public void testSetMedicamentoNull() {
+<<<<<<< HEAD
 		Medicamento[] medicamento = {};
 		balconista.setMedicaments(medicamento);
+=======
+		Medicament[] medicamento = {};
+		balconista.setMedicamentos(medicamento);
+>>>>>>> devel
 		assertNull(balconista.getMedicamentos());
 
 	}
 
 	@Test
 	public void testVerifMedicamento() {
-		Medicamento[] medicamento = { new Medicamento(), new Medicamento() };
+		Medicament[] medicamento = { new Medicament(), new Medicament() };
 
 		balconista.verificarMedicamento(medicamento);
 		assertNotNull(balconista.getMedicamentos());
@@ -105,7 +110,7 @@ public class TesteFuncionario {
 
 	@Test
 	public void testVerifMedicamento2() {
-		Medicamento[] medicamento = { new Medicamento(), new Medicamento() };
+		Medicament[] medicamento = { new Medicament(), new Medicament() };
 
 		balconista.verificarMedicamento(medicamento);
 		assertNotNull(balconista.getMedicamentos());
@@ -177,8 +182,8 @@ public class TesteFuncionario {
 
 	@Test
 	public void getTestBoolean() {
-		balconista.setStatusBalconista(true);
-		assertTrue(balconista.isStatusBalconista());
+		balconista.setStatusClerk(true);
+		assertTrue(balconista.isStatusClerk());
 	}
 
 	@Test

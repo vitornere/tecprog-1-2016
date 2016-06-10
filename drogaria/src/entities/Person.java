@@ -1,29 +1,44 @@
 package entities;
 
-//Super classe de balconista,cliente e caixa
 public class Person extends Administrative {
-
-	protected String rg;
+	protected String rg; 
 	protected String cpf;
 	protected int digitoCpf;
 	protected String nome;
 	protected String sobrenome;
 	protected String endereco;
 	protected String telefone;
-	private static double confirmacaoPagamento;// Polimorfismo
-	protected double salario;// Classe Abstrata
+	private static double confirmacaoPagamento; // Used to verify if payment it is released
+	protected double salario;
 
+	/**
+	 * Creates an empty object
+	 */
 	public Person() {
 	}
 
-	// Documentos
+	/**
+	 * Creates an object only with documents' params
+	 * 
+	 * @param rgPessoa
+	 * @param cpfPessoa
+	 * @param digitoCpfPessoa
+	 */
 	public Person(String rgPessoa, String cpfPessoa, int digitoCpfPessoa) {
 		this.rg = rgPessoa;
 		this.cpf = cpfPessoa;
 		this.digitoCpf = digitoCpfPessoa;
 	}
 
-	// Nomes
+	/**
+	 * Creates an object only with personal information's params
+	 * 
+	 * @param nomePessoa
+	 * @param sobrenomePessoa
+	 * @param enderecoPessoa
+	 * @param telefonePessoa
+	 */
+
 	public Person(String nomePessoa, String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
 		this.nome = nomePessoa;
 		this.sobrenome = sobrenomePessoa;
@@ -31,7 +46,17 @@ public class Person extends Administrative {
 		this.telefone = telefonePessoa;
 	}
 
-	// Todos os parametros
+	/**
+	 * Creates an object with all params
+	 * 
+	 * @param rgPessoa
+	 * @param cpfPessoa
+	 * @param digitoCpfPessoa
+	 * @param nomePessoa
+	 * @param sobrenomePessoa
+	 * @param enderecoPessoa
+	 * @param telefonePessoa
+	 */
 	public Person(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
 			String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
 		this.rg = rgPessoa;
@@ -43,7 +68,12 @@ public class Person extends Administrative {
 		this.telefone = telefonePessoa;
 	}
 
-	// Validacao digito
+	/**
+	 * Verify if digits of CPF are valid
+	 * 
+	 * @param digitoCpfPessoa
+	 * @return valid or invalid
+	 */
 	private boolean validarCpf(int digitoCpfPessoa) {
 		boolean validar1;
 		if (digitoCpfPessoa > 99) {
@@ -56,9 +86,19 @@ public class Person extends Administrative {
 		return validar1;
 	}
 
+	/**
+	 * Performs the registration of a new person with all your information
+	 * 
+	 * @param rgPessoa
+	 * @param cpfPessoa
+	 * @param digitoCpfPessoa
+	 * @param nomePessoa
+	 * @param sobrenomePessoa
+	 * @param enderecoPessoa
+	 * @param telefonePessoa
+	 */
 	public void cadastrarPessoa(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
 			String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
-		// Atributos
 		this.nome = nomePessoa;
 		this.sobrenome = sobrenomePessoa;
 		this.endereco = enderecoPessoa;
@@ -76,16 +116,26 @@ public class Person extends Administrative {
 		}
 	}
 
+	/**
+	 *  Confirms whether the payment was accepted or not
+	 * 
+	 * @return 1 or 0 to accepted or rejected
+	 */
 	public double paymentConfirmation() {
-		if (this.getConfirmacaoPagamento() == 1) {
-			return 1; // Confirma que o pagamento foi aceito.
+		if (this.getPaymentConfirmation() == 1) {
+			return 1;
 		}
 		else {
-			return 0; // Confirma que o pagamento n�o foi aceito
+			return 0;
 		}
 	}
 
-	// Metodo de calculo do salario do funcionario
+	/*
+	 * Getters and Setters
+	 * 
+	 * @see entities.Administrativo#calculateSalary()
+	 */
+	
 	public double calculateSalary() {
 		return this.salario;
 	}
@@ -123,6 +173,7 @@ public class Person extends Administrative {
 	}
 
 	public String getPastName() {
+
 		return sobrenome;
 	}
 
@@ -146,11 +197,11 @@ public class Person extends Administrative {
 		this.telefone = telefone;
 	}
 
-	public static double getConfirmacaoPagamento() {
+	public static double getPaymentConfirmation() {
 		return confirmacaoPagamento;
 	}
 
-	public static void setConfirmacaoPagamento(double confirmacaoPagamento) {
+	public static void setPaymentConfirmation(double confirmacaoPagamento) {
 		Person.confirmacaoPagamento = confirmacaoPagamento;
 	}
 

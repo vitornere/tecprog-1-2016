@@ -1,5 +1,6 @@
 package entities;
 
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,21 +9,18 @@ import entities.Medicament;
 
 public class Clerk extends Person {
 
-	// Declaracao de atributos
 
 	protected int senha;
 	protected int senhaFarmaciaPopular;
-	protected int codigo; // O funcionario usa o codigo de acesso junto da senha para fazer as vendas.
+	protected int codigo; 
 	protected int fatorComissao;
-	protected Medicament[] medicamentos = {};
+	protected Medicament[] Medicaments = {};
 	protected Cashier caixa;
-	private static boolean statusBalconista;
+	private static boolean statusClerk;
 	protected int horas;
 	protected int quantidade = 0;
-	// Utilizacao de STATIC para depend�ncia
 	Client[] clientes = {};
-
-	// SOmente para cria��o do console;
+;
 	Clerk[] balconista = {};
 	Scanner scanner = new Scanner(System.in);
 	Scanner scanner1 = new Scanner(System.in);
@@ -51,7 +49,7 @@ public class Clerk extends Person {
 
 	// Verifica a confirma��o de pagamento na Caixa (POLIMORFISMO)
 	public double paymentConfirmation() {
-		if (this.getConfirmacaoPagamento() == 1) {
+		if (this.getPaymentConfirmation() == 1) {
 			return 1; // Confirma que o pagamento foi aceito.
 		}
 		else {
@@ -59,36 +57,36 @@ public class Clerk extends Person {
 		}
 	}
 
-	public void setMedicaments(Medicament[] medicamentos) {
-		if (medicamentos.length < 1) {
+	public void setMedicaments(Medicament[] Medicaments) {
+		if (Medicaments.length < 1) {
 			System.out
-					.println("O medicamento n�o pode ser vendido sem a identifica��o de 1 funcion�rio cadastrado no Sistema! O medicamento s� poder� ser comercializado por no m�nimo 1 funcion�rio devidamente cadastrado!");
+					.println("O Medicament n�o pode ser vendido sem a identifica��o de 1 funcion�rio cadastrado no Sistema! O Medicament s� poder� ser comercializado por no m�nimo 1 funcion�rio devidamente cadastrado!");
 		}
 		else {
-			this.medicamentos = medicamentos;
+			this.Medicaments = Medicaments;
 		}
 	}
 
-	public void verificarMedicamento(Medicament[] medicamento) {
-		int tamanhoAntigo = this.medicamentos.length;
+	public void verificarMedicament(Medicament[] Medicament) {
+		int tamanhoAntigo = this.Medicaments.length;
 
-		Medicament[] novosMedicamentos = new Medicament[tamanhoAntigo + 1];
+		Medicament[] novosMedicaments = new Medicament[tamanhoAntigo + 1];
 		for (int i = 0; i < tamanhoAntigo; i++) {
-			novosMedicamentos[i] = this.medicamentos[i];
+			novosMedicaments[i] = this.Medicaments[i];
 
 		}
 
-		novosMedicamentos[novosMedicamentos.length - 1] = medicamento[medicamentos.length];
-		this.setMedicaments(novosMedicamentos);
+		novosMedicaments[novosMedicaments.length - 1] = Medicament[Medicaments.length];
+		this.setMedicaments(novosMedicaments);
 
 	}
 
-	// Listar numero de medicamentos associados aos funcionarios
-	public void listMedicamentsAssociated() {
-		System.out.println("Os medicamentos vendidos pelo funcionario " + getName() + " foram:");
-		for (int i = 0; (i < medicamentos.length); i++) {
+	// Listar numero de Medicaments associados aos funcionarios
+	public void listarMedicamentsAssociados() {
+		System.out.println("Os Medicaments vendidos pelo funcionario " + getName() + " foram:");
+		for (int i = 0; (i < Medicaments.length); i++) {
 			quantidade++;
-			System.out.println(quantidade + " " + medicamentos[i].nome);
+			System.out.println(quantidade + " " + Medicaments[i].nome);
 		}
 	}
 
@@ -285,8 +283,8 @@ public class Clerk extends Person {
 		this.caixa = caixa;
 	}
 
-	public Medicament[] getMedicamentos() {
-		return medicamentos;
+	public Medicament[] getMedicaments() {
+		return Medicaments;
 	}
 
 	public int getQuantidade() {
@@ -297,14 +295,13 @@ public class Clerk extends Person {
 		this.quantidade = quantidade;
 	}
 
-	public static boolean isStatusBalconista() {
-		return statusBalconista;
+	public static boolean isStatusClerk() {
+		return statusClerk;
 	}
 
-	// Depend�ncia entre Cliente e Balconista.
-	public static void setStatusBalconista(boolean statusFuncionarioPresente) {
-		Clerk.statusBalconista = statusFuncionarioPresente;
-		System.out.println("H� um funcion�rio dispon�vel para atend�-lo! Status:" + statusBalconista);
+	public static void setStatusClerk(boolean statusFuncionarioPresente) {
+		Clerk.statusClerk = statusFuncionarioPresente;
+		System.out.println("H� um funcion�rio dispon�vel para atend�-lo! Status:" + statusClerk);
 	}
 
 	public int getHoras() {

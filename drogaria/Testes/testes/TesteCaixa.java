@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import entidades.Caixa;
+import entities.Caixa;
 
 
 public class TesteCaixa{
