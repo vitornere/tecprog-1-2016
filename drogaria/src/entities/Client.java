@@ -76,6 +76,9 @@ public class Client extends Person implements Recommended {
 	 * @param use
 	 */
 	public void recommendedMedicine(String medicineType, String use) {
+		assert (medicineType != null);
+		assert (use != null);
+		
 		if (medicineType == "TARJA PRETA" && use == "ADULTO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 1");
 		} else {
@@ -118,7 +121,7 @@ public class Client extends Person implements Recommended {
 	 */
 
 	public void clientMenu() {
-		System.out.println("\nInsira o que deseja fazer de acordo com as op��es seguintes:" + "\n(0) - Sair\n"
+		System.out.println("\nInsira o que deseja fazer de acordo com as opções seguintes:" + "\n(0) - Sair\n"
 				+ "(1) - Cadastrar novo Cliente\n" + "(2) - Listar Clientes\n" + "(3) - Excluir Cliente\n");
 	}
 	
@@ -175,7 +178,7 @@ public class Client extends Person implements Recommended {
 			System.out.println("\nLista de cadastros de Clientes\n");
 			for (int position = FIRST; position < clientsList.size(); position++) {
 				Client t = clientsList.get(position);
-				System.out.println("\nCadastro de n�mero:" + (position + 1));
+				System.out.println("\nCadastro de número:" + (position + 1));
 
 				System.out.println("\nNome: " + t.getName() + " " + t.getLastName());
 
@@ -209,8 +212,8 @@ public class Client extends Person implements Recommended {
 		else {
 			System.out.println("Digite o numero do cadastro de Cliente que deseja excluir: ");
 			this.setCodeExclusion(scanner.nextInt());
-			System.out.println("Voc� deseja realmente excluir o cadastro de numero: " + this.deleteCode + "?"
-					+ "\n(0) - N�o" + "\n(1) - Sim");
+			System.out.println("Você deseja realmente excluir o cadastro de numero: " + this.deleteCode + "?"
+					+ "\n(0) - Não" + "\n(1) - Sim");
 			this.setConfirmationCodeExclusion(scanner.nextInt());
 			if (confirmationClientExclusion == YES) {
 				this.setCodeExclusion(deleteCode - 1);
