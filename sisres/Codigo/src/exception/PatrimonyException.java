@@ -7,13 +7,9 @@ public class PatrimonyException extends Exception {
 		super();
 	}
 
-<<<<<<< HEAD
 	public PatrimonyException(String message) {
 		super(message);
-=======
-	public PatrimonyException(String msg) {
-		super(msg);
->>>>>>> devel
+
 	}
 
 }
