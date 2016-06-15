@@ -62,9 +62,9 @@ public class ReservationRoomForStudentDAO extends DAO{
 		}
 		private String selectIdRoom(Classroom room){
 			return "SELECT id_sala FROM sala WHERE " +
-					"sala.codigo = \"" + room.getCode() + "\" and " +
-					"sala.descricao = \"" + room.getDescription() +  "\" and " +
-					"sala.capacidade = " + room.getDescription();
+					"sala.codigo = \"" + room.getIdEquipment() + "\" and " +
+					"sala.descricao = \"" + room.getDescriptionEquipment() +  "\" and " +
+					"sala.capacidade = " + room.getDescriptionEquipment();
 		}
 		private String whereReservationRoomForStudent(ReserveClassroomForStudent reservation){
 			return " WHERE " +
@@ -251,7 +251,7 @@ public class ReservationRoomForStudentDAO extends DAO{
 		hour = this.mountDefaultHour(hour);
 		Vector<ReserveClassroomForStudent> vet = this.searchAll();
 		Iterator<ReserveClassroomForStudent> it = vet.iterator();
-		int total = Integer.parseInt(room.getDescription());
+		int total = Integer.parseInt(room.getDescriptionEquipment());
 		while(it.hasNext()){
 			ReserveClassroomForStudent reservation = it.next();
 			if(reservation.getClassroom().equals(room) && reservation.getDate().equals(date) && reservation.getHour().equals(hour))
@@ -292,9 +292,9 @@ public class ReservationRoomForStudentDAO extends DAO{
 	
 	private boolean roomInDB(Classroom room) throws SQLException{
 		return super.inDBGeneric("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + room.getCode() + "\" and " +
-				"sala.descricao = \"" + room.getDescription() + "\" and " +
-				"sala.capacidade = " + room.getDescription() +
+				"sala.codigo = \"" + room.getIdEquipment() + "\" and " +
+				"sala.descricao = \"" + room.getDescriptionEquipment() + "\" and " +
+				"sala.capacidade = " + room.getDescriptionEquipment() +
 				";");
 	}
 	
@@ -314,9 +314,9 @@ public class ReservationRoomForStudentDAO extends DAO{
 				"data = \"" + this.mountDefaultDate(date) + "\" and " +
 				"hora = \"" + this.mountDefaultHour(hour) + "\" and " +
 				"id_sala = (SELECT id_sala FROM sala WHERE " +
-				"sala.codigo = \"" + room.getCode() + "\" and " +
-				"sala.descricao = \"" + room.getDescription() +  "\" and " +
-				"sala.capacidade = " + room.getDescription() +" );");
+				"sala.codigo = \"" + room.getIdEquipment() + "\" and " +
+				"sala.descricao = \"" + room.getDescriptionEquipment() +  "\" and " +
+				"sala.capacidade = " + room.getDescriptionEquipment() +" );");
 	}
 	
 	private boolean reservationInDB(ReserveClassroomForStudent reservation) throws SQLException {
@@ -329,7 +329,7 @@ public class ReservationRoomForStudentDAO extends DAO{
 							"aluno.matricula = \"" + reservation.getStudent().getIdRegister() + "\") and " +
 					"id_sala = (SELECT id_sala FROM sala WHERE " +
 									"sala.codigo = \"" + reservation.getClassroom().getClass() + "\" and " +
-									"sala.descricao = \"" + reservation.getClassroom().getDescription() +  "\" and " +
+									"sala.descricao = \"" + reservation.getClassroom().getDescriptionEquipment() +  "\" and " +
 									"sala.capacidade = " + reservation.getClassroom().getCapacity() +" ) and " +
 					"finalidade = \"" + reservation.getFinality() + "\" and " +
 					"hora = \"" + reservation.getHour() + "\" and " +

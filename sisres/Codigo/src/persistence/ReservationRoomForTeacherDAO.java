@@ -76,8 +76,8 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 */
 	
 	private String selectByIdRoom(Classroom room) {
-		return "SELECT id_sala FROM sala WHERE " + "sala.codigo = \"" + room.getCode() + "\" and "
-				+ "sala.descricao = \"" + room.getDescription() + "\" and " + "sala.capacidade = " + room.getCapacity();
+		return "SELECT id_sala FROM sala WHERE " + "sala.codigo = \"" + room.getIdEquipment() + "\" and "
+				+ "sala.descricao = \"" + room.getDescriptionEquipment() + "\" and " + "sala.capacidade = " + room.getCapacity();
 	}
 
 	/**
@@ -341,15 +341,15 @@ public class ReservationRoomForTeacherDAO extends DAO {
 
 	private boolean roomInDB(Classroom room) throws SQLException {
 		return super.inDBGeneric(
-				"SELECT * FROM sala WHERE " + "sala.codigo = \"" + room.getCode() + "\" and " + "sala.descricao = \""
-						+ room.getDescription() + "\" and " + "sala.capacidade = " + room.getCapacity() + ";");
+				"SELECT * FROM sala WHERE " + "sala.codigo = \"" + room.getIdEquipment() + "\" and " + "sala.descricao = \""
+						+ room.getDescriptionEquipment() + "\" and " + "sala.capacidade = " + room.getCapacity() + ";");
 	}
 
 
 	private boolean roomInReservationDB(Classroom room, String date, String hour) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE " + "data = \"" + date + "\" and "
 				+ "hora = \"" + hour + "\" and " + "id_sala = (SELECT id_sala FROM sala WHERE " + "sala.codigo = \""
-				+ room.getCode() + "\" and " + "sala.descricao = \"" + room.getDescription() + "\" and "
+				+ room.getIdEquipment() + "\" and " + "sala.descricao = \"" + room.getDescriptionEquipment() + "\" and "
 				+ "sala.capacidade = " + room.getCapacity() + " );");
 	}
 
@@ -360,8 +360,8 @@ public class ReservationRoomForTeacherDAO extends DAO {
 				+ data_result.getProfessor().getNamePerson() + "\" and " + "professor.cpf = \"" + data_result.getProfessor().getCpfPerson() + "\" and "
 				+ "professor.telefone = \"" + data_result.getProfessor().getPhonePerson() + "\" and " + "professor.email = \""
 				+ data_result.getProfessor().getEmailPerson() + "\" and " + "professor.matricula = \"" + data_result.getProfessor().getIdRegister()
-				+ "\") and " + "id_sala = (SELECT id_sala FROM sala WHERE " + "sala.codigo = \"" + data_result.getClassroom().getCode()
-				+ "\" and " + "sala.descricao = \"" + data_result.getClassroom().getDescription() + "\" and " + "sala.capacidade = "
+				+ "\") and " + "id_sala = (SELECT id_sala FROM sala WHERE " + "sala.codigo = \"" + data_result.getClassroom().getIdEquipment()
+				+ "\" and " + "sala.descricao = \"" + data_result.getClassroom().getDescriptionEquipment() + "\" and " + "sala.capacidade = "
 				+ data_result.getClassroom().getCapacity() + " ) and " + "finalidade = \"" + data_result.getFinality() + "\" and "
 				+ "hora = \"" + data_result.getHour() + "\" and " + "data = \"" + data_result.getDate() + "\";");
 	}

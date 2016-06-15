@@ -2,7 +2,7 @@ package model;
 
 import exception.PatrimonyException;
 
-public class Classroom extends Patrimonio {
+public class Classroom extends Patrimony {
 
 	private String capacidade;
 	
