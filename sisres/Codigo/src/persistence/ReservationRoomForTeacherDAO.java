@@ -12,12 +12,12 @@ import java.util.Date;
 import java.util.Vector;
 
 import model.Professor;
-import model.ReservaSalaProfessor;
+import model.ReserveClassroomForProfessor;
 import model.Classroom;
 
-import exception.ClienteException;
+import exception.ClientException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class ReservationRoomForTeacherDAO extends DAO {
 
@@ -62,10 +62,10 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 * @return the teacher found
 	 */
 	private String selectIdTeacher(Professor teacher) {
-		return "SELECT id_professor FROM professor WHERE " + "professor.nome = \"" + teacher.getNome() + "\" and "
-				+ "professor.cpf = \"" + teacher.getCpf() + "\" and " + "professor.telefone = \""
-				+ teacher.getTelefone() + "\" and " + "professor.email = \"" + teacher.getEmail() + "\" and "
-				+ "professor.matricula = \"" + teacher.getMatricula() + "\"";
+		return "SELECT id_professor FROM professor WHERE " + "professor.nome = \"" + teacher.getNamePerson() + "\" and "
+				+ "professor.cpf = \"" + teacher.getCpfPerson() + "\" and " + "professor.telefone = \""
+				+ teacher.getPhonePerson() + "\" and " + "professor.email = \"" + teacher.getEmailPerson() + "\" and "
+				+ "professor.matricula = \"" + teacher.getIdRegister() + "\"";
 	}
 
 	/**
@@ -86,11 +86,11 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 * @param reservation
 	 * @return Classrooms reserved by the teacher
 	 */
-	private String whereRoomReservedByTeacher(ReservaSalaProfessor reservation) {
+	private String whereRoomReservedByTeacher(ReserveClassroomForProfessor reservation) {
 		return " WHERE " + "id_professor = ( " + selectIdTeacher(reservation.getProfessor()) + " ) and "
-				+ "id_sala = ( " + selectByIdRoom(reservation.getSala()) + " ) and " + "finalidade = \""
-				+ reservation.getFinalidade() + "\" and " + "hora = \"" + reservation.getHora() + "\" and "
-				+ "data = \"" + reservation.getData() + "\"";
+				+ "id_sala = ( " + selectByIdRoom(reservation.getClassroom()) + " ) and " + "finalidade = \""
+				+ reservation.getFinality() + "\" and " + "hora = \"" + reservation.getHour() + "\" and "
+				+ "data = \"" + reservation.getDate() + "\"";
 	}
 
 	/**
@@ -99,10 +99,10 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 * @param reservation
 	 * @return information about the room reserved
 	 */
-	private String valuesRoomReservedByTeacher(ReservaSalaProfessor reservation) {
+	private String valuesRoomReservedByTeacher(ReserveClassroomForProfessor reservation) {
 		return "( " + selectIdTeacher(reservation.getProfessor()) + " ), " + "( "
-				+ selectByIdRoom(reservation.getSala()) + " ), " + "\"" + reservation.getFinalidade() + "\", " + "\""
-				+ reservation.getHora() + "\", " + "\"" + reservation.getData() + "\"";
+				+ selectByIdRoom(reservation.getClassroom()) + " ), " + "\"" + reservation.getFinality() + "\", " + "\""
+				+ reservation.getHour() + "\", " + "\"" + reservation.getDate() + "\"";
 	}
 
 	/**
@@ -111,10 +111,10 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 * @param reservation
 	 * @return
 	 */
-	private String atributesValuesForReservationRoomByTeacher(ReservaSalaProfessor reservation) {
+	private String atributesValuesForReservationRoomByTeacher(ReserveClassroomForProfessor reservation) {
 		return "id_professor = ( " + selectIdTeacher(reservation.getProfessor()) + " ), " + "id_sala = ( "
-				+ selectByIdRoom(reservation.getSala()) + " ), " + "finalidade = \"" + reservation.getFinalidade()
-				+ "\", " + "hora = \"" + reservation.getHora() + "\", " + "data = \"" + reservation.getData() + "\"";
+				+ selectByIdRoom(reservation.getClassroom()) + " ), " + "finalidade = \"" + reservation.getFinality()
+				+ "\", " + "hora = \"" + reservation.getHour() + "\", " + "data = \"" + reservation.getDate() + "\"";
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 * @param reservation
 	 * @return addiction of values about the reservation
 	 */
-	private String insertIntoReservationRoomByTeacher(ReservaSalaProfessor reservation) {
+	private String insertIntoReservationRoomByTeacher(ReserveClassroomForProfessor reservation) {
 		return "INSERT INTO " + "reserva_sala_professor (id_professor, id_sala, finalidade, hora, data) " + "VALUES ( "
 				+ valuesRoomReservedByTeacher(reservation) + " );";
 	}
@@ -136,7 +136,7 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 * @param reservation
 	 * @return exclusion of values about reservation
 	 */
-	private String deleteReservationByTeacher(ReservaSalaProfessor reservation) {
+	private String deleteReservationByTeacher(ReserveClassroomForProfessor reservation) {
 		return "DELETE FROM reserva_sala_professor " + this.whereRoomReservedByTeacher(reservation) + " ;";
 	}
 
@@ -146,9 +146,9 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 * @param reservation
 	 * @return 
 	 */
-	private String deleteReservationByStudent(ReservaSalaProfessor reservation) {
-		return "DELETE FROM reserva_sala_aluno WHERE " + "hora = \"" + reservation.getHora() + "\" and " + "data = \""
-				+ reservation.getData() + "\" ;";
+	private String deleteReservationByStudent(ReserveClassroomForProfessor reservation) {
+		return "DELETE FROM reserva_sala_aluno WHERE " + "hora = \"" + reservation.getHour() + "\" and " + "data = \""
+				+ reservation.getDate() + "\" ;";
 	}
 
 	/**
@@ -157,7 +157,7 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 * @param new_reservation
 	 * @return exclusion of values about reservation
 	 */
-	private String update(ReservaSalaProfessor old_reservation, ReservaSalaProfessor new_reservation) {
+	private String update(ReserveClassroomForProfessor old_reservation, ReserveClassroomForProfessor new_reservation) {
 		return "UPDATE reserva_sala_professor SET " + this.atributesValuesForReservationRoomByTeacher(new_reservation)
 				+ this.whereRoomReservedByTeacher(old_reservation) + " ;";
 	}
@@ -166,34 +166,34 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 * Method to add a reservation made by the professor
 	 * 
 	 * @param reservation
-	 * @throws ReservaException
+	 * @throws ReserveException
 	 * @throws SQLException
 	 */
-	public void add(ReservaSalaProfessor reservation) throws ReservaException, SQLException {
+	public void add(ReserveClassroomForProfessor reservation) throws ReserveException, SQLException {
 		if (reservation == null) {
-			throw new ReservaException(NULL);
+			throw new ReserveException(NULL);
 		} else {
 			if (!this.teacherInDB(reservation.getProfessor())) {
-				throw new ReservaException(INEXISTENTTEACHER);
+				throw new ReserveException(INEXISTENTTEACHER);
 			} else {
-				if (!this.roomInDB(reservation.getSala())) {
-					throw new ReservaException(INEXISTENTROOM);
+				if (!this.roomInDB(reservation.getClassroom())) {
+					throw new ReserveException(INEXISTENTROOM);
 				} else {
-					if (this.roomInReservationDB(reservation.getSala(), reservation.getData(), reservation.getHora())) {
-						throw new ReservaException(UNAVAILABLEROOM);
+					if (this.roomInReservationDB(reservation.getClassroom(), reservation.getDate(), reservation.getHour())) {
+						throw new ReserveException(UNAVAILABLEROOM);
 					} else {
 						if (this.reservainDB(reservation)) {
-							throw new ReservaException(EXISTENTRESERVATION);
+							throw new ReserveException(EXISTENTRESERVATION);
 						} else {
-							if (this.studentInReservedDB(reservation.getData(), reservation.getHora())) {
+							if (this.studentInReservedDB(reservation.getDate(), reservation.getHour())) {
 								super.executeQuery(this.deleteReservationByStudent(reservation));
 							}
-							if (this.pastDate(reservation.getData())) {
-								throw new ReservaException(PASTDATE);
+							if (this.pastDate(reservation.getDate())) {
+								throw new ReserveException(PASTDATE);
 							}
-							if (this.equalDate(reservation.getData())) {
-								if (this.validHour(reservation.getHora())) {
-									throw new ReservaException(PASTHOUR);
+							if (this.equalDate(reservation.getDate())) {
+								if (this.validHour(reservation.getHour())) {
+									throw new ReserveException(PASTHOUR);
 								} else {
 									super.executeQuery(this.insertIntoReservationRoomByTeacher(reservation));
 								}
@@ -212,42 +212,42 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 * 
 	 * @param old_reservation
 	 * @param new_reservation
-	 * @throws ReservaException
+	 * @throws ReserveException
 	 * @throws SQLException
 	 */
-	public void change(ReservaSalaProfessor old_reservation, ReservaSalaProfessor new_reservation)
-			throws ReservaException, SQLException {
+	public void change(ReserveClassroomForProfessor old_reservation, ReserveClassroomForProfessor new_reservation)
+			throws ReserveException, SQLException {
 		if (old_reservation == null) {
-			throw new ReservaException(NULL);
+			throw new ReserveException(NULL);
 		} else {
 			if (new_reservation == null) {
-				throw new ReservaException(NULL);
+				throw new ReserveException(NULL);
 			} else {
 				if (!this.reservainDB(old_reservation)) {
-					throw new ReservaException(INEXISTENTRESERVATION);
+					throw new ReserveException(INEXISTENTRESERVATION);
 				} else {
 					if (this.reservainDB(new_reservation)) {
-						throw new ReservaException(EXISTENTRESERVATION);
+						throw new ReserveException(EXISTENTRESERVATION);
 					} else {
 						if (!this.teacherInDB(new_reservation.getProfessor())) {
-							throw new ReservaException(INEXISTENTTEACHER);
+							throw new ReserveException(INEXISTENTTEACHER);
 						} else {
-							if (!this.roomInDB(new_reservation.getSala())) {
-								throw new ReservaException(INEXISTENTROOM);
+							if (!this.roomInDB(new_reservation.getClassroom())) {
+								throw new ReserveException(INEXISTENTROOM);
 							} else {
-								if (!old_reservation.getData().equals(new_reservation.getData())
-										|| !old_reservation.getHora().equals(new_reservation.getHora())) {
-									if (this.roomInReservationDB(new_reservation.getSala(), new_reservation.getData(),
-											new_reservation.getHora())) {
-										throw new ReservaException(UNAVAILABLEROOM);
+								if (!old_reservation.getDate().equals(new_reservation.getDate())
+										|| !old_reservation.getHour().equals(new_reservation.getHour())) {
+									if (this.roomInReservationDB(new_reservation.getClassroom(), new_reservation.getDate(),
+											new_reservation.getHour())) {
+										throw new ReserveException(UNAVAILABLEROOM);
 									}
 								}
-								if (this.pastDate(new_reservation.getData())) {
-									throw new ReservaException(PASTDATE);
+								if (this.pastDate(new_reservation.getDate())) {
+									throw new ReserveException(PASTDATE);
 								}
-								if (this.validHour(new_reservation.getHora())
-										&& this.equalDate(new_reservation.getData())) {
-									throw new ReservaException(PASTHOUR);
+								if (this.validHour(new_reservation.getHour())
+										&& this.equalDate(new_reservation.getDate())) {
+									throw new ReserveException(PASTHOUR);
 								} else {
 									super.updateQuery(this.update(old_reservation, new_reservation));
 								}
@@ -263,15 +263,15 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 * Method to delete a reservation made by the professor
 	 * 
 	 * @param reservation_to_delete
-	 * @throws ReservaException
+	 * @throws ReserveException
 	 * @throws SQLException
 	 */
-	public void delete(ReservaSalaProfessor reservation_to_delete) throws ReservaException, SQLException {
+	public void delete(ReserveClassroomForProfessor reservation_to_delete) throws ReserveException, SQLException {
 		if (reservation_to_delete == null) {
-			throw new ReservaException(NULL);
+			throw new ReserveException(NULL);
 		} else {
 			if (!this.reservainDB(reservation_to_delete)) {
-				throw new ReservaException(INEXISTENTRESERVATION);
+				throw new ReserveException(INEXISTENTRESERVATION);
 			} else {
 				super.executeQuery(this.deleteReservationByTeacher(reservation_to_delete));
 			}
@@ -283,13 +283,13 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 * 
 	 * @return list of classroom reserved with the respective teacher.
 	 * @throws SQLException
-	 * @throws ClienteException
+	 * @throws ClientException
 	 * @throws PatrimonyException
-	 * @throws ReservaException
+	 * @throws ReserveException
 	 */
 	@SuppressWarnings("unchecked")
-	public Vector<ReservaSalaProfessor> searchAll()
-			throws SQLException, ClienteException, PatrimonyException, ReservaException {
+	public Vector<ReserveClassroomForProfessor> searchAll()
+			throws SQLException, ClientException, PatrimonyException, ReserveException {
 		return super.search("SELECT * FROM reserva_sala_professor "
 				+ "INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala "
 				+ "INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor;");
@@ -301,13 +301,13 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	 * @param date
 	 * @return list of classroom reserved with the respective teacher according to a date.
 	 * @throws SQLException
-	 * @throws ClienteException
+	 * @throws ClientException
 	 * @throws PatrimonyException
-	 * @throws ReservaException
+	 * @throws ReserveException
 	 */
 	@SuppressWarnings("unchecked")
-	public Vector<ReservaSalaProfessor> searchByDate(String date)
-			throws SQLException, ClienteException, PatrimonyException, ReservaException {
+	public Vector<ReserveClassroomForProfessor> searchByDate(String date)
+			throws SQLException, ClientException, PatrimonyException, ReserveException {
 		return super.search("SELECT * FROM reserva_sala_professor "
 				+ "INNER JOIN sala ON sala.id_sala = reserva_sala_professor.id_sala "
 				+ "INNER JOIN professor ON professor.id_professor = reserva_sala_professor.id_professor"
@@ -316,7 +316,7 @@ public class ReservationRoomForTeacherDAO extends DAO {
 
 	@Override
 	protected Object fetch(ResultSet data_teacher)
-			throws SQLException, ClienteException, PatrimonyException, ReservaException {
+			throws SQLException, ClientException, PatrimonyException, ReserveException {
 		Professor p = new Professor(data_teacher.getString("nome"), data_teacher.getString("cpf"),
 				data_teacher.getString("matricula"), data_teacher.getString("telefone"),
 				data_teacher.getString("email"));
@@ -324,7 +324,7 @@ public class ReservationRoomForTeacherDAO extends DAO {
 		Classroom s = new Classroom(data_teacher.getString("codigo"), data_teacher.getString("descricao"),
 				data_teacher.getString("capacidade"));
 
-		ReservaSalaProfessor r = new ReservaSalaProfessor(data_teacher.getString("data"),
+		ReserveClassroomForProfessor r = new ReserveClassroomForProfessor(data_teacher.getString("data"),
 				data_teacher.getString("hora"), s, data_teacher.getString("finalidade"), p);
 
 		return r;
@@ -332,10 +332,10 @@ public class ReservationRoomForTeacherDAO extends DAO {
 
 
 	private boolean teacherInDB(Professor teacher) throws SQLException {
-		return super.inDBGeneric("SELECT * FROM professor WHERE " + "professor.nome = \"" + teacher.getNome()
-				+ "\" and " + "professor.cpf = \"" + teacher.getCpf() + "\" and " + "professor.telefone = \""
-				+ teacher.getTelefone() + "\" and " + "professor.email = \"" + teacher.getEmail() + "\" and "
-				+ "professor.matricula = \"" + teacher.getMatricula() + "\";");
+		return super.inDBGeneric("SELECT * FROM professor WHERE " + "professor.nome = \"" + teacher.getNamePerson()
+				+ "\" and " + "professor.cpf = \"" + teacher.getCpfPerson() + "\" and " + "professor.telefone = \""
+				+ teacher.getPhonePerson() + "\" and " + "professor.email = \"" + teacher.getEmailPerson() + "\" and "
+				+ "professor.matricula = \"" + teacher.getIdRegister() + "\";");
 	}
 
 
@@ -354,16 +354,16 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	}
 
 
-	private boolean reservainDB(ReservaSalaProfessor data_result) throws SQLException {
+	private boolean reservainDB(ReserveClassroomForProfessor data_result) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE "
 				+ "id_professor = (SELECT id_professor FROM professor WHERE " + "professor.nome = \""
-				+ data_result.getProfessor().getNome() + "\" and " + "professor.cpf = \"" + data_result.getProfessor().getCpf() + "\" and "
-				+ "professor.telefone = \"" + data_result.getProfessor().getTelefone() + "\" and " + "professor.email = \""
-				+ data_result.getProfessor().getEmail() + "\" and " + "professor.matricula = \"" + data_result.getProfessor().getMatricula()
-				+ "\") and " + "id_sala = (SELECT id_sala FROM sala WHERE " + "sala.codigo = \"" + data_result.getSala().getCode()
-				+ "\" and " + "sala.descricao = \"" + data_result.getSala().getDescription() + "\" and " + "sala.capacidade = "
-				+ data_result.getSala().getCapacity() + " ) and " + "finalidade = \"" + data_result.getFinalidade() + "\" and "
-				+ "hora = \"" + data_result.getHora() + "\" and " + "data = \"" + data_result.getData() + "\";");
+				+ data_result.getProfessor().getNamePerson() + "\" and " + "professor.cpf = \"" + data_result.getProfessor().getCpfPerson() + "\" and "
+				+ "professor.telefone = \"" + data_result.getProfessor().getPhonePerson() + "\" and " + "professor.email = \""
+				+ data_result.getProfessor().getEmailPerson() + "\" and " + "professor.matricula = \"" + data_result.getProfessor().getIdRegister()
+				+ "\") and " + "id_sala = (SELECT id_sala FROM sala WHERE " + "sala.codigo = \"" + data_result.getClassroom().getCode()
+				+ "\" and " + "sala.descricao = \"" + data_result.getClassroom().getDescription() + "\" and " + "sala.capacidade = "
+				+ data_result.getClassroom().getCapacity() + " ) and " + "finalidade = \"" + data_result.getFinality() + "\" and "
+				+ "hora = \"" + data_result.getHour() + "\" and " + "data = \"" + data_result.getDate() + "\";");
 	}
 
 
