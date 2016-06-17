@@ -3,7 +3,7 @@ package control;
 import java.sql.SQLException;
 import java.util.Vector;
 
-import persistence.ProfessorDAO;
+import persistence.TeacherDAO;
 import exception.ClientException;
 import model.Professor;
 
@@ -16,7 +16,7 @@ public class ProfessorRegister {
 	private ProfessorRegister() {
 	}
 
-	public static ProfessorRegister getNewProfessor() {
+	public static ProfessorRegister getInstance() {
 		if (newProfessor != null) {
 
 			// Nothing to do.
@@ -29,32 +29,32 @@ public class ProfessorRegister {
 
 	public Vector<Professor> searchNameProfessor(String value)
 			throws SQLException, ClientException {
-		return ProfessorDAO.getNewProfessor().searchNameProfessor(value);
+		return TeacherDAO.getInstance().searchByName(value);
 	}
 
 	public Vector<Professor> searchCpfProfessor(String value)
 			throws SQLException, ClientException {
-		return ProfessorDAO.getNewProfessor().searchCpfProfessor(value);
+		return TeacherDAO.getInstance().searchByCpf(value);
 	}
 
 	public Vector<Professor> searchIdProfessor(String value)
 			throws SQLException, ClientException {
-		return ProfessorDAO.getNewProfessor().searchIdProfessor(value);
+		return TeacherDAO.getInstance().searchByRegister(value);
 	}
 
 	public Vector<Professor> searchEmailProfessor(String value)
 			throws SQLException, ClientException {
-		return ProfessorDAO.getNewProfessor().searchEmailProfessor(value);
+		return TeacherDAO.getInstance().searchByEmail(value);
 	}
 
 	public Vector<Professor> searchPhoneProfessor(String value)
 			throws SQLException, ClientException {
-		return ProfessorDAO.getNewProfessor().searchPhoneProfessor(value);
+		return TeacherDAO.getInstance().searchByPhone(value);
 	}
 
 	public Vector<Professor> getVectorProfessors() throws SQLException,
 			ClientException {
-		this.vectorProfessors = ProfessorDAO.getNewProfessor().seachAll();
+		this.vectorProfessors = TeacherDAO.getInstance().searchAll();
 		return this.vectorProfessors;
 	}
 
@@ -63,11 +63,11 @@ public class ProfessorRegister {
 			throws ClientException, SQLException {
 		Professor professor = new Professor(nameProfessor, cpfProfessor,
 				idProfessor, phoneProfessor, emailProfessor);
-		ProfessorDAO.getNewProfessor().include(professor);
+		TeacherDAO.getInstance().add(professor);
 		this.vectorProfessors.add(professor);
 	}
 
-	public void update(String nameProfessor, String cpfProfessor,
+	public void change(String nameProfessor, String cpfProfessor,
 			String idProfessor, String phoneProfessor, String emailProfessor,
 			Professor professor) throws ClientException, SQLException {
 		Professor oldTeacherData = new Professor(professor.getNamePerson(),
@@ -78,12 +78,12 @@ public class ProfessorRegister {
 		professor.setIdPerson(idProfessor);
 		professor.setPhonePerson(phoneProfessor);
 		professor.setEmailPerson(emailProfessor);
-		ProfessorDAO.getNewProfessor().update(oldTeacherData, professor);
+		TeacherDAO.getInstance().change(oldTeacherData, professor);
 	}
 
 	public void delete(Professor professor) throws SQLException,
 			ClientException {
-		ProfessorDAO.getNewProfessor().delete(professor);
+		TeacherDAO.getInstance().delete(professor);
 		this.vectorProfessors.remove(professor);
 	}
 

@@ -165,7 +165,7 @@ public class ClassroomDAO {
 	 */
 
 	public Vector<Classroom> searchAll() throws SQLException, PatrimonyException {
-		return this.buscar("SELECT * FROM sala;");
+		return this.search("SELECT * FROM sala;");
 	}
 	
 	/**
@@ -178,7 +178,7 @@ public class ClassroomDAO {
 	 */
 
 	public Vector<Classroom> searchCode(String code) throws SQLException, PatrimonyException {
-		return this.buscar("SELECT * FROM sala WHERE codigo = " + "\"" + code + "\";");
+		return this.search("SELECT * FROM sala WHERE codigo = " + "\"" + code + "\";");
 	}
 	
 	/**
@@ -191,7 +191,7 @@ public class ClassroomDAO {
 	 */
 
 	public Vector<Classroom> searchDescription(String description) throws SQLException, PatrimonyException {
-		return this.buscar("SELECT * FROM sala WHERE descricao = " + "\"" + description + "\";");
+		return this.search("SELECT * FROM sala WHERE descricao = " + "\"" + description + "\";");
 	}
 	
 	/**
@@ -204,7 +204,7 @@ public class ClassroomDAO {
 	 */
 
 	public Vector<Classroom> searchCapacity(String value) throws SQLException, PatrimonyException {
-		return this.buscar("SELECT * FROM sala WHERE capacidade = " + value + ";");
+		return this.search("SELECT * FROM sala WHERE capacidade = " + value + ";");
 	}
 	
 	/**
@@ -216,7 +216,7 @@ public class ClassroomDAO {
 	 * @throws PatrimonyException
 	 */
 
-	private Vector<Classroom> buscar(String query) throws SQLException, PatrimonyException {
+	private Vector<Classroom> search(String query) throws SQLException, PatrimonyException {
 		//Start connection
 		Connection connection = FactoryConnection.getInstance().getConnection();
 		PreparedStatement prepare_query_to_execute = connection.prepareStatement(query);

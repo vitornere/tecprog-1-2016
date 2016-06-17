@@ -30,14 +30,14 @@ public class EquipmentRegister {
 
 	public Vector<Equipment> getVectorEquipments() throws SQLException,
 			PatrimonyException {
-		this.vectorEquipments = EquipmentDAO.getNewEquipment().searchAll();
+		this.vectorEquipments = EquipmentDAO.getInstance().searchAll();
 		return this.vectorEquipments;
 	}
 
 	public void insert(String idEquipment, String descriptionEquipment)
 			throws PatrimonyException, SQLException {
 		Equipment equipment = new Equipment(idEquipment, descriptionEquipment);
-		EquipmentDAO.getNewEquipment().include(equipment);
+		EquipmentDAO.getInstance().add(equipment);
 		getVectorEquipments();
 	}
 
@@ -49,7 +49,7 @@ public class EquipmentRegister {
 					equipment.getDescriptionEquipment());
 			equipment.setIdEquipment(idEquipment);
 			equipment.setDescriptionEquipment(descriptionEquipment);
-			EquipmentDAO.getNewEquipment().update(oldEquipmentData, equipment);
+			EquipmentDAO.getInstance().change(oldEquipmentData, equipment);
 			getVectorEquipments();
 		} else {
 
@@ -62,7 +62,7 @@ public class EquipmentRegister {
 			PatrimonyException {
 		if (equipment != null) {
 
-			EquipmentDAO.getNewEquipment().delete(equipment);
+			EquipmentDAO.getInstance().delete(equipment);
 			getVectorEquipments();
 		} else {
 

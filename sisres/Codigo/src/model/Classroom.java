@@ -16,14 +16,14 @@ public class Classroom extends Patrimony {
 		
 	public Classroom(String codigo, String descricao, String capacidade) throws PatrimonyException {
 		super(codigo, descricao);
-		this.setCapacidade(capacidade);
+		this.setCapacity(capacidade);
 	}
 
 	public String getCapacity() {
 		return capacidade;
 	}
 
-	public void setCapacidade(String capacidade) throws PatrimonyException {
+	public void setCapacity(String capacidade) throws PatrimonyException {
 		if(capacidade == null)
 			throw new PatrimonyException(CAPACIDADE_NULA);
 		else if("".equals(capacidade.trim()))
