@@ -6,7 +6,7 @@ import java.util.Vector;
 import model.Student;
 import model.ReserveClassroomForStudent;
 import model.Classroom;
-import persistence.ReserveClassroomForStudentDAO;
+import persistence.ReservationRoomForStudentDAO;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -20,7 +20,7 @@ public class ReserveClassroomForStudentRegister {
 	private ReserveClassroomForStudentRegister() {
 	}
 
-	public static ReserveClassroomForStudentRegister getReserveClassroomForStudent() {
+	public static ReserveClassroomForStudentRegister getInstance() {
 		if (reserveClassroomForStudent != null) {
 
 			// Nothing to do.
@@ -34,31 +34,31 @@ public class ReserveClassroomForStudentRegister {
 	public Vector<ReserveClassroomForStudent> getHoursReserved(String hour)
 			throws SQLException, PatrimonyException, ClientException,
 			ReserveException {
-		return ReserveClassroomForStudentDAO.getReserveClassroomForStudent()
-				.searchForHour(hour);
+		return ReservationRoomForStudentDAO.getInstance()
+				.searchByHour(hour);
 
 	}
 
 	public Vector<ReserveClassroomForStudent> getMonthReservations(String date)
 			throws SQLException, PatrimonyException, ClientException,
 			ReserveException {
-		return ReserveClassroomForStudentDAO.getReserveClassroomForStudent()
-				.searchForDay(date);
+		return ReservationRoomForStudentDAO.getInstance()
+				.searchbyDay(date);
 	}
 
 	public Vector<ReserveClassroomForStudent> getVectorReserveClassroomForStudent()
 			throws SQLException, PatrimonyException, ClientException,
 			ReserveException {
-		this.vectorReserveClassroomForStudent = ReserveClassroomForStudentDAO
-				.getReserveClassroomForStudent().searchAll();
+		this.vectorReserveClassroomForStudent = ReservationRoomForStudentDAO
+				.getInstance().searchAll();
 		return this.vectorReserveClassroomForStudent;
 	}
 
 	public int chairsAvailable(Classroom classroom, String date,
 			String hourReserveClassroomForStudent) throws SQLException,
 			PatrimonyException, ClientException, ReserveException {
-		return ReserveClassroomForStudentDAO.getReserveClassroomForStudent()
-				.chairsAvailable(classroom, date,
+		return ReservationRoomForStudentDAO.getInstance()
+				.availableChair(classroom, date,
 						hourReserveClassroomForStudent);
 	}
 
@@ -69,7 +69,7 @@ public class ReserveClassroomForStudentRegister {
 
 		ReserveClassroomForStudent reserveClassroomForStudent = new ReserveClassroomForStudent(
 				date, hour, classroom, finality, reservedChairs, student);
-		ReserveClassroomForStudentDAO.getReserveClassroomForStudent().include(
+		ReservationRoomForStudentDAO.getInstance().add(
 				reserveClassroomForStudent);
 		this.vectorReserveClassroomForStudent.add(reserveClassroomForStudent);
 	}
@@ -88,15 +88,15 @@ public class ReserveClassroomForStudentRegister {
 				reserveClassroomForStudent.getStudent());
 		reserveClassroomForStudent.setFinality(finality);
 		reserveClassroomForStudent.setReservedChairs(reservedChairs);
-		ReserveClassroomForStudentDAO.getReserveClassroomForStudent()
-				.updateReserveClassroomForStudent(
+		ReservationRoomForStudentDAO.getInstance()
+				.change(
 						oldReserveClassroomForStudentData,
 						reserveClassroomForStudent);
 	}
 
 	public void delete(ReserveClassroomForStudent reserveClassroomForStudent)
 			throws SQLException, ReserveException {
-		ReserveClassroomForStudentDAO.getReserveClassroomForStudent().delete(
+		ReservationRoomForStudentDAO.getInstance().delete(
 				reserveClassroomForStudent);
 		this.vectorReserveClassroomForStudent
 				.remove(reserveClassroomForStudent);

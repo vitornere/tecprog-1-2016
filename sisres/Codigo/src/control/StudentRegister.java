@@ -16,7 +16,7 @@ public class StudentRegister {
 	private StudentRegister() {
 	}
 
-	public static StudentRegister getNewStudent() {
+	public static StudentRegister getInstance() {
 		if (newStudent != null) {
 
 			// Nothing to do.
@@ -30,32 +30,32 @@ public class StudentRegister {
 
 	public Vector<Student> searchNameStudent(String value) throws SQLException,
 			ClientException {
-		return StudentDAO.getNewStudent().searchNameStudent(value);
+		return StudentDAO.getInstance().searchByName(value);
 	}
 
 	public Vector<Student> searchCpfStudent(String value) throws SQLException,
 			ClientException {
-		return StudentDAO.getNewStudent().searchCpfStudent(value);
+		return StudentDAO.getInstance().searchByCpf(value);
 	}
 
 	public Vector<Student> searchIdStudent(String value) throws SQLException,
 			ClientException {
-		return StudentDAO.getNewStudent().searchIdStudent(value);
+		return StudentDAO.getInstance().searchByRegister(value);
 	}
 
 	public Vector<Student> searchEmailStudent(String value)
 			throws SQLException, ClientException {
-		return StudentDAO.getNewStudent().searchEmailStudent(value);
+		return StudentDAO.getInstance().searcByEmail(value);
 	}
 
 	public Vector<Student> searchPhoneStudent(String value)
 			throws SQLException, ClientException {
-		return StudentDAO.getNewStudent().searchPhoneStudent(value);
+		return StudentDAO.getInstance().searchByPhone(value);
 	}
 
 	public Vector<Student> getVectorStudents() throws SQLException,
 			ClientException {
-		this.vectorStudents = StudentDAO.getNewStudent().searchAll();
+		this.vectorStudents = StudentDAO.getInstance().searchAll();
 		return this.vectorStudents;
 	}
 
@@ -64,7 +64,7 @@ public class StudentRegister {
 			SQLException {
 		Student student = new Student(nameStudent, cpfStudent, idStudent,
 				phoneStudent, emailStudent);
-		StudentDAO.getNewStudent().include(student);
+		StudentDAO.getInstance().add(student);
 		this.vectorStudents.add(student);
 	}
 
@@ -79,11 +79,11 @@ public class StudentRegister {
 		student.setIdPerson(idStudent);
 		student.setPhonePerson(phoneStudent);
 		student.setEmailPerson(emailStudent);
-		StudentDAO.getNewStudent().alterar(oldStudentData, student);
+		StudentDAO.getInstance().change(oldStudentData, student);
 	}
 
 	public void delete(Student student) throws SQLException, ClientException {
-		StudentDAO.getNewStudent().delete(student);
+		StudentDAO.getInstance().delete(student);
 		this.vectorStudents.remove(student);
 	}
 

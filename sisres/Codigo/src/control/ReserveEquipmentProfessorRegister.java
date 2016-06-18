@@ -6,7 +6,7 @@ import java.util.Vector;
 import model.Equipment;
 import model.Professor;
 import model.ReserveEquipmentProfessor;
-import persistence.ReserveEquipmentProfessorDAO;
+import persistence.EquipamentReservationForTeacherDAO;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
@@ -19,7 +19,7 @@ public class ReserveEquipmentProfessorRegister {
 	private ReserveEquipmentProfessorRegister() {
 	}
 
-	public static ReserveEquipmentProfessorRegister getReserveEquipmentProfessor() {
+	public static ReserveEquipmentProfessorRegister getInstanceEquipmentProfessor() {
 		if (newReserveEquipmentProfessor != null) {
 
 			// Nothing to do.
@@ -34,21 +34,21 @@ public class ReserveEquipmentProfessorRegister {
 	public Vector<ReserveEquipmentProfessor> getHoursReserved(String hour)
 			throws SQLException, PatrimonyException, ClientException,
 			ReserveException {
-		return ReserveEquipmentProfessorDAO.getReserve().searchForHour(hour);
+		return EquipamentReservationForTeacherDAO.getInstance().searchForHour(hour);
 
 	}
 
 	public Vector<ReserveEquipmentProfessor> getMonthReservations(int month)
 			throws SQLException, PatrimonyException, ClientException,
 			ReserveException {
-		return ReserveEquipmentProfessorDAO.getReserve().searchForMonth(month);
+		return EquipamentReservationForTeacherDAO.getInstance().searchForMonth(month);
 	}
 
 	public Vector<Object> getVectorReserveEquipmentProfessor()
 			throws SQLException, ClientException, PatrimonyException,
 			ReserveException {
-		this.vertorReserveEquipmentsProfessor = ReserveEquipmentProfessorDAO
-				.getReserve().searchAll();
+		this.vertorReserveEquipmentsProfessor = EquipamentReservationForTeacherDAO
+				.getInstance().searchAll();
 		return this.vertorReserveEquipmentsProfessor;
 	}
 
@@ -56,7 +56,7 @@ public class ReserveEquipmentProfessorRegister {
 			String hour) throws SQLException, ReserveException {
 		ReserveEquipmentProfessor reserve = new ReserveEquipmentProfessor(date,
 				hour, equipment, professor);
-		ReserveEquipmentProfessorDAO.getReserve().include(reserve);
+		EquipamentReservationForTeacherDAO.getInstance().add(reserve);
 		this.vertorReserveEquipmentsProfessor.add(reserve);
 	}
 
@@ -66,14 +66,14 @@ public class ReserveEquipmentProfessorRegister {
 		ReserveEquipmentProfessor oldReserveData = new ReserveEquipmentProfessor(
 				reserve.getDate(), reserve.getHour(), reserve.getEquipment(),
 				reserve.getProfessor());
-		ReserveEquipmentProfessorDAO.getReserve().updateReserve(oldReserveData,
+		EquipamentReservationForTeacherDAO.getInstance().change(oldReserveData,
 				reserve);
 
 	}
 
 	public void delete(ReserveEquipmentProfessor reserve) throws SQLException,
 			ReserveException {
-		ReserveEquipmentProfessorDAO.getReserve().delete(reserve);
+		EquipamentReservationForTeacherDAO.getInstance().delete(reserve);
 		this.vertorReserveEquipmentsProfessor.remove(reserve);
 	}
 }

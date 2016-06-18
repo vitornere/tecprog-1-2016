@@ -110,7 +110,7 @@ public class EquipamentReservationForTeacherDAO extends DAO {
 				+ r.getHour() + "\" and " + "data = \"" + r.getDate() + " ;";
 	}
 
-	public void incluir(ReserveEquipmentProfessor r) throws ReserveException,
+	public void add(ReserveEquipmentProfessor r) throws ReserveException,
 			SQLException {
 		if (r == null) {
 			throw new ReserveException(NULA);
@@ -144,7 +144,7 @@ public class EquipamentReservationForTeacherDAO extends DAO {
 
 	}
 
-	public void alterar(ReserveEquipmentProfessor r,
+	public void change(ReserveEquipmentProfessor r,
 			ReserveEquipmentProfessor r_new) throws ReserveException,
 			SQLException {
 		if (r == null) {
@@ -204,7 +204,7 @@ public class EquipamentReservationForTeacherDAO extends DAO {
 		}
 	}
 
-	public void excluir(ReserveEquipmentProfessor r) throws ReserveException,
+	public void delete(ReserveEquipmentProfessor r) throws ReserveException,
 			SQLException {
 		if (r == null) {
 			throw new ReserveException(NULA);
@@ -220,7 +220,7 @@ public class EquipamentReservationForTeacherDAO extends DAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Vector<Object> buscarTodos() throws SQLException, ClientException,
+	public Vector<Object> searchAll() throws SQLException, ClientException,
 			PatrimonyException, ReserveException {
 		return super
 				.search("SELECT * FROM reserva_sala_professor "
@@ -229,7 +229,7 @@ public class EquipamentReservationForTeacherDAO extends DAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Vector<ReserveEquipmentProfessor> buscarPorMes(int mes)
+	public Vector<ReserveEquipmentProfessor> searchForMonth(int mes)
 			throws SQLException, ClientException, PatrimonyException,
 			ReserveException {
 		Vector<ReserveEquipmentProfessor> reservas_prof_mes = super
@@ -247,7 +247,7 @@ public class EquipamentReservationForTeacherDAO extends DAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Vector<ReserveEquipmentProfessor> buscarPorHora(String hora)
+	public Vector<ReserveEquipmentProfessor> searchForHour(String hora)
 			throws SQLException, ClientException, PatrimonyException,
 			ReserveException {
 		String hora_a = "", hora_b = "";

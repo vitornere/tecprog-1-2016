@@ -153,7 +153,7 @@ public class ReservationRoomForStudentDAO extends DAO{
 			}
 		}
 	}
-	public void alterar(ReserveClassroomForStudent old_reservation, ReserveClassroomForStudent new_reservation) throws ReserveException, SQLException, ClientException, PatrimonyException{
+	public void change(ReserveClassroomForStudent old_reservation, ReserveClassroomForStudent new_reservation) throws ReserveException, SQLException, ClientException, PatrimonyException{
 		if(old_reservation == null){
 			throw new ReserveException(NULL);
 		}

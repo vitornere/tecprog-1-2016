@@ -186,7 +186,7 @@ public class AlunoDAOTest {
 						"\"" + a.getEmailPerson() + "\", " +
 						"\"" + a.getIdRegister() + "\"); ");
 		
-		StudentDAO.getNewStudent().alterar(a, an);
+		StudentDAO.getNewStudent().change(a, an);
 		
 		resultado = this.estaNoBanco("SELECT * FROM aluno WHERE " +
 				"aluno.nome = \"" + an.getNamePerson() + "\" and " +
@@ -221,13 +221,13 @@ public class AlunoDAOTest {
 	@Test (expected= ClientException.class)
 	public void testAlterarPrimeiroArgNulo() throws ClientException, SQLException {
 		Student an = new Student("Alterando", "00.757.021-70", "123456", "(999)9999-9999", "aluno@email");
-		StudentDAO.getNewStudent().alterar(null, an);
+		StudentDAO.getNewStudent().change(null, an);
 	}
 	
 	@Test (expected= ClientException.class)
 	public void testAlterarSegundoArgNulo() throws ClientException, SQLException {
 		Student an = new Student("Alterando", "00.757.021-70", "123456", "(999)9999-9999", "aluno@email");
-		StudentDAO.getNewStudent().alterar(an, null);
+		StudentDAO.getNewStudent().change(an, null);
 	}
 	@Test (expected= ClientException.class)
 	public void testAlterarNaoExistente() throws ClientException, SQLException {
@@ -236,7 +236,7 @@ public class AlunoDAOTest {
 		Student an = new Student("Alterando", "490.491.781-20", "098765", "(999)9999-9999", "email@aluno");
 		
 		try{
-			StudentDAO.getNewStudent().alterar(a, an);
+			StudentDAO.getNewStudent().change(a, an);
 		} finally {
 			resultado = this.estaNoBanco("SELECT * FROM aluno WHERE " +
 				"aluno.nome = \"" + an.getNamePerson() + "\" and " +
@@ -269,7 +269,7 @@ public class AlunoDAOTest {
 						"\"" + a.getIdRegister() + "\"); ");
 		
 		try{
-			StudentDAO.getNewStudent().alterar(a, an);
+			StudentDAO.getNewStudent().change(a, an);
 		} finally {
 			resultado = this.estaNoBanco("SELECT * FROM aluno WHERE " +
 				"aluno.nome = \"" + an.getNamePerson() + "\" and " +
@@ -324,7 +324,7 @@ public class AlunoDAOTest {
 				"\"" + an.getIdRegister() + "\"); ");
 		
 		try{
-			StudentDAO.getNewStudent().alterar(an, ann);
+			StudentDAO.getNewStudent().change(an, ann);
 		} finally {
 			resultado = this.estaNoBanco("SELECT * FROM aluno WHERE " +
 				"aluno.nome = \"" + an.getNamePerson() + "\" and " +
@@ -392,7 +392,7 @@ public class AlunoDAOTest {
 				"\"" + an.getIdRegister() + "\"); ");
 		
 		try{
-			StudentDAO.getNewStudent().alterar(an, ann);
+			StudentDAO.getNewStudent().change(an, ann);
 		} finally {
 			resultado = this.estaNoBanco("SELECT * FROM aluno WHERE " +
 				"aluno.nome = \"" + an.getNamePerson() + "\" and " +
