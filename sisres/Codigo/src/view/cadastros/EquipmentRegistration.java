@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import control.ManterEquipamento;
+import control.EquipmentRegister;
 import exception.PatrimonyException;
 
 public class EquipmentRegistration extends PatrimonyRegistration {
@@ -36,7 +36,7 @@ public class EquipmentRegistration extends PatrimonyRegistration {
 	protected void registrationAction() {
 
 		try {
-			ManterEquipamento.getInstance().inserir(codeTxtField.getText(), discriptionTextArea.getText());
+			EquipmentRegister.getNewEquipment().insert(codeTxtField.getText(), discriptionTextArea.getText());
 			JOptionPane.showMessageDialog(this, "Equipamento Cadastrado com sucesso", "Sucesso",
 					JOptionPane.INFORMATION_MESSAGE, null);
 			this.setVisible(false);

@@ -9,17 +9,11 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
-<<<<<<< HEAD
 import model.Equipment;
-import view.horariosReservas.HorariosReservaEquipamento;
 import view.horariosReservas.HorariosReservaPatrimonio;
 import control.EquipmentRegister;
-=======
-import model.Equipamento;
 import view.timeReservations.HoursEquipamentReservation;
 import view.timeReservations.HoursPatrimonyReservation;
-import control.ManterEquipamento;
->>>>>>> devel
 import exception.PatrimonyException;
 
 /**

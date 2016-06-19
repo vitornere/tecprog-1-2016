@@ -7,28 +7,17 @@ import java.awt.Color;
 import java.awt.Frame;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-<<<<<<< HEAD
 
 import model.ReserveEquipmentProfessor;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
-=======
-import model.ReservaEquipamentoProfessor;
-import exception.ClienteException;
-import exception.PatrimonyException;
-import exception.ReservaException;
->>>>>>> devel
 
 public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
 
-<<<<<<< HEAD
     int index;
     ReserveEquipmentProfessor reserva;
-=======
-    int index; // Index of reservation
-    ReservaEquipamentoProfessor reserva; // Object of reservation that going to change
->>>>>>> devel
+
 
     private void resetComponents() {
         this.reservarButton.setText("Alterar");
@@ -41,10 +30,6 @@ public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
         this.professorTextArea.setText(reserva.getProfessor().toString());
     }
 
-<<<<<<< HEAD
-    public AlterarReservaEquipamentoView(Frame parent, boolean modal, int index, int mes) throws SQLException, PatrimonyException,
-            PatrimonyException, ClientException, ReserveException {
-=======
     /**
      * 
      * @param parent
@@ -58,8 +43,7 @@ public class AlterarReservaEquipamentoView extends ReservaEquipamentoView {
      * @throws ReservaException
      */
     public AlterarReservaEquipamentoView(Frame parent, boolean modal, int index, int mes) throws SQLException, PatrimonyException,
-            PatrimonyException, ClienteException, ReservaException {
->>>>>>> devel
+            PatrimonyException, ClientException, ReserveException {
         super(parent, modal);
         this.index = index;
         reserva = this.instanceProf.getMonthReservations(mes).get(index);

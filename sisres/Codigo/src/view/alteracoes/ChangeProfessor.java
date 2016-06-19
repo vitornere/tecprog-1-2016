@@ -9,8 +9,8 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import view.cadastros.ClientRegistration;
-import control.ManterProfessor;
-import exception.ClienteException;
+import control.ProfessorRegister;
+import exception.ClientException;
 
 public class ChangeProfessor extends ClientRegistration {
 
@@ -32,13 +32,13 @@ public class ChangeProfessor extends ClientRegistration {
 		this.index2 = index;
 
 		try {
-			this.nameTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getNome());
-			this.emailTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getEmail());
-			this.phoneTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getTelefone());
-			this.enrollmentTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getMatricula());
-			this.cpfTxtField.setText(ManterProfessor.getInstance().getProfessores_vet().get(index).getCpf());
+			this.nameTxtField.setText(ProfessorRegister.getInstance().getVectorProfessors().get(index).getNamePerson());
+			this.emailTxtField.setText(ProfessorRegister.getInstance().getVectorProfessors().get(index).getEmailPerson());
+			this.phoneTxtField.setText(ProfessorRegister.getInstance().getVectorProfessors().get(index).getPhonePerson());
+			this.enrollmentTxtField.setText(ProfessorRegister.getInstance().getVectorProfessors().get(index).getIdRegister());
+			this.cpfTxtField.setText(ProfessorRegister.getInstance().getVectorProfessors().get(index).getCpfPerson());
 
-		} catch (ClienteException ex) {
+		} catch (ClientException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -52,14 +52,14 @@ public class ChangeProfessor extends ClientRegistration {
 	
 	public void registrationAction() {
 		try {
-			ManterProfessor.getInstance().alterar(nameTxtField.getText(), cpfTxtField.getText(),
+			ProfessorRegister.getInstance().change(nameTxtField.getText(), cpfTxtField.getText(),
 					enrollmentTxtField.getText(), phoneTxtField.getText(), emailTxtField.getText(),
-					ManterProfessor.getInstance().getProfessores_vet().get(index2));
+					ProfessorRegister.getInstance().getVectorProfessors().get(index2));
 
 			JOptionPane.showMessageDialog(this, "Cadastro alterado com sucesso", "Sucesso",
 					JOptionPane.INFORMATION_MESSAGE, null);
 			this.setVisible(false);
-		} catch (ClienteException ex) {
+		} catch (ClientException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

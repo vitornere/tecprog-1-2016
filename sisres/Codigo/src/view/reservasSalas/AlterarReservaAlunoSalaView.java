@@ -9,31 +9,17 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-<<<<<<< HEAD
 import model.ReserveClassroomForStudent;
 import model.ReserveClassroomForProfessor;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
-=======
-import model.ReservaSalaAluno;
-import model.ReservaSalaProfessor;
-import exception.ClienteException;
-import exception.PatrimonyException;
-import exception.ReservaException;
->>>>>>> devel
 
 public class AlterarReservaAlunoSalaView extends ReservaSalaView {
 
-<<<<<<< HEAD
     int index;
     ReserveClassroomForStudent reservaAluno;
     ReserveClassroomForProfessor reservaProfessor;
-=======
-    int index; // Index of reserve
-    ReservaSalaAluno reservaAluno; // Object of student's reserve
-    ReservaSalaProfessor reservaProfessor; // Object of teacher's reserve
->>>>>>> devel
 
     /**
      * Clean all components
@@ -59,11 +45,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
      * @throws ReservaException
      */
     public AlterarReservaAlunoSalaView(Frame parent, boolean modal, int index, String data) throws SQLException,
-<<<<<<< HEAD
-            PatrimonyException, PatrimonyException, ClientException, ReserveException {
-=======
-            PatrimonyException, PatrimonyException, ClienteException, ReservaException {
->>>>>>> devel
+    		PatrimonyException, ClientException, ReserveException {
         super(parent, modal);
         this.setName("AlterarReservaSalaView");
         this.reservaAluno = instanceAluno.getMonthReservations(data).get(index);
@@ -125,7 +107,6 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
         this.qntCadeirasReservadasTextField.setBackground(Color.white);
         this.horaTextField.setBackground(new Color(200, 208, 254));
         this.horaTextField.setEditable(false);
-<<<<<<< HEAD
         this.horaTextField.setText(reservaAluno.getHour());
         this.alunoTextArea.setText(reservaAluno.getStudent().toString());
         this.salaTextArea.setText(reservaAluno.getClassroom().toString());
@@ -133,15 +114,7 @@ public class AlterarReservaAlunoSalaView extends ReservaSalaView {
         this.qntCadeirasTxtField.setText(reservaAluno.getClassroom().getCapacity());
         this.qntCadeirasReservadasTextField.setText(reservaAluno.getReservedChairs());
         this.finalidadeTextField.setText(reservaAluno.getFinality());
-=======
-        this.horaTextField.setText(reservaAluno.getHora());
-        this.alunoTextArea.setText(reservaAluno.getAluno().toString());
-        this.salaTextArea.setText(reservaAluno.getSala().toString());
-        this.dataTextField.setText(reservaAluno.getData());
-        this.qntCadeirasTxtField.setText(reservaAluno.getSala().getCapacity());
-        this.qntCadeirasReservadasTextField.setText(reservaAluno.getCadeiras_reservadas());
-        this.finalidadeTextField.setText(reservaAluno.getFinalidade());
->>>>>>> devel
+
     }
 
     /**

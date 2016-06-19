@@ -9,7 +9,6 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 
 import model.Professor;
-<<<<<<< HEAD
 import control.ProfessorRegister;
 import control.ReserveEquipmentProfessorRegister;
 import exception.ClientException;
@@ -23,23 +22,8 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
 
     public ReservaEquipamentoView(java.awt.Frame parent, boolean modal) throws SQLException, PatrimonyException,
             PatrimonyException, ClientException, ReserveException {
-=======
-import control.ManterProfessor;
-import control.ManterResEquipamentoProfessor;
-import exception.ClienteException;
-import exception.PatrimonyException;
-import exception.ReservaException;
-
-public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
-
-    protected ManterResEquipamentoProfessor instanceProf; // Object of professor's reservation
-    protected Professor prof; // Object of professor
-
-    public ReservaEquipamentoView(java.awt.Frame parent, boolean modal) throws SQLException, PatrimonyException,
-            PatrimonyException, ClienteException, ReservaException {
->>>>>>> devel
         super(parent, modal);
-        this.instanceProf = ReserveEquipmentProfessorRegister.getReserveEquipmentProfessor();
+        this.instanceProf = ReserveEquipmentProfessorRegister.getInstanceEquipmentProfessor();
 
         initComponents();
     }
@@ -52,7 +36,7 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
      */
     protected void getProfessor() {
         try {
-            Vector<Professor> professor = ProfessorRegister.getNewProfessor().searchCpfProfessor(this.cpfTextField.getText());
+            Vector<Professor> professor = ProfessorRegister.getInstance().searchCpfProfessor(this.cpfTextField.getText());
             if (professor.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Professor nao Cadastrado."
                         + " Digite o CPF correto ou cadastre o professor desejado", "Erro", JOptionPane.ERROR_MESSAGE, null);

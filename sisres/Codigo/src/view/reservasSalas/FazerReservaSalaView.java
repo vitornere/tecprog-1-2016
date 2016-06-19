@@ -11,26 +11,14 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import model.Classroom;
-<<<<<<< HEAD
 import control.ReserveClassroomForStudentRegister;
 import control.ReserveClassroomForProfessorRegister;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
-=======
-import control.ManterResSalaAluno;
-import control.ManterResSalaProfessor;
-import exception.ClienteException;
-import exception.PatrimonyException;
-import exception.ReservaException;
->>>>>>> devel
 
 public class FazerReservaSalaView extends ReservaSalaView {
 
-<<<<<<< HEAD
-    public FazerReservaSalaView(Frame parent, boolean modal, Classroom sala, String data) throws SQLException, PatrimonyException,
-            PatrimonyException, ClientException, ReserveException {
-=======
 	/**
 	 * 
 	 * @param parent
@@ -44,8 +32,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
 	 * @throws ReservaException
 	 */
 	public FazerReservaSalaView(Frame parent, boolean modal, Classroom sala, String data) throws SQLException, PatrimonyException,
-            PatrimonyException, ClienteException, ReservaException {
->>>>>>> devel
+            PatrimonyException, ClientException, ReserveException {
         super(parent, modal);
         this.sala = sala;
         this.dataTextField.setText(data);
@@ -121,7 +108,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
         this.qntCadeirasReservadasTextField.setEditable(false);
         this.qntCadeirasReservadasTextField.setBackground(new Color(200, 208, 254));
         this.qntCadeirasReservadasTextField.setText(this.qntCadeirasTxtField.getText());
-        this.instanceProf = ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor();
+        this.instanceProf = ReserveClassroomForProfessorRegister.getInstance();
         this.instanceAluno = null;
         this.verificarCadeiraButton.setEnabled(false);
         
@@ -132,7 +119,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
      * @see view.reservasSalas.ReservaSalaView#alunoRadioButtonAction()
      */
     @Override protected void alunoRadioButtonAction() {
-        this.instanceAluno = ReserveClassroomForStudentRegister.getReserveClassroomForStudent();
+        this.instanceAluno = ReserveClassroomForStudentRegister.getInstance();
         this.alunoLabel.setText(this.alunoRadioButton.getText() + ": ");
         this.alunoTextArea.setText("");
         this.cpfTextField.setText("");
