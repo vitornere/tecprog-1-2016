@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import entities.ConsoleMenu;
 
-public class TesteComplementar {
+public class TestConsoleMenu {
 
 	@Before
 	public void setUp() throws Exception {
