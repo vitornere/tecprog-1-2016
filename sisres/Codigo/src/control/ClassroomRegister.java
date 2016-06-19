@@ -16,7 +16,7 @@ public class ClassroomRegister {
 	private ClassroomRegister() {
 	}
 
-	public static ClassroomRegister getClassroom() {
+	public static ClassroomRegister getInstance() {
 
 		if (classroom != null) {
 			// Nothing to do.
@@ -29,7 +29,7 @@ public class ClassroomRegister {
 
 	public Vector<Classroom> getVectorClassroom() throws SQLException,
 			PatrimonyException {
-		this.vectorClassroom = ClassroomDAO.getClassroom().searchAll();
+		this.vectorClassroom = ClassroomDAO.getInstance().searchAll();
 		return this.vectorClassroom;
 	}
 
@@ -37,7 +37,7 @@ public class ClassroomRegister {
 			String capacity) throws PatrimonyException, SQLException {
 		Classroom classroom = new Classroom(idClassroom, descriptionClassroom,
 				capacity);
-		ClassroomDAO.getClassroom().include(classroom);
+		ClassroomDAO.getInstance().add(classroom);
 		this.vectorClassroom.add(classroom);
 	}
 
@@ -49,12 +49,12 @@ public class ClassroomRegister {
 		classroom.setIdEquipment(idClassroom);
 		classroom.setDescriptionEquipment(descriptionClassroom);
 		classroom.setCapacity(capacity);
-		ClassroomDAO.getClassroom().update(oldClassroomDate, classroom);
+		ClassroomDAO.getInstance().change(oldClassroomDate, classroom);
 	}
 
 	public void delete(Classroom classroom) throws SQLException,
 			PatrimonyException {
-		ClassroomDAO.getClassroom().delete(classroom);
+		ClassroomDAO.getInstance().delete(classroom);
 		this.vectorClassroom.remove(classroom);
 	}
 

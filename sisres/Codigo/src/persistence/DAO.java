@@ -11,16 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Vector;
 
-<<<<<<< HEAD
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
-=======
-import exception.ClienteException;
-import exception.PatrimonyException;
-import exception.ReservaException;
->>>>>>> devel
-
 public abstract class DAO {
 	
 	/** Method to search data in  database
@@ -28,18 +21,10 @@ public abstract class DAO {
 	 * @return Vector - vector with the select result
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-<<<<<<< HEAD
-	protected Vector buscar(String query) throws SQLException, ClientException, 
+	protected Vector search(String query) throws SQLException, ClientException, 
 													PatrimonyException, ReserveException{
-=======
-
-	protected Vector search(String query) throws SQLException, ClienteException, 
-													PatrimonyException, ReservaException{
 		//Start connection with database
 		Connection connection =  FactoryConnection.getInstance().getConnection();
-		
->>>>>>> devel
-		Vector vet = new Vector();
 		
 		//Execute consult into database
 		PreparedStatement prepare_query_to_execute = connection.prepareStatement(query);
@@ -80,18 +65,13 @@ public abstract class DAO {
 		return has_value;
 	}
 
-	/**
-	 * Funcao utilizada no buscar, por isso precisa ser implementada
-	 * Ja foi implementada nas outras classes DAO. A implementacao eh
-	 * semelhante.
-	 * */
-<<<<<<< HEAD
+
+	/** Method abstract to receive a result set and convert to other object
+	 * @param data ResultSet - result set with the result with the object data
+	 * @return boolean - object with your value
+	 */
 	protected abstract Object fetch(ResultSet rs) throws SQLException, ClientException,
 														PatrimonyException, ReserveException;
-=======
-	protected abstract Object fetch(ResultSet rs) throws SQLException, ClienteException,
-														PatrimonyException, ReservaException;
->>>>>>> devel
 	
 	
 	/** Method to execute data manipulate in database, except consults and updates
