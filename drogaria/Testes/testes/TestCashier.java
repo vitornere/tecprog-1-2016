@@ -9,7 +9,7 @@ import org.junit.Test;
 import entities.Cashier;
 
 
-public class TesteCashier{
+public class TestCashier{
 
 	@Before
 	public void setUp() throws Exception {

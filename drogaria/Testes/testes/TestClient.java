@@ -11,12 +11,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import entities.Balconista;
-import entities.Caixa;
-import entities.Cliente;
+import entities.Clerk;
+import entities.Cashier;
+import entities.Client;
 
 
-public class TesteCliente {
+public class TestClient {
 
 	@Before
 	public void setUp() throws Exception {
@@ -31,51 +31,51 @@ public class TesteCliente {
 	//Teste de idade.
 	@Test
 	public void testSetDigitoCpf() {
-		Cliente novoCliente = new Cliente("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6");
-		assertEquals(novoCliente.getDigitCpfPerson(),50);
+		Client novoClient = new Client("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6");
+		assertEquals(novoClient.getDigitCpfPerson(),50);
 		
 	}
 
 	@Test
 	public void testEmail(){
-		Cliente novoCliente = new Cliente("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6","email@email.com");
-		assertEquals("email@email.com", novoCliente.getEmail());
+		Client novoClient = new Client("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6","email@email.com");
+		assertEquals("email@email.com", novoClient.getEmail());
 	}
 	
 	@Test
 	public void setEmail(){
-		Cliente cliente = new Cliente();
+		Client cliente = new Client();
 		cliente.setEmail("emailSet@email.com");
 		assertEquals("emailSet@email.com", cliente.getEmail());
 	}
 	
 	@Test
-	public void Balconista() {
-		Cliente cliente = new Cliente();
-		Balconista[] balconista = {new Balconista() , new Balconista()};
+	public void Clerk() {
+		Client cliente = new Client();
+		Clerk[] balconista = {new Clerk() , new Clerk()};
 		cliente.setBalconistas(balconista);
 		assertEquals(balconista,cliente.getBalconistas());
 	}
 	
 	@Test
 	public void Caixa() {
-		Cliente cliente = new Cliente();
-		Caixa[] caixa = {new Caixa() , new Caixa()};
+		Client cliente = new Client();
+		Cashier[] caixa = {new Cashier() , new Cashier()};
 		cliente.setCaixas(caixa);
 		assertEquals(caixa,cliente.getCaixas());
 	}
 	
 	@Test
-	public void Cliente() {
-		Cliente cliente = new Cliente();
-		Cliente[] cliente2 = {new Cliente(),new Cliente()};
+	public void Client() {
+		Client cliente = new Client();
+		Client[] cliente2 = {new Client(),new Client()};
 		cliente.setCliente(cliente2);
 		assertEquals(cliente2,cliente.getCliente());
 	}
 	
 	@Test
 	public void testScanner(){
-		Cliente cliente = new Cliente();
+		Client cliente = new Client();
 		Scanner scanner = new Scanner(System.in);
 		cliente.setScanner(scanner);
 		assertEquals(scanner,cliente.getScanner());
@@ -83,14 +83,14 @@ public class TesteCliente {
 	
 	@Test
 	public void codigoExclusao(){
-		Cliente cliente = new Cliente();
+		Client cliente = new Client();
 		cliente.setCodigoExclusao(1);
 		assertEquals(1, cliente.getCodigoExclusao());
 	}
 	
 	@Test
-	public void confirmacaoExclusaoCliente(){
-		Cliente cliente = new Cliente();
+	public void confirmacaoExclusaoClient(){
+		Client cliente = new Client();
 		cliente.setConfirmacaoExclusaoCliente(0);
 		assertEquals(0, cliente.getConfirmacaoExclusaoCliente());
 	}
