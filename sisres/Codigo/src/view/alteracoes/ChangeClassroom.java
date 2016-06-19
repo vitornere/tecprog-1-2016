@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import view.cadastros.PatrimonyRegistration;
-import control.ManterSala;
+import control.ClassroomRegister;
 import exception.PatrimonyException;
 
 public class ChangeClassroom extends PatrimonyRegistration {
@@ -35,9 +35,9 @@ public class ChangeClassroom extends PatrimonyRegistration {
 
 		try {
 
-			this.codeTxtField.setText(ManterSala.getInstance().getSalas_vet().get(index).getCode());
-			this.capacityTxtField.setText(ManterSala.getInstance().getSalas_vet().get(index).getCapacity());
-			this.discriptionTextArea.setText(ManterSala.getInstance().getSalas_vet().get(index).getDescription());
+			this.codeTxtField.setText(ClassroomRegister.getInstance().getVectorClassroom().get(index).getIdEquipment());
+			this.capacityTxtField.setText(ClassroomRegister.getInstance().getVectorClassroom().get(index).getCapacity());
+			this.discriptionTextArea.setText(ClassroomRegister.getInstance().getVectorClassroom().get(index).getDescriptionEquipment());
 			this.index2 = index;
 
 		} catch (PatrimonyException ex) {
@@ -58,8 +58,8 @@ public class ChangeClassroom extends PatrimonyRegistration {
 	protected void registrationAction() {
 		try {
 
-			ManterSala.getInstance().alterar(codeTxtField.getText(), discriptionTextArea.getText(),
-					capacityTxtField.getText(), ManterSala.getInstance().getSalas_vet().get(index2));
+			ClassroomRegister.getInstance().update(codeTxtField.getText(), discriptionTextArea.getText(),
+					capacityTxtField.getText(), ClassroomRegister.getInstance().getVectorClassroom().get(index2));
 
 			JOptionPane.showMessageDialog(this, "Sala Alterada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
 					null);
