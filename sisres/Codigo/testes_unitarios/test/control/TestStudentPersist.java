@@ -19,13 +19,13 @@ import persistence.FactoryConnection;
 import control.StudentRegister;
 import exception.ClientException;
 
-public class ManterAlunoTest {
+public class TestStudentPersist {
 
 	private static Vector<Student> alunos;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		alunos = StudentRegister.getNewStudent().getVectorStudents();
+		alunos = StudentRegister.getInstance().getVectorStudents();
 	}
 
 	@AfterClass
@@ -36,13 +36,13 @@ public class ManterAlunoTest {
 	
 	@Test
 	public void testGetInstance() {
-		assertTrue("Verifica m�todo getInstance() de ManterAluno.", StudentRegister.getNewStudent() instanceof StudentRegister);
+		assertTrue("Verifica m�todo getInstance() de ManterAluno.", StudentRegister.getInstance() instanceof StudentRegister);
 	}
 
 	@Test
 	public void testSingleton() {
-		StudentRegister p = StudentRegister.getNewStudent();
-		StudentRegister q = StudentRegister.getNewStudent();
+		StudentRegister p = StudentRegister.getInstance();
+		StudentRegister q = StudentRegister.getInstance();
 		assertSame("Testando o Padrao Singleton em ManterAluno", p, q);
 	}
 
@@ -51,7 +51,7 @@ public class ManterAlunoTest {
 	@Test
 	public void testInserir() throws ClientException, SQLException {
 		Student aluno = new Student("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
-		StudentRegister.getNewStudent().insert("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
+		StudentRegister.getInstance().insert("Incluindo", "040.757.021-70", "123456", "9999-9999", "aluno@email");
 		
 		boolean resultado = this.estaNoBanco("SELECT * FROM aluno WHERE " +
 				"aluno.nome = \"" + aluno.getNamePerson() + "\" and " +
@@ -89,7 +89,7 @@ public class ManterAlunoTest {
 				"\"" + aluno.getEmailPerson() + "\", " +
 				"\"" + aluno.getIdRegister() + "\"); ");
 		
-		StudentRegister.getNewStudent().update("Alterando", "040.757.021-70", "123456", 
+		StudentRegister.getInstance().update("Alterando", "040.757.021-70", "123456", 
 				"9999-9999", "Nome@email", aluno);
 		
 		boolean resultado =  this.estaNoBanco("SELECT * FROM aluno WHERE " +
@@ -121,7 +121,7 @@ public class ManterAlunoTest {
 				"\"" + aluno.getEmailPerson() + "\", " +
 				"\"" + aluno.getIdRegister() + "\");");
 		
-		StudentRegister.getNewStudent().delete(aluno);
+		StudentRegister.getInstance().delete(aluno);
 		
 		boolean resultado =  this.estaNoBanco("SELECT * FROM aluno WHERE " +
 				"aluno.nome = \"" + aluno.getNamePerson() + "\" and " +
