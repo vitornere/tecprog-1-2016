@@ -4,6 +4,7 @@
  */
 package view.timeReservations;
 
+import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -238,6 +239,14 @@ public class HoursRoomReservation extends HoursPatrimonyReservation {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        }
+        } catch (HeadlessException ex) {
+        	JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+		} catch (PatrimonyException ex) {
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+		} catch (ClientException ex) {
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+		} catch (ReserveException ex) {
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+		}
     }
 }

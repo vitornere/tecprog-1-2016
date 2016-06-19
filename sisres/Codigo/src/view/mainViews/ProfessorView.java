@@ -8,19 +8,11 @@ import java.util.Iterator;
 
 import javax.swing.JOptionPane;
 
-<<<<<<< HEAD
-import view.alteracoes.AlterarProfessor;
-import view.cadastros.CadastroCliente;
-import view.cadastros.CadastroProfessor;
-import control.ProfessorRegister;
-import exception.ClientException;
-=======
 import view.alteracoes.ChangeProfessor;
 import view.cadastros.ClientRegistration;
 import view.cadastros.ProfessorRegistration;
-import control.ManterProfessor;
-import exception.ClienteException;
->>>>>>> devel
+import control.ProfessorRegister;
+import exception.ClientException;
 
 public class ProfessorView extends ClientView {
 
@@ -41,7 +33,7 @@ public class ProfessorView extends ClientView {
 	 */
     public Iterator getIterator() {
         try {
-            return ProfessorRegister.getNewProfessor().getVectorProfessors().iterator();
+            return ProfessorRegister.getInstance().getVectorProfessors().iterator();
 
         } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -91,10 +83,10 @@ public class ProfessorView extends ClientView {
             }
 
             int confirm = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Professor: "
-                    + ProfessorRegister.getNewProfessor().getVectorProfessors().get(index).getNamePerson() + "?", "Excluir",
+                    + ProfessorRegister.getInstance().getVectorProfessors().get(index).getNamePerson() + "?", "Excluir",
                     JOptionPane.YES_NO_OPTION);
             if (confirm == JOptionPane.YES_OPTION) {
-                ProfessorRegister.getNewProfessor().delete(ProfessorRegister.getNewProfessor().getVectorProfessors().get(index));
+                ProfessorRegister.getInstance().delete(ProfessorRegister.getInstance().getVectorProfessors().get(index));
                 JOptionPane.showMessageDialog(this, "Professor excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null);
             }

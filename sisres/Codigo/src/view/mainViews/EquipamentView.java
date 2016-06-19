@@ -7,19 +7,11 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-<<<<<<< HEAD:sisres/Codigo/src/view/mainViews/EquipamentoView.java
 import model.Equipment;
-import view.alteracoes.AlterarEquipamento;
-import view.cadastros.CadastroEquipamento;
-import view.diasReservas.DiaReservaEquipamento;
-import control.EquipmentRegister;
-=======
-import model.Equipamento;
 import view.alteracoes.ChangeEquipment;
 import view.cadastros.EquipmentRegistration;
 import view.diasReservas.EquipmentReserveDay;
-import control.ManterEquipamento;
->>>>>>> devel:sisres/Codigo/src/view/mainViews/EquipamentView.java
+import control.EquipmentRegister;
 import exception.PatrimonyException;
 
 /**
@@ -35,11 +27,8 @@ public class EquipamentView extends PratimonyView {
         this.setName("EquipamentoView");
     }
 
-<<<<<<< HEAD:sisres/Codigo/src/view/mainViews/EquipamentoView.java
-    private Vector<String> fillDataVector(Equipment equipamento) {
-=======
-    private Vector<String> fillDataVector(Equipamento equipament) {
->>>>>>> devel:sisres/Codigo/src/view/mainViews/EquipamentView.java
+    private Vector<String> fillDataVector(Equipment equipament) {
+
 
         if (equipament == null) {
             return null;
@@ -47,13 +36,8 @@ public class EquipamentView extends PratimonyView {
 
         Vector<String> tableNames = new Vector<String>();
 
-<<<<<<< HEAD:sisres/Codigo/src/view/mainViews/EquipamentoView.java
-        nomesTabela.add(equipamento.getIdEquipment());
-        nomesTabela.add(equipamento.getDescriptionEquipment());
-=======
-        tableNames.add(equipament.getCode());
-        tableNames.add(equipament.getDescription());
->>>>>>> devel:sisres/Codigo/src/view/mainViews/EquipamentView.java
+        tableNames.add(equipament.getIdEquipment());
+        tableNames.add(equipament.getDescriptionEquipment());
 
         return tableNames;
 
@@ -106,25 +90,15 @@ public class EquipamentView extends PratimonyView {
 
         try {
             int confirm = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Equipamento: "
-<<<<<<< HEAD:sisres/Codigo/src/view/mainViews/EquipamentoView.java
                     + EquipmentRegister.getNewEquipment().getVectorEquipments().get(index).getDescriptionEquipment() + "?", "Excluir",
-=======
-                    + ManterEquipamento.getInstance().getEquipamento_vet().get(index).getDescription() + "?", "Excluir",
->>>>>>> devel:sisres/Codigo/src/view/mainViews/EquipamentView.java
                     JOptionPane.YES_NO_OPTION);
 
 
             if (confirm == JOptionPane.YES_OPTION) {
-<<<<<<< HEAD:sisres/Codigo/src/view/mainViews/EquipamentoView.java
                 EquipmentRegister.getNewEquipment().delete(EquipmentRegister.getNewEquipment().getVectorEquipments().get(index));
                 JOptionPane.showMessageDialog(this, "Equipamento excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                         null);
-=======
-                ManterEquipamento.getInstance().excluir(ManterEquipamento.getInstance().getEquipamento_vet()
-                				 .get(index));
-                JOptionPane.showMessageDialog(this, "Equipamento excluido com sucesso", "Sucesso", 
-                							  JOptionPane.INFORMATION_MESSAGE, null);
->>>>>>> devel:sisres/Codigo/src/view/mainViews/EquipamentView.java
+
             }
             this.patrimonyTable.setModel(fillTable());
 

@@ -11,19 +11,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import model.Classroom;
-<<<<<<< HEAD
-import view.alteracoes.AlterarSala;
-import view.cadastros.CadastroPatrimonio;
-import view.cadastros.CadastroSala;
-import view.diasReservas.DiaReservaSala;
-import control.ClassroomRegister;
-=======
 import view.alteracoes.ChangeClassroom;
 import view.cadastros.PatrimonyRegistration;
 import view.cadastros.ClassroomRegistration;
 import view.diasReservas.ClassRoomReserveDay;
-import control.ManterSala;
->>>>>>> devel
+import control.ClassroomRegister;
 import exception.PatrimonyException;
 
 public class SalaView extends PratimonyView {
@@ -39,14 +31,11 @@ public class SalaView extends PratimonyView {
         this.setName("SalaView");
     }
 
-<<<<<<< HEAD
-=======
     /**
      * 
      * @param sala
      * @return Vector of table's name or null if empty
      */
->>>>>>> devel
     protected Vector<String> fillDataVector(Classroom sala) {
 
         if (sala == null) {
@@ -55,13 +44,8 @@ public class SalaView extends PratimonyView {
 
         Vector<String> nomesTabela = new Vector<String>();
 
-<<<<<<< HEAD
         nomesTabela.add(sala.getIdEquipment());
         nomesTabela.add(sala.getDescriptionEquipment());
-=======
-        nomesTabela.add(sala.getCode());
-        nomesTabela.add(sala.getDescription());
->>>>>>> devel
         nomesTabela.add(sala.getCapacity());
 
         return nomesTabela;
@@ -78,11 +62,8 @@ public class SalaView extends PratimonyView {
         try {
             DefaultTableModel table = new DefaultTableModel();
 
-<<<<<<< HEAD
-            Iterator<Classroom> i = ClassroomRegister.getClassroom().getVectorClassroom().iterator();
-=======
-            Iterator<Classroom> i = ManterSala.getInstance().getSalas_vet().iterator();
->>>>>>> devel
+            Iterator<Classroom> i = ClassroomRegister.getInstance().getVectorClassroom().iterator();
+
 
             table.addColumn("Codigo");
             table.addColumn("Nome");
@@ -136,15 +117,11 @@ public class SalaView extends PratimonyView {
         try {
             int confirm = JOptionPane
                     .showConfirmDialog(this, "Deseja mesmo excluir Sala: "
-<<<<<<< HEAD
-                            + ClassroomRegister.getClassroom().getVectorClassroom().get(index).getDescriptionEquipment() + "?", "Excluir",
-=======
-                            + ManterSala.getInstance().getSalas_vet().get(index).getDescription() + "?", "Excluir",
->>>>>>> devel
+                            + ClassroomRegister.getInstance().getVectorClassroom().get(index).getDescriptionEquipment() + "?", "Excluir",
                             JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                ClassroomRegister.getClassroom().delete(ClassroomRegister.getClassroom().getVectorClassroom().get(index));
+                ClassroomRegister.getInstance().delete(ClassroomRegister.getInstance().getVectorClassroom().get(index));
                 JOptionPane.showMessageDialog(this, "Sala excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             }
             this.patrimonyTable.setModel(fillTable());
