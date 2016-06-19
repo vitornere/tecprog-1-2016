@@ -8,17 +8,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import entities.Balconista;
-import entities.Caixa;
-import entities.Cliente;
+import entities.Clerk;
+import entities.Cashier;
+import entities.Client;
 import entities.Medicament;
 
-public class TesteFuncionario {
-	Balconista balconista;
+public class TestClerk {
+	Clerk balconista;
 
 	@Before
 	public void setUp() throws Exception {
-		balconista = new Balconista();
+		balconista = new Clerk();
 		System.out.println("Comecando o teste!");
 	}
 
@@ -28,14 +28,14 @@ public class TesteFuncionario {
 	}
 
 	public void testConstrutor() {
-		Balconista balconistaVazio = new Balconista();
+		Clerk balconistaVazio = new Clerk();
 		assertNotNull(balconistaVazio);
 	}
 
 	// Teste para confirma��o do digito do CPF.
 	@Test
 	public void testSetDigitoCpf() {
-		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 1, 2, 0);
 		assertEquals(funcionarioDrogaria.getDigitCpfPerson(), 50);
 	}
@@ -43,7 +43,7 @@ public class TesteFuncionario {
 	// Teste para confirma��o da senha
 	@Test
 	public void testGetSenha() {
-		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 15000, 5678, 1, 2, 0);
 		assertEquals(funcionarioDrogaria.getPassword(), 15000);
 	}
@@ -51,7 +51,7 @@ public class TesteFuncionario {
 	// Teste para confirma��o da senha da farm�cia popular
 	@Test
 	public void testSetSenhaFarmaciaPopular() {
-		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 2432, 1, 2, 0);
 		assertEquals(funcionarioDrogaria.getSenhaFarmaciaPopular(), 2432);
 	}
@@ -59,7 +59,7 @@ public class TesteFuncionario {
 	// Teste para confirma��o do c�digo do funcion�rio
 	@Test
 	public void testGetCodigo() {
-		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 20, 2, 0);
 		assertEquals(funcionarioDrogaria.getIdFuncionary(), 20);
 	}
@@ -67,14 +67,14 @@ public class TesteFuncionario {
 	// Teste para confirma��o do fator de comiss�o do funcion�rio
 	@Test
 	public void testGetFatorComissao() {
-		Balconista funcionarioDrogaria = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 1, 15, 0);
 		assertEquals(funcionarioDrogaria.getCommissionFactor(), 15);
 	}
 
 	@Test
-	public void testGetCaixa() {
-		Caixa caixa = new Caixa();
+	public void testGetCashier() {
+		Cashier caixa = new Cashier();
 		balconista.setCaixa(caixa);
 		assertEquals(caixa, balconista.getCaixa());
 	}
@@ -84,41 +84,28 @@ public class TesteFuncionario {
 		Medicament[] medicamento = { new Medicament(), new Medicament() };
 
 		balconista.setMedicaments(medicamento);
-		assertNotNull(balconista.getMedicamentos());
-	}
-
-	@Test
-	public void testSetMedicamentoNull() {
-<<<<<<< HEAD
-		Medicamento[] medicamento = {};
-		balconista.setMedicaments(medicamento);
-=======
-		Medicament[] medicamento = {};
-		balconista.setMedicamentos(medicamento);
->>>>>>> devel
-		assertNull(balconista.getMedicamentos());
-
+		assertNotNull(balconista.getMedicaments());
 	}
 
 	@Test
 	public void testVerifMedicamento() {
 		Medicament[] medicamento = { new Medicament(), new Medicament() };
 
-		balconista.verificarMedicamento(medicamento);
-		assertNotNull(balconista.getMedicamentos());
+		balconista.verificarMedicament(medicamento);
+		assertNotNull(balconista.getMedicaments());
 	}
 
 	@Test
 	public void testVerifMedicamento2() {
 		Medicament[] medicamento = { new Medicament(), new Medicament() };
 
-		balconista.verificarMedicamento(medicamento);
-		assertNotNull(balconista.getMedicamentos());
+		balconista.verificarMedicament(medicamento);
+		assertNotNull(balconista.getMedicaments());
 	}
 
 	@Test
 	public void testDgCadastra() {
-		Balconista balconista2 = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+		Clerk balconista2 = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 1, 15, 0);
 		balconista2.registerClerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6");
 		assertEquals(balconista2.getDigitCpfPerson(), 50);
@@ -126,22 +113,22 @@ public class TesteFuncionario {
 
 	@Test
 	public void testSalario() {
-		Balconista balconista = new Balconista("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+		Clerk balconista = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 1, 15, 5);
-		assertEquals(75, balconista.calculateSalary());
+		assertEquals(675.0, balconista.calculateSalary(), 0.1);
 	}
 
 	@Test
 	public void testConfirmacaoPagamento() {
-		balconista.setConfirmacaoPagamento(1);
-		assertEquals(1, balconista.paymentConfirmation());
+		balconista.setPaymentConfirmation(1);
+		assertEquals(1, balconista.paymentConfirmation(), 0.1);
 
 	}
 
 	@Test
 	public void testConfirmacaoPagamentoElse() {
-		balconista.setConfirmacaoPagamento(0);
-		assertEquals(0, balconista.paymentConfirmation());
+		balconista.setPaymentConfirmation(0);
+		assertEquals(0, balconista.paymentConfirmation(), 0.1);
 
 	}
 
@@ -199,19 +186,19 @@ public class TesteFuncionario {
 	}
 
 	@Test
-	public void OperacaoBalconista() {
+	public void OperacaoClerk() {
 		balconista.setOperacaoBalconista(1);
 		assertEquals(1, balconista.getOperacaoBalconista());
 	}
 
 	@Test
-	public void repeteBalconista() {
+	public void repeteClerk() {
 		balconista.setRepeteBalconista(1);
 		assertEquals(1, balconista.getRepeteBalconista());
 	}
 
 	@Test
-	public void repeteCadastroBalconista() {
+	public void repeteCadastroClerk() {
 		balconista.setRepeteCadastroBalconista(1);
 		assertEquals(1, balconista.getRepeteCadastroBalconista());
 	}
@@ -223,7 +210,7 @@ public class TesteFuncionario {
 	}
 
 	@Test
-	public void confirmacaoExclusaoBalconista() {
+	public void confirmacaoExclusaoClerk() {
 		balconista.setConfirmacaoExclusaoBalconista(0);
 		assertEquals(0, balconista.getConfirmacaoExclusaoBalconista());
 	}
@@ -236,16 +223,16 @@ public class TesteFuncionario {
 
 	@Test
 	public void testClientes() {
-		Cliente[] cliente = { new Cliente(), new Cliente() };
+		Client[] cliente = { new Client(), new Client() };
 		balconista.setClientes(cliente);
 		assertEquals(cliente, balconista.getClientes());
 	}
 
 	@Test
-	public void testBalconistas() {
-		Balconista[] balconista2 = { new Balconista(), new Balconista() };
+	public void testClerks() {
+		Clerk[] balconista2 = { new Clerk(), new Clerk() };
 		balconista.setBalconista(balconista2);
-		assertEquals(balconista2, balconista.getClerk());
+		assertEquals(balconista2, balconista.getBalconista());
 	}
 
 	@Test
