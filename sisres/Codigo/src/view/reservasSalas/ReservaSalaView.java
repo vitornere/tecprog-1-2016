@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import model.Student;
 import model.Professor;
 import model.Classroom;
-<<<<<<< HEAD
 import control.StudentRegister;
 import control.ProfessorRegister;
 import control.ReserveClassroomForStudentRegister;
@@ -19,19 +18,9 @@ import control.ReserveClassroomForProfessorRegister;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
-=======
-import control.ManterAluno;
-import control.ManterProfessor;
-import control.ManterResSalaAluno;
-import control.ManterResSalaProfessor;
-import exception.ClienteException;
-import exception.PatrimonyException;
-import exception.ReservaException;
->>>>>>> devel
 
 public abstract class ReservaSalaView extends javax.swing.JDialog {
 
-<<<<<<< HEAD
     protected final int ALUNO = 1;
     protected final int PROF = 2;
     protected final int ERRO = -1;
@@ -43,22 +32,9 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
 
     public ReservaSalaView(java.awt.Frame parent, boolean modal) throws SQLException, PatrimonyException, PatrimonyException,
             ClientException, ReserveException {
-=======
-    protected final int ALUNO = 1; // ID of student
-    protected final int PROF = 2; // ID of teacher
-    protected final int ERRO = -1; // ID of error
-    protected ManterResSalaAluno instanceAluno; // Object that keeps student's reserve room
-    protected ManterResSalaProfessor instanceProf; // Object that keeps teacher's reserve room
-    protected Classroom sala; // Object of classroom
-    protected Aluno aluno; // Object of student
-    protected Professor prof; // Object of teacher
-
-    public ReservaSalaView(java.awt.Frame parent, boolean modal) throws SQLException, PatrimonyException, PatrimonyException,
-            ClienteException, ReservaException {
->>>>>>> devel
         super(parent, modal);
-        this.instanceProf = ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor();
-        this.instanceAluno = ReserveClassroomForStudentRegister.getReserveClassroomForStudent();
+        this.instanceProf = ReserveClassroomForProfessorRegister.getInstance();
+        this.instanceAluno = ReserveClassroomForStudentRegister.getInstance();
         initComponents();
         this.bucarCpfButton.setName("BuscarCpfButton");
 
@@ -80,7 +56,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
     protected void getAluno() {
         try {
 
-            Vector<Student> alunos = StudentRegister.getNewStudent().searchCpfStudent(this.cpfTextField.getText());
+            Vector<Student> alunos = StudentRegister.getInstance().searchCpfStudent(this.cpfTextField.getText());
             if (alunos.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Aluno nao Cadastrado." + " Digite o CPF correto ou cadastre o aluno desejado",
                         "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -104,7 +80,7 @@ public abstract class ReservaSalaView extends javax.swing.JDialog {
      */
     protected void getProfessor() {
         try {
-            Vector<Professor> professor = ProfessorRegister.getNewProfessor().searchCpfProfessor(this.cpfTextField.getText());
+            Vector<Professor> professor = ProfessorRegister.getInstance().searchCpfProfessor(this.cpfTextField.getText());
             if (professor.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Professor nao Cadastrado."
                         + " Digite o CPF correto ou cadastre o professor desejado", "Erro", JOptionPane.ERROR_MESSAGE, null);
