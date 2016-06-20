@@ -4,7 +4,7 @@ CREATE USER 'testuser'@'localhost' IDENTIFIED BY 'password';
 USE sisres_db;
 GRANT ALL ON sisres_db.* TO 'testuser'@'localhost';
 
-CREATE TABLE Aluno (
+CREATE TABLE aluno (
  id_aluno INT NOT NULL AUTO_INCREMENT,
  nome VARCHAR(100) NOT NULL,
  cpf VARCHAR(14) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE Aluno (
 );
 
 
-CREATE TABLE Equipamento (
+CREATE TABLE equipamento (
  id_equipamento INT NOT NULL AUTO_INCREMENT,
  codigo VARCHAR(15) NOT NULL,
  descricao VARCHAR(120),
@@ -23,7 +23,7 @@ CREATE TABLE Equipamento (
 );
 
 
-CREATE TABLE Professor (
+CREATE TABLE professor (
  id_professor INT NOT NULL AUTO_INCREMENT,
  nome VARCHAR(100) NOT NULL,
  cpf VARCHAR(14) NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE Professor (
 );
 
 
-CREATE TABLE Reserva_Equipamento (
+CREATE TABLE reserva_equipamento (
  id_reserva_equipamento INT NOT NULL AUTO_INCREMENT,
  id_professor INT NOT NULL,
  id_equipamento INT NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE Reserva_Equipamento (
 );
 
 
-CREATE TABLE Sala (
+CREATE TABLE sala (
  id_sala INT NOT NULL AUTO_INCREMENT,
  codigo VARCHAR(10) NOT NULL,
  descricao VARCHAR(120),
@@ -53,7 +53,7 @@ CREATE TABLE Sala (
 );
 
 
-CREATE TABLE Reserva_Sala_Aluno (
+CREATE TABLE reserva_sala_aluno (
  id_reserva_sala_aluno INT NOT NULL AUTO_INCREMENT,
  id_aluno INT NOT NULL,
  id_sala INT NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE Reserva_Sala_Aluno (
 );
 
 
-CREATE TABLE Reserva_Sala_Professor (
+CREATE TABLE reserva_sala_professor (
  id_reserva_sala_professor INT NOT NULL AUTO_INCREMENT,
  id_professor INT NOT NULL,
  id_sala INT NOT NULL,
@@ -76,15 +76,15 @@ CREATE TABLE Reserva_Sala_Professor (
 );
 
 
-ALTER TABLE Reserva_Equipamento ADD CONSTRAINT FK_Reserva_Equipamento_0 FOREIGN KEY (id_professor) REFERENCES Professor (id_professor);
-ALTER TABLE Reserva_Equipamento ADD CONSTRAINT FK_Reserva_Equipamento_1 FOREIGN KEY (id_equipamento) REFERENCES Equipamento (id_equipamento);
+ALTER TABLE reserva_equipamento ADD CONSTRAINT FK_Reserva_Equipamento_0 FOREIGN KEY (id_professor) REFERENCES professor (id_professor);
+ALTER TABLE reserva_equipamento ADD CONSTRAINT FK_Reserva_Equipamento_1 FOREIGN KEY (id_equipamento) REFERENCES equipamento (id_equipamento);
 
 
-ALTER TABLE Reserva_Sala_Aluno ADD CONSTRAINT FK_Reserva_Sala_Aluno_0 FOREIGN KEY (id_aluno) REFERENCES Aluno (id_aluno);
-ALTER TABLE Reserva_Sala_Aluno ADD CONSTRAINT FK_Reserva_Sala_Aluno_1 FOREIGN KEY (id_sala) REFERENCES Sala (id_sala);
+ALTER TABLE reserva_sala_aluno ADD CONSTRAINT FK_Reserva_Sala_Aluno_0 FOREIGN KEY (id_aluno) REFERENCES aluno (id_aluno);
+ALTER TABLE reserva_sala_aluno ADD CONSTRAINT FK_Reserva_Sala_Aluno_1 FOREIGN KEY (id_sala) REFERENCES sala (id_sala);
 
 
-ALTER TABLE Reserva_Sala_Professor ADD CONSTRAINT FK_Reserva_Sala_Professor_0 FOREIGN KEY (id_professor) REFERENCES Professor (id_professor);
-ALTER TABLE Reserva_Sala_Professor ADD CONSTRAINT FK_Reserva_Sala_Professor_1 FOREIGN KEY (id_sala) REFERENCES Sala (id_sala);
+ALTER TABLE reserva_sala_professor ADD CONSTRAINT FK_Reserva_Sala_Professor_0 FOREIGN KEY (id_professor) REFERENCES Professor (id_professor);
+ALTER TABLE reserva_sala_professor ADD CONSTRAINT FK_Reserva_Sala_Professor_1 FOREIGN KEY (id_sala) REFERENCES sala (id_sala);
 
 
