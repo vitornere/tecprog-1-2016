@@ -1,3 +1,7 @@
+/**
+ * Name: ReserveClassroomForStudent.java
+ * Class of model reserve classroom for student.
+ */
 package model;
 
 import exception.ReserveException;
@@ -14,6 +18,10 @@ public class ReserveClassroomForStudent extends ClassroomReserve {
 	private final String ABOVE_THE_LIMIT_CHAIRS = "A sala nao possui este numero de cadeiras para reservar.";
 	private final String PATTERN_CHAIRS = "^[\\d]+$";
 
+	/**
+	 * Constructor method of reserve classroom for student.
+	 * @param date, hour, classroom, finality, reservedChairs, student
+	 */
 	public ReserveClassroomForStudent(String date, String hour,
 			Classroom classroom, String finality, String reservedChairs,
 			Student student) throws ReserveException {
@@ -22,6 +30,9 @@ public class ReserveClassroomForStudent extends ClassroomReserve {
 		this.setReservedChairs(reservedChairs);
 	}
 
+	/**
+	 * Getters and Setters.
+	 */
 	public Student getStudent() {
 		return this.student;
 	}
@@ -30,6 +41,10 @@ public class ReserveClassroomForStudent extends ClassroomReserve {
 		return this.reservedChairs;
 	}
 
+	/**
+	 * Create student if there is no.
+	 * @param student
+	 */
 	public void setStudent(Student student) throws ReserveException {
 		if (student != null) {
 			this.student = student;
@@ -38,6 +53,10 @@ public class ReserveClassroomForStudent extends ClassroomReserve {
 		}
 	}
 
+	/**
+	 * Get reserved chairs.
+	 * @param reservedChairs
+	 */
 	public void setReservedChairs(String reservedChairs)
 			throws ReserveException {
 		String chairs = reservedChairs;
@@ -64,11 +83,19 @@ public class ReserveClassroomForStudent extends ClassroomReserve {
 
 	}
 
+
+	/**
+	 * Get reservation made by the student.
+	 * @param obj
+	 */
 	public boolean equals(ReserveClassroomForStudent obj) {
 		return (super.equals(obj) && this.getStudent().equals(obj.getStudent()) && this
 				.getReservedChairs().equals(obj.getReservedChairs()));
 	}
 
+	/**
+	 * Return reservation made by the student.
+	 */
 	@Override
 	public String toString() {
 		return "Student: " + this.getStudent().toString()
