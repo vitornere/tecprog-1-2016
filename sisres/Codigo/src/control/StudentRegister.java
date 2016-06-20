@@ -45,7 +45,7 @@ public class StudentRegister {
 
 	public Vector<Student> searchEmailStudent(String value)
 			throws SQLException, ClientException {
-		return StudentDAO.getInstance().searcByEmail(value);
+		return StudentDAO.getInstance().searchByEmail(value);
 	}
 
 	public Vector<Student> searchPhoneStudent(String value)
