@@ -20,8 +20,15 @@ public class ConsoleMenu {
 	}
 
 	public ConsoleMenu(int newConfirmation) {
-		this.confirmation = newConfirmation;
-	}
+		if(newConfirmation != 0 || newConfirmation != 1) {
+ 			System.out.println("A confirmação tem que ser 0 para não ou 1 para sim.\n" +
+ 							   "Como não foi indentificado nenhum das duas opções, foi atribuido não como padrão.");
+ 			this.confirmation = 0;
+ 		}
+ 		else {
+ 			this.confirmation = newConfirmation;
+ 		}
+  	}		  	
 
 	public ConsoleMenu(int newConfirmation, int clerkOutputConfirmation, int cashierOutputConfirmation,
 			int clienteOutputConfirmation, int medicamentOutputConfirmation, int helpOutputConfirmation,
@@ -42,10 +49,14 @@ public class ConsoleMenu {
 
 	}
 
-	public int menuOutputConfirmation(int states) {
+	public int menuOutputConfirmation(int states) throws IllegalArgumentException {
 		System.out.println("Deseja realmente sair?" + "\n(0) - Não" + "\n(1) - Sim");
 		
-		int confirmation = this.readInt();
+		try {
+ 			int confirmation = this.readInt();
+ 		} catch (IllegalArgumentException ex) {
+ 			throw new IllegalArgumentException("Informe somente números");
+ 		}
 		
 		if (confirmation == 1) {
 			states = 100;// Sai definitivamente
@@ -66,7 +77,11 @@ public class ConsoleMenu {
 		System.out.println("Deseja realmente sair do menu de cadastro de Balconista?" + 
 						   "\n(0) - Não" + "\n(1) - Sim");
 		
-		int clerkOutputConfirmation = this.readInt();
+		try {
+ 			int clerkOutputConfirmation = this.readInt();
+ 		} catch (IllegalArgumentException ex) {
+ 			throw new IllegalArgumentException("Informe somente números");
+ 		}
 		
 		if (clerkOutputConfirmation == 1) {
 			states = 0;
@@ -86,7 +101,11 @@ public class ConsoleMenu {
 		System.out.println("Deseja realmente sair do menu de cadastro de Caixa?" + "\n(0) - Não" + 
 						   "\n(1) - Sim");
 		
-		int cashierOutputConfirmation = this.readInt();
+		try {
+ 			int cashierOutputConfirmation = this.readInt();
+ 		} catch (IllegalArgumentException ex) {
+ 			throw new IllegalArgumentException("Informe somente números");
+ 		}
 		
 		if (cashierOutputConfirmation == 1) {
 			states = 0;
@@ -106,8 +125,12 @@ public class ConsoleMenu {
 		System.out.println("Deseja realmente sair do menu de cadastro de Cliente?" + "\n(0) - Não" + 
 						   "\n(1) - Sim");
 		
-		int clienteOutputConfirmation = this.readInt();
-		
+		try {
+ 			int clienteOutputConfirmation = this.readInt();
+ 		} catch (IllegalArgumentException ex) {
+ 			throw new IllegalArgumentException("Informe somente números");
+ 		}
+
 		if (clienteOutputConfirmation == 1) {
 			states = 0;
 			System.out.println("Saindo do setor de cadastro de Cliente.");
@@ -126,8 +149,12 @@ public class ConsoleMenu {
 		System.out.println("Deseja realmente sair do menu de cadastro de Medicamento?" + "\n(0) - Nâo" + 
 						   "\n(1) - Sim");
 		
-		int medicamentOutputConfirmation = this.readInt();
-		
+		try {
+			int medicamentOutputConfirmation = this.readInt();
+ 		} catch (IllegalArgumentException ex) {
+ 			throw new IllegalArgumentException("Informe somente números");
+ 		}
+
 		if (medicamentOutputConfirmation == 1) {
 			states = 0;
 			System.out.println("Saindo do setor de cadastro de Medicamento.");
@@ -174,15 +201,23 @@ public class ConsoleMenu {
 		System.out.println("(0) - Sair\n(1) - Balconista\n(2) - Caixa \n(3) - " +
 						   "Cliente\n(4) - Medicamento");
 
-		menuOperation = new Scanner(System.in).nextInt();
+		try {
+			menuOperation = new Scanner(System.in).nextInt();
+		} catch (IllegalArgumentException ex) {
+			throw new IllegalArgumentException("Informe somente números.");
+		}
 		
 		switch (menuOperation) {
 			case 0:
 				System.out.println("Deseja realmente sair do menu de Ajuda?" + "\n(0) - Não" + 
 								   "\n(1) - Sim");
 				
-				helpOutputConfirmation = scanner.nextInt();
-				
+				try {
+					helpOutputConfirmation = scanner.nextInt();
+ 				} catch (IllegalArgumentException ex) {
+ 					throw new IllegalArgumentException("Informe somente números.");
+ 				}
+
 				if (helpOutputConfirmation == 1) {
 					states = 0;
 					System.out.println("Saindo do setor de cadastro de Medicamento.");
@@ -231,6 +266,7 @@ public class ConsoleMenu {
 				System.out.println("Exemplo: \nSe seu cpf for 123.456.789-00, digite apenas: '123456789'");
 				states = 6;
 				break;
+				
 			case 3:
 				System.out
 						.println("Os campos de nome,sobrenome,endereço e email para 'Cliente' devem ser inseridos " +
@@ -244,6 +280,7 @@ public class ConsoleMenu {
 				System.out.println("Exemplo: \nSe seu cpf for 123.456.789-00, digite apenas: '123456789'");
 				states = 6;
 				break;
+				
 			case 4:
 				System.out
 						.println("Os campos de 'nome','fabricante','recomendação','tipo' e 'posologia' para 'Medicamento'" +
