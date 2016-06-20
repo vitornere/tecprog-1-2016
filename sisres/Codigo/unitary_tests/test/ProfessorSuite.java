@@ -5,12 +5,12 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 import test.control.TestTeacherPersist;
-import test.model.ProfessorTest;
+import test.model.TeacherTest;
 import test.persistence.ProfessorDAOTest;
 
 
 @RunWith(Suite.class)
-@SuiteClasses({ProfessorTest.class, ProfessorDAOTest.class, TestTeacherPersist.class })
+@SuiteClasses({TeacherTest.class, ProfessorDAOTest.class, TestTeacherPersist.class })
 public class ProfessorSuite {
 
 }

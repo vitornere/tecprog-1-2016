@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import exception.ClientException;
 
-public class AlunoTest {
+public class StudentTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

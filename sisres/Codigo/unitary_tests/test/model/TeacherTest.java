@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import exception.ClientException;
 
-public class ProfessorTest {
+public class TeacherTest {
 	
 	/**
 	 *	Os teste da classe Cliente foram feitos aqui, por se tratar de uma classe
