@@ -18,9 +18,9 @@ import org.junit.Test;
 import exception.ClientException;
 
 import persistence.FactoryConnection;
-import persistence.ProfessorDAO;
+import persistence.TeacherDAO;
 
-public class ProfessorDAOTest {
+public class TeacherDAOTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -34,13 +34,13 @@ public class ProfessorDAOTest {
 	
 	@Test
 	public void testInstance() {
-		assertTrue("Instanciando ProfessorDAO", ProfessorDAO.getNewProfessor() instanceof ProfessorDAO);
+		assertTrue("Instanciando TeacherDAO", TeacherDAO.getInstance() instanceof TeacherDAO);
 	}
 	
 	@Test
 	public void testSingleton() {
-		ProfessorDAO p = ProfessorDAO.getNewProfessor();
-		ProfessorDAO q = ProfessorDAO.getNewProfessor();
+		TeacherDAO p = TeacherDAO.getInstance();
+		TeacherDAO q = TeacherDAO.getInstance();
 		assertSame("Testando o Padrao Singleton", p, q);
 	}
 	
@@ -50,7 +50,7 @@ public class ProfessorDAOTest {
 	public void testIncluir() throws ClientException, SQLException {
 		boolean resultado = false;
 		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		ProfessorDAO.getNewProfessor().include(prof);
+		TeacherDAO.getInstance().add(prof);
 		
 		resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
 		"professor.nome = \"" + prof.getNamePerson() + "\" and " +
@@ -71,16 +71,16 @@ public class ProfessorDAOTest {
 	}
 	@Test (expected= ClientException.class)
 	public void testIncluirNulo() throws ClientException, SQLException {
-		ProfessorDAO.getNewProfessor().include(null);
+		TeacherDAO.getInstance().add(null);
 	}
 	@Test (expected= ClientException.class)
 	public void testIncluirComMesmoCpf() throws ClientException, SQLException {
 		boolean resultado = true;
 		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		Professor prof2 = new Professor("Nome para Incluir Segundo", "868.563.327-34", "0987", "5678-5555", "");
-		ProfessorDAO.getNewProfessor().include(prof);
+		TeacherDAO.getInstance().add(prof);
 		try{
-			ProfessorDAO.getNewProfessor().include(prof2);
+			TeacherDAO.getInstance().add(prof2);
 			this.executaNoBanco("DELETE FROM professor WHERE " +
 					"professor.nome = \"" + prof2.getNamePerson() + "\" and " +
 					"professor.cpf = \"" + prof2.getCpfPerson() + "\" and " +
@@ -110,9 +110,9 @@ public class ProfessorDAOTest {
 		boolean resultado = true;
 		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		Professor prof2 = new Professor("Nome para Incluir Segundo", "387.807.647-97", "123456", "5678-5555", "");
-		ProfessorDAO.getNewProfessor().include(prof);
+		TeacherDAO.getInstance().add(prof);
 		try{
-			ProfessorDAO.getNewProfessor().include(prof2);
+			TeacherDAO.getInstance().add(prof2);
 			this.executaNoBanco("DELETE FROM professor WHERE " +
 					"professor.nome = \"" + prof2.getNamePerson() + "\" and " +
 					"professor.cpf = \"" + prof2.getCpfPerson() + "\" and " +
@@ -142,9 +142,9 @@ public class ProfessorDAOTest {
 		boolean resultado = true;
 		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		Professor prof2 = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		ProfessorDAO.getNewProfessor().include(prof);
+		TeacherDAO.getInstance().add(prof);
 		try{
-			ProfessorDAO.getNewProfessor().include(prof2);
+			TeacherDAO.getInstance().add(prof2);
 			this.executaNoBanco("DELETE FROM professor WHERE " +
 					"professor.nome = \"" + prof2.getNamePerson() + "\" and " +
 					"professor.cpf = \"" + prof2.getCpfPerson() + "\" and " +
@@ -185,7 +185,7 @@ public class ProfessorDAOTest {
 						"\"" + p.getEmailPerson() + "\", " +
 						"\"" + p.getIdRegister() + "\"); ");
 		
-		ProfessorDAO.getNewProfessor().update(p, pn);
+		TeacherDAO.getInstance().change(p, pn);
 		
 		resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
 				"professor.nome = \"" + pn.getNamePerson() + "\" and " +
@@ -219,12 +219,12 @@ public class ProfessorDAOTest {
 	@Test (expected= ClientException.class)
 	public void testAlterarPrimeiroArgNulo() throws ClientException, SQLException {
 		Professor pn = new Professor("Nome para Alterar", "868.563.327-34", "098765", "(123)4567-8899", "email@Nome");
-		ProfessorDAO.getNewProfessor().update(null, pn);
+		TeacherDAO.getInstance().change(null, pn);
 	}
 	@Test (expected= ClientException.class)
 	public void testAlterarSegundoArgNulo() throws ClientException, SQLException {
 		Professor pn = new Professor("Nome para Alterar", "868.563.327-34", "098765", "(123)4567-8899", "email@Nome");
-		ProfessorDAO.getNewProfessor().update(pn, null);
+		TeacherDAO.getInstance().change(pn, null);
 	}
 	@Test (expected= ClientException.class)
 	public void testAlterarNaoExistente() throws ClientException, SQLException {
@@ -233,7 +233,7 @@ public class ProfessorDAOTest {
 		Professor pn = new Professor("Nome para Alterar", "387.807.647-97", "098765", "(123)4567-8899", "email@Nome");
 		
 		try{
-			ProfessorDAO.getNewProfessor().update(p, pn);
+			TeacherDAO.getInstance().change(p, pn);
 		} finally {
 			resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
 				"professor.nome = \"" + pn.getNamePerson() + "\" and " +
@@ -266,7 +266,7 @@ public class ProfessorDAOTest {
 						"\"" + p.getIdRegister() + "\"); ");
 		
 		try{
-			ProfessorDAO.getNewProfessor().update(p, pn);
+			TeacherDAO.getInstance().change(p, pn);
 		} finally {
 			resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
 				"professor.nome = \"" + pn.getNamePerson() + "\" and " +
@@ -321,7 +321,7 @@ public class ProfessorDAOTest {
 				"\"" + pn.getIdRegister() + "\"); ");
 		
 		try{
-			ProfessorDAO.getNewProfessor().update(pn, pnn);
+			TeacherDAO.getInstance().change(pn, pnn);
 		} finally {
 			resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
 				"professor.nome = \"" + pn.getNamePerson() + "\" and " +
@@ -389,7 +389,7 @@ public class ProfessorDAOTest {
 				"\"" + pn.getIdRegister() + "\"); ");
 		
 		try{
-			ProfessorDAO.getNewProfessor().update(pn, pnn);
+			TeacherDAO.getInstance().change(pn, pnn);
 		} finally {
 			resultado = this.estaNoBanco("SELECT * FROM professor WHERE " +
 				"professor.nome = \"" + pn.getNamePerson() + "\" and " +
@@ -452,7 +452,7 @@ public class ProfessorDAOTest {
 						"\"" + p.getEmailPerson() + "\", " +
 						"\"" + p.getIdRegister() + "\"); ");
 		
-		ProfessorDAO.getNewProfessor().delete(p);
+		TeacherDAO.getInstance().delete(p);
 		
 
 		resultado =  this.estaNoBanco("SELECT * FROM professor WHERE " +
@@ -473,7 +473,7 @@ public class ProfessorDAOTest {
 	}
 	@Test (expected= ClientException.class)
 	public void testExcluirNulo() throws ClientException, SQLException {
-		ProfessorDAO.getNewProfessor().delete(null);
+		TeacherDAO.getInstance().delete(null);
 	}
 	@Ignore //(expected= ClienteException.class)
 	public void testExcluirEnvolvidoEmReserva() throws ClientException, SQLException {
@@ -482,7 +482,7 @@ public class ProfessorDAOTest {
 	@Test (expected= ClientException.class)
 	public void testExcluirNaoExistente() throws ClientException, SQLException {
 		Professor p = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		ProfessorDAO.getNewProfessor().delete(p);
+		TeacherDAO.getInstance().delete(p);
 	}
 	
 	
@@ -498,7 +498,7 @@ public class ProfessorDAOTest {
 						"\"" + p.getEmailPerson() + "\", " +
 						"\"" + p.getIdRegister() + "\"); ");
 		
-		Vector<Professor> vet = ProfessorDAO.getNewProfessor().searchNameProfessor("Nome para Incluir");
+		Vector<Professor> vet = TeacherDAO.getInstance().searchByName("Nome para Incluir");
 
 		this.executaNoBanco("DELETE FROM professor WHERE " +
 					"professor.nome = \"" + p.getNamePerson() + "\" and " +
@@ -520,7 +520,7 @@ public class ProfessorDAOTest {
 						"\"" + p.getEmailPerson() + "\", " +
 						"\"" + p.getIdRegister() + "\"); ");
 		
-		Vector<Professor> vet = ProfessorDAO.getNewProfessor().searchCpfProfessor("868.563.327-34");
+		Vector<Professor> vet = TeacherDAO.getInstance().searchByCpf("868.563.327-34");
 
 		this.executaNoBanco("DELETE FROM professor WHERE " +
 					"professor.nome = \"" + p.getNamePerson() + "\" and " +
@@ -542,7 +542,7 @@ public class ProfessorDAOTest {
 						"\"" + p.getEmailPerson() + "\", " +
 						"\"" + p.getIdRegister() + "\"); ");
 		
-		Vector<Professor> vet = ProfessorDAO.getNewProfessor().searchIdProfessor("123456");
+		Vector<Professor> vet = TeacherDAO.getInstance().searchByRegister("123456");
 
 		this.executaNoBanco("DELETE FROM professor WHERE " +
 					"professor.nome = \"" + p.getNamePerson() + "\" and " +
@@ -564,7 +564,7 @@ public class ProfessorDAOTest {
 						"\"" + p.getEmailPerson() + "\", " +
 						"\"" + p.getIdRegister() + "\"); ");
 		
-		Vector<Professor> vet = ProfessorDAO.getNewProfessor().searchPhoneProfessor("1234-5678");
+		Vector<Professor> vet = TeacherDAO.getInstance().searchByPhone("1234-5678");
 
 		this.executaNoBanco("DELETE FROM professor WHERE " +
 					"professor.nome = \"" + p.getNamePerson() + "\" and " +
@@ -586,7 +586,7 @@ public class ProfessorDAOTest {
 						"\"" + p.getEmailPerson() + "\", " +
 						"\"" + p.getIdRegister() + "\"); ");
 		
-		Vector<Professor> vet = ProfessorDAO.getNewProfessor().searchEmailProfessor("Nome@email");
+		Vector<Professor> vet = TeacherDAO.getInstance().searchByEmail("Nome@email");
 
 		this.executaNoBanco("DELETE FROM professor WHERE " +
 					"professor.nome = \"" + p.getNamePerson() + "\" and " +
