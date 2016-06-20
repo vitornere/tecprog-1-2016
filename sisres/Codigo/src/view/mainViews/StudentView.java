@@ -12,8 +12,9 @@ import javax.swing.JOptionPane;
 import view.alteracoes.ChangeStudent;
 import view.cadastros.StudentRegistration;
 import view.cadastros.ClientRegistration;
-import control.ManterAluno;
-import exception.ClienteException;
+import control.StudentRegister;
+import exception.ClientException;
+
 
 /**
  * 
@@ -28,9 +29,9 @@ public class StudentView extends ClientView {
 
     public Iterator getIterator() {
         try {
-            return ManterAluno.getInstance().getAluno_vet().iterator();
+            return StudentRegister.getInstance().getVectorStudents().iterator();
 
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -66,22 +67,16 @@ public class StudentView extends ClientView {
             	// Nothing to do
             }
 
-            int confirmExclusion = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Aluno: " + 
-            					   ManterAluno.getInstance().getAluno_vet().get(index).getNome() + 
-            					   "?", "Excluir", JOptionPane.YES_NO_OPTION);
-            
-            if (confirmExclusion == JOptionPane.YES_OPTION) {
-                ManterAluno.getInstance().excluir(ManterAluno.getInstance().getAluno_vet().get(index));
-                
-                JOptionPane.showMessageDialog(this, "Aluno excluido com sucesso", "Sucesso", 
-                							  JOptionPane.INFORMATION_MESSAGE, null);
+            int confirm = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Aluno: "
+                    + StudentRegister.getInstance().getVectorStudents().get(index).getNamePerson() + "?", "Excluir", JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                StudentRegister.getInstance().delete(StudentRegister.getInstance().getVectorStudents().get(index));
+                JOptionPane.showMessageDialog(this, "Aluno excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             }
-            else {
-            	// Nothing to do
-            }
-            
             this.clientTable.setModel(fillTable());
-        } catch (ClienteException ex) {
+
+        } catch (ClientException ex) {
+
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

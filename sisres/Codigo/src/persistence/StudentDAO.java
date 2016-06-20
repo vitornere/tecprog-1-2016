@@ -1,23 +1,23 @@
 /*
- * File: AlunoDAO.java
+ * File: StudentDAO.java
  * Description: Class to make transactions with the database to crud student
  * */
 
 package persistence;
 
-import model.Aluno;
+import model.Student;
 
 import java.sql.*;
 import java.util.Vector;
 
-import exception.ClienteException;
+import exception.ClientException;
 
 public class StudentDAO {
 
 	// Constants with error messenger
-	private static final String EXISTENTSTUDENT = "O Aluno ja esta cadastrado.";
-	private static final String NULLSTUDENT = "O Aluno esta nulo.";
-	private static final String STUDENTNOTEXIST = "O Aluno nao esta cadastrado.";
+	private static final String EXISTENTSTUDENT = "O Student ja esta cadastrado.";
+	private static final String NULLSTUDENT = "O Student esta nulo.";
+	private static final String STUDENTNOTEXIST = "O Student nao esta cadastrado.";
 	private static final String STUDENTINUSE = "Sala esta sendo utilizada em uma reserva.";
 	private static final String EXISTENTCPF = "Ja existe um aluno cadastrado com esse CPF.";
 	private static final String EXISTENTREGISTER = "Ja existe um aluno cadastrado com essa matricula.";
@@ -44,41 +44,41 @@ public class StudentDAO {
 	/** Method to add student in the database
 	 * @param student - Object to add in database
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClienteException happens when student is null or his code exist
+	 * @throws ClientException happens when student is null or his code exist
 	 */
-	public void add(Aluno student) throws SQLException, ClienteException {
+	public void add(Student student) throws SQLException, ClientException {
 		//Verify if is valid student
 		if (student != null) {
 			// Nothing to do.
 		}
 		else{
-			throw new ClienteException(NULLSTUDENT);
+			throw new ClientException(NULLSTUDENT);
 		}
-		if (!this.inDBCpf(student.getCpf())) {
+		if (!this.inDBCpf(student.getCpfPerson())) {
 			// Nothing to do.
 		}
 		else{
-			throw new ClienteException(EXISTENTCPF);
+			throw new ClientException(EXISTENTCPF);
 		}
-		if (!this.inDBRegister(student.getMatricula())) {
+		if (!this.inDBRegister(student.getIdRegister())) {
 			// Nothing to do
 		}
 		else{
-			throw new ClienteException(EXISTENTREGISTER);
+			throw new ClientException(EXISTENTREGISTER);
 		}
 
 		// Try execute statement
 		if (!this.inDB(student)) {
 			this.updateQuery("INSERT INTO "
 					+ "aluno (nome, cpf, telefone, email, matricula) VALUES ("
-					+ "\"" + student.getNome() + "\", " + "\""
-					+ student.getCpf() + "\", " + "\""
-					+ student.getTelefone() + "\", " + "\""
-					+ student.getEmail() + "\", " + "\""
-					+ student.getMatricula() + "\"); ");
+					+ "\"" + student.getNamePerson() + "\", " + "\""
+					+ student.getCpfPerson() + "\", " + "\""
+					+ student.getPhonePerson() + "\", " + "\""
+					+ student.getEmailPerson() + "\", " + "\""
+					+ student.getIdRegister() + "\"); ");
 		} 
 		else {
-			throw new ClienteException(EXISTENTSTUDENT);
+			throw new ClientException(EXISTENTSTUDENT);
 		}
 	}
 
@@ -87,51 +87,51 @@ public class StudentDAO {
 	 * @param old_student - Student to update data
 	 * @param new_student - Student with updated data
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClienteException happens when student is null or his code exist
+	 * @throws ClientException happens when student is null or his code exist
 	 */
-	public void change(Aluno old_student, Aluno new_student)
-			throws SQLException, ClienteException {
+	public void change(Student old_student, Student new_student)
+			throws SQLException, ClientException {
 		// Verify if is valid old_student and new student
 		if (old_student != null) {
 			// Nothing to do.
 		}
 		else{
-			throw new ClienteException(NULLSTUDENT);			
+			throw new ClientException(NULLSTUDENT);			
 		}
 		if (new_student != null) {
 			// Nothing to do.
 		}
 		else{
-			throw new ClienteException(NULLSTUDENT);			
+			throw new ClientException(NULLSTUDENT);			
 		}
 		if (this.inDB(old_student)) {
 			// Nothing to do.
 		} 
 		else{
-			throw new ClienteException(STUDENTNOTEXIST);			
+			throw new ClientException(STUDENTNOTEXIST);			
 		}
 		if (!this.inOtherDB(old_student)) {
 			// Nothing to do.
 		} 
 		else{
-			throw new ClienteException(STUDENTINUSE);			
+			throw new ClientException(STUDENTINUSE);			
 		}
 		
-		if (old_student.getCpf().equals(new_student.getCpf())
-				&& this.inDBCpf(new_student.getCpf())) {
+		if (old_student.getCpfPerson().equals(new_student.getCpfPerson())
+				&& this.inDBCpf(new_student.getCpfPerson())) {
 			// Nothing to do.
 		}
 		else{
-			throw new ClienteException(EXISTENTCPF);			
+			throw new ClientException(EXISTENTCPF);			
 		}
 		
-		if (old_student.getMatricula().equals(
-				new_student.getMatricula())
-				&& this.inDBRegister(new_student.getMatricula())) {
+		if (old_student.getIdRegister().equals(
+				new_student.getIdRegister())
+				&& this.inDBRegister(new_student.getIdRegister())) {
 			// Nothing to do.
 		}
 		else{
-			throw new ClienteException(EXISTENTREGISTER);			
+			throw new ClientException(EXISTENTREGISTER);			
 		}
 
 		// Start connection with database
@@ -141,29 +141,29 @@ public class StudentDAO {
 		//try update database
 		if (!this.inDB(new_student)) {
 			String msg = "UPDATE aluno SET " + "nome = \""
-					+ new_student.getNome() + "\", "
-					+ "cpf = \"" + new_student.getCpf()
+					+ new_student.getNamePerson() + "\", "
+					+ "cpf = \"" + new_student.getCpfPerson()
 					+ "\", " + "telefone = \""
-					+ new_student.getTelefone() + "\", "
-					+ "email = \"" + new_student.getEmail()
+					+ new_student.getPhonePerson() + "\", "
+					+ "email = \"" + new_student.getEmailPerson()
 					+ "\", " + "matricula = \""
-					+ new_student.getMatricula() + "\""
+					+ new_student.getIdRegister() + "\""
 					+ " WHERE " + "aluno.nome = \""
-					+ old_student.getNome() + "\" and "
-					+ "aluno.cpf = \"" + old_student.getCpf()
+					+ old_student.getNamePerson() + "\" and "
+					+ "aluno.cpf = \"" + old_student.getCpfPerson()
 					+ "\" and " + "aluno.telefone = \""
-					+ old_student.getTelefone() + "\" and "
+					+ old_student.getPhonePerson() + "\" and "
 					+ "aluno.email = \""
-					+ old_student.getEmail() + "\" and "
+					+ old_student.getEmailPerson() + "\" and "
 					+ "aluno.matricula = \""
-					+ old_student.getMatricula() + "\";";
+					+ old_student.getIdRegister() + "\";";
 			connection.setAutoCommit(false);
 			preopare_query_to_execute = connection.prepareStatement(msg);
 			preopare_query_to_execute.executeUpdate();
 			connection.commit();
 		}
 		else {
-			throw new ClienteException(EXISTENTSTUDENT);
+			throw new ClientException(EXISTENTSTUDENT);
 		}
 		
 		// Close connection
@@ -176,58 +176,58 @@ public class StudentDAO {
 	 * Method to delete data from student
 	 * @param student - Student to remove
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClienteException happens when student is null or his code exist
+	 * @throws ClientException happens when student is null or his code exist
 	 */
-	public void delete(final Aluno student) throws SQLException, ClienteException {
+	public void delete(final Student student) throws SQLException, ClientException {
 		// Verify if is valid student.
 		if (student != null) {
 			//Nothing to do.
 		} 
 		else {
-			throw new ClienteException(NULLSTUDENT);	
+			throw new ClientException(NULLSTUDENT);	
 		}
 		if (!this.inOtherDB(student)) {
 			//Nothing to do.
 		} 
 		else {
-			throw new ClienteException(STUDENTINUSE);	
+			throw new ClientException(STUDENTINUSE);	
 		}
 		
 		// Try remove student from database
 		if (this.inDB(student)) {
 			this.updateQuery("DELETE FROM aluno WHERE "
-					+ "aluno.nome = \"" + student.getNome() + "\" and "
-					+ "aluno.cpf = \"" + student.getCpf() + "\" and "
-					+ "aluno.telefone = \"" + student.getTelefone()
+					+ "aluno.nome = \"" + student.getNamePerson() + "\" and "
+					+ "aluno.cpf = \"" + student.getCpfPerson() + "\" and "
+					+ "aluno.telefone = \"" + student.getPhonePerson()
 					+ "\" and " + "aluno.email = \""
-					+ student.getEmail() + "\" and "
-					+ "aluno.matricula = \"" + student.getMatricula()
+					+ student.getEmailPerson() + "\" and "
+					+ "aluno.matricula = \"" + student.getIdRegister()
 					+ "\";");
 		} 
 		else {
-			throw new ClienteException(STUDENTNOTEXIST);
+			throw new ClientException(STUDENTNOTEXIST);
 		}
 	}
 	
 	/**
 	 * Method to return all data in database
-	 * @return Vector<Aluno> data when all registers
+	 * @return Vector<Student> data when all registers
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClienteException don't happens
+	 * @throws ClientException don't happens
 	 */
-	public Vector<Aluno> searchAll() throws SQLException, ClienteException {
+	public Vector<Student> searchAll() throws SQLException, ClientException {
 		return this.search("SELECT * FROM aluno;");
 	}
 
 	/**
 	 * Method to return all data in database with condition on Student name
 	 * @param name String - Restriction in sql consult
-	 * @return Vector<Aluno> data when all registers
+	 * @return Vector<Student> data when all registers
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClienteException don't happens
+	 * @throws ClientException don't happens
 	 */
-	public Vector<Aluno> searchByName(String name) throws SQLException,
-			ClienteException {
+	public Vector<Student> searchByName(String name) throws SQLException,
+			ClientException {
 		return this.search("SELECT * FROM aluno WHERE nome = " + "\"" + name
 				+ "\";");
 	}
@@ -235,12 +235,12 @@ public class StudentDAO {
 	/**
 	 * Method to return all data in database with condition on Student cpf
 	 * @param cpf String - Restriction in sql consult
-	 * @return Vector<Aluno> data when all registers
+	 * @return Vector<Student> data when all registers
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClienteException don't happens
+	 * @throws ClientException don't happens
 	 */
-	public Vector<Aluno> searchByCpf(String cpf) throws SQLException,
-			ClienteException {
+	public Vector<Student> searchByCpf(String cpf) throws SQLException,
+			ClientException {
 		return this.search("SELECT * FROM aluno WHERE cpf = " + "\"" + cpf
 				+ "\";");
 	}
@@ -249,12 +249,12 @@ public class StudentDAO {
 	/**
 	 * Method to return all data in database with condition on Student register
 	 * @param register String - Restriction in sql consult
-	 * @return Vector<Aluno> data when all registers
+	 * @return Vector<Student> data when all registers
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClienteException don't happens
+	 * @throws ClientException don't happens
 	 */
-	public Vector<Aluno> searchByRegister(String register) throws SQLException,
-			ClienteException {
+	public Vector<Student> searchByRegister(String register) throws SQLException,
+			ClientException {
 		return this.search("SELECT * FROM aluno WHERE matricula = " + "\""
 				+ register + "\";");
 	}
@@ -263,12 +263,12 @@ public class StudentDAO {
 	/**
 	 * Method to return all data in database with condition on Student email
 	 * @param email String - Restriction in sql consult
-	 * @return Vector<Aluno> data when all registers
+	 * @return Vector<Student> data when all registers
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClienteException don't happens
+	 * @throws ClientException don't happens
 	 */
-	public Vector<Aluno> searcByEmail(String email) throws SQLException,
-			ClienteException {
+	public Vector<Student> searchByEmail(String email) throws SQLException,
+			ClientException {
 		return this.search("SELECT * FROM aluno WHERE email = " + "\"" + email
 				+ "\";");
 	}
@@ -276,12 +276,12 @@ public class StudentDAO {
 	/**
 	 * Method to return all data in database with condition on Student phone
 	 * @param phone String - Restriction in sql consult
-	 * @return Vector<Aluno> data when all registers
+	 * @return Vector<Student> data when all registers
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClienteException don't happens
+	 * @throws ClientException don't happens
 	 */
-	public Vector<Aluno> searchByPhone(String phone) throws SQLException,
-			ClienteException {
+	public Vector<Student> searchByPhone(String phone) throws SQLException,
+			ClientException {
 		return this.search("SELECT * FROM aluno WHERE telefone = " + "\""
 				+ phone + "\";");
 	}
@@ -289,12 +289,12 @@ public class StudentDAO {
 
 	/**
 	 * Method to return all data in database
-	 * @return Vector<Aluno> data when all registers
+	 * @return Vector<Student> data when all registers
 	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClienteException don't happens
+	 * @throws ClientException don't happens
 	 */
-	private Vector<Aluno> search(String query) throws SQLException,
-			ClienteException {
+	private Vector<Student> search(String query) throws SQLException,
+			ClientException {
 
 		//Start connection
 		Connection connnection = FactoryConnection.getInstance().getConnection();
@@ -304,9 +304,9 @@ public class StudentDAO {
 		ResultSet database_result = prepare_query_to_execute.executeQuery();
 
 		// Fill vector with the data query result
-		Vector<Aluno> data_result = new Vector<Aluno>();
+		Vector<Student> data_result = new Vector<Student>();
 		while (database_result.next()){
-			data_result.add(this.fetchAluno(database_result));
+			data_result.add(this.fetchStudent(database_result));
 		}
 	
 		//Close connection
@@ -349,13 +349,13 @@ public class StudentDAO {
 	 * @return boolean - true if exist data in consult or false if not exist
 	 * @throws SQLException happens when sql code is wrong
 	 */
-	private boolean inDB(Aluno student) throws SQLException {
+	private boolean inDB(Student student) throws SQLException {
 		return this.inDBGeneric("SELECT * FROM aluno WHERE "
-				+ "aluno.nome = \"" + student.getNome() + "\" and "
-				+ "aluno.cpf = \"" + student.getCpf() + "\" and "
-				+ "aluno.telefone = \"" + student.getTelefone() + "\" and "
-				+ "aluno.email = \"" + student.getEmail() + "\" and "
-				+ "aluno.matricula = \"" + student.getMatricula() + "\";");
+				+ "aluno.nome = \"" + student.getNamePerson() + "\" and "
+				+ "aluno.cpf = \"" + student.getCpfPerson() + "\" and "
+				+ "aluno.telefone = \"" + student.getPhonePerson() + "\" and "
+				+ "aluno.email = \"" + student.getEmailPerson() + "\" and "
+				+ "aluno.matricula = \"" + student.getIdRegister() + "\";");
 	}
 
 	/**
@@ -386,27 +386,27 @@ public class StudentDAO {
 	 * @return boolean - true if exist data in consult or false if not exist
 	 * @throws SQLException happens when sql code is wrong
 	 */
-	private boolean inOtherDB(Aluno student) throws SQLException,
-			ClienteException {
+	private boolean inOtherDB(Student student) throws SQLException,
+			ClientException {
 		return this.inDBGeneric("SELECT * FROM reserva_sala_aluno WHERE "
 				+ "id_aluno = (SELECT id_aluno FROM aluno WHERE "
-				+ "aluno.nome = \"" + student.getNome() + "\" and "
-				+ "aluno.cpf = \"" + student.getCpf() + "\" and "
-				+ "aluno.telefone = \"" + student.getTelefone() + "\" and "
-				+ "aluno.email = \"" + student.getEmail() + "\" and "
-				+ "aluno.matricula = \"" + student.getMatricula() + "\");");
+				+ "aluno.nome = \"" + student.getNamePerson() + "\" and "
+				+ "aluno.cpf = \"" + student.getCpfPerson() + "\" and "
+				+ "aluno.telefone = \"" + student.getPhonePerson() + "\" and "
+				+ "aluno.email = \"" + student.getEmailPerson() + "\" and "
+				+ "aluno.matricula = \"" + student.getIdRegister() + "\");");
 	}
 
 	/**
 	 * Method to convert result set in Student
 	 * @param equipament_data result set contain equipment data
 	 * @return new student with data in result set
-	 * @throws ClienteException  will occur if the code is invalid, can no longer exist and not be null
+	 * @throws ClientException  will occur if the code is invalid, can no longer exist and not be null
 	 * @throws SQLException happens when sql code is wrong
 	 */
-	private Aluno fetchAluno(ResultSet data_from_student) throws ClienteException,
+	private Student fetchStudent(ResultSet data_from_student) throws ClientException,
 			SQLException {
-		return new Aluno(data_from_student.getString("nome"), data_from_student.getString("cpf"),
+		return new Student(data_from_student.getString("nome"), data_from_student.getString("cpf"),
 				data_from_student.getString("matricula"), data_from_student.getString("telefone"),
 				data_from_student.getString("email"));
 	}

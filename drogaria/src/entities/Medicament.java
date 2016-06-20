@@ -3,13 +3,13 @@ package entities;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import entities.Registro;
+import entities.Register;
 
 public class Medicament extends Produto {
 
 	protected String medicamentType; // Comprimidos, liquido, etc
 	protected String dosage;
-	protected Registro registration;
+	protected Register registration;
 
 	// Console
 	Medicament[] medicament = {};
@@ -33,7 +33,7 @@ public class Medicament extends Produto {
 	}
 
 	public void adicionarRegistro() {
-		Registro novoRegistro = new Registro();
+		Register novoRegistro = new Register();
 		novoRegistro = this.registration;
 		this.setRegistro(novoRegistro);
 	}// Fim Agregacao
@@ -69,7 +69,7 @@ public class Medicament extends Produto {
 
 		listaDeMedicamentos.add(medicament);
 
-		System.out.println("O Medicamento " + medicament.getNome() + " foi cadastrado com sucesso!");
+		System.out.println("O Medicamento " + medicament.getNameMedicament() + " foi cadastrado com sucesso!");
 	}
 
 	public void listarMedicamentos(ArrayList<Medicament> listaDeMedicamentos) {
@@ -81,11 +81,11 @@ public class Medicament extends Produto {
 			for (int b = 0; b < listaDeMedicamentos.size(); b++) {
 				Medicament t = listaDeMedicamentos.get(b);
 				System.out.println("\nCadastro de n�mero:" + (b + 1));
-				System.out.println("\nNome: " + t.getNome());
-				System.out.println("\nFabricante: " + t.getFabricante());
-				System.out.println("\nRecomenda��o: " + t.getRecomendacao());
-				System.out.println("\nValidade: " + t.getValidade().substring(0, 2) + "/"
-						+ t.getValidade().substring(2, 4) + "/" + t.getValidade().substring(4, 8));
+				System.out.println("\nNome: " + t.getNameMedicament());
+				System.out.println("\nFabricante: " + t.getManufacturer());
+				System.out.println("\nRecomenda��o: " + t.getRecommendation());
+				System.out.println("\nValidade: " + t.getExpirationDate().substring(0, 2) + "/"
+						+ t.getExpirationDate().substring(2, 4) + "/" + t.getExpirationDate().substring(4, 8));
 				System.out.println("\nTipo: " + t.getTipo());
 				System.out.println("\nPosologia: " + t.getPosologia());
 			}
@@ -100,10 +100,23 @@ public class Medicament extends Produto {
 		}
 		else {
 			System.out.println("Digite o numero do cadastro de Medicamento que deseja excluir: ");
-			this.setCodigoExclusao(scanner.nextInt());
+			
+			
+			boolean onlyNumbers = false;
+ 			do {
+ 				try {
+ 					this.setCodigoExclusao(scanner.nextInt());
+ 					onlyNumbers = true;
+ 				} catch (IllegalArgumentException ex) {
+ 					System.out.println("Informe somente números.");
+ 				}
+ 			} while(onlyNumbers);
+
 			System.out.println("Voc� deseja realmente excluir o cadastro de numero: " + this.deletingCode + "?"
 					+ "\n(0) - N�o" + "\n(1) - Sim");
+			
 			this.setConfirmacaoExclusaoMedicamento(scanner.nextInt());
+			
 			if (medicamentDeletingConfirmation == 1) {
 				this.setCodigoExclusao(deletingCode - 1);
 				listaDeMedicamentos.remove(deletingCode);
@@ -139,11 +152,11 @@ public class Medicament extends Produto {
 		this.dosage = posologia;
 	}
 
-	public Registro getRegistro() {
+	public Register getRegistro() {
 		return registration;
 	}
 
-	public void setRegistro(Registro registro) {
+	public void setRegistro(Register registro) {
 		this.registration = registro;
 	}
 

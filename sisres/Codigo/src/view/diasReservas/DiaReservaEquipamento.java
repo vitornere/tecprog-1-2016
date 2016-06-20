@@ -9,10 +9,11 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
-import model.Equipamento;
+import model.Equipment;
+import view.horariosReservas.HorariosReservaPatrimonio;
+import control.EquipmentRegister;
 import view.timeReservations.HoursEquipamentReservation;
 import view.timeReservations.HoursPatrimonyReservation;
-import control.ManterEquipamento;
 import exception.PatrimonyException;
 
 /**
@@ -21,11 +22,11 @@ import exception.PatrimonyException;
  */
 public class DiaReservaEquipamento extends PatrimonyReserveDay {
 
-    Equipamento eq;
+    Equipment eq;
 
     public DiaReservaEquipamento(Frame parent, boolean modal, int indexEquipamento) throws SQLException, PatrimonyException {
         super(parent, modal);
-        eq = ManterEquipamento.getInstance().getEquipamento_vet().get(indexEquipamento);
+        eq = EquipmentRegister.getNewEquipment().getVectorEquipments().get(indexEquipamento);
     }
 
     @Override protected void viewAction(String data) {

@@ -25,7 +25,7 @@ public class ClassroomDAO {
 	private static final String EXISTING_CODE = "Sala com o mesmo codigo ja cadastrada.";
 
 	/**
-	 * Current instance
+	 * Save current instance
 	 */
 	private static ClassroomDAO instance;
 
@@ -59,10 +59,10 @@ public class ClassroomDAO {
 		//Verify if is a valid student.
 		if (classroom != null) {
 			//Try to execute statement.
-			if (!this.inDBCode(classroom.getCode())) {
+			if (!this.inDBCode(classroom.getIdEquipment())) {
 				this.updateQuery(
-						"INSERT INTO " + "sala (codigo, descricao, capacidade) VALUES (" + "\"" + classroom.getCode()
-								+ "\", " + "\"" + classroom.getDescription() + "\", " + classroom.getCapacity() + ");");
+						"INSERT INTO " + "sala (codigo, descricao, capacidade) VALUES (" + "\"" + classroom.getIdEquipment()
+								+ "\", " + "\"" + classroom.getDescriptionEquipment() + "\", " + classroom.getCapacity() + ");");
 			} else {
 				throw new PatrimonyException(EXISTING_CODE);
 			}
@@ -90,15 +90,15 @@ public class ClassroomDAO {
 				if (this.inDB(old_classroom)) {
 					if (this.inOtherDB(old_classroom)) {
 
-						if (old_classroom.getCode().equals(new_classroom.getCode())
-								&& !this.inDBCode(new_classroom.getCode())) {
+						if (old_classroom.getIdEquipment().equals(new_classroom.getIdEquipment())
+								&& !this.inDBCode(new_classroom.getIdEquipment())) {
 							//Try update database.
 							if (!this.inDB(new_classroom)) {
-								String msg = "UPDATE sala SET " + "codigo = \"" + new_classroom.getCode() + "\", "
-										+ "descricao = \"" + new_classroom.getDescription() + "\", " + "capacidade = "
+								String msg = "UPDATE sala SET " + "codigo = \"" + new_classroom.getIdEquipment() + "\", "
+										+ "descricao = \"" + new_classroom.getDescriptionEquipment() + "\", " + "capacidade = "
 										+ new_classroom.getCapacity() + " WHERE " + "sala.codigo = \""
-										+ old_classroom.getCode() + "\" and " + "sala.descricao = \""
-										+ old_classroom.getDescription() + "\" and " + "sala.capacidade = "
+										+ old_classroom.getIdEquipment() + "\" and " + "sala.descricao = \""
+										+ old_classroom.getDescriptionEquipment() + "\" and " + "sala.capacidade = "
 										+ old_classroom.getCapacity() + ";";
 								connection.setAutoCommit(false);
 								preopare_query_to_execute = connection.prepareStatement(msg);
@@ -142,8 +142,8 @@ public class ClassroomDAO {
 			if (!this.inOtherDB(classroom)) {
 				//Try to remove student from database.
 				if (this.inDB(classroom)) {
-					this.updateQuery("DELETE FROM sala WHERE " + "sala.codigo = \"" + classroom.getCode() + "\" and "
-							+ "sala.descricao = \"" + classroom.getDescription() + "\" and " + "sala.capacidade = "
+					this.updateQuery("DELETE FROM sala WHERE " + "sala.codigo = \"" + classroom.getIdEquipment() + "\" and "
+							+ "sala.descricao = \"" + classroom.getDescriptionEquipment() + "\" and " + "sala.capacidade = "
 							+ classroom.getCapacity() + ";");
 				} else {
 					throw new PatrimonyException(NOT_EXISTING_CLASSROOM);
@@ -165,7 +165,7 @@ public class ClassroomDAO {
 	 */
 
 	public Vector<Classroom> searchAll() throws SQLException, PatrimonyException {
-		return this.buscar("SELECT * FROM sala;");
+		return this.search("SELECT * FROM sala;");
 	}
 	
 	/**
@@ -178,7 +178,7 @@ public class ClassroomDAO {
 	 */
 
 	public Vector<Classroom> searchCode(String code) throws SQLException, PatrimonyException {
-		return this.buscar("SELECT * FROM sala WHERE codigo = " + "\"" + code + "\";");
+		return this.search("SELECT * FROM sala WHERE codigo = " + "\"" + code + "\";");
 	}
 	
 	/**
@@ -191,7 +191,7 @@ public class ClassroomDAO {
 	 */
 
 	public Vector<Classroom> searchDescription(String description) throws SQLException, PatrimonyException {
-		return this.buscar("SELECT * FROM sala WHERE descricao = " + "\"" + description + "\";");
+		return this.search("SELECT * FROM sala WHERE descricao = " + "\"" + description + "\";");
 	}
 	
 	/**
@@ -204,7 +204,7 @@ public class ClassroomDAO {
 	 */
 
 	public Vector<Classroom> searchCapacity(String value) throws SQLException, PatrimonyException {
-		return this.buscar("SELECT * FROM sala WHERE capacidade = " + value + ";");
+		return this.search("SELECT * FROM sala WHERE capacidade = " + value + ";");
 	}
 	
 	/**
@@ -216,7 +216,7 @@ public class ClassroomDAO {
 	 * @throws PatrimonyException
 	 */
 
-	private Vector<Classroom> buscar(String query) throws SQLException, PatrimonyException {
+	private Vector<Classroom> search(String query) throws SQLException, PatrimonyException {
 		//Start connection
 		Connection connection = FactoryConnection.getInstance().getConnection();
 		PreparedStatement prepare_query_to_execute = connection.prepareStatement(query);
@@ -273,8 +273,8 @@ public class ClassroomDAO {
 	 */
 
 	private boolean inDB(Classroom classroom) throws SQLException {
-		return this.inDBGeneric("SELECT * FROM sala WHERE " + "sala.codigo = \"" + classroom.getCode() + "\" and "
-				+ "sala.descricao = \"" + classroom.getDescription() + "\" and " + "sala.capacidade = "
+		return this.inDBGeneric("SELECT * FROM sala WHERE " + "sala.codigo = \"" + classroom.getIdEquipment() + "\" and "
+				+ "sala.descricao = \"" + classroom.getDescriptionEquipment() + "\" and " + "sala.capacidade = "
 				+ classroom.getCapacity() + ";");
 	}
 	
@@ -301,12 +301,12 @@ public class ClassroomDAO {
 	private boolean inOtherDB(Classroom classroom) throws SQLException {
 		boolean verification = true;
 		if (this.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE "
-				+ "id_sala = (SELECT id_sala FROM sala WHERE " + "sala.codigo = \"" + classroom.getCode() + "\" and "
-				+ "sala.descricao = \"" + classroom.getDescription() + "\" and " + "sala.capacidade = "
+				+ "id_sala = (SELECT id_sala FROM sala WHERE " + "sala.codigo = \"" + classroom.getIdEquipment() + "\" and "
+				+ "sala.descricao = \"" + classroom.getDescriptionEquipment() + "\" and " + "sala.capacidade = "
 				+ classroom.getCapacity() + " );") == true) {
 			if (this.inDBGeneric("SELECT * FROM reserva_sala_aluno WHERE "
-					+ "id_sala = (SELECT id_sala FROM sala WHERE " + "sala.codigo = \"" + classroom.getCode()
-					+ "\" and " + "sala.descricao = \"" + classroom.getDescription() + "\" and " + "sala.capacidade = "
+					+ "id_sala = (SELECT id_sala FROM sala WHERE " + "sala.codigo = \"" + classroom.getIdEquipment()
+					+ "\" and " + "sala.descricao = \"" + classroom.getDescriptionEquipment() + "\" and " + "sala.capacidade = "
 					+ classroom.getCapacity() + " );") == false) {
 				verification = false;
 			} else {

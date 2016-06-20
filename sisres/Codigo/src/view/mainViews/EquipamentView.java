@@ -7,11 +7,11 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import model.Equipamento;
+import model.Equipment;
 import view.alteracoes.ChangeEquipment;
 import view.cadastros.EquipmentRegistration;
 import view.diasReservas.EquipmentReserveDay;
-import control.ManterEquipamento;
+import control.EquipmentRegister;
 import exception.PatrimonyException;
 
 /**
@@ -27,7 +27,8 @@ public class EquipamentView extends PratimonyView {
         this.setName("EquipamentoView");
     }
 
-    private Vector<String> fillDataVector(Equipamento equipament) {
+    private Vector<String> fillDataVector(Equipment equipament) {
+
 
         if (equipament == null) {
             return null;
@@ -35,8 +36,8 @@ public class EquipamentView extends PratimonyView {
 
         Vector<String> tableNames = new Vector<String>();
 
-        tableNames.add(equipament.getCode());
-        tableNames.add(equipament.getDescription());
+        tableNames.add(equipament.getIdEquipment());
+        tableNames.add(equipament.getDescriptionEquipment());
 
         return tableNames;
 
@@ -46,13 +47,13 @@ public class EquipamentView extends PratimonyView {
         try {
             DefaultTableModel table = new DefaultTableModel();
 
-            Iterator<Equipamento> i = control.ManterEquipamento.getInstance().getEquipamento_vet().iterator();
+            Iterator<Equipment> i = control.EquipmentRegister.getNewEquipment().getVectorEquipments().iterator();
 
             table.addColumn("Codigo");
             table.addColumn("Descricao");
 
             while (i.hasNext()) {
-                Equipamento equipamento = i.next();
+                Equipment equipamento = i.next();
                 table.addRow(fillDataVector(equipamento));
             }
             
@@ -89,15 +90,15 @@ public class EquipamentView extends PratimonyView {
 
         try {
             int confirm = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir Equipamento: "
-                    + ManterEquipamento.getInstance().getEquipamento_vet().get(index).getDescription() + "?", "Excluir",
+                    + EquipmentRegister.getNewEquipment().getVectorEquipments().get(index).getDescriptionEquipment() + "?", "Excluir",
                     JOptionPane.YES_NO_OPTION);
 
 
             if (confirm == JOptionPane.YES_OPTION) {
-                ManterEquipamento.getInstance().excluir(ManterEquipamento.getInstance().getEquipamento_vet()
-                				 .get(index));
-                JOptionPane.showMessageDialog(this, "Equipamento excluido com sucesso", "Sucesso", 
-                							  JOptionPane.INFORMATION_MESSAGE, null);
+                EquipmentRegister.getNewEquipment().delete(EquipmentRegister.getNewEquipment().getVectorEquipments().get(index));
+                JOptionPane.showMessageDialog(this, "Equipamento excluido com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
+                        null);
+
             }
             this.patrimonyTable.setModel(fillTable());
 

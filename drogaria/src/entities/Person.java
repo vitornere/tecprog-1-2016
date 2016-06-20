@@ -1,14 +1,6 @@
-/**
- * This class is a super class of Clerk, Client and Cashier, and keeps personal information
- */
-
 package entities;
 
-public class Person extends Administrativo {
-
-	/*
-	 * Personal information attributes
-	 */
+public class Person extends Administrative {
 	protected String rg; 
 	protected String cpf;
 	protected int digitoCpf;
@@ -46,6 +38,7 @@ public class Person extends Administrativo {
 	 * @param enderecoPessoa
 	 * @param telefonePessoa
 	 */
+
 	public Person(String nomePessoa, String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
 		this.nome = nomePessoa;
 		this.sobrenome = sobrenomePessoa;
@@ -147,7 +140,7 @@ public class Person extends Administrativo {
 		return this.salario;
 	}
 
-	public String getRg() {
+	public String getIdentity() {
 		return rg;
 	}
 
@@ -155,7 +148,7 @@ public class Person extends Administrativo {
 		this.rg = rg;
 	}
 
-	public String getCpf() {
+	public String getCpfPerson() {
 		return cpf;
 	}
 
@@ -163,7 +156,7 @@ public class Person extends Administrativo {
 		this.cpf = cpf;
 	}
 
-	public int getDigitoCpf() {
+	public int getDigitCpfPerson() {
 		return digitoCpf;
 	}
 
@@ -179,7 +172,8 @@ public class Person extends Administrativo {
 		this.nome = nome;
 	}
 
-	public String getLastName() {
+	public String getPastName() {
+
 		return sobrenome;
 	}
 
@@ -187,7 +181,7 @@ public class Person extends Administrativo {
 		this.sobrenome = sobrenome;
 	}
 
-	public String getEndereco() {
+	public String getAddress() {
 		return endereco;
 	}
 
@@ -207,8 +201,9 @@ public class Person extends Administrativo {
 		return confirmacaoPagamento;
 	}
 
-	public static void setConfirmacaoPagamento(double confirmacaoPagamento) {
+	public static void setPaymentConfirmation(double confirmacaoPagamento) {
 		Person.confirmacaoPagamento = confirmacaoPagamento;
 	}
+
 
 }

@@ -11,11 +11,11 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import model.Classroom;
-import control.ManterResSalaAluno;
-import control.ManterResSalaProfessor;
-import exception.ClienteException;
+import control.ReserveClassroomForStudentRegister;
+import control.ReserveClassroomForProfessorRegister;
+import exception.ClientException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class FazerReservaSalaView extends ReservaSalaView {
 
@@ -32,7 +32,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
 	 * @throws ReservaException
 	 */
 	public FazerReservaSalaView(Frame parent, boolean modal, Classroom sala, String data) throws SQLException, PatrimonyException,
-            PatrimonyException, ClienteException, ReservaException {
+            PatrimonyException, ClientException, ReserveException {
         super(parent, modal);
         this.sala = sala;
         this.dataTextField.setText(data);
@@ -50,21 +50,21 @@ public class FazerReservaSalaView extends ReservaSalaView {
 	 */
     @Override protected void reservarAluno() {
         try {
-            instanceAluno.inserir(sala, aluno, this.dataTextField.getText(), this.horaTextField.getText(),
+            instanceAluno.insert(sala, aluno, this.dataTextField.getText(), this.horaTextField.getText(),
                     this.finalidadeTextField.getText(), this.qntCadeirasReservadasTextField.getText());
 
-            instanceAluno.getResAlunoSala_vet();
+            instanceAluno.getVectorReserveClassroomForStudent();
             // System.out.println(v.toString());
 
             JOptionPane.showMessageDialog(this, "Reserva feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
 
             this.setVisible(false);
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
@@ -84,13 +84,13 @@ public class FazerReservaSalaView extends ReservaSalaView {
     @Override protected void reservarProfessor() {
         try {
 
-            instanceProf.inserir(sala, prof, this.dataTextField.getText(), this.horaTextField.getText(),
+            instanceProf.insert(sala, prof, this.dataTextField.getText(), this.horaTextField.getText(),
                     this.finalidadeTextField.getText());
 
             JOptionPane.showMessageDialog(this, "Reserva feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
 
             this.setVisible(false);
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -108,7 +108,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
         this.qntCadeirasReservadasTextField.setEditable(false);
         this.qntCadeirasReservadasTextField.setBackground(new Color(200, 208, 254));
         this.qntCadeirasReservadasTextField.setText(this.qntCadeirasTxtField.getText());
-        this.instanceProf = ManterResSalaProfessor.getInstance();
+        this.instanceProf = ReserveClassroomForProfessorRegister.getInstance();
         this.instanceAluno = null;
         this.verificarCadeiraButton.setEnabled(false);
         
@@ -119,7 +119,7 @@ public class FazerReservaSalaView extends ReservaSalaView {
      * @see view.reservasSalas.ReservaSalaView#alunoRadioButtonAction()
      */
     @Override protected void alunoRadioButtonAction() {
-        this.instanceAluno = ManterResSalaAluno.getInstance();
+        this.instanceAluno = ReserveClassroomForStudentRegister.getInstance();
         this.alunoLabel.setText(this.alunoRadioButton.getText() + ": ");
         this.alunoTextArea.setText("");
         this.cpfTextField.setText("");
@@ -138,14 +138,14 @@ public class FazerReservaSalaView extends ReservaSalaView {
      */
     @Override protected void verificarAction() {
         try {
-            this.qntCadeirasTxtField.setText(String.valueOf(instanceAluno.cadeirasDisponveis(sala, this.dataTextField.getText(),
+            this.qntCadeirasTxtField.setText(String.valueOf(instanceAluno.chairsAvailable(sala, this.dataTextField.getText(),
                     this.horaTextField.getText())));
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {

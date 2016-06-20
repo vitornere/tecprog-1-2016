@@ -3,18 +3,26 @@ package Console;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import entities.Clerk;
 import entities.Cashier;
+import entities.Clerk;
 import entities.Client;
-import entities.ConsoleMenu;
+import entities.Complementary;
 import entities.Medicament;
 
 public class Console {
 
+	private static final int BEGINNING_OF_THE_PROGRAM = 0;
+	private static final int PASS_OF_START_MENU = 1;
+	private static final int CLERK = 2;
+	private static final int CASHIER = 3;
+	private static final int CLIENT = 4;
+	private static final int MEDICAMENT = 5;
+	private static final int HELP = 6;
+	private static final int EXIT = 100;
+
 	private static Scanner scanner;
 
 	public Console() {
-
 	}
 
 	/**
@@ -23,188 +31,183 @@ public class Console {
 	public static void main(String[] args) {
 		scanner = new Scanner(System.in);
 
-		// Atributos
+		ArrayList<Clerk> listOfClerks = new ArrayList<Clerk>();
+		ArrayList<Cashier> listOfCashier = new ArrayList<Cashier>();
+		ArrayList<Client> listOfClients = new ArrayList<Client>();
+		ArrayList<Medicament> listOfMedicaments = new ArrayList<Medicament>();
 
-		ArrayList<Clerk> listaDeBalconistas = new ArrayList<Clerk>();
-		ArrayList<Cashier> listaDeCaixas = new ArrayList<Cashier>();
-		ArrayList<Client> clientsList = new ArrayList<Client>();
-		ArrayList<Medicament> listaDeMedicamentos = new ArrayList<Medicament>();
-
-		Clerk balconista = new Clerk();
-		Cashier caixa = new Cashier();
-		Client cliente = new Client();
+		Clerk clerk = new Clerk();
+		Cashier cashier = new Cashier();
+		Client client = new Client();
 		Medicament medicament = new Medicament();
 
-		ConsoleMenu complementar = new ConsoleMenu();
+		Complementary complementary = new Complementary();
 
-		int operacao = 0;
-		int operacaoBalconista = 0;
-		int operacaoCaixa = 0;
-		int operacaoCliente = 0;
-		int operacaoMedicamento = 0;
+		int operation = 0;
+		int operationOfClerk = 0;
+		int operationOfCashier = 0;
+		int operationOfClient = 0;
+		int operationOfMedicament = 0;
 
-		int estados = 0;
+		int status = 0;
 
-		/*
-		 * Lista de estados:
-		 * 0 = Inicio do programa, menu do que se deseja fazer
-		 * 1 = Passou do menu inicial, volta pro menu do q se deseja fazer (balconista, caixa etc.)
-		 * 2 = balconista
-		 * 3 = caixa
-		 * 4 = cliente
-		 * 5 = medicamento
-		 */
+		while (status != EXIT) {
+			if (status == BEGINNING_OF_THE_PROGRAM) {
 
-		while (estados != 100) {
-			if (estados == 0) {
+				clerk.startMenu();
 
-				balconista.menuInicial();
+				operation = scanner.nextInt();
 
-				operacao = scanner.nextInt();
+				assert ((operation >= BEGINNING_OF_THE_PROGRAM) && (operation <= MEDICAMENT)) : "Numero invalido: "
+						+ operation; // If you enter the wrong number, exit the
+										// program.
 
-				assert ((operacao >= 0) && (operacao <= 5)) : "Numero invalido: " + operacao; // Se digitar numero errado, sai do programa
+				if (operation == BEGINNING_OF_THE_PROGRAM) {
+					status = complementary.GeneralConfirmation(status);
+				} else {
+					status++;
 
-				// Amarra��o para sair
-				if (operacao == 0) {
-					estados = complementar.menuOutputConfirmation(estados);
+					if (status >= PASS_OF_START_MENU && status != EXIT) {
+						// Inside of menu
+						switch (operation) {
+						case PASS_OF_START_MENU:
+							if (operation == PASS_OF_START_MENU) {
+								status = CLERK;
+							}
+							while (status == CLERK) {
+
+								clerk.menuClerk();// Menu of Clerks
+								operationOfClerk = scanner.nextInt();
+								if (operationOfClerk == BEGINNING_OF_THE_PROGRAM) {
+									status = complementary
+											.ConfirmationClerk(status);
+								}
+
+								else if (operationOfClerk == PASS_OF_START_MENU) {
+									clerk.registerClerk(listOfClerks);
+									status = CLERK;
+								}
+
+								else if (operationOfClerk == CLERK) {
+									clerk.listClerks(listOfClerks);
+									status = CLERK;
+								}
+
+								else if (operationOfClerk == CASHIER) {
+									clerk.deleteClerk(listOfClerks);
+									status = CLERK;
+								}
+
+							}
+						case CLERK:
+							if (operation == CLERK) {
+								status = CASHIER;
+							}
+							while (status == CASHIER) {
+
+								cashier.menuCashier();// Menu of Cashier
+								operationOfCashier = scanner.nextInt();
+								if (operationOfCashier == BEGINNING_OF_THE_PROGRAM) {
+									status = complementary
+											.ConfirmationBox(status);
+								}
+
+								else if (operationOfCashier == PASS_OF_START_MENU) {
+									cashier.registerCashier(listOfCashier);
+									status = CASHIER;
+								}
+
+								else if (operationOfCashier == CLERK) {
+									cashier.listCashiers(listOfCashier);
+									status = CASHIER;
+								}
+
+								else if (operationOfCashier == CASHIER) {
+									cashier.deleteCashier(listOfCashier);
+									status = CASHIER;
+								}
+							}
+							break;
+
+						case CASHIER:
+							if (operation == CASHIER) {
+								status = CLIENT;
+							}
+							while (status == CLIENT) {
+								client.menuClient();// Menu of Clients
+								operationOfClient = scanner.nextInt();
+								if (operationOfClient == BEGINNING_OF_THE_PROGRAM) {
+									status = complementary
+											.ConfirmationClient(status);
+								}
+
+								else if (operationOfClient == PASS_OF_START_MENU) {
+									client.registerClient(listOfClients);
+									status = CLIENT;
+								}
+
+								else if (operationOfClient == CLERK) {
+									client.listClients(listOfClients);
+									status = CLIENT;
+								}
+
+								else if (operationOfClient == CASHIER) {
+									client.deleteClient(listOfClients);
+									status = CLIENT;
+								}
+
+							}
+							break;
+
+						case CLIENT:
+							if (operation == CLIENT) {
+								status = MEDICAMENT;
+							}
+							while (status == MEDICAMENT) {
+
+								medicament.menuMedicamento();// Menu of
+															// Medicaments
+								operationOfMedicament = scanner.nextInt();
+								if (operationOfMedicament == BEGINNING_OF_THE_PROGRAM) {
+									status = complementary
+											.ConfirmationMedicament(status);
+								}
+
+								else if (operationOfMedicament == PASS_OF_START_MENU) {
+									medicament
+											.cadastrarMedicamento(listOfMedicaments);
+									status = MEDICAMENT;
+								}
+
+								else if (operationOfMedicament == CLERK) {
+									medicament
+											.listarMedicamentos(listOfMedicaments);
+									status = MEDICAMENT;
+								}
+
+								else if (operationOfMedicament == CASHIER) {
+									medicament
+											.excluirMedicamento(listOfMedicaments);
+									status = MEDICAMENT;
+								}
+
+							}
+							break;
+
+						case MEDICAMENT:
+							if (operation == MEDICAMENT) {
+								status = HELP;
+							}
+							while (status == HELP) {
+								status = complementary.menuHelp(status);
+							}
+
+						}
+					}
 				}
-				else {
-					estados++;
-
-					if (estados >= 1 && estados != 100) {
-						// Dentro do menu
-						switch (operacao) {
-						case 1:
-							if (operacao == 1) {
-								estados = 2;
-							}
-							while (estados == 2) {
-
-								balconista.menuBalconista();// Menu de balconistas
-								operacaoBalconista = scanner.nextInt();
-								if (operacaoBalconista == 0) {
-									estados = complementar.clerkConfirmation(estados);
-								}
-
-								else if (operacaoBalconista == 1) {
-									balconista.cadastrarBalconista(listaDeBalconistas);
-									estados = 2;
-								}
-
-								else if (operacaoBalconista == 2) {
-									balconista.listarBalconistas(listaDeBalconistas);
-									estados = 2;
-								}
-
-								else if (operacaoBalconista == 3) {
-									balconista.excluirBalconista(listaDeBalconistas);
-									estados = 2;
-								}
-
-								// Fecha o if de balconista
-							}// if de estados = 2;
-						case 2:
-							if (operacao == 2) {
-								estados = 3;
-							}
-							while (estados == 3) {
-
-								caixa.cashierMenu();// Menu caixa
-								operacaoCaixa = scanner.nextInt();
-								if (operacaoCaixa == 0) {
-									estados = complementar.confirmacaoCaixa(estados);
-								}
-
-								else if (operacaoCaixa == 1) {
-									caixa.cashierRegister(listaDeCaixas);
-									estados = 3;
-								}
-
-								else if (operacaoCaixa == 2) {
-									caixa.listCashiers(listaDeCaixas);
-									estados = 3;
-								}
-
-								else if (operacaoCaixa == 3) {
-									caixa.deleteCashier(listaDeCaixas);
-									estados = 3;
-								}
-							}
-							break;
-
-						case 3:
-							if (operacao == 3) {
-								estados = 4;
-							}
-							while (estados == 4) {
-
-								cliente.clientMenu();// Menu cliente
-								operacaoCliente = scanner.nextInt();
-								if (operacaoCliente == 0) {
-									estados = complementar.ConfirmacaoCliente(estados);
-								}
-
-								else if (operacaoCliente == 1) {
-									cliente.clientRegister(clientsList);
-									estados = 4;
-								}
-
-								else if (operacaoCliente == 2) {
-									cliente.listCLients(clientsList);
-									estados = 4;
-								}
-
-								else if (operacaoCliente == 3) {
-									cliente.deleteClient(clientsList);
-									estados = 4;
-								}
-
-							}
-							break;
-
-						case 4:
-							if (operacao == 4) {
-								estados = 5;
-							}
-							while (estados == 5) {
-
-								medicament.menuMedicamento();// Menu Medicamento
-								operacaoMedicamento = scanner.nextInt();
-								if (operacaoMedicamento == 0) {
-									estados = complementar.ConfirmacaoMedicamento(estados);
-								}
-
-								else if (operacaoMedicamento == 1) {
-									medicament.cadastrarMedicamento(listaDeMedicamentos);
-									estados = 5;
-								}
-
-								else if (operacaoMedicamento == 2) {
-									medicament.listarMedicamentos(listaDeMedicamentos);
-									estados = 5;
-								}
-
-								else if (operacaoMedicamento == 3) {
-									medicament.excluirMedicamento(listaDeMedicamentos);
-									estados = 5;
-								}
-
-							}
-							break;
-
-						case 5:
-							if (operacao == 5) {
-								estados = 6;
-							}
-							while (estados == 6) {
-								estados = complementar.menuAjuda(estados);
-							}
-
-						}// Saindo do Switch principal
-					}// Saindo do if de estados = 1
-				}
-			}// Estados = 0
-		}// Saindo do While de estados != 100 / fim do programa
-		System.out.println("Obrigado por usar nosso sistema de ger�ncia!" + " Saindo do programa!");
+			}
+		}
+		System.out.println("Thank you for using our management system!"
+				+ " Exiting the program!");
 	}
 }

@@ -9,21 +9,21 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 
 import model.Professor;
-import control.ManterProfessor;
-import control.ManterResEquipamentoProfessor;
-import exception.ClienteException;
+import control.ProfessorRegister;
+import control.ReserveEquipmentProfessorRegister;
+import exception.ClientException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
 
-    protected ManterResEquipamentoProfessor instanceProf; // Object of professor's reservation
-    protected Professor prof; // Object of professor
+    protected ReserveEquipmentProfessorRegister instanceProf;
+    protected Professor prof;
 
     public ReservaEquipamentoView(java.awt.Frame parent, boolean modal) throws SQLException, PatrimonyException,
-            PatrimonyException, ClienteException, ReservaException {
+            PatrimonyException, ClientException, ReserveException {
         super(parent, modal);
-        this.instanceProf = ManterResEquipamentoProfessor.getInstance();
+        this.instanceProf = ReserveEquipmentProfessorRegister.getInstanceEquipmentProfessor();
 
         initComponents();
     }
@@ -36,7 +36,7 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
      */
     protected void getProfessor() {
         try {
-            Vector<Professor> professor = ManterProfessor.getInstance().buscarCpf(this.cpfTextField.getText());
+            Vector<Professor> professor = ProfessorRegister.getInstance().searchCpfProfessor(this.cpfTextField.getText());
             if (professor.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Professor nao Cadastrado."
                         + " Digite o CPF correto ou cadastre o professor desejado", "Erro", JOptionPane.ERROR_MESSAGE, null);
@@ -44,7 +44,7 @@ public abstract class ReservaEquipamentoView extends javax.swing.JDialog {
             }
             this.prof = professor.firstElement();
             this.professorTextArea.setText(professor.firstElement().toString());
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

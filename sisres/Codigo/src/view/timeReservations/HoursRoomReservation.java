@@ -4,6 +4,7 @@
  */
 package view.timeReservations;
 
+import java.awt.HeadlessException;
 import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -13,19 +14,20 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-import model.Patrimonio;
-import model.ReservaSalaAluno;
-import model.ReservaSalaProfessor;
+
+import model.Patrimony;
+import model.ReserveClassroomForStudent;
+import model.ReserveClassroomForProfessor;
 import model.Classroom;
 import view.reservasSalas.AlterarReservaAlunoSalaView;
 import view.reservasSalas.AlterarReservaProfSalaView;
 import view.reservasSalas.FazerReservaSalaView;
 import view.reservasSalas.ReservaSalaView;
-import control.ManterResSalaAluno;
-import control.ManterResSalaProfessor;
-import exception.ClienteException;
+import control.ReserveClassroomForStudentRegister;
+import control.ReserveClassroomForProfessorRegister;
+import exception.ClientException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 /**
  * 
@@ -33,54 +35,48 @@ import exception.ReservaException;
  */
 public class HoursRoomReservation extends HoursPatrimonyReservation {
 
-    ManterResSalaAluno instanceAluno;
-    ManterResSalaProfessor instanceProf;
 
+    ReserveClassroomForStudentRegister instanceAluno;
+    ReserveClassroomForProfessorRegister instanceProf;
     Classroom room;
 
     public HoursRoomReservation(java.awt.Frame parent, boolean modal, String data, Classroom room) {
         super(parent, modal, data, room);
         
         this.room = room;
-        
         this.setName("HorarioReservaSala");
     }
 
     protected Vector<String> fillDataVector(Object o, int index) {
         Vector<String> nomesTabela = new Vector<String>();
-        if (o instanceof ReservaSalaAluno) {
-            ReservaSalaAluno r = (ReservaSalaAluno) o;
-            
-            if (this.room != null && (r.getSala().equals(this.room))) {
+        if (o instanceof ReserveClassroomForStudent) {
+            ReserveClassroomForStudent r = (ReserveClassroomForStudent) o;
+            if (this.room != null && (r.getClassroom().equals(this.room))) {
                 nomesTabela.add(String.valueOf(index));
                 nomesTabela.add("Aluno");
-                nomesTabela.add(r.getHora());
-                nomesTabela.add(r.getAluno().getNome());
-                nomesTabela.add(r.getAluno().getMatricula());
-                nomesTabela.add(r.getFinalidade());
-                nomesTabela.add(r.getSala().getCode());
-                nomesTabela.add(r.getSala().getDescription());
-                nomesTabela.add(r.getCadeiras_reservadas());
-                nomesTabela.add(r.getSala().getCapacity());
+                nomesTabela.add(r.getHour());
+                nomesTabela.add(r.getStudent().getNamePerson());
+                nomesTabela.add(r.getStudent().getIdRegister());
+                nomesTabela.add(r.getFinality());
+                nomesTabela.add(r.getClassroom().getIdEquipment());
+                nomesTabela.add(r.getClassroom().getDescriptionEquipment());
+                nomesTabela.add(r.getReservedChairs());
+                nomesTabela.add(r.getClassroom().getCapacity());
             }
-            else {
-            	// Nothing to do
-            }
-        } else if (o instanceof ReservaSalaProfessor) {
-            ReservaSalaProfessor r = (ReservaSalaProfessor) o;
-            
-            if (this.room != null && (r.getSala().equals(this.room))) {
+        } else if (o instanceof ReserveClassroomForProfessor) {
+            ReserveClassroomForProfessor r = (ReserveClassroomForProfessor) o;
+            if (this.room != null && (r.getClassroom().equals(this.room))) {
 
                 nomesTabela.add(String.valueOf(index));
                 nomesTabela.add("Professor");
-                nomesTabela.add(r.getHora());
-                nomesTabela.add(r.getProfessor().getNome());
-                nomesTabela.add(r.getProfessor().getMatricula());
-                nomesTabela.add(r.getFinalidade());
-                nomesTabela.add(r.getSala().getCode());
-                nomesTabela.add(r.getSala().getDescription());
-                nomesTabela.add(r.getSala().getCapacity());
-                nomesTabela.add(r.getSala().getCapacity());
+                nomesTabela.add(r.getHour());
+                nomesTabela.add(r.getProfessor().getNamePerson());
+                nomesTabela.add(r.getProfessor().getIdRegister());
+                nomesTabela.add(r.getFinality());
+                nomesTabela.add(r.getClassroom().getIdEquipment());
+                nomesTabela.add(r.getClassroom().getDescriptionEquipment());
+                nomesTabela.add(r.getClassroom().getCapacity());
+                nomesTabela.add(r.getClassroom().getCapacity());
             }
             else {
             	// Nothing to do
@@ -94,11 +90,12 @@ public class HoursRoomReservation extends HoursPatrimonyReservation {
 
     }
 
-    @Override protected DefaultTableModel fillTable(Patrimonio sala) {
+
+    @Override protected DefaultTableModel fillTable(Patrimony sala) {
         this.room = (Classroom) sala;
         DefaultTableModel table = new DefaultTableModel();
-        instanceAluno = ManterResSalaAluno.getInstance();
-        instanceProf = ManterResSalaProfessor.getInstance();
+        instanceAluno = ReserveClassroomForStudentRegister.getInstance();
+        instanceProf = ReserveClassroomForProfessorRegister.getInstance();
         table.addColumn("");
         table.addColumn("Tipo:");
         table.addColumn("Hora:");
@@ -113,7 +110,7 @@ public class HoursRoomReservation extends HoursPatrimonyReservation {
         this.month = Integer.parseInt(this.data.substring(3, 5));
 
         try {
-            Vector v = instanceProf.buscarPorData(this.data);
+            Vector v = instanceProf.searchForDate(this.data);
 
             if (v != null) {
                 for (int i = 0; i < v.size(); i++) {
@@ -129,9 +126,8 @@ public class HoursRoomReservation extends HoursPatrimonyReservation {
             else {
             	// Nothing to do
             }
-
             v.clear();
-            v = instanceAluno.getReservasMes(this.data);
+            v = instanceAluno.getMonthReservations(this.data);
             
             if (v != null) {
                 for (int i = 0; i < v.size(); i++) {
@@ -153,9 +149,9 @@ public class HoursRoomReservation extends HoursPatrimonyReservation {
             Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
         } catch (PatrimonyException ex) {
             Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException ex) {
             Logger.getLogger(HoursPatrimonyReservation.class.getName()).log(Level.SEVERE, null, ex);
@@ -172,11 +168,11 @@ public class HoursRoomReservation extends HoursPatrimonyReservation {
             
             if (tipoCliente.equals("Aluno")) {
                 int confirm = JOptionPane.showConfirmDialog(this,
-                        "Deseja mesmo excluir Reserva?\n" + instanceAluno.getReservasMes(data).get(index).toString(), "Excluir",
+                        "Deseja mesmo excluir Reserva?\n" + instanceAluno.getMonthReservations(data).get(index).toString(), "Excluir",
                         JOptionPane.YES_NO_OPTION);
 
                 if (confirm == JOptionPane.YES_OPTION) {
-                    this.instanceAluno.excluir(instanceAluno.getReservasMes(data).get(index));
+                    this.instanceAluno.delete(instanceAluno.getMonthReservations(data).get(index));
                     JOptionPane.showMessageDialog(this, "Reserva excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                             null);
                 }
@@ -185,11 +181,11 @@ public class HoursRoomReservation extends HoursPatrimonyReservation {
                 }
             } else if (tipoCliente.equals("Professor")) {
                 int confirm = JOptionPane.showConfirmDialog(this,
-                        "Deseja mesmo excluir Reserva?\n" + instanceProf.buscarPorData(data).get(index).toString(), "Excluir",
+                        "Deseja mesmo excluir Reserva?\n" + instanceProf.searchForDate(data).get(index).toString(), "Excluir",
                         JOptionPane.YES_NO_OPTION);
 
                 if (confirm == JOptionPane.YES_OPTION) {
-                    this.instanceProf.excluir(instanceProf.buscarPorData(data).get(index));
+                    this.instanceProf.delete(instanceProf.searchForDate(data).get(index));
                     JOptionPane.showMessageDialog(this, "Reserva excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE,
                             null);
                 }
@@ -205,9 +201,9 @@ public class HoursRoomReservation extends HoursPatrimonyReservation {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         }
     }
@@ -220,9 +216,9 @@ public class HoursRoomReservation extends HoursPatrimonyReservation {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (PatrimonyException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ClienteException ex) {
+        } catch (ClientException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         }
     }
@@ -243,12 +239,14 @@ public class HoursRoomReservation extends HoursPatrimonyReservation {
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (PatrimonyException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ClienteException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        } catch (ReservaException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
-        }
+        } catch (HeadlessException ex) {
+        	JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+		} catch (PatrimonyException ex) {
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+		} catch (ClientException ex) {
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+		} catch (ReserveException ex) {
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
+		}
     }
 }

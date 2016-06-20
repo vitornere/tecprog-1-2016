@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import control.ManterSala;
+import control.ClassroomRegister;
 import exception.PatrimonyException;
 
 public class ClassroomRegistration extends PatrimonyRegistration {
@@ -33,7 +33,7 @@ public class ClassroomRegistration extends PatrimonyRegistration {
 	protected void registrationAction() {
 		try {
 
-			ManterSala.getInstance().inserir(codeTxtField.getText(), discriptionTextArea.getText(),
+			ClassroomRegister.getInstance().insert(codeTxtField.getText(), discriptionTextArea.getText(),
 					capacityTxtField.getText());
 
 			JOptionPane.showMessageDialog(this, "Sala Cadastrada com sucesso", "Sucesso",

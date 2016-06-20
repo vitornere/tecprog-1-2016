@@ -1,30 +1,28 @@
 package model;
 
-import exception.ClienteException;
+import exception.ClientException;
+import exception.PatrimonyException;
 
-public class Professor extends Cliente {
-	
-	//Mensagens de Erro e Alertas
-		//private final String MATRICULA_INVALIDO = "Matricula Invalida.";
-		private final String MATRICULA_BRANCO = "Matricula em Branco.";
-		private final String MATRICULA_NULO = "Matricula esta Nula.";
-		
-	
-	public Professor(String nome, String cpf, String matricula,
-			String telefone, String email) throws ClienteException {
-		super(nome, cpf, matricula, telefone, email);
+public class Professor extends Client {
+
+	private final String EMPTY_ID_PROFESSOR = "Matricula em Branco.";
+	private final String NULL_ID_PROFESSOR = "Matricula esta Nula.";
+
+	public Professor(String nameProfessor, String cpfProfessor,
+			String idProfessor, String phoneProfessor, String emailProfessor)
+			throws ClientException {
+		super(nameProfessor, cpfProfessor, idProfessor, phoneProfessor,
+				emailProfessor);
 	}
 
-	public void setMatricula(String matricula) throws ClienteException {
-		if(matricula == null)
-			throw new ClienteException(MATRICULA_NULO);
-		else if("".equals(matricula.trim()))
-			throw new ClienteException(MATRICULA_BRANCO);
-		//else if(matricula.matches("PATTERN"))
-			//super.matricula = matricula;
-		//else
-			//throw new ClienteException(MATRICULA_INVALIDO);
-		super.matricula = matricula;//
+	public void setIdPerson(String idProfessor) throws ClientException {
+		if ((idProfessor != null) || (!("".equals(idProfessor.trim())))) {
+			super.idClient = idProfessor;
+		} else if (idProfessor == null) {
+			throw new ClientException(NULL_ID_PROFESSOR);
+		} else {
+			throw new ClientException(EMPTY_ID_PROFESSOR);
+		}
 	}
-	
+
 }

@@ -15,7 +15,7 @@ import view.alteracoes.ChangeClassroom;
 import view.cadastros.PatrimonyRegistration;
 import view.cadastros.ClassroomRegistration;
 import view.diasReservas.ClassRoomReserveDay;
-import control.ManterSala;
+import control.ClassroomRegister;
 import exception.PatrimonyException;
 
 public class SalaView extends PratimonyView {
@@ -44,8 +44,8 @@ public class SalaView extends PratimonyView {
 
         Vector<String> nomesTabela = new Vector<String>();
 
-        nomesTabela.add(sala.getCode());
-        nomesTabela.add(sala.getDescription());
+        nomesTabela.add(sala.getIdEquipment());
+        nomesTabela.add(sala.getDescriptionEquipment());
         nomesTabela.add(sala.getCapacity());
 
         return nomesTabela;
@@ -62,7 +62,8 @@ public class SalaView extends PratimonyView {
         try {
             DefaultTableModel table = new DefaultTableModel();
 
-            Iterator<Classroom> i = ManterSala.getInstance().getSalas_vet().iterator();
+            Iterator<Classroom> i = ClassroomRegister.getInstance().getVectorClassroom().iterator();
+
 
             table.addColumn("Codigo");
             table.addColumn("Nome");
@@ -116,11 +117,11 @@ public class SalaView extends PratimonyView {
         try {
             int confirm = JOptionPane
                     .showConfirmDialog(this, "Deseja mesmo excluir Sala: "
-                            + ManterSala.getInstance().getSalas_vet().get(index).getDescription() + "?", "Excluir",
+                            + ClassroomRegister.getInstance().getVectorClassroom().get(index).getDescriptionEquipment() + "?", "Excluir",
                             JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
-                ManterSala.getInstance().excluir(ManterSala.getInstance().getSalas_vet().get(index));
+                ClassroomRegister.getInstance().delete(ClassroomRegister.getInstance().getVectorClassroom().get(index));
                 JOptionPane.showMessageDialog(this, "Sala excluida com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
             }
             this.patrimonyTable.setModel(fillTable());

@@ -8,14 +8,15 @@ import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
-import model.Equipamento;
-import exception.ClienteException;
+import model.Equipment;
+import exception.ClientException;
 import exception.PatrimonyException;
-import exception.ReservaException;
+import exception.ReserveException;
 
 public class FazerReservaEquipamentoView extends ReservaEquipamentoView {
 
-    Equipamento equipamento; // Object of equipament's reservation that going to create
+
+    Equipment equipamento;
 
     /**
      * 
@@ -29,8 +30,9 @@ public class FazerReservaEquipamentoView extends ReservaEquipamentoView {
      * @throws ClienteException
      * @throws ReservaException
      */
-    public FazerReservaEquipamentoView(Frame parent, boolean modal, Equipamento e, String data) throws SQLException,
-            PatrimonyException, PatrimonyException, ClienteException, ReservaException {
+    public FazerReservaEquipamentoView(Frame parent, boolean modal, Equipment e, String data) throws SQLException,
+            PatrimonyException, PatrimonyException, ClientException, ReserveException {
+
         super(parent, modal);
         this.equipamento = e;
         this.dataTextField.setText(data);
@@ -47,12 +49,12 @@ public class FazerReservaEquipamentoView extends ReservaEquipamentoView {
     @Override protected void reservarProfessor() {
         try {
 
-            instanceProf.inserir(equipamento, prof, this.dataTextField.getText(), this.horaTextField.getText());
+            instanceProf.insert(equipamento, prof, this.dataTextField.getText(), this.horaTextField.getText());
 
             JOptionPane.showMessageDialog(this, "Reserva feita com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE, null);
 
             this.setVisible(false);
-        } catch (ReservaException ex) {
+        } catch (ReserveException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex.getLocalizedMessage(), "Erro", JOptionPane.ERROR_MESSAGE, null);

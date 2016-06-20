@@ -1,7 +1,3 @@
-/**
- * This class is a subclass of Person and keeps Clients information.
- */
-
 package entities;
 
 import java.util.ArrayList;
@@ -11,60 +7,33 @@ import interfaces.*;
 
 public class Client extends Person implements Recommended {
 
-	private static final int FIRST = 0;
-	private static final int YES = 1;
-	private static final int NO = 0;
-	
-	protected String email = " ";
-	protected Cashier[] cashiers;
-	Clerk[] clerk = {};
-	Client[] client = {};
-	Scanner scanner = new Scanner(System.in);
-	private int deleteCode = 0; //Client code to be deleted.
-	private int confirmationClientExclusion = 0; //Delete confirmation code ( 0 or 1).
+	protected String email;
+	protected Cashier[] caixas;
+	Clerk[] balconistas = {};
 
-	/**
-	 * Creates an empty object.
-     */
-	
+	// Console
+	Client[] cliente = {};
+
+	Scanner scanner = new Scanner(System.in);
+	private int codigoExclusao = 0, confirmacaoExclusaoCliente = 0;
+
 	public Client() {
 		super();
 	}
-	
-	/**
-	 * 
-	 * @param personIdentity
-	 * @param cpfPerson
-	 * @param cpfDigitPerson
-	 * @param personName
-	 * @param personLastName
-	 * @param personAddress
-	 * @param personPhone
-	 */
 
-	public Client(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName,
-			String personLastName, String personAddress, String personPhone) {
-		super(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress, personPhone);
-		System.out.println("Possui pelo menos um balconista para atend�-lo!!");
+	// Construtor s� para heran�a
+	public Client(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
+			String sobrenomePessoa, String enderecoPessoa, String telefonePessoa) {
+		super(rgPessoa, cpfPessoa, digitoCpfPessoa, nomePessoa, sobrenomePessoa, enderecoPessoa, telefonePessoa);
+		System.out.println("Possui pelo menos um balconista para atend�-lo!!"); // ---> DEPENDENCIA
 		Clerk.setStatusClerk(true);
+		// Por ser static, n�o � necess�rio instanciar.
 	}
-	
-	/**
-	 * 
-	 * @param personIdentity
-	 * @param cpfPerson
-	 * @param cpfDigitPerson
-	 * @param personName
-	 * @param personLastName
-	 * @param personAddress
-	 * @param personPhone
-	 * @param emailClient
-	 */
 
-	public Client(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName,
-			String personLastName, String personAddress, String personPhone, String emailClient) {
-		super(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress, personPhone);
-		this.email = emailClient;
+	public Client(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
+			String sobrenomePessoa, String enderecoPessoa, String telefonePessoa, String emailCliente) {
+		super(rgPessoa, cpfPessoa, digitoCpfPessoa, nomePessoa, sobrenomePessoa, enderecoPessoa, telefonePessoa);
+		this.email = emailCliente;
 
 	}
 
@@ -80,113 +49,88 @@ public class Client extends Person implements Recommended {
 		assert (use != null);
 		
 		if (medicineType == "TARJA PRETA" && use == "ADULTO") {
-			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 1");
-		} else {
-			//Nothing to do.
+			System.out.println("A quantidade de remedios recomendados pelo Balconista �: 1");
 		}
 
 		if (medicineType == "TARJA PRETA" && use == "PEDIATRICO") {
-			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 0");
-		} else {
-			//Nothing to do.
+			System.out.println("A quantidade de remedios recomendados pelo Balconista �: 0");
 		}
 
 		if (medicineType == "GENERICO" && use == "ADULTO") {
-			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 5");
-		} else {
-			//Nothing to do.
+			System.out.println("A quantidade de remedios recomendados pelo Balconista �: 5");
 		}
 
 		if (medicineType == "GENERICO" && use == "PEDIATRICO") {
-			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 3");
-		} else {
-			//Nothing to do.
+			System.out.println("A quantidade de remedios recomendados pelo Balconista �: 3");
 		}
 
 	}
-	
-	/**
-	 * Method that lists the registered cashiers.
-	 */
 
-	public void cashierList() {
-		for (int position = FIRST; position < (cashiers.length); position += 1) {
-			System.out.println(("Caixa [" + (position + 1) + "]:" + cashiers[position]));
+	public void listarCaixas() {
+		for (int x = 0; x < (caixas.length); x += 1) {
+			System.out.println(("Caixa [" + x + "]:" + caixas[x]));
 		}
 	}
 
-	/**
-	 * Method that prints a menu with options for customer to choose . The options are 0 to 3. 
-	 * Where 0 is exit, 1 is register a new client, 2  is client list and 3 is to delete a client.
-	 */
+	// Console
 
-	public void clientMenu() {
-		System.out.println("\nInsira o que deseja fazer de acordo com as opções seguintes:" + "\n(0) - Sair\n"
+
+	public void menuClient() {
+		System.out.println("\nInsira o que deseja fazer de acordo com as op��es seguintes:" + "\n(0) - Sair\n"
 				+ "(1) - Cadastrar novo Cliente\n" + "(2) - Listar Clientes\n" + "(3) - Excluir Cliente\n");
 	}
-	
-	/**
-	 * Method to register a client.
-	 * 
-	 * @param clientsList
-	 */
 
-	public void clientRegister(ArrayList<Client> clientsList) {
+	public void registerClient(ArrayList<Client> listaDeClientes) {
 
 		System.out.println("Digite o rg do Cliente: ");
-		String rgPessoa = ConsoleMenu.readString();
+		String rgPessoa = Complementary.readString();
 
 		System.out.println("Digite o cpf do Cliente: ");
-		String cpfPerson = ConsoleMenu.readString();
+		String cpfPessoa = Complementary.readString();
 
 		System.out.println("Digite o digito do cpf do Cliente: ");
-		int cpfDigitPerson = ConsoleMenu.readInt();
+		int digitoCpfPessoa = Complementary.readInt();
 
 		System.out.println("Digite o nome do Cliente: ");
-		String personName = ConsoleMenu.readString();
+		String nomePessoa = Complementary.readString();
 
 		System.out.println("Digite o sobrenome completo do Cliente: ");
-		String personLastName = ConsoleMenu.readString();
+		String sobrenomePessoa = Complementary.readString();
 
 		System.out.println("Digite o endereco do Cliente: ");
-		String personAddress = ConsoleMenu.readString();
+		String enderecoPessoa = Complementary.readString();
 
 		System.out.println("Digite o telefone do Cliente:");
-		String personPhone = ConsoleMenu.readString();
+		String telefonePessoa = Complementary.readString();
 
 		System.out.println("Digite o email do Cliente");
-		String emailClient = ConsoleMenu.readString();
+		String emailCliente = Complementary.readString();
 
-		Client client = new Client(rgPessoa, cpfPerson, cpfDigitPerson, personName, personLastName,
-				personAddress, personPhone, emailClient);
+		Client cliente = new Client(rgPessoa, cpfPessoa, digitoCpfPessoa, nomePessoa, sobrenomePessoa,
+				enderecoPessoa, telefonePessoa, emailCliente);
 
-		clientsList.add(client);
+		listaDeClientes.add(cliente);
 
-		System.out.println("O(A) Cliente " + client.getName() + " foi cadastrado(a) com sucesso!");
+		System.out.println("O(A) Cliente " + cliente.getName() + " foi cadastrado(a) com sucesso!");
 	}
 
-	/**
-	 * Method to list the clients registered.
-	 * 
-	 * @param clientsList
-	 */
-	public void listCLients(ArrayList<Client> clientsList) {
-		if (clientsList.size() == 0) {
+	public void listClients(ArrayList<Client> listaDeClientes) {
+		if (listaDeClientes.size() == 0) {
 			System.out.println("Cadastro em branco!\n");
 		}
 		else {
 			System.out.println("\nLista de cadastros de Clientes\n");
-			for (int position = FIRST; position < clientsList.size(); position++) {
-				Client t = clientsList.get(position);
-				System.out.println("\nCadastro de número:" + (position + 1));
+			for (int b = 0; b < listaDeClientes.size(); b++) {
+				Client t = listaDeClientes.get(b);
+				System.out.println("\nCadastro de n�mero:" + (b + 1));
 
-				System.out.println("\nNome: " + t.getName() + " " + t.getLastName());
+				System.out.println("\nNome: " + t.getName() + " " + t.getPastName());
 
-				System.out.println("\nRG: " + t.getRg().substring(0, 2) + "-"
-						+ t.getRg().substring(2, t.getRg().length()));
+				System.out.println("\nRG: " + t.getIdentity().substring(0, 2) + "-"
+						+ t.getIdentity().substring(2, t.getIdentity().length()));
 
-				System.out.println("Cpf: " + t.getCpf().substring(0, 3) + "."
-						+ t.getCpf().substring(3, 6) + "." + t.getCpf().substring(6, 9) + "-"  + t.getDigitoCpf());
+				System.out.println("Cpf: " + t.getCpfPerson().substring(0, 3) + "."
+						+ t.getCpfPerson().substring(3, 6) + "." + t.getCpfPerson().substring(6, 9) + "-"  + t.getDigitCpfPerson());
 
 				System.out.println("\nTelefone: (" + t.getPhone().substring(0, 2) + ") "
 						+ t.getPhone().substring(2, 6) + "-" + t.getPhone().substring(6, 10));
@@ -197,44 +141,31 @@ public class Client extends Person implements Recommended {
 		}
 
 	}
-	
-	/**
-	 * Method to delete a client.
-	 * 
-	 * @param clientList
-	 */
 
-	public void deleteClient(ArrayList<Client> clientList) {
+	public void deleteClient(ArrayList<Client> listaDeClientes) {
 
-		if (clientList.size() == 0) {
+		if (listaDeClientes.size() == 0) {
 			System.out.println("Cadastro em branco!\n");
 		}
 		else {
 			System.out.println("Digite o numero do cadastro de Cliente que deseja excluir: ");
-			this.setCodeExclusion(scanner.nextInt());
-			System.out.println("Você deseja realmente excluir o cadastro de numero: " + this.deleteCode + "?"
-					+ "\n(0) - Não" + "\n(1) - Sim");
-			this.setConfirmationCodeExclusion(scanner.nextInt());
-			if (confirmationClientExclusion == YES) {
-				this.setCodeExclusion(deleteCode - 1);
-				clientList.remove(deleteCode);
+			this.setCodigoExclusao(scanner.nextInt());
+			System.out.println("Voc� deseja realmente excluir o cadastro de numero: " + this.codigoExclusao + "?"
+					+ "\n(0) - N�o" + "\n(1) - Sim");
+			this.setConfirmacaoExclusaoCliente(scanner.nextInt());
+			if (confirmacaoExclusaoCliente == 1) {
+				this.setCodigoExclusao(codigoExclusao - 1);
+				listaDeClientes.remove(codigoExclusao);
 
 				System.out.println("A lista foi alterada");
-				listCLients(clientList);
+				listClients(listaDeClientes);
 			}
-			else if (confirmationClientExclusion == NO) {
-				this.setCodeExclusion(0);
-			}
-			else {
-				//nothing to do.
+			else if (confirmacaoExclusaoCliente == 0) {
+				this.setCodigoExclusao(0);
 			}
 		}
 
 	}
-	
-	/**
-	 * Getters and Setters
-	 */
 
 	public String getEmail() {
 		return email;
@@ -244,28 +175,28 @@ public class Client extends Person implements Recommended {
 		this.email = email;
 	}
 
-	public Cashier[] getCashier() {
-		return cashiers;
+	public Cashier[] getCaixas() {
+		return caixas;
 	}
 
-	public void setCashier(Cashier[] cashiers) {
-		this.cashiers = cashiers;
+	public void setCaixas(Cashier[] caixas) {
+		this.caixas = caixas;
 	}
 
-	public Clerk[] getClerk() {
-		return clerk;
+	public Clerk[] getBalconistas() {
+		return balconistas;
 	}
 
-	public void setClerk(Clerk[] clerks) {
-		this.clerk = clerks;
+	public void setBalconistas(Clerk[] balconistas) {
+		this.balconistas = balconistas;
 	}
 
-	public Client[] getClient() {
-		return client;
+	public Client[] getCliente() {
+		return cliente;
 	}
 
-	public void setClient(Client[] client) {
-		this.client = client;
+	public void setCliente(Client[] cliente) {
+		this.cliente = cliente;
 	}
 
 	public Scanner getScanner() {
@@ -276,23 +207,25 @@ public class Client extends Person implements Recommended {
 		this.scanner = scanner;
 	}
 
-	public int getDeleteCode() {
-		return deleteCode;
+	public int getCodigoExclusao() {
+		return codigoExclusao;
 	}
 
-	public void setCodeExclusion(int codigoExclusao) {
-		this.deleteCode = codigoExclusao;
+	public void setCodigoExclusao(int codigoExclusao) {
+		this.codigoExclusao = codigoExclusao;
 	}
 
 	public int getConfirmacaoExclusaoCliente() {
-		return confirmationClientExclusion;
+		return confirmacaoExclusaoCliente;
 	}
 
-	public void setConfirmationCodeExclusion(int confirmacaoExclusaoCliente) {
-		this.confirmationClientExclusion = confirmacaoExclusaoCliente;
+	public void setConfirmacaoExclusaoCliente(int confirmacaoExclusaoCliente) {
+		this.confirmacaoExclusaoCliente = confirmacaoExclusaoCliente;
 	}
 
-	public void recommendedMedicines(String medicineType, String use) {
+	@Override
+	public void medicineRecommended(String typeMedicine, String use) {
+		// TODO Auto-generated method stub
 		
 	}
 

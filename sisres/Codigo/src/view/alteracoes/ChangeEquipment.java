@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 import view.cadastros.PatrimonyRegistration;
-import control.ManterEquipamento;
+import control.EquipmentRegister;
 import exception.PatrimonyException;
 
 public class ChangeEquipment extends PatrimonyRegistration {
@@ -36,8 +36,8 @@ public class ChangeEquipment extends PatrimonyRegistration {
 
 		try {
 
-			this.codeTxtField.setText(ManterEquipamento.getInstance().getEquipamento_vet().get(index).getCode());
-			this.discriptionTextArea.setText(ManterEquipamento.getInstance().getEquipamento_vet().get(index).getDescription());
+			this.codeTxtField.setText(EquipmentRegister.getNewEquipment().getVectorEquipments().get(index).getIdEquipment());
+			this.discriptionTextArea.setText(EquipmentRegister.getNewEquipment().getVectorEquipments().get(index).getDescriptionEquipment());
 			this.index2 = index;
 
 		} catch (PatrimonyException ex) {
@@ -58,8 +58,8 @@ public class ChangeEquipment extends PatrimonyRegistration {
 	protected void registrationAction() {
 		try {
 
-			ManterEquipamento.getInstance().alterar(codeTxtField.getText(), discriptionTextArea.getText(),
-					ManterEquipamento.getInstance().getEquipamento_vet().get(index2));
+			EquipmentRegister.getNewEquipment().update(codeTxtField.getText(), discriptionTextArea.getText(),
+					EquipmentRegister.getNewEquipment().getVectorEquipments().get(index2));
 
 			JOptionPane.showMessageDialog(this, "Equipamento alterado com sucesso", "Sucesso",
 					JOptionPane.INFORMATION_MESSAGE, null);

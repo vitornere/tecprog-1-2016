@@ -9,21 +9,18 @@ import entities.Medicament;
 
 public class Clerk extends Person {
 
-	// Declaracao de atributos
 
 	protected int senha;
 	protected int senhaFarmaciaPopular;
-	protected int codigo; // O funcionario usa o codigo de acesso junto da senha para fazer as vendas.
+	protected int codigo; 
 	protected int fatorComissao;
 	protected Medicament[] Medicaments = {};
 	protected Cashier caixa;
 	private static boolean statusClerk;
 	protected int horas;
 	protected int quantidade = 0;
-	// Utilizacao de STATIC para depend�ncia
 	Client[] clientes = {};
-
-	// SOmente para cria��o do console;
+;
 	Clerk[] balconista = {};
 	Scanner scanner = new Scanner(System.in);
 	Scanner scanner1 = new Scanner(System.in);
@@ -107,7 +104,7 @@ public class Clerk extends Person {
 		this.caixa = caixa;
 	}
 
-	public void cadastraBalconista(String rg, String cpf, int digitoCpf, String nome, String sobrenome,
+	public void registerClerk(String rg, String cpf, int digitoCpf, String nome, String sobrenome,
 			String endereco, String telefone) {
 
 		this.rg = rg;
@@ -119,54 +116,54 @@ public class Clerk extends Person {
 		this.telefone = telefone;
 	}
 
-	public void menuInicial() {
+	public void startMenu() {
 		System.out.println("Qual setor voc� deseja utilizar?" + "\n(0) - Sair" + "\n(1) - Balconista\n"
-				+ "(2) - Caixa\n" + "(3) - Cliente\n" + "(4) - Medicament\n" + "(5) - Ajuda\n");
+				+ "(2) - Caixa\n" + "(3) - Cliente\n" + "(4) - Medicamento\n" + "(5) - Ajuda\n");
 	}
 
-	public void menuBalconista() {
+	public void menuClerk() {
 		System.out.println("\nInsira o que deseja fazer de acordo com as op��es seguintes:" + "\n(0) - Sair\n"
 				+ "(1) - Cadastrar novo Balconista\n" + "(2) - Listar Balconistas\n"
 				+ "(3) - Excluir Balconista\n");
 	}
 
-	public void cadastrarBalconista(ArrayList<Clerk> listaDeBalconistas) {
+	public void registerClerk(ArrayList<Clerk> listaDeBalconistas) {
 
 		System.out.println("Digite o rg do Balconista(SSP seguido de n�meros): ");
-		String rgPessoa = ConsoleMenu.readString();
+		String rgPessoa = Complementary.readString();
 
 		System.out.println("Digite o cpf do Balconista(Sem o d�gito): ");
-		String cpfPessoa = ConsoleMenu.readString();
+		String cpfPessoa = Complementary.readString();
 
 		System.out.println("Digite o digito do cpf do Balconista: ");
-		int digitoCpfPessoa = ConsoleMenu.readInt();
+		int digitoCpfPessoa = Complementary.readInt();
 
 		System.out.println("Digite o nome do Balconista: ");
-		String nomePessoa = ConsoleMenu.readString();
+		String nomePessoa = Complementary.readString();
 
 		System.out.println("Digite o sobrenome completo do Balconista: ");
-		String sobrenomePessoa = ConsoleMenu.readString();
+		String sobrenomePessoa = Complementary.readString();
 
 		System.out.println("Digite o endereco do Balconista: ");
-		String enderecoPessoa = ConsoleMenu.readString();
+		String enderecoPessoa = Complementary.readString();
 
 		System.out.println("Digite o telefone do Balconista:");
-		String telefonePessoa = ConsoleMenu.readString();
+		String telefonePessoa = Complementary.readString();
 
 		System.out.println("Digite a senha do Balconista:");
-		int senhaBalconista = ConsoleMenu.readInt();
+		int senhaBalconista = Complementary.readInt();
 
 		System.out.println("Digite a senha de farm�cia popular do Balconista:");
-		int senhaFarmaciaPopularBalconista = ConsoleMenu.readInt();
+		int senhaFarmaciaPopularBalconista = Complementary.readInt();
 
 		System.out.println("Digite o c�digo do Balconista:");
-		int codigoBalconista = ConsoleMenu.readInt();
+		int codigoBalconista = Complementary.readInt();
 
 		System.out.println("Digite o fator de comiss�o de vendas em porcentagem (%) do Balconista:");
-		int fatorComissaoBalconista = ConsoleMenu.readInt();
+		int fatorComissaoBalconista = Complementary.readInt();
 
 		System.out.println("Digite as horas trabalhadas semanalmente pelo Balconista:");
-		int horasTrabalhadas = ConsoleMenu.readInt();
+		int horasTrabalhadas = Complementary.readInt();
 
 		// Repete para todos atributos
 
@@ -179,7 +176,7 @@ public class Clerk extends Person {
 		System.out.println("O(A) balconista " + balconista.getName() + " foi cadastrado(a) com sucesso!");
 	}
 
-	public void listarBalconistas(ArrayList<Clerk> listaDeBalconistas) {
+	public void listClerks(ArrayList<Clerk> listaDeBalconistas) {
 		if (listaDeBalconistas.size() == 0) {
 			System.out.println("Cadastro em branco!\n");
 		}
@@ -189,27 +186,27 @@ public class Clerk extends Person {
 				Clerk t = listaDeBalconistas.get(b); // Somente para facilitar a chamada para apresenta��o dos dados
 				System.out.println("\nCadastro de n�mero:" + (b + 1));
 
-				System.out.println("\nNome: " + t.getName() + " " + t.getLastName());
+				System.out.println("\nNome: " + t.getName() + " " + t.getPastName());
 
-				System.out.println("\nRG: " + t.getRg().substring(0, 2) + "-"
-						+ t.getRg().substring(2, t.getRg().length()));
+				System.out.println("\nRG: " + t.getIdentity().substring(0, 2) + "-"
+						+ t.getIdentity().substring(2, t.getIdentity().length()));
 
-				System.out.println("Cpf: " + t.getCpf().substring(0, 3) + "."
-						+ t.getCpf().substring(3, 6) + "." + t.getCpf().substring(6, 9) + "-"  + t.getDigitoCpf());
+				System.out.println("Cpf: " + t.getCpfPerson().substring(0, 3) + "."
+						+ t.getCpfPerson().substring(3, 6) + "." + t.getCpfPerson().substring(6, 9) + "-"  + t.getDigitCpfPerson());
 
 				System.out.println("\nTelefone: (" + t.getPhone().substring(0, 2) + ") "
 						+ t.getPhone().substring(2, 6) + "-" + t.getPhone().substring(6, 10));
 
-				System.out.println("\nEndereco:" + t.getEndereco());
+				System.out.println("\nEndereco:" + t.getAddress());
 
-				System.out.println("\nSenha: " + t.getSenha() + " Senha Farmacia Popular: "
+				System.out.println("\nSenha: " + t.getPassword() + " Senha Farmacia Popular: "
 						+ t.getSenhaFarmaciaPopular());
 
-				System.out.println("\nC�digo do Balconista: " + t.getCodigo());
+				System.out.println("\nC�digo do Balconista: " + t.getIdFuncionary());
 
 				System.out.println("\nN�mero de horas trabalhadas semanalmente: " + t.getHoras() + "horas");
 
-				System.out.println("\nFator de comissao: " + t.getFatorComissao() + " %");
+				System.out.println("\nFator de comissao: " + t.getCommissionFactor() + " %");
 
 				System.out.println("\nSal�rio: R$ " + t.calculateSalary() );
 			}
@@ -218,7 +215,7 @@ public class Clerk extends Person {
 
 	}
 
-	public void excluirBalconista(ArrayList<Clerk> listaDeBalconistas) {
+	public void deleteClerk(ArrayList<Clerk> listaDeBalconistas) {
 
 		if (listaDeBalconistas.size() == 0) {
 			System.out.println("Cadastro em branco!\n");
@@ -234,7 +231,7 @@ public class Clerk extends Person {
 				listaDeBalconistas.remove(codigoExclusao);
 
 				System.out.println("A lista foi alterada");
-				listarBalconistas(listaDeBalconistas);
+				listClerks(listaDeBalconistas);
 			}
 			else if (confirmacaoExclusaoBalconista == 0) {
 				this.setCodigoExclusao(0);
@@ -246,7 +243,7 @@ public class Clerk extends Person {
 	private void setSalario(double salario) {
 	}
 
-	public int getSenha() {
+	public int getPassword() {
 		return senha;
 	}
 
@@ -262,7 +259,7 @@ public class Clerk extends Person {
 		this.senhaFarmaciaPopular = senhaFarmaciaPopular;
 	}
 
-	public int getCodigo() {
+	public int getIdFuncionary() {
 		return codigo;
 	}
 
@@ -270,7 +267,7 @@ public class Clerk extends Person {
 		this.codigo = codigo;
 	}
 
-	public int getFatorComissao() {
+	public int getCommissionFactor() {
 		return fatorComissao;
 	}
 
@@ -302,7 +299,6 @@ public class Clerk extends Person {
 		return statusClerk;
 	}
 
-	// Depend�ncia entre Cliente e Balconista.
 	public static void setStatusClerk(boolean statusFuncionarioPresente) {
 		Clerk.statusClerk = statusFuncionarioPresente;
 		System.out.println("H� um funcion�rio dispon�vel para atend�-lo! Status:" + statusClerk);
