@@ -100,10 +100,23 @@ public class Medicament extends Produto {
 		}
 		else {
 			System.out.println("Digite o numero do cadastro de Medicamento que deseja excluir: ");
-			this.setCodigoExclusao(scanner.nextInt());
+			
+			
+			boolean onlyNumbers = false;
+ 			do {
+ 				try {
+ 					this.setCodigoExclusao(scanner.nextInt());
+ 					onlyNumbers = true;
+ 				} catch (IllegalArgumentException ex) {
+ 					System.out.println("Informe somente números.");
+ 				}
+ 			} while(onlyNumbers);
+
 			System.out.println("Voc� deseja realmente excluir o cadastro de numero: " + this.deletingCode + "?"
 					+ "\n(0) - N�o" + "\n(1) - Sim");
+			
 			this.setConfirmacaoExclusaoMedicamento(scanner.nextInt());
+			
 			if (medicamentDeletingConfirmation == 1) {
 				this.setCodigoExclusao(deletingCode - 1);
 				listaDeMedicamentos.remove(deletingCode);
