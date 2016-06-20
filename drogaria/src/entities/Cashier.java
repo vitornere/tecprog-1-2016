@@ -30,7 +30,22 @@ public class Cashier extends Person {
 	public Cashier() {
 		super();
 	}
-
+	
+	/**
+	 * 
+	 * @param personIdentity
+	 * @param cpfPerson
+	 * @param cpfDigitPerson
+	 * @param personName
+	 * @param personLastName
+	 * @param personAddress
+	 * @param personPhone
+	 * @param trasitionType
+	 * @param trasitionValue
+	 * @param trasitionDate
+	 * @param trasitionDescription
+	 * @param code
+	 */
 	public Cashier(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
 			String sobrenomePessoa, String enderecoPessoa, String telefonePessoa, int tipoTransacao,
 			float valorTransacao, String dataTransacao, String descricaoTransacao, int codigo) {
@@ -75,6 +90,7 @@ public class Cashier extends Person {
 			return 0; // Confirma que o pagamento n�o foi aceito
 		}
 	}
+
 
 	// M�todo depositar
 	public void depositar(float valor) {

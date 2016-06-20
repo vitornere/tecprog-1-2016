@@ -155,7 +155,7 @@ public class SistemaDrogaria {
 		// Interface
 		Client novoClienteInterface = new Client("13.999.888-DF", "444.555.666", 11, "INTERFACE", "INTERFACE",
 				"Gama qd. 1000", "(61)-1234-5678", "cliente1@gmail.com");
-		novoClienteInterface.recommendedMedicaments("GENERICO", "PEDIATRICO");
+		novoClienteInterface.recommendedMedicine("GENERICO", "PEDIATRICO");
 	}
 
 }

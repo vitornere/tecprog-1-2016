@@ -37,21 +37,30 @@ public class Client extends Person implements Recommended {
 
 	}
 
-	// Interface
-	public void recommendedMedicaments(String tipoRemedio, String uso) {
-		if (tipoRemedio == "TARJA PRETA" && uso == "ADULTO") {
+	/**
+	 * Method for the selection of the amount of medicine recommended by the clerk 
+	 * in accordance with the parameters.
+	 * 
+	 * @param medicineType
+	 * @param use
+	 */
+	public void recommendedMedicine(String medicineType, String use) {
+		assert (medicineType != null);
+		assert (use != null);
+		
+		if (medicineType == "TARJA PRETA" && use == "ADULTO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista �: 1");
 		}
 
-		if (tipoRemedio == "TARJA PRETA" && uso == "PEDIATRICO") {
+		if (medicineType == "TARJA PRETA" && use == "PEDIATRICO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista �: 0");
 		}
 
-		if (tipoRemedio == "GENERICO" && uso == "ADULTO") {
+		if (medicineType == "GENERICO" && use == "ADULTO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista �: 5");
 		}
 
-		if (tipoRemedio == "GENERICO" && uso == "PEDIATRICO") {
+		if (medicineType == "GENERICO" && use == "PEDIATRICO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista �: 3");
 		}
 
@@ -64,6 +73,7 @@ public class Client extends Person implements Recommended {
 	}
 
 	// Console
+
 
 	public void menuClient() {
 		System.out.println("\nInsira o que deseja fazer de acordo com as op��es seguintes:" + "\n(0) - Sair\n"
@@ -214,7 +224,7 @@ public class Client extends Person implements Recommended {
 	}
 
 	@Override
-	public void medicineRecommended(String typeMedicine, String uso) {
+	public void medicineRecommended(String typeMedicine, String use) {
 		// TODO Auto-generated method stub
 		
 	}

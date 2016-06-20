@@ -164,7 +164,7 @@ public class DrugstoreSystem {
 		Client novoClienteInterface = new Client("13.999.888-DF",
 				"444.555.666", 11, "INTERFACE", "INTERFACE", "Gama qd. 1000",
 				"(61)-1234-5678", "client@gmail.com");
-		novoClienteInterface.recommendedMedicaments("GENERIC", "PEDIATRIC");
+		novoClienteInterface.recommendedMedicine("GENERIC", "PEDIATRIC");
 	}
 
 }
