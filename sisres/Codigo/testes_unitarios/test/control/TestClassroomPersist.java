@@ -7,11 +7,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import persistence.FactoryConnection;
-<<<<<<< HEAD
 import control.ClassroomRegister;
-=======
-import control.ManterSala;
->>>>>>> devel
 import model.Classroom;
 import exception.PatrimonyException;
 
@@ -22,7 +18,7 @@ import java.util.Iterator;
 import java.util.Vector;
 
 
-public class ManterSalaTest {
+public class TestClassroomPersist {
 	
 	@BeforeClass
 	public static void setUpClass(){
@@ -35,13 +31,13 @@ public class ManterSalaTest {
 	
 	@Test
 	public void testGetInstance() {
-		assertTrue("Verifica metodo getInstance().", ClassroomRegister.getClassroom() instanceof ClassroomRegister);
+		assertTrue("Verifica metodo getInstance().", ClassroomRegister.getInstance() instanceof ClassroomRegister);
 	}
 	
 	@Test
 	public void testSingleton() {
-		ClassroomRegister p = ClassroomRegister.getClassroom();
-		ClassroomRegister q = ClassroomRegister.getClassroom();
+		ClassroomRegister p = ClassroomRegister.getInstance();
+		ClassroomRegister q = ClassroomRegister.getInstance();
 		assertSame("Testando o Padrao Singleton", p, q);
 	}
 
@@ -49,19 +45,11 @@ public class ManterSalaTest {
 	@Test
 	public void testInserir() throws PatrimonyException, SQLException {
 		Classroom sala_new = new Classroom("codigo", "descricao", "2");
-<<<<<<< HEAD
-		ClassroomRegister.getClassroom().insert("codigo", "descricao", "2");
+		ClassroomRegister.getInstance().insert("codigo", "descricao", "2");
 		assertNotNull("Falha ao inserir", this.procurarNoVetor(sala_new));
 		this.executaNoBanco("DELETE FROM sala WHERE " +
 				"sala.codigo = \"" + sala_new.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala_new.getDescriptionEquipment() +  "\" and " +
-=======
-		ManterSala.getInstance().inserir("codigo", "descricao", "2");
-		assertNotNull("Falha ao inserir", this.procurarNoVetor(sala_new));
-		this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + sala_new.getCode() + "\" and " +
-				"sala.descricao = \"" + sala_new.getDescription() +  "\" and " +
->>>>>>> devel
 				"sala.capacidade = " + sala_new.getCapacity() + ";"
 				);
 	}
@@ -73,27 +61,17 @@ public class ManterSalaTest {
 		
 		this.executaNoBanco("INSERT INTO " +
 				"sala (codigo, descricao, capacidade) VALUES (" +
-<<<<<<< HEAD
 				"\"" + sala.getIdEquipment() + "\", " +
 				"\"" + sala.getDescriptionEquipment() + "\", " +
-=======
-				"\"" + sala.getCode() + "\", " +
-				"\"" + sala.getDescription() + "\", " +
->>>>>>> devel
 				"" + sala.getCapacity() + "); "
 				);
-		ClassroomRegister.getClassroom().update("codigo", "descricao", "2", sala);
+		ClassroomRegister.getInstance().update("codigo", "descricao", "2", sala);
 		
 		assertNotNull("Falha ao alterar", this.procurarNoVetor(sala_new));
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
-<<<<<<< HEAD
 				"sala.codigo = \"" + sala_new.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala_new.getDescriptionEquipment() +  "\" and " +
-=======
-				"sala.codigo = \"" + sala_new.getCode() + "\" and " +
-				"sala.descricao = \"" + sala_new.getDescription() +  "\" and " +
->>>>>>> devel
 				"sala.capacidade = " + sala_new.getCapacity() + ";"
 				);
 	}
@@ -104,27 +82,18 @@ public class ManterSalaTest {
 		
 		this.executaNoBanco("INSERT INTO " +
 				"sala (codigo, descricao, capacidade) VALUES (" +
-<<<<<<< HEAD
 				"\"" + sala.getIdEquipment() + "\", " +
 				"\"" + sala.getDescriptionEquipment() + "\", " +
-=======
-				"\"" + sala.getCode() + "\", " +
-				"\"" + sala.getDescription() + "\", " +
->>>>>>> devel
 				"" + sala.getCapacity() + "); "
 				);
 		
-		ClassroomRegister.getClassroom().delete(sala);
+		ClassroomRegister.getInstance().delete(sala);
 		
 		assertNull("Falha ao excluir", this.procurarNoVetor(sala));
 	}
 
 	public Classroom procurarNoVetor(Classroom teste) throws PatrimonyException, SQLException {
-<<<<<<< HEAD
-		Vector<Classroom> todos = ClassroomRegister.getClassroom().getVectorClassroom();
-=======
-		Vector<Classroom> todos = ManterSala.getInstance().getSalas_vet();
->>>>>>> devel
+		Vector<Classroom> todos = ClassroomRegister.getInstance().getVectorClassroom();
 		Iterator<Classroom> i = todos.iterator();
 		while(i.hasNext()){
 			Classroom e = i.next();

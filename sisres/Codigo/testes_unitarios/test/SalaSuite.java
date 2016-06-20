@@ -4,12 +4,12 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import test.control.ManterSalaTest;
+import test.control.TestClassroomPersist;
 import test.model.SalaTest;
 import test.persistence.SalaDAOTest;
 
 @RunWith(Suite.class)
-@SuiteClasses({SalaTest.class, SalaDAOTest.class, ManterSalaTest.class })
+@SuiteClasses({SalaTest.class, SalaDAOTest.class, TestClassroomPersist.class })
 public class SalaSuite {
 
 }
