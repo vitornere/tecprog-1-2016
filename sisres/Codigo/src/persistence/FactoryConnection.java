@@ -39,13 +39,13 @@ public class FactoryConnection {
 	 */
 	public Connection getConnection() throws SQLException {
 		//Create a instance to connection
-		Connection con = null;
-		con = DriverManager.getConnection(LOCAL, USER, PASSWORD);
+		Connection connection = null;
+		connection = DriverManager.getConnection(LOCAL, USER, PASSWORD);
 
 		//Verify connect is successful
-		assert con != null;
+		assert connection != null;
 
-		return con;
+		return connection;
 	}
 
 }
