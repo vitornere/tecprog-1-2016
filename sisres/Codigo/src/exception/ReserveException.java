@@ -1,3 +1,7 @@
+/**
+ * Name: ReserveException.java
+ * Class of exception Reserve.
+ */
 package exception;
 
 @SuppressWarnings("serial")

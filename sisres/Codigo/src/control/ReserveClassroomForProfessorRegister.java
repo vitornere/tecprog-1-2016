@@ -31,7 +31,10 @@ public class ReserveClassroomForProfessorRegister {
 
 		return ReserveClassroomForProfessor;
 	}
-
+    
+	/**
+	 * Reserve Classroom list for date.
+	 */
 	public Vector<ReserveClassroomForProfessor> searchForDate(String date)
 			throws SQLException, ClientException, PatrimonyException,
 			ReserveException {
@@ -39,6 +42,9 @@ public class ReserveClassroomForProfessorRegister {
 				.getInstance().searchByDate(date);
 	}
 
+	/**
+	 * Reserve Classroom list.
+	 */
 	public Vector<ReserveClassroomForProfessor> getVectorReserveClassroomForProfessor()
 			throws SQLException, ClientException, PatrimonyException,
 			ReserveException {

@@ -1,3 +1,7 @@
+/**
+ * Name: Console.java
+ * Main class of the user console.
+ */
 package Console;
 
 import java.util.ArrayList;
@@ -26,21 +30,27 @@ public class Console {
 	}
 
 	/**
+	 * Main method.
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		scanner = new Scanner(System.in);
 
+		/**
+		 * Lists of the Clerks, Cashiers, Clients and Medicaments.
+		 */
 		ArrayList<Clerk> listOfClerks = new ArrayList<Clerk>();
 		ArrayList<Cashier> listOfCashier = new ArrayList<Cashier>();
 		ArrayList<Client> listOfClients = new ArrayList<Client>();
 		ArrayList<Medicament> listOfMedicaments = new ArrayList<Medicament>();
 
+		/**
+		 * Creating a new Clerk, Cashier, Client, Medicament and Complementary.
+		 */
 		Clerk clerk = new Clerk();
 		Cashier cashier = new Cashier();
 		Client client = new Client();
 		Medicament medicament = new Medicament();
-
 		Complementary complementary = new Complementary();
 
 		int operation = 0;
@@ -58,9 +68,11 @@ public class Console {
 
 				operation = scanner.nextInt();
 
+				/**
+				 * If you enter the wrong number, exit the program.
+				 */
 				assert ((operation >= BEGINNING_OF_THE_PROGRAM) && (operation <= MEDICAMENT)) : "Numero invalido: "
-						+ operation; // If you enter the wrong number, exit the
-										// program.
+						+ operation;
 
 				if (operation == BEGINNING_OF_THE_PROGRAM) {
 					status = complementary.GeneralConfirmation(status);
@@ -68,7 +80,9 @@ public class Console {
 					status++;
 
 					if (status >= PASS_OF_START_MENU && status != EXIT) {
-						// Inside of menu
+						/**
+						 * Inside of menu.
+						 */
 						switch (operation) {
 						case PASS_OF_START_MENU:
 							if (operation == PASS_OF_START_MENU) {
@@ -76,7 +90,10 @@ public class Console {
 							}
 							while (status == CLERK) {
 
-								clerk.menuClerk();// Menu of Clerks
+								/**
+								 * Menu of Clerks.
+								 */
+								clerk.menuClerk();
 								operationOfClerk = scanner.nextInt();
 								if (operationOfClerk == BEGINNING_OF_THE_PROGRAM) {
 									status = complementary
@@ -105,7 +122,10 @@ public class Console {
 							}
 							while (status == CASHIER) {
 
-								cashier.menuCashier();// Menu of Cashier
+								/**
+								 * Menu of Cashier.
+								 */
+								cashier.menuCashier();
 								operationOfCashier = scanner.nextInt();
 								if (operationOfCashier == BEGINNING_OF_THE_PROGRAM) {
 									status = complementary
@@ -134,7 +154,10 @@ public class Console {
 								status = CLIENT;
 							}
 							while (status == CLIENT) {
-								client.menuClient();// Menu of Clients
+								/**
+								 * Menu of Clients.
+								 */
+								client.menuClient();
 								operationOfClient = scanner.nextInt();
 								if (operationOfClient == BEGINNING_OF_THE_PROGRAM) {
 									status = complementary
@@ -165,8 +188,10 @@ public class Console {
 							}
 							while (status == MEDICAMENT) {
 
-								medicament.menuMedicamento();// Menu of
-															// Medicaments
+								/**
+								 * Menu of Medicaments.
+								 */
+								medicament.menuMedicamento();
 								operationOfMedicament = scanner.nextInt();
 								if (operationOfMedicament == BEGINNING_OF_THE_PROGRAM) {
 									status = complementary
