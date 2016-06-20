@@ -370,14 +370,32 @@ public class ReservationRoomForStudentDAO extends DAO {
 						+ " WHERE hora = \"" + hour + "\";");
 	}
 
+	/**
+	 * Method to return a number of teaspoonful chair
+	 * @param room to consult not null value
+	 * @param date to consult, not null value
+	 * @param hour to consult, not null value
+	 * @return total chairs ins room
+	 * @throws SQLException
+	 * @throws PatrimonyException
+	 * @throws ClientException
+	 * @throws ReserveException
+	 */
 	public int availableChair(Classroom room, String date, String hour)
 			throws SQLException, PatrimonyException, ClientException,
 			ReserveException {
+		// Get date and hour
 		date = this.mountDefaultDate(date);
 		hour = this.mountDefaultHour(hour);
+		
+		//Search all classrooms
 		Vector<ReserveClassroomForStudent> vet = this.searchAll();
 		Iterator<ReserveClassroomForStudent> it = vet.iterator();
+		
+		//Get total chairs
 		int total = Integer.parseInt(room.getDescriptionEquipment());
+		
+		//Count total chairs available
 		while (it.hasNext()) {
 			ReserveClassroomForStudent reservation = it.next();
 			if (reservation.getClassroom().equals(room)
@@ -385,16 +403,30 @@ public class ReservationRoomForStudentDAO extends DAO {
 					&& reservation.getHour().equals(hour))
 				total -= Integer.parseInt(reservation.getReservedChairs());
 		}
+		
 		return total;
 	}
 
+	/**
+	 * Verify to have more chairs
+	 * @param reserved_chairs int with all chairs, only int
+	 * @param room to consult not null value
+	 * @param date to consult, not null value
+	 * @param hour to consult, not null value
+	 * @return true if has or false
+	 * @throws SQLException
+	 * @throws ClientException
+	 * @throws PatrimonyException
+	 * @throws ReserveException
+	 */
 	private boolean hasChairs(String reserved_chairs, Classroom room,
 			String date, String hour) throws SQLException, ClientException,
 			PatrimonyException, ReserveException {
-		if (this.availableChair(room, date, hour) >= Integer
-				.parseInt(reserved_chairs))
-			return true;
-		return false;
+		
+			boolean has = this.availableChair(room, date, hour) >= Integer
+				.parseInt(reserved_chairs);
+			
+			return has;
 	}
 
 	@Override
