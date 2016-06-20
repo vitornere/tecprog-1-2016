@@ -450,6 +450,14 @@ public class ReservationRoomForStudentDAO extends DAO {
 		return room_reservation;
 	}
 
+
+	/**
+	 * Method to select in the data base the reservation according to the parameters.
+	 * 
+	 * @param student
+	 * @return information about professor according to parameters
+	 * @throws SQLException
+	 */
 	private boolean studentInDB(Student student) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM aluno WHERE "
 				+ "aluno.nome = \"" + student.getNamePerson() + "\" and "
@@ -459,6 +467,13 @@ public class ReservationRoomForStudentDAO extends DAO {
 				+ "aluno.matricula = \"" + student.getIdRegister() + "\";");
 	}
 
+	/**
+	 * Method to select in the data base the reservation according to the parameters.
+	 * 
+	 * @param room
+	 * @return information about room according to parameters
+	 * @throws SQLException
+	 */
 	private boolean roomInDB(Classroom room) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM sala WHERE "
 				+ "sala.codigo = \"" + room.getIdEquipment() + "\" and "
@@ -467,6 +482,14 @@ public class ReservationRoomForStudentDAO extends DAO {
 				+ room.getDescriptionEquipment() + ";");
 	}
 
+	/**
+	 * Method to verify if the room is reserved by param student
+	 * @param student not null value
+	 * @param date string with not null value and data format
+	 * @param hour string with not null value and hour format
+	 * @return true if room is reserved or false
+	 * @throws SQLException
+	 */
 	private boolean studentReservationDB(Student student, String date,
 			String hour) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_aluno WHERE "
@@ -479,6 +502,15 @@ public class ReservationRoomForStudentDAO extends DAO {
 				+ "aluno.matricula = \"" + student.getIdRegister() + "\");");
 	}
 
+	/**
+	 * Method to select in the data base the reservation according to the parameters.
+	 * 
+	 * @param room
+	 * @param date
+	 * @param hour
+	 * @return information about reservation according to parameters
+	 * @throws SQLException
+	 */
 	private boolean roomReservedByTeacherInDB(Classroom room, String date,
 			String hour) throws SQLException {
 		return super.inDBGeneric("SELECT * FROM reserva_sala_professor WHERE "
@@ -533,17 +565,28 @@ public class ReservationRoomForStudentDAO extends DAO {
 				+ reservation.getReservedChairs() + ";");
 	}
 
+	/**
+	 * Method to get current date
+	 * @return String with current date
+	 */
 	private String currentDate() {
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 		return formatador.format(date);
 	}
-
+	/**
+	 * Method to get current hour
+	 * @return String with current hour
+	 */
 	private String currentHour() {
 		Date date = new Date(System.currentTimeMillis());
 		return date.toString().substring(11, 16);
 	}
 
+	/**
+	 * Method to get current hour
+	 * @return String with current hour
+	 */
 	private boolean isValidDate(String date) {
 		String split_current_date[] = this.currentDate().split("[./-]");
 		String split_date[] = date.split("[./-]");
@@ -574,6 +617,11 @@ public class ReservationRoomForStudentDAO extends DAO {
 		return false;
 	}
 
+	/**
+	 * Verify if date is equals to current date
+	 * @param date not null string
+	 * @return true if equals or false if not equals
+	 */
 	public boolean equalsDate(String date) {
 		date = this.mountDefaultDate(date);
 		String split_current_date[] = this.currentDate().split("[./-]");
@@ -586,6 +634,11 @@ public class ReservationRoomForStudentDAO extends DAO {
 		return false;
 	}
 
+	/**
+	 * Method to verify if is valid hour
+	 * @param hour in default format
+	 * @return true if hour is valid
+	 */
 	private boolean isValidHour(String hour) {
 		String now = this.currentHour();
 		if (hour.length() == 4)
@@ -604,6 +657,11 @@ public class ReservationRoomForStudentDAO extends DAO {
 			return false;
 	}
 
+	/**
+	 * Method to mount a date in default format
+	 * @param date not null and in the predefine format
+	 * @return date in default format
+	 */
 	private String mountDefaultDate(String date) {
 		String now[] = currentDate().split("[./-]");
 		String parts_of_the_date[] = date.split("[./-]");
@@ -624,7 +682,12 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 		return date_in_default_model;
 	}
-
+	
+	/**
+	 * Method to mount a hour in default format
+	 * @param date not null and in the predefine format
+	 * @return hour in default format
+	 */
 	private String mountDefaultHour(String hour) {
 		if (hour.length() == 4)
 			return "0" + hour;
