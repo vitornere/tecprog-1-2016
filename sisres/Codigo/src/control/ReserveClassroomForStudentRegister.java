@@ -31,6 +31,9 @@ public class ReserveClassroomForStudentRegister {
 		return reserveClassroomForStudent;
 	}
 
+	/**
+	 * Reserve Classroom list for hour.
+	 */
 	public Vector<ReserveClassroomForStudent> getHoursReserved(String hour)
 			throws SQLException, PatrimonyException, ClientException,
 			ReserveException {
@@ -39,13 +42,19 @@ public class ReserveClassroomForStudentRegister {
 
 	}
 
+	/**
+	 * Reserve Classroom list for date.
+	 */
 	public Vector<ReserveClassroomForStudent> getMonthReservations(String date)
 			throws SQLException, PatrimonyException, ClientException,
 			ReserveException {
 		return ReservationRoomForStudentDAO.getInstance()
 				.searchbyDay(date);
 	}
-
+	
+	/**
+	 * Reserve Classroom list.
+	 */
 	public Vector<ReserveClassroomForStudent> getVectorReserveClassroomForStudent()
 			throws SQLException, PatrimonyException, ClientException,
 			ReserveException {
@@ -54,6 +63,9 @@ public class ReserveClassroomForStudentRegister {
 		return this.vectorReserveClassroomForStudent;
 	}
 
+	/**
+	 * Verify if exist chairs.
+	 */
 	public int chairsAvailable(Classroom classroom, String date,
 			String hourReserveClassroomForStudent) throws SQLException,
 			PatrimonyException, ClientException, ReserveException {

@@ -1,3 +1,7 @@
+/**
+ * Name: ClassroomRegister.java
+ * Class of register classroom.
+ */
 package control;
 
 import java.sql.SQLException;
@@ -16,6 +20,9 @@ public class ClassroomRegister {
 	private ClassroomRegister() {
 	}
 
+	/**
+	 * Create for classroom if there is no.
+	 */
 	public static ClassroomRegister getInstance() {
 
 		if (classroom != null) {
@@ -27,12 +34,19 @@ public class ClassroomRegister {
 		return classroom;
 	}
 
+	/**
+	 * Classroom list.
+	 */
 	public Vector<Classroom> getVectorClassroom() throws SQLException,
 			PatrimonyException {
 		this.vectorClassroom = ClassroomDAO.getInstance().searchAll();
 		return this.vectorClassroom;
 	}
 
+	/**
+	 * Insert classroom.
+	 * @param idClassroom, descriptionClassroom, capacity
+	 */
 	public void insert(String idClassroom, String descriptionClassroom,
 			String capacity) throws PatrimonyException, SQLException {
 		Classroom classroom = new Classroom(idClassroom, descriptionClassroom,
@@ -41,6 +55,10 @@ public class ClassroomRegister {
 		this.vectorClassroom.add(classroom);
 	}
 
+	/**
+	 * Update classroom.
+	 * @param idClassroom, descriptionClassroom, capacity
+	 */
 	public void update(String idClassroom, String descriptionClassroom,
 			String capacity, Classroom classroom) throws PatrimonyException,
 			SQLException {
@@ -52,6 +70,10 @@ public class ClassroomRegister {
 		ClassroomDAO.getInstance().change(oldClassroomDate, classroom);
 	}
 
+	/**
+	 * Delete classroom.
+	 * @param classroom
+	 */
 	public void delete(Classroom classroom) throws SQLException,
 			PatrimonyException {
 		ClassroomDAO.getInstance().delete(classroom);
