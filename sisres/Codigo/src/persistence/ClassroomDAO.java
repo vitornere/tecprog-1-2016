@@ -219,6 +219,7 @@ public class ClassroomDAO {
 	private Vector<Classroom> search(String query) throws SQLException, PatrimonyException {
 		//Start connection
 		Connection connection = FactoryConnection.getInstance().getConnection();
+		assert connection != null;
 		PreparedStatement prepare_query_to_execute = connection.prepareStatement(query);
 		
 		//Execute consult
@@ -248,6 +249,7 @@ public class ClassroomDAO {
 	private boolean inDBGeneric(String query) throws SQLException {
 		//Start connection
 		Connection connection = FactoryConnection.getInstance().getConnection();
+		assert connection != null;
 		PreparedStatement prepare_query_to_execute = connection.prepareStatement(query);
 		
 		//Data return by query
@@ -341,6 +343,7 @@ public class ClassroomDAO {
 	private void updateQuery(String menssage) throws SQLException {
 		//Start connection.
 		Connection connection = FactoryConnection.getInstance().getConnection();
+		assert connection != null;
 		PreparedStatement prepare_query_to_execute = connection.prepareStatement(menssage);
 		
 		//Execute update query.
