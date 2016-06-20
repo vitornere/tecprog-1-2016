@@ -1,6 +1,9 @@
+/**
+ * Name: DrugstoreSystem.java
+ * Relationships test class containing all used in the system
+ */
 package drugstoreSystem;
 
-// Test relationships containing all used in the system
 
 import java.text.DecimalFormat;
 
@@ -19,26 +22,36 @@ public class DrugstoreSystem {
 
 	public static void main(String[] args) {
 
-		// Creating a Clerk.
+		/**
+		 * Creating a new Clerk.
+		 */
 		Clerk drugstoreClerk = new Clerk("13.523.542-PA", "123.456.789", 12,
 				"Victor", "Fellipe", "SHCES Qd 1000", "(61)1234-5678", 1234,
 				5678, 20, 2, 20);
 
-		// creating a Client
+		/**
+		 * Creating a new Client.
+		 */
 		Client newClient = new Client("13.999.888-DF", "444.555.666", 11,
 				"Teste", "Teste", "Gama qd. 1000", "(61)-1234-5678",
 				"client@gmail.com");
 
-		// creating a Medicament
+		/**
+		 * Creating and registering a Medicament.
+		 */
 		Medicament newMedicament = new Medicament("NameTest", "LaboratoryTest",
 				"Adult", "Pill", "10/10/2020", "One pill every eight hours");
 
-		// Creating a transaction cashier
+		/**
+		 * Creating and registering a Cashier Transactions.
+		 */
 		Cashier cashier = new Cashier("Test 1", "Test 2", 50, "Test 3",
 				"Test 4", "Test 5", "Test 6", 0, 100, "10/10/2020",
 				"transactionTest", 1);
 
-		// Printing the Clerk Info
+		/**
+		 * Printing on the console the Employee Info.
+		 */
 		System.out.println("Functionary:" + drugstoreClerk.getName()
 				+ drugstoreClerk.getPastName());
 		System.out.println("CPF Clerk: " + drugstoreClerk.getCpfPerson() + "-"
@@ -50,7 +63,9 @@ public class DrugstoreSystem {
 		System.out.println("Address Clerk: " + drugstoreClerk.getAddress()
 				+ ".Phone Clerk: " + drugstoreClerk.getPhone());
 
-		// Printing the Client Info
+		/**
+		 * Printing on the console the Client Info.
+		 */
 		System.out.println("Client name registered: " + newClient.getName()
 				+ newClient.getPastName() + ".Address Client: "
 				+ newClient.getAddress() + ".Phone Client: "
@@ -59,8 +74,9 @@ public class DrugstoreSystem {
 		System.out.println("CPF Client: " + newClient.getCpfPerson());
 		System.out.println("Email Client: " + newClient.getEmail());
 
-		// Printing the Medicament Info
-		System.out.println("Medicament Name: "
+		/**
+		 * Printing on the console the Medicament Info.
+		 */		System.out.println("Medicament Name: "
 				+ newMedicament.getNameMedicament());
 		System.out.println("Manufactures Laboratory: "
 				+ newMedicament.getManufacturer());
@@ -71,7 +87,9 @@ public class DrugstoreSystem {
 		System.out.println("Expiration Date: "
 				+ newMedicament.getExpirationDate());
 
-		// Printing the Cashier Info
+		/**
+		 * Printing on the console the Cashier Info.
+		 */
 		System.out.println("\nTransation Type:" + cashier.getTransationType());
 		System.out.printf("Transation Value: R$ %.2f\n",
 				cashier.getTransactionValue());
@@ -81,7 +99,10 @@ public class DrugstoreSystem {
 		cashier.depositar(150);
 		System.out.println("\nCurrent Sale: " + cashier.getCurrentSale());
 
-		// Restricts the number of decimal places to be displayed
+		/**
+		 * Decimal Format to restrict the number of decimal places of values to
+		 * be displayed.
+		 */
 		DecimalFormat df = new DecimalFormat("0.00");
 		Administrative administrative;
 
@@ -115,10 +136,14 @@ public class DrugstoreSystem {
 				"LaboratoryTest ", "Children", "Liquid", "01/07/2014",
 				"5 ml of six in six hours");
 
-		// Medicament list
+		/**
+		 * Medicament List for association.
+		 */
 		Medicament[] medicaments = { secondMedicament, thirdMedicament };
 		drugstoreClerk.setMedicaments(medicaments);
-		// Listing
+		/**
+		 * Listing.
+		 */
 		drugstoreClerk.listarMedicamentsAssociados();
 
 		Medicament fourthMedicament = new Medicament("Paracetamol", "Germed",
@@ -151,6 +176,9 @@ public class DrugstoreSystem {
 		System.out.println("The Cashier Housing:"
 				+ cashierComposition.getClerk().getName());
 
+		/**
+		 * Upcasting.
+		 */
 		Person pessoa;
 		pessoa = drugstoreClerk;
 		System.out
@@ -161,6 +189,9 @@ public class DrugstoreSystem {
 				.println("The confirmation of the funcionary's payment (1: Confirmed and 0:rejected): "
 						+ pessoa.paymentConfirmation());
 
+		/**
+		 * Interface.
+		 */
 		Client novoClienteInterface = new Client("13.999.888-DF",
 				"444.555.666", 11, "INTERFACE", "INTERFACE", "Gama qd. 1000",
 				"(61)-1234-5678", "client@gmail.com");
