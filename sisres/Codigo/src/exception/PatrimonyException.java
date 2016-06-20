@@ -1,3 +1,7 @@
+/**
+ * Name: PatrimonyException.java
+ * Class of exception Patrimony.
+ */
 package exception;
 
 @SuppressWarnings("serial")

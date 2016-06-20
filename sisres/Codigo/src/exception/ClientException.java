@@ -1,3 +1,7 @@
+/**
+ * Name: ClientException.java
+ * Class of exception client.
+ */
 package exception;
 
 @SuppressWarnings("serial")
