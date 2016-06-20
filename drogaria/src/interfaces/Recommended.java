@@ -1,3 +1,7 @@
+/**
+ * Name: Recommended.java
+ * Class that returns the type of medicament recommended.
+ */
 package interfaces;
 
 public interface Recommended {
