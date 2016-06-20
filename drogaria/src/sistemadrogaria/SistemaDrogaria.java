@@ -107,7 +107,8 @@ public class SistemaDrogaria {
 		DecimalFormat df = new DecimalFormat("0.00");
 		Administrative administrativo;
 
-		double salarioSemana, salarioMes;
+		double salarioSemana = 0.0;
+		double salarioMes = 0.0;
 		Clerk funcionarioDrogaria1 = new Clerk("13.523.542-PA", "123.456.789",
 				12, "Victor", "Fellipe", "SHCES Qd 1000", "(61)-1234-5678",
 				1234, 5678, 20, 10, 40);
@@ -119,8 +120,8 @@ public class SistemaDrogaria {
 				+ df.format(salarioSemana));
 		System.out.println(" E por mes: RS " + df.format(salarioMes));
 
-		double salarioCaixaSemana;
-		double salarioCaixaMes;
+		double salarioCaixaSemana = 0.0;
+		double salarioCaixaMes = 0.0;
 		Cashier funcionarioDrogaria2 = new Cashier("25.555.444-DF",
 				"123.456.789", 15, "Henrique", "Augusto",
 
