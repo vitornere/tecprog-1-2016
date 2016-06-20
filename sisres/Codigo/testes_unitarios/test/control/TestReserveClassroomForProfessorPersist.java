@@ -9,89 +9,61 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 import model.Professor;
-<<<<<<< HEAD
 import model.ReserveClassroomForProfessor;
-=======
-import model.ReservaSalaProfessor;
->>>>>>> devel
 import model.Classroom;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-<<<<<<< HEAD
 import control.ReserveClassroomForProfessorRegister;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
-=======
-import control.ManterResSalaProfessor;
-import exception.ClienteException;
-import exception.PatrimonyException;
-import exception.ReservaException;
->>>>>>> devel
 
 import persistence.FactoryConnection;
 import persistence.ProfessorDAO;
 import persistence.ClassroomDAO;
 
-public class ManterResSalaProfessorTest {
+public class TestReserveClassroomForProfessorPersist {
 	private static Classroom sala1;
 	private static Professor professor1;
 	private static Vector<ReserveClassroomForProfessor> vet;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-<<<<<<< HEAD
-		vet = ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor().getVectorReserveClassroomForProfessor();
-		sala1 = new Classroom("123", "Sala de Aula", "120");
-		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
-		
-		ProfessorDAO.getNewProfessor().include(professor1);
-		ClassroomDAO.getClassroom().include(sala1);
-=======
-		vet = ManterResSalaProfessor.getInstance().getResProfessorSala_vet();
+		vet = ReserveClassroomForProfessorRegister.getInstance().getVectorReserveClassroomForProfessor();
 		sala1 = new Classroom("123", "Sala de Aula", "120");
 		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
 		
 		ProfessorDAO.getInstance().incluir(professor1);
 		ClassroomDAO.getInstance().add(sala1);
->>>>>>> devel
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-<<<<<<< HEAD
-		ProfessorDAO.getNewProfessor().delete(professor1);
-		ClassroomDAO.getClassroom().delete(sala1);
-=======
 		ProfessorDAO.getInstance().excluir(professor1);
 		ClassroomDAO.getInstance().delete(sala1);
->>>>>>> devel
 	}
 
 	@Test
 	public void testInstance() {
-		assertTrue("Teste de Instancia.", ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor() instanceof ReserveClassroomForProfessorRegister);
+		assertTrue("Teste de Instancia.", ReserveClassroomForProfessorRegister.getInstance() instanceof ReserveClassroomForProfessorRegister);
 	}
 	@Test
 	public void testSingleton() {
-		assertSame("Teste de Instancia.", ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor(), ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor());
+		assertSame("Teste de Instancia.", ReserveClassroomForProfessorRegister.getInstance(), ReserveClassroomForProfessorRegister.getInstance());
 	}
 	
 	
 	@Test
-<<<<<<< HEAD
 	public void testInserir() throws SQLException, ReserveException, ClientException, PatrimonyException {
-=======
-	public void testInserir() throws SQLException, ReservaException, ClienteException, PatrimonyException {
->>>>>>> devel
+
 		String finalidade = "Sala de Estudos";
 		String data = "20/12/33";
 		String hora = "9:11";
 		ReserveClassroomForProfessor reserva = new ReserveClassroomForProfessor(data, hora, sala1, finalidade, professor1);
-		ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor().insert(sala1, professor1, data, hora, finalidade);
+		ReserveClassroomForProfessorRegister.getInstance().insert(sala1, professor1, data, hora, finalidade);
 		boolean resultado = this.inDB(reserva);
 		boolean resultado2 = reserva.equals(vet.lastElement());
 		if(resultado)
@@ -99,17 +71,13 @@ public class ManterResSalaProfessorTest {
 		assertTrue("Teste de Insercao.", resultado && resultado2);
 	}
 	@Test
-<<<<<<< HEAD
 	public void testAlterar() throws ReserveException, SQLException, ClientException, PatrimonyException {
-=======
-	public void testAlterar() throws ReservaException, SQLException, ClienteException, PatrimonyException {
->>>>>>> devel
 		
 		ReserveClassroomForProfessor reserva = new ReserveClassroomForProfessor("20/12/33", "9:11", sala1, "Pesquisa", professor1);
 		this.insert_into(reserva);
 		vet.add(reserva);
 		ReserveClassroomForProfessor reserva2 = new ReserveClassroomForProfessor("20/12/33", "9:11", sala1, "Reuniao", professor1);
-		ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor().update("Reuniao", vet.lastElement());
+		ReserveClassroomForProfessorRegister.getInstance().update("Reuniao", vet.lastElement());
 		boolean resultado = this.inDB(reserva2);
 		boolean resultado2 = reserva2.equals(vet.lastElement());
 		if(resultado)
@@ -126,7 +94,7 @@ public class ManterResSalaProfessorTest {
 		ReserveClassroomForProfessor reserva = new ReserveClassroomForProfessor(data, hora, sala1, finalidade, professor1);
 		this.insert_into(reserva);
 		vet.add(reserva);
-		ReserveClassroomForProfessorRegister.getReserveClassroomForProfessor().delete(reserva);
+		ReserveClassroomForProfessorRegister.getInstance().delete(reserva);
 		boolean resultado = this.inDB(reserva);
 		vet.remove(reserva);
 
@@ -145,13 +113,8 @@ public class ManterResSalaProfessorTest {
 	}
 	private String select_id_sala(Classroom sala){
 		return "SELECT id_sala FROM sala WHERE " +
-<<<<<<< HEAD
 				"sala.codigo = \"" + sala.getIdEquipment() + "\" and " +
 				"sala.descricao = \"" + sala.getDescriptionEquipment() +  "\" and " +
-=======
-				"sala.codigo = \"" + sala.getCode() + "\" and " +
-				"sala.descricao = \"" + sala.getDescription() +  "\" and " +
->>>>>>> devel
 				"sala.capacidade = " + sala.getCapacity();
 	}
 	private String where_reserva_sala_professor(ReserveClassroomForProfessor reserva){
