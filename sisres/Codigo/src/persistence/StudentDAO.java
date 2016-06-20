@@ -267,7 +267,7 @@ public class StudentDAO {
 	 * @throws SQLException happens when sql code is wrong
 	 * @throws ClientException don't happens
 	 */
-	public Vector<Student> searcByEmail(String email) throws SQLException,
+	public Vector<Student> searchByEmail(String email) throws SQLException,
 			ClientException {
 		return this.search("SELECT * FROM aluno WHERE email = " + "\"" + email
 				+ "\";");
