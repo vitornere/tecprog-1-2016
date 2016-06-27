@@ -53,25 +53,30 @@ public class TestClient {
 	public void Clerk() {
 		Client cliente = new Client();
 		Clerk[] balconista = {new Clerk() , new Clerk()};
-		cliente.setBalconistas(balconista);
-		assertEquals(balconista,cliente.getBalconistas());
+		cliente.setClerk(balconista);
+		assertEquals(balconista,cliente.getClerk());
 	}
+	
 	
 	@Test
 	public void Caixa() {
 		Client cliente = new Client();
 		Cashier[] caixa = {new Cashier() , new Cashier()};
-		cliente.setCaixas(caixa);
-		assertEquals(caixa,cliente.getCaixas());
+		cliente.setCashier(caixa);
+		assertEquals(caixa,cliente.getCashier());
 	}
+	
+	
 	
 	@Test
 	public void Client() {
 		Client cliente = new Client();
 		Client[] cliente2 = {new Client(),new Client()};
-		cliente.setCliente(cliente2);
-		assertEquals(cliente2,cliente.getCliente());
+		cliente.setClient(cliente2);
+		assertEquals(cliente2,cliente.getClient());
 	}
+	
+	
 	
 	@Test
 	public void testScanner(){
@@ -84,15 +89,15 @@ public class TestClient {
 	@Test
 	public void codigoExclusao(){
 		Client cliente = new Client();
-		cliente.setCodigoExclusao(1);
-		assertEquals(1, cliente.getCodigoExclusao());
+		cliente.setCodeExclusion(1);
+		assertEquals(1, cliente.getDeleteCode());
 	}
 	
 	@Test
 	public void confirmacaoExclusaoClient(){
-		Client cliente = new Client();
-		cliente.setConfirmacaoExclusaoCliente(0);
-		assertEquals(0, cliente.getConfirmacaoExclusaoCliente());
+		Client client = new Client();
+		client.setConfirmationClientExclusion(0);
+		assertEquals(0, client.getConfirmationClientExclusion());
 	}
 }
 	
