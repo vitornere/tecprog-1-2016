@@ -90,14 +90,14 @@ public class DrugstoreSystem {
 		/**
 		 * Printing on the console the Cashier Info.
 		 */
-		System.out.println("\nTransation Type:" + cashier.getTransationType());
+		System.out.println("\nTransation Type:" + cashier.getType());
 		System.out.printf("Transation Value: R$ %.2f\n",
-				cashier.getTransactionValue());
-		System.out.println("Transation Date: " + cashier.getTransationDate());
+				cashier.getValue());
+		System.out.println("Transation Date: " + cashier.getDate());
 		System.out.println("Description: " + cashier.getDescription());
-		System.out.println("Current Sale: " + cashier.getCurrentSale());
-		cashier.depositar(150);
-		System.out.println("\nCurrent Sale: " + cashier.getCurrentSale());
+		System.out.println("Current Sale: " + cashier.getCurrentBalance());
+		cashier.deposit(150);
+		System.out.println("\nCurrent Sale: " + cashier.getCurrentBalance());
 
 		/**
 		 * Decimal Format to restrict the number of decimal places of values to
