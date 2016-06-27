@@ -171,7 +171,7 @@ public class Client extends Person implements Recommended {
 	 * 
 	 * @param clientsList
 	 */
-	public void listCLients(ArrayList<Client> clientsList) {
+	public void listClients(ArrayList<Client> clientsList) {
 		if (clientsList.size() == 0) {
 			System.out.println("Cadastro em branco!\n");
 		}
@@ -221,7 +221,7 @@ public class Client extends Person implements Recommended {
 				clientList.remove(deleteCode);
 
 				System.out.println("A lista foi alterada");
-				listCLients(clientList);
+				listClients(clientList);
 			}
 			else if (confirmationClientExclusion == NO) {
 				this.setCodeExclusion(0);
