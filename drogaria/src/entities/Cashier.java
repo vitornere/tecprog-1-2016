@@ -175,29 +175,70 @@ public class Cashier extends Person {
 
 	public void cashierRegister(ArrayList<Cashier> cashierList) {
 
+		String personIdentity = null;
+		String cpfPerson = null;
+		String personPhone = null;
+		int cpfDigitPerson = 0;
+		String personName = null;
+		String personLastName = null;
+		String personAddress = null;
+		int code = 0;
+		
 		System.out.println("Digite o rg do Caixa: ");
-		String personIdentity = ConsoleMenu.readString();
+		try {
+			personIdentity = ConsoleMenu.readString();
+		} catch (NullPointerException e) {
+			System.out.println("RG vazio. Exceção " + e);
+		}
 
 		System.out.println("Digite o cpf do Caixa: ");
-		String cpfPerson = ConsoleMenu.readString();
+		try {
+			cpfPerson = ConsoleMenu.readString();
+		} catch (NullPointerException e) {
+			System.out.println("CPF vazio. Exceção " + e);
+		}
 
 		System.out.println("Digite o digito do cpf do Caixa: ");
-		int cpfDigitPerson = ConsoleMenu.readInt();
+		try {
+			cpfDigitPerson = ConsoleMenu.readInt();
+		} catch (NumberFormatException e) {
+			System.out.println("Exceção " + e);
+		}
 
 		System.out.println("Digite o nome do Caixa: ");
-		String personName = ConsoleMenu.readString();
+		try {
+			personName = ConsoleMenu.readString();
+		} catch (NullPointerException e) {
+			System.out.println("Nome vazio. Exceção " + e);
+		}
 
 		System.out.println("Digite o sobrenome completo do Caixa: ");
-		String personLastName = ConsoleMenu.readString();
+		try {
+			personLastName = ConsoleMenu.readString();
+		} catch (NullPointerException e) {
+			System.out.println("Ultimo nome vazio. Exceção " + e);
+		}
 
 		System.out.println("Digite o endereco do Caixa: ");
-		String personAddress = ConsoleMenu.readString();
+		try {
+			personAddress = ConsoleMenu.readString();
+		} catch (NullPointerException e) {
+			System.out.println("Endereço vazio. Exceção " + e);
+		}
 
 		System.out.println("Digite o telefone do Caixa:");
-		String personPhone = ConsoleMenu.readString();
+		try {
+			personPhone = ConsoleMenu.readString();
+		} catch (NullPointerException e) {
+			System.out.println("Telefone vazio. Exceção " + e);
+		}
 
 		System.out.println("Digite o código do Caixa:");
-		int code = ConsoleMenu.readInt();
+		try {
+			code = ConsoleMenu.readInt();
+		} catch (NumberFormatException e) {
+			System.out.println("Exceção " + e);
+		}
 
 		Cashier cashier = new Cashier(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress,
 				personPhone, code);
