@@ -256,7 +256,7 @@ public class Client extends Person implements Recommended {
 			this.setCodeExclusion(scanner.nextInt());
 			System.out.println("Você deseja realmente excluir o cadastro de numero: " + this.deleteCode + "?"
 					+ "\n(0) - Não" + "\n(1) - Sim");
-			this.setConfirmationCodeExclusion(scanner.nextInt());
+			this.setConfirmationClientExclusion(scanner.nextInt());
 			if (confirmationClientExclusion == YES) {
 				this.setCodeExclusion(deleteCode - 1);
 				clientList.remove(deleteCode);
@@ -324,11 +324,11 @@ public class Client extends Person implements Recommended {
 		this.deleteCode = codigoExclusao;
 	}
 
-	public int getConfirmacaoExclusaoCliente() {
+	public int getConfirmationClientExclusion() {
 		return confirmationClientExclusion;
 	}
 
-	public void setConfirmationCodeExclusion(int confirmacaoExclusaoCliente) {
+	public void setConfirmationClientExclusion(int confirmacaoExclusaoCliente) {
 		this.confirmationClientExclusion = confirmacaoExclusaoCliente;
 	}
 
