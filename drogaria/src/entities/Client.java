@@ -15,23 +15,24 @@ public class Client extends Person implements Recommended {
 	private static final int FIRST = 0;
 	private static final int YES = 1;
 	private static final int NO = 0;
-	
+
 	protected String email = " ";
 	protected Cashier[] cashiers;
 	Clerk[] clerk = {};
 	Client[] client = {};
 	Scanner scanner = new Scanner(System.in);
-	private int deleteCode = 0; //Client code to be deleted.
-	private int confirmationClientExclusion = 0; //Delete confirmation code ( 0 or 1).
+	private int deleteCode = 0; // Client code to be deleted.
+	private int confirmationClientExclusion = 0; // Delete confirmation code ( 0
+													// or 1).
 
 	/**
 	 * Creates an empty object.
-     */
-	
+	 */
+
 	public Client() {
 		super();
 	}
-	
+
 	/**
 	 * 
 	 * @param personIdentity
@@ -43,13 +44,13 @@ public class Client extends Person implements Recommended {
 	 * @param personPhone
 	 */
 
-	public Client(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName,
-			String personLastName, String personAddress, String personPhone) {
+	public Client(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName, String personLastName,
+			String personAddress, String personPhone) {
 		super(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress, personPhone);
 		System.out.println("Possui pelo menos um balconista para atend�-lo!!");
 		Clerk.setStatusClerk(true);
 	}
-	
+
 	/**
 	 * 
 	 * @param personIdentity
@@ -62,16 +63,16 @@ public class Client extends Person implements Recommended {
 	 * @param emailClient
 	 */
 
-	public Client(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName,
-			String personLastName, String personAddress, String personPhone, String emailClient) {
+	public Client(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName, String personLastName,
+			String personAddress, String personPhone, String emailClient) {
 		super(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress, personPhone);
 		this.email = emailClient;
 
 	}
 
 	/**
-	 * Method for the selection of the amount of medicine recommended by the clerk 
-	 * in accordance with the parameters.
+	 * Method for the selection of the amount of medicine recommended by the
+	 * clerk in accordance with the parameters.
 	 * 
 	 * @param medicineType
 	 * @param use
@@ -79,33 +80,33 @@ public class Client extends Person implements Recommended {
 	public void recommendedMedicine(String medicineType, String use) {
 		assert (medicineType != null);
 		assert (use != null);
-		
+
 		if (medicineType == "TARJA PRETA" && use == "ADULTO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 1");
 		} else {
-			//Nothing to do.
+			// Nothing to do.
 		}
 
 		if (medicineType == "TARJA PRETA" && use == "PEDIATRICO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 0");
 		} else {
-			//Nothing to do.
+			// Nothing to do.
 		}
 
 		if (medicineType == "GENERICO" && use == "ADULTO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 5");
 		} else {
-			//Nothing to do.
+			// Nothing to do.
 		}
 
 		if (medicineType == "GENERICO" && use == "PEDIATRICO") {
 			System.out.println("A quantidade de remedios recomendados pelo Balconista é: 3");
 		} else {
-			//Nothing to do.
+			// Nothing to do.
 		}
 
 	}
-	
+
 	/**
 	 * Method that lists the registered cashiers.
 	 */
@@ -117,15 +118,16 @@ public class Client extends Person implements Recommended {
 	}
 
 	/**
-	 * Method that prints a menu with options for customer to choose . The options are 0 to 3. 
-	 * Where 0 is exit, 1 is register a new client, 2  is client list and 3 is to delete a client.
+	 * Method that prints a menu with options for customer to choose . The
+	 * options are 0 to 3. Where 0 is exit, 1 is register a new client, 2 is
+	 * client list and 3 is to delete a client.
 	 */
 
 	public void clientMenu() {
 		System.out.println("\nInsira o que deseja fazer de acordo com as opções seguintes:" + "\n(0) - Sair\n"
 				+ "(1) - Cadastrar novo Cliente\n" + "(2) - Listar Clientes\n" + "(3) - Excluir Cliente\n");
 	}
-	
+
 	/**
 	 * Method to register a client.
 	 * 
@@ -133,32 +135,73 @@ public class Client extends Person implements Recommended {
 	 */
 
 	public void clientRegister(ArrayList<Client> clientsList) {
+		
+		String personIdentity = null;
+		String cpfPerson = null;
+		int cpfDigitPerson = 0;
+		String personName = null;
+		String personLastName = null;
+		String personAddress = null;
+		String personPhone = null;
+		String emailClient = null;
 
 		System.out.println("Digite o rg do Cliente: ");
-		String rgPessoa = ConsoleMenu.readString();
+		try {
+			personIdentity = ConsoleMenu.readString();
+		} catch (NullPointerException e) {
+			System.out.println("RG vazio. Exceção " + e);
+		}
 
 		System.out.println("Digite o cpf do Cliente: ");
-		String cpfPerson = ConsoleMenu.readString();
+		try {
+			cpfPerson = ConsoleMenu.readString();
+		} catch (NullPointerException e) {
+			System.out.println("CPF vazio. Exceção " + e);
+		}
 
 		System.out.println("Digite o digito do cpf do Cliente: ");
-		int cpfDigitPerson = ConsoleMenu.readInt();
+		try {
+			cpfDigitPerson = ConsoleMenu.readInt();
+		} catch (NumberFormatException e) {
+			System.out.println("Exceção " + e);
+		}
 
 		System.out.println("Digite o nome do Cliente: ");
-		String personName = ConsoleMenu.readString();
+		try {
+			personName = ConsoleMenu.readString();
+		} catch (NullPointerException e) {
+			System.out.println("Nome vazio. Exceção " + e);
+		}
 
 		System.out.println("Digite o sobrenome completo do Cliente: ");
-		String personLastName = ConsoleMenu.readString();
+		try {
+			personLastName = ConsoleMenu.readString();
+		} catch (NullPointerException e) {
+			System.out.println("Ultimo nome vazio. Exceção " + e);
+		}
 
 		System.out.println("Digite o endereco do Cliente: ");
-		String personAddress = ConsoleMenu.readString();
+		try {
+			personAddress = ConsoleMenu.readString();
+		} catch (NullPointerException e) {
+			System.out.println("Endereço vazio. Exceção " + e);
+		}
 
 		System.out.println("Digite o telefone do Cliente:");
-		String personPhone = ConsoleMenu.readString();
+		try {
+			personPhone = ConsoleMenu.readString();
+		} catch (NullPointerException e) {
+			System.out.println("Telefone vazio. Exceção " + e);
+		}
 
 		System.out.println("Digite o email do Cliente");
-		String emailClient = ConsoleMenu.readString();
+		try {
+			emailClient = ConsoleMenu.readString();
+		} catch (NullPointerException e) {
+			System.out.println("Email vazio. Exceção " + e);
+		}
 
-		Client client = new Client(rgPessoa, cpfPerson, cpfDigitPerson, personName, personLastName,
+		Client client = new Client(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName,
 				personAddress, personPhone, emailClient);
 
 		clientsList.add(client);
@@ -174,8 +217,7 @@ public class Client extends Person implements Recommended {
 	public void listClients(ArrayList<Client> clientsList) {
 		if (clientsList.size() == 0) {
 			System.out.println("Cadastro em branco!\n");
-		}
-		else {
+		} else {
 			System.out.println("\nLista de cadastros de Clientes\n");
 			for (int position = FIRST; position < clientsList.size(); position++) {
 				Client t = clientsList.get(position);
@@ -186,11 +228,11 @@ public class Client extends Person implements Recommended {
 				System.out.println("\nRG: " + t.getIdentity().substring(0, 2) + "-"
 						+ t.getIdentity().substring(2, t.getIdentity().length()));
 
-				System.out.println("Cpf: " + t.getCpfPerson().substring(0, 3) + "."
-						+ t.getCpfPerson().substring(3, 6) + "." + t.getCpfPerson().substring(6, 9) + "-"  + t.getDigitCpfPerson());
+				System.out.println("Cpf: " + t.getCpfPerson().substring(0, 3) + "." + t.getCpfPerson().substring(3, 6)
+						+ "." + t.getCpfPerson().substring(6, 9) + "-" + t.getDigitCpfPerson());
 
-				System.out.println("\nTelefone: (" + t.getPhone().substring(0, 2) + ") "
-						+ t.getPhone().substring(2, 6) + "-" + t.getPhone().substring(6, 10));
+				System.out.println("\nTelefone: (" + t.getPhone().substring(0, 2) + ") " + t.getPhone().substring(2, 6)
+						+ "-" + t.getPhone().substring(6, 10));
 
 				System.out.println("\nEmail: " + t.getEmail());
 			}
@@ -198,7 +240,7 @@ public class Client extends Person implements Recommended {
 		}
 
 	}
-	
+
 	/**
 	 * Method to delete a client.
 	 * 
@@ -209,8 +251,7 @@ public class Client extends Person implements Recommended {
 
 		if (clientList.size() == 0) {
 			System.out.println("Cadastro em branco!\n");
-		}
-		else {
+		} else {
 			System.out.println("Digite o numero do cadastro de Cliente que deseja excluir: ");
 			this.setCodeExclusion(scanner.nextInt());
 			System.out.println("Você deseja realmente excluir o cadastro de numero: " + this.deleteCode + "?"
@@ -222,17 +263,15 @@ public class Client extends Person implements Recommended {
 
 				System.out.println("A lista foi alterada");
 				listClients(clientList);
-			}
-			else if (confirmationClientExclusion == NO) {
+			} else if (confirmationClientExclusion == NO) {
 				this.setCodeExclusion(0);
-			}
-			else {
-				//nothing to do.
+			} else {
+				// nothing to do.
 			}
 		}
 
 	}
-	
+
 	/**
 	 * Getters and Setters
 	 */
@@ -294,13 +333,13 @@ public class Client extends Person implements Recommended {
 	}
 
 	public void recommendedMedicines(String medicineType, String use) {
-		
+
 	}
 
 	@Override
 	public void medicineRecommended(String typeMedicine, String use) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
