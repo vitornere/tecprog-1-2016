@@ -1,32 +1,51 @@
+/**
+ * Name: Cashier.java
+ * This class is a subclass of Person and keeps cashier information.
+ */
+
 package entities;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import entities.Clerk;
 import entities.Client;
+import entities.Clerk;
+
 
 public class Cashier extends Person {
+	
+	private static final int INCOME = 0;
+	private static final int OUTGO = 1;
+	private static final int FIRST = 0;
+	private static final double PAYMENT_ACCEPTED = 1;
+	private static final double PAYMENT_NOT_ACCEPTED = 0;
+	private static final int YES = 1;
+	private static final int NO = 0;
+	
+	private float CurrentBalance = 0; //Saves the current value ( total value of past products).
+	private int type = 0; //Informs the type if it is income or expense ( 0 or 1, respectively) .
+	private float value = 0; //Store the value of the last product.
+	private String date = "";
+	private String description = ""; //product description.
+	private Clerk clerk;
+	protected Client[] clients;
+	protected Clerk[] employee;
+	private int code = 0; //Store the product code.
+	private double confirmation = 0;
 
-	private float saldoAtual = 0;
-	private int tipo; // 0-Receita ou 1-Despesa
-	private float valor;
-	private String data;
-	private String descricao; // Informacoes
-	private Clerk balconista;
-	protected Client[] clientes;
-	protected Clerk[] funcionario;
-	private int codigo;
-
-	// COnsole
-	Cashier[] caixa = {};
+	Cashier[] cashier = {}; //Store the cashier information that is servicing the client.
 	Scanner scanner = new Scanner(System.in);
-	Scanner scanner1 = new Scanner(System.in);
-	int operacao = 0;
-	int operacaoCaixa = 0, repeteCadastroCaixa = 0, repeteCaixa = 0;
-	int codigoExclusao = 0;
-	int confirmacaoExclusaoCaixa = 0;
-
+	int operation = 0;
+	int operationCashier = 0;
+	int repeatCashierRegister = 0;
+	int repeatCashier = 0;
+	int deleteCode = 0;  //Store the information of exclusion desire ( 0 - no, 1 - yes) .
+	int confirmationExclusionCashier = 0; //Store the confirmation of exclusion desire ( 0 - no, 1 - yes) .
+	
+	/**
+	 * Creates an empty object.
+     */
+	
 	public Cashier() {
 		super();
 	}
@@ -46,116 +65,167 @@ public class Cashier extends Person {
 	 * @param trasitionDescription
 	 * @param code
 	 */
-	public Cashier(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
-			String sobrenomePessoa, String enderecoPessoa, String telefonePessoa, int tipoTransacao,
-			float valorTransacao, String dataTransacao, String descricaoTransacao, int codigo) {
-		super(rgPessoa, cpfPessoa, digitoCpfPessoa, nomePessoa, sobrenomePessoa, enderecoPessoa, telefonePessoa);
-		if (tipo == 0 || tipo == 1) {
-			this.tipo = tipoTransacao;
-			this.valor = valorTransacao;
-			this.data = dataTransacao;
-			this.descricao = descricaoTransacao;
-			this.codigo = codigo;
+	
+	public Cashier(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName,
+			String personLastName, String personAddress, String personPhone, int trasitionType,
+			float trasitionValue, String trasitionDate, String trasitionDescription, int code) {
+		super(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress, personPhone);
+		
+		if (type == INCOME || type == OUTGO) {
+			this.type = trasitionType;
+			this.value = trasitionValue;
+			this.date = trasitionDate;
+			this.description = trasitionDescription;
+			this.code = code;
 		}
 		else {
 			System.out.println("Caixa nao cadastrado.");
 
 		}
-		// Composicao - so existe um Caixa se ja existir um balconista!
-		Clerk balconista = new Clerk(this);
-		this.balconista = balconista;
+		
 
-		System.out.println("Verificacao de um funcion�rio para atend�-lo.");
-		Clerk.setStatusClerk(true); // Utilizacao de static para depend�ncia
+		Clerk clerk = new Clerk(this);
+		this.clerk = clerk;
+
+		System.out.println("Verificação de um funcionário para atendê-lo.");
+		Clerk.setStatusClerk(true); 
 	}
 
-	public Cashier(String rgPessoa, String cpfPessoa, int digitoCpfPessoa, String nomePessoa,
-			String sobrenomePessoa, String enderecoPessoa, String telefonePessoa, int codigo) {
-		super(rgPessoa, cpfPessoa, digitoCpfPessoa, nomePessoa, sobrenomePessoa, enderecoPessoa, telefonePessoa);
-		this.codigo = codigo;
+	/**
+	 * 
+	 * @param personIdentity
+	 * @param cpfPerson
+	 * @param cpfDigitPerson
+	 * @param personName
+	 * @param personLastName
+	 * @param personAddress
+	 * @param personPhone
+	 * @param code
+	 */
+	
+	public Cashier(String personIdentity, String cpfPerson, int cpfDigitPerson, String personName,
+			String personLastName, String personAddress, String personPhone, int code) {
+		super(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress, personPhone);
+		this.code = code;
 	}
+	
+	/**
+	 * Creates a clerk.
+	 */
 
-	// Composicao - Criacao de um novo caixa a partir de um balconista
 	public void createClerk() {
-		Clerk balconista = new Clerk(this);
-		this.balconista = balconista;
+		Clerk clerk = new Clerk(this);
+		this.clerk = clerk;
 	}
+	
+	/**
+	 * Gets the payment confirmation.
+	 */
 
-	// Verifica a confirma��o de pagamento na Caixa (POLIMORFISMO)
 	public double paymentConfirmation() {
-		if (this.getPaymentConfirmation() == 1) {
-			return 1; // Confirma que o pagamento foi aceito.
+		assert (Person.getPaymentConfirmation() < 2);
+		assert (Person.getPaymentConfirmation() > -1);
+		
+		if (Person.getPaymentConfirmation() == PAYMENT_ACCEPTED) {
+			confirmation = PAYMENT_ACCEPTED; 
+		} else {
+			confirmation = PAYMENT_NOT_ACCEPTED; 
 		}
-		else {
-			return 0; // Confirma que o pagamento n�o foi aceito
-		}
+		return confirmation;
+	}
+	
+	/**
+	 * Puts the value of the current balance.
+	 * 
+	 * @param value
+	 */
+
+	public void deposit(float value) {
+		assert (value != 0);
+		
+		System.out.println("Valor do saldo atual: " + CurrentBalance);
+		CurrentBalance += value;
+		System.out.println("Valor após o depósito: " + CurrentBalance);
 	}
 
-
-	// M�todo depositar
-	public void depositar(float valor) {
-		System.out.println("Valor do saldo atual: " + saldoAtual);
-		saldoAtual += valor;
-		System.out.println("Valor ap�s o dep�sito: " + saldoAtual);
-	}
-
+	/**
+	 * Calculate the employee's salary.
+	 */
+	
 	public double calculateSalary() {
-		this.setSalario(715);
+		this.setSalary(715);
 		return 715;
 	}
+	
+	/**
+	 * Displays the menu The options are 0 to 3. 
+	 * Where 0 is exit, 1 is register a new cashier, 2  is cashier list and 3 is to delete a cashier.
+	 */
 
-	public void menuCashier() {
-		System.out.println("\nInsira o que deseja fazer de acordo com as op��es seguintes:" + "\n(0) - Sair\n"
+	public void cashierMenu() {
+		System.out.println("\nInsira o que deseja fazer de acordo com as opções seguintes:" + "\n(0) - Sair\n"
 				+ "(1) - Cadastrar novo Caixa\n" + "(2) - Listar Caixas\n" + "(3) - Excluir Caixa\n");
 	}
+	
+	/**
+	 * Register a new cashier
+	 * 
+	 * @param cashierList
+	 */
 
-	public void registerCashier(ArrayList<Cashier> listaDeCaixas) {
+	public void cashierRegister(ArrayList<Cashier> cashierList) {
 
 		System.out.println("Digite o rg do Caixa: ");
-		String rgPessoa = Complementary.readString();
+		String personIdentity = ConsoleMenu.readString();
 
 		System.out.println("Digite o cpf do Caixa: ");
-		String cpfPessoa = Complementary.readString();
+		String cpfPerson = ConsoleMenu.readString();
 
 		System.out.println("Digite o digito do cpf do Caixa: ");
-		int digitoCpfPessoa = Complementary.readInt();
+		int cpfDigitPerson = ConsoleMenu.readInt();
 
 		System.out.println("Digite o nome do Caixa: ");
-		String nomePessoa = Complementary.readString();
+		String personName = ConsoleMenu.readString();
 
 		System.out.println("Digite o sobrenome completo do Caixa: ");
-		String sobrenomePessoa = Complementary.readString();
+		String personLastName = ConsoleMenu.readString();
 
 		System.out.println("Digite o endereco do Caixa: ");
-		String enderecoPessoa = Complementary.readString();
+		String personAddress = ConsoleMenu.readString();
 
 		System.out.println("Digite o telefone do Caixa:");
-		String telefonePessoa = Complementary.readString();
+		String personPhone = ConsoleMenu.readString();
 
-		System.out.println("Digite o c�digo do Caixa:");
-		int codigo = Complementary.readInt();
+		System.out.println("Digite o código do Caixa:");
+		int code = ConsoleMenu.readInt();
 
-		Cashier caixa = new Cashier(rgPessoa, cpfPessoa, digitoCpfPessoa, nomePessoa, sobrenomePessoa, enderecoPessoa,
-				telefonePessoa, codigo);
+		Cashier cashier = new Cashier(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress,
+				personPhone, code);
 
-		listaDeCaixas.add(caixa);
+		cashierList.add(cashier);
 
-		System.out.println("O(A) caixa " + caixa.getName() + " foi cadastrado(a) com sucesso!");
+		System.out.println("O(A) caixa " + cashier.getName() + " foi cadastrado(a) com sucesso!");
 
 	}
+	
+	/**
+	 * list cashiers registered
+	 * 
+	 * @param cashierList
+	 */
 
-	public void listCashiers(ArrayList<Cashier> listaDeCaixas) {
-		if (listaDeCaixas.size() == 0) {
+	public void listCashiers(ArrayList<Cashier> cashierList) {
+		if (cashierList.size() == 0) {
 			System.out.println("Cadastro em branco!\n");
 		}
 		else {
 			System.out.println("\nLista de cadastros de Caixas\n");
-			for (int b = 0; b < listaDeCaixas.size(); b++) {
-				Cashier t = listaDeCaixas.get(b);
-				System.out.println("\nCadastro de n�mero:" + (b + 1));
+			for (int position = FIRST; position < cashierList.size(); position++) {
+				Cashier t = cashierList.get(position);
+				System.out.println("\nCadastro de número:" + (position + 1));
 
-				System.out.println("\nNome: " + listaDeCaixas.get(b).getName() + " "
-						+ listaDeCaixas.get(b).getPastName());
+				System.out.println("\nNome: " + cashierList.get(position).getName() + " "
+						+ cashierList.get(position).getPastName());
 
 				System.out.println("\nRG: " + t.getIdentity().substring(0, 2) + "-"
 						+ t.getIdentity().substring(2, t.getIdentity().length()));
@@ -166,128 +236,143 @@ public class Cashier extends Person {
 				System.out.println("\nTelefone: (" + t.getPhone().substring(0, 2) + ") "
 						+ t.getPhone().substring(2, 6) + "-" + t.getPhone().substring(6, 10));
 
-				System.out.println("\nC�digo do Caixa: " + t.getCodigo());
+				System.out.println("\nCódigo do Caixa: " + t.getCode());
 
-				System.out.println("\nSal�rio: R$ " + t.calculateSalary());
+				System.out.println("\nSalário: R$ " + t.calculateSalary());
 			}
 			System.out.println("Fim da lista de cadastro de Caixas.\n");
 		}
 
 	}
+	
+	/**
+	 * Delete cashier registered.
+	 * 
+	 * @param cashierList
+	 */
 
-	public void deleteCashier(ArrayList<Cashier> listaDeCaixas) {
+	public void deleteCashier(ArrayList<Cashier> cashierList) {
 
-		if (listaDeCaixas.size() == 0) {
+		if (cashierList.size() == 0) {
 			System.out.println("Cadastro em branco!\n");
 		}
 		else {
 			System.out.println("Digite o numero do cadastro do Caixa que deseja excluir: ");
-			this.setCodigoExclusao(scanner.nextInt());
-			System.out.println("Voc� deseja realmente excluir o cadastro de numero: " + this.codigoExclusao + "?"
-					+ "\n(0) - N�o" + "\n(1) - Sim");
-			this.setConfirmacaoExclusaoCaixa(scanner.nextInt());
-			if (confirmacaoExclusaoCaixa == 1) {
-				this.setCodigoExclusao(codigoExclusao - 1);
-				listaDeCaixas.remove(codigoExclusao);
+			this.setDeleteCode(scanner.nextInt());
+			System.out.println("Você deseja realmente excluir o cadastro de numero: " + this.deleteCode + "?"
+					+ "\n(0) - Não" + "\n(1) - Sim");
+			this.setConfirmationExclusionCashier(scanner.nextInt());
+			if (confirmationExclusionCashier == YES) {
+				this.setDeleteCode(deleteCode - 1);
+				cashierList.remove(deleteCode);
 
 				System.out.println("A lista foi alterada");
-				listCashiers(listaDeCaixas);
+				listCashiers(cashierList);
 			}
-			else if (confirmacaoExclusaoCaixa == 0) {
-				this.setCodigoExclusao(0);
+			else if (confirmationExclusionCashier == NO) {
+				this.setDeleteCode(0);
+			} else {
+				//Nothing to do.
 			}
 		}
 
 	}
-
-	// Especificando m�todos get and set.
-	private void setSalario(double i) {
-	}
-
-	public Clerk[] getFuncionario() {
-		return funcionario;
-	}
-
-	public Client[] getCliente() {
-		return clientes;
-	}
-
-	public void setClientes(Client[] clientes) {
-		this.clientes = clientes;
-	}
-
-	public void listarClientes() {
-		for (int x = 0; x < (clientes.length); x += 1) {
-			System.out.println(("Clientes: [" + x + "]: " + clientes[x]));
+	
+	/**
+	 * Displays the client list.
+	 */
+	
+	public void clientList() {
+		for (int position = FIRST; position < (clients.length); position += 1) {
+			System.out.println(("Clientes: [" + (position + 1) + "]: " + clients[position]));
 		}
 	}
-
-	public int getTransationType() {
-		return tipo;
+	
+	/**
+	 * Getters and Setters
+	 */
+	
+	private void setSalary(double i) {
 	}
 
-	public void setTipo(int tipo) {
-		this.tipo = tipo;
+	public Clerk[] getEmployee() {
+		return employee;
 	}
 
-	public float getTransactionValue() {
-		return valor;
+	public Client[] getClient() {
+		return clients;
 	}
 
-	public void setValor(float valor) {
-		this.valor = valor;
+	public void setClient(Client[] client) {
+		this.clients = client;
 	}
 
-	public String getTransationDate() {
-		return data;
+	public int getType() {
+		return type;
 	}
 
-	public void setData(String data) {
-		this.data = data;
+	public void setType(int type) {
+		this.type = type;
+	}
+
+	public float getValue() {
+		return value;
+	}
+
+	public void setValue(float value) {
+		this.value = value;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public String getDescription() {
-		return descricao;
+		return description;
 	}
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public float getCurrentSale() {
-		return saldoAtual;
+	public float getCurrentBalance() {
+		return CurrentBalance;
 	}
 
-	public void setSaldoAtual(float saldoAtual) {
-		this.saldoAtual = saldoAtual;
+	public void setCurrentBalance(float currentBalance) {
+		this.CurrentBalance = currentBalance;
 	}
 
-	public Client[] getClientes() {
-		return clientes;
+	public Client[] getClients() {
+		return clients;
 	}
 
-	public void setFuncionario(Clerk[] funcionario) {
-		this.funcionario = funcionario;
+	public void setEmployee(Clerk[] employee) {
+		this.employee = employee;
 	}
 
 	public Clerk getClerk() {
-		return balconista;
+		return clerk;
 	}
 
-	public int getCodigo() {
-		return codigo;
+	public int getCode() {
+		return code;
 	}
 
-	public void setCodigo(int codigo) {
-		this.codigo = codigo;
+	public void setCode (int code) {
+		this.code = code;
 	}
 
-	public Cashier[] getCaixa() {
-		return caixa;
+	public Cashier[] getCashier() {
+		return cashier;
 	}
 
-	public void setCaixa(Cashier[] caixa) {
-		this.caixa = caixa;
+	public void setCashier(Cashier[] cashier) {
+		this.cashier = cashier;
 	}
 
 	public Scanner getScanner() {
@@ -298,63 +383,55 @@ public class Cashier extends Person {
 		this.scanner = scanner;
 	}
 
-	public Scanner getScanner1() {
-		return scanner1;
+	public int getOperation() {
+		return operation;
 	}
 
-	public void setScanner1(Scanner scanner1) {
-		this.scanner1 = scanner1;
+	public void setOperation(int operation) {
+		this.operation = operation;
 	}
 
-	public int getOperacao() {
-		return operacao;
+	public int getOperationCashier() {
+		return operationCashier;
 	}
 
-	public void setOperacao(int operacao) {
-		this.operacao = operacao;
+	public void setOperationCashier(int operationCashier) {
+		this.operationCashier = operationCashier;
 	}
 
-	public int getOperacaoCaixa() {
-		return operacaoCaixa;
+	public int getRepeatCashierRegister() {
+		return repeatCashierRegister;
 	}
 
-	public void setOperacaoCaixa(int operacaoCaixa) {
-		this.operacaoCaixa = operacaoCaixa;
+	public void setRepeatCashierRegister(int repeatCashierRegister) {
+		this.repeatCashierRegister = repeatCashierRegister;
 	}
 
-	public int getRepeteCadastroCaixa() {
-		return repeteCadastroCaixa;
+	public int getRepeatCashier() {
+		return repeatCashier;
 	}
 
-	public void setRepeteCadastroCaixa(int repeteCadastroCaixa) {
-		this.repeteCadastroCaixa = repeteCadastroCaixa;
+	public void setRepeatCashier(int repeatCashier) {
+		this.repeatCashier = repeatCashier;
 	}
 
-	public int getRepeteCaixa() {
-		return repeteCaixa;
+	public int getDeleteCode() {
+		return deleteCode;
 	}
 
-	public void setRepeteCaixa(int repeteCaixa) {
-		this.repeteCaixa = repeteCaixa;
+	public void setDeleteCode(int deleteCode) {
+		this.deleteCode = deleteCode;
 	}
 
-	public int getCodigoExclusao() {
-		return codigoExclusao;
+	public int getConfirmationExclusionCashier() {
+		return confirmationExclusionCashier;
 	}
 
-	public void setCodigoExclusao(int codigoExclusao) {
-		this.codigoExclusao = codigoExclusao;
+	public void setConfirmationExclusionCashier(int confirmationExclusionCashier) {
+		this.confirmationExclusionCashier = confirmationExclusionCashier;
 	}
 
-	public int getConfirmacaoExclusaoCaixa() {
-		return confirmacaoExclusaoCaixa;
-	}
-
-	public void setConfirmacaoExclusaoCaixa(int confirmacaoExclusaoCaixa) {
-		this.confirmacaoExclusaoCaixa = confirmacaoExclusaoCaixa;
-	}
-
-	public void setBalconista(Clerk balconista) {
-		this.balconista = balconista;
+	public void setClerk(Clerk clerk) {
+		this.clerk = clerk;
 	}
 }
