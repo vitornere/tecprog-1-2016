@@ -125,7 +125,7 @@ public class Console {
 								/**
 								 * Menu of Cashier.
 								 */
-								cashier.menuCashier();
+								cashier.cashierMenu();
 								operationOfCashier = scanner.nextInt();
 								if (operationOfCashier == BEGINNING_OF_THE_PROGRAM) {
 									status = complementary
@@ -133,7 +133,7 @@ public class Console {
 								}
 
 								else if (operationOfCashier == PASS_OF_START_MENU) {
-									cashier.registerCashier(listOfCashier);
+									cashier.cashierRegister(listOfCashier);
 									status = CASHIER;
 								}
 
@@ -157,7 +157,7 @@ public class Console {
 								/**
 								 * Menu of Clients.
 								 */
-								client.menuClient();
+								client.clientMenu();
 								operationOfClient = scanner.nextInt();
 								if (operationOfClient == BEGINNING_OF_THE_PROGRAM) {
 									status = complementary
@@ -165,7 +165,7 @@ public class Console {
 								}
 
 								else if (operationOfClient == PASS_OF_START_MENU) {
-									client.registerClient(listOfClients);
+									client.clientRegister(listOfClients);
 									status = CLIENT;
 								}
 
