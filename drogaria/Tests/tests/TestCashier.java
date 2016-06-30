@@ -2,8 +2,8 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
+import java.util.Scanner;
+
 import org.junit.Test;
 
 import entities.Cashier;
@@ -11,40 +11,58 @@ import entities.Cashier;
 
 public class TestCashier{
 
-	@Before
-	public void setUp() throws Exception {
-		System.out.println("Inicio.");
-	}
 
-	@After
-	public void tearDown() throws Exception {
-		System.out.println("Fim.");
-	}
-
-	/** Abaixo, testes da classe Cashier.java */
-	
 	@Test
-	public void testGetTipoo(){
+	public void GetTypeTest(){
 		Cashier transacao = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
 		assertEquals(transacao.getType() ,0);
 	}
 	
 	
 	@Test
-	public void testGetValor (){
+	public void GetValueTest (){
 		Cashier transacao = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
 		assertEquals(transacao.getValue(),100, 0.1);
 	}
 	
 	@Test
-	public void testGetData (){
+	public void GetDateTest (){
 		Cashier transacao = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
 		assertEquals(transacao.getDate(),"10/10/2020");
 	}
 	
 	@Test
-	public void testGetDescricao (){
+	public void GetDescriptionTest (){
 		Cashier transacao = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
 		assertEquals(transacao.getDescription(),"transacaoTeste");
+	}
+	
+	@Test
+	public void ScannerTest(){
+		Cashier cashier = new Cashier();
+		Scanner scanner = new Scanner(System.in);
+		cashier.setScanner(scanner);
+		assertEquals(scanner,cashier.getScanner());
+	}
+	
+	@Test
+	public void codeExclusionTest(){
+		Cashier cashier = new Cashier();
+		cashier.setDeleteCode(1);
+		assertEquals(1, cashier.getDeleteCode());
+	}
+	
+	@Test
+	public void confirmacaoExclusaoClientTest(){
+		Cashier cashier = new Cashier();
+		cashier.setConfirmationExclusionCashier(0);
+		assertEquals(0, cashier.getConfirmationExclusionCashier());
+	}
+	
+	@Test
+	public void CurrentBalanceTest(){
+		Cashier cashier = new Cashier();
+		cashier.setCurrentBalance(100);
+		assertEquals(100, cashier.getCurrentBalance(), 0.1);
 	}
 }
