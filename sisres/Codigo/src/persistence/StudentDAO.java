@@ -28,42 +28,45 @@ public class StudentDAO {
 	private StudentDAO() {
 	}
 
-	/** Method to provider current instance or create a new
+	/**
+	 * Method to provider current instance or create a new
+	 * 
 	 * @return StudentDAO - current instance
 	 */
 	public static StudentDAO getInstance() {
 		if (instance == null) {
 			instance = new StudentDAO();
-		} 
-		else {
+		} else {
 			// Nothing to do.
 		}
 		return instance;
 	}
 
-	/** Method to add student in the database
-	 * @param student - Object to add in database
-	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClientException happens when student is null or his code exist
+	/**
+	 * Method to add student in the database
+	 * 
+	 * @param student
+	 *            - Object to add in database
+	 * @throws SQLException
+	 *             happens when sql code is wrong
+	 * @throws ClientException
+	 *             happens when student is null or his code exist
 	 */
 	public void add(Student student) throws SQLException, ClientException {
-		//Verify if is valid student
+		// Verify if is valid student
 		if (student != null) {
 			// Nothing to do.
-		}
-		else{
+		} else {
 			throw new ClientException(NULLSTUDENT);
 		}
 		if (!this.inDBCpf(student.getCpfPerson())) {
 			// Nothing to do.
-		}
-		else{
+		} else {
 			throw new ClientException(EXISTENTCPF);
 		}
 		if (!this.inDBRegister(student.getIdRegister())) {
 			// Nothing to do
-		}
-		else{
+		} else {
 			throw new ClientException(EXISTENTREGISTER);
 		}
 
@@ -76,144 +79,139 @@ public class StudentDAO {
 					+ student.getPhonePerson() + "\", " + "\""
 					+ student.getEmailPerson() + "\", " + "\""
 					+ student.getIdRegister() + "\"); ");
-		} 
-		else {
+		} else {
 			throw new ClientException(EXISTENTSTUDENT);
 		}
 	}
 
 	/**
 	 * Method to Update data from student
-	 * @param old_student - Student to update data
-	 * @param new_student - Student with updated data
-	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClientException happens when student is null or his code exist
+	 * 
+	 * @param old_student
+	 *            - Student to update data
+	 * @param new_student
+	 *            - Student with updated data
+	 * @throws SQLException
+	 *             happens when sql code is wrong
+	 * @throws ClientException
+	 *             happens when student is null or his code exist
 	 */
 	public void change(Student old_student, Student new_student)
 			throws SQLException, ClientException {
 		// Verify if is valid old_student and new student
 		if (old_student != null) {
 			// Nothing to do.
-		}
-		else{
-			throw new ClientException(NULLSTUDENT);			
+		} else {
+			throw new ClientException(NULLSTUDENT);
 		}
 		if (new_student != null) {
 			// Nothing to do.
-		}
-		else{
-			throw new ClientException(NULLSTUDENT);			
+		} else {
+			throw new ClientException(NULLSTUDENT);
 		}
 		if (this.inDB(old_student)) {
 			// Nothing to do.
-		} 
-		else{
-			throw new ClientException(STUDENTNOTEXIST);			
+		} else {
+			throw new ClientException(STUDENTNOTEXIST);
 		}
 		if (!this.inOtherDB(old_student)) {
 			// Nothing to do.
-		} 
-		else{
-			throw new ClientException(STUDENTINUSE);			
+		} else {
+			throw new ClientException(STUDENTINUSE);
 		}
-		
+
 		if (old_student.getCpfPerson().equals(new_student.getCpfPerson())
 				&& this.inDBCpf(new_student.getCpfPerson())) {
 			// Nothing to do.
+		} else {
+			throw new ClientException(EXISTENTCPF);
 		}
-		else{
-			throw new ClientException(EXISTENTCPF);			
-		}
-		
-		if (old_student.getIdRegister().equals(
-				new_student.getIdRegister())
+
+		if (old_student.getIdRegister().equals(new_student.getIdRegister())
 				&& this.inDBRegister(new_student.getIdRegister())) {
 			// Nothing to do.
-		}
-		else{
-			throw new ClientException(EXISTENTREGISTER);			
+		} else {
+			throw new ClientException(EXISTENTREGISTER);
 		}
 
 		// Start connection with database
 		Connection connection = FactoryConnection.getInstance().getConnection();
 		PreparedStatement preopare_query_to_execute;
-		
-		//try update database
+
+		// try update database
 		if (!this.inDB(new_student)) {
 			String msg = "UPDATE aluno SET " + "nome = \""
-					+ new_student.getNamePerson() + "\", "
-					+ "cpf = \"" + new_student.getCpfPerson()
-					+ "\", " + "telefone = \""
-					+ new_student.getPhonePerson() + "\", "
-					+ "email = \"" + new_student.getEmailPerson()
-					+ "\", " + "matricula = \""
-					+ new_student.getIdRegister() + "\""
-					+ " WHERE " + "aluno.nome = \""
-					+ old_student.getNamePerson() + "\" and "
-					+ "aluno.cpf = \"" + old_student.getCpfPerson()
+					+ new_student.getNamePerson() + "\", " + "cpf = \""
+					+ new_student.getCpfPerson() + "\", " + "telefone = \""
+					+ new_student.getPhonePerson() + "\", " + "email = \""
+					+ new_student.getEmailPerson() + "\", " + "matricula = \""
+					+ new_student.getIdRegister() + "\"" + " WHERE "
+					+ "aluno.nome = \"" + old_student.getNamePerson()
+					+ "\" and " + "aluno.cpf = \"" + old_student.getCpfPerson()
 					+ "\" and " + "aluno.telefone = \""
 					+ old_student.getPhonePerson() + "\" and "
-					+ "aluno.email = \""
-					+ old_student.getEmailPerson() + "\" and "
-					+ "aluno.matricula = \""
+					+ "aluno.email = \"" + old_student.getEmailPerson()
+					+ "\" and " + "aluno.matricula = \""
 					+ old_student.getIdRegister() + "\";";
 			connection.setAutoCommit(false);
 			preopare_query_to_execute = connection.prepareStatement(msg);
 			preopare_query_to_execute.executeUpdate();
 			connection.commit();
-		}
-		else {
+		} else {
 			throw new ClientException(EXISTENTSTUDENT);
 		}
-		
+
 		// Close connection
 		preopare_query_to_execute.close();
 		connection.close();
 	}
 
-
 	/**
 	 * Method to delete data from student
-	 * @param student - Student to remove
-	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClientException happens when student is null or his code exist
+	 * 
+	 * @param student
+	 *            - Student to remove
+	 * @throws SQLException
+	 *             happens when sql code is wrong
+	 * @throws ClientException
+	 *             happens when student is null or his code exist
 	 */
-	public void delete(final Student student) throws SQLException, ClientException {
+	public void delete(final Student student) throws SQLException,
+			ClientException {
 		// Verify if is valid student.
 		if (student != null) {
-			//Nothing to do.
-		} 
-		else {
-			throw new ClientException(NULLSTUDENT);	
+			// Nothing to do.
+		} else {
+			throw new ClientException(NULLSTUDENT);
 		}
 		if (!this.inOtherDB(student)) {
-			//Nothing to do.
-		} 
-		else {
-			throw new ClientException(STUDENTINUSE);	
+			// Nothing to do.
+		} else {
+			throw new ClientException(STUDENTINUSE);
 		}
-		
+
 		// Try remove student from database
 		if (this.inDB(student)) {
-			this.updateQuery("DELETE FROM aluno WHERE "
-					+ "aluno.nome = \"" + student.getNamePerson() + "\" and "
-					+ "aluno.cpf = \"" + student.getCpfPerson() + "\" and "
+			this.updateQuery("DELETE FROM aluno WHERE " + "aluno.nome = \""
+					+ student.getNamePerson() + "\" and " + "aluno.cpf = \""
+					+ student.getCpfPerson() + "\" and "
 					+ "aluno.telefone = \"" + student.getPhonePerson()
-					+ "\" and " + "aluno.email = \""
-					+ student.getEmailPerson() + "\" and "
-					+ "aluno.matricula = \"" + student.getIdRegister()
-					+ "\";");
-		} 
-		else {
+					+ "\" and " + "aluno.email = \"" + student.getEmailPerson()
+					+ "\" and " + "aluno.matricula = \""
+					+ student.getIdRegister() + "\";");
+		} else {
 			throw new ClientException(STUDENTNOTEXIST);
 		}
 	}
-	
+
 	/**
 	 * Method to return all data in database
+	 * 
 	 * @return Vector<Student> data when all registers
-	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClientException don't happens
+	 * @throws SQLException
+	 *             happens when sql code is wrong
+	 * @throws ClientException
+	 *             don't happens
 	 */
 	public Vector<Student> searchAll() throws SQLException, ClientException {
 		return this.search("SELECT * FROM aluno;");
@@ -221,23 +219,31 @@ public class StudentDAO {
 
 	/**
 	 * Method to return all data in database with condition on Student name
-	 * @param name String - Restriction in sql consult
+	 * 
+	 * @param name
+	 *            String - Restriction in sql consult
 	 * @return Vector<Student> data when all registers
-	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClientException don't happens
+	 * @throws SQLException
+	 *             happens when sql code is wrong
+	 * @throws ClientException
+	 *             don't happens
 	 */
 	public Vector<Student> searchByName(String name) throws SQLException,
 			ClientException {
 		return this.search("SELECT * FROM aluno WHERE nome = " + "\"" + name
 				+ "\";");
 	}
-	
+
 	/**
 	 * Method to return all data in database with condition on Student cpf
-	 * @param cpf String - Restriction in sql consult
+	 * 
+	 * @param cpf
+	 *            String - Restriction in sql consult
 	 * @return Vector<Student> data when all registers
-	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClientException don't happens
+	 * @throws SQLException
+	 *             happens when sql code is wrong
+	 * @throws ClientException
+	 *             don't happens
 	 */
 	public Vector<Student> searchByCpf(String cpf) throws SQLException,
 			ClientException {
@@ -245,27 +251,33 @@ public class StudentDAO {
 				+ "\";");
 	}
 
-
 	/**
 	 * Method to return all data in database with condition on Student register
-	 * @param register String - Restriction in sql consult
+	 * 
+	 * @param register
+	 *            String - Restriction in sql consult
 	 * @return Vector<Student> data when all registers
-	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClientException don't happens
+	 * @throws SQLException
+	 *             happens when sql code is wrong
+	 * @throws ClientException
+	 *             don't happens
 	 */
-	public Vector<Student> searchByRegister(String register) throws SQLException,
-			ClientException {
+	public Vector<Student> searchByRegister(String register)
+			throws SQLException, ClientException {
 		return this.search("SELECT * FROM aluno WHERE matricula = " + "\""
 				+ register + "\";");
 	}
 
-
 	/**
 	 * Method to return all data in database with condition on Student email
-	 * @param email String - Restriction in sql consult
+	 * 
+	 * @param email
+	 *            String - Restriction in sql consult
 	 * @return Vector<Student> data when all registers
-	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClientException don't happens
+	 * @throws SQLException
+	 *             happens when sql code is wrong
+	 * @throws ClientException
+	 *             don't happens
 	 */
 	public Vector<Student> searchByEmail(String email) throws SQLException,
 			ClientException {
@@ -275,10 +287,14 @@ public class StudentDAO {
 
 	/**
 	 * Method to return all data in database with condition on Student phone
-	 * @param phone String - Restriction in sql consult
+	 * 
+	 * @param phone
+	 *            String - Restriction in sql consult
 	 * @return Vector<Student> data when all registers
-	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClientException don't happens
+	 * @throws SQLException
+	 *             happens when sql code is wrong
+	 * @throws ClientException
+	 *             don't happens
 	 */
 	public Vector<Student> searchByPhone(String phone) throws SQLException,
 			ClientException {
@@ -286,68 +302,84 @@ public class StudentDAO {
 				+ phone + "\";");
 	}
 
-
 	/**
 	 * Method to return all data in database
+	 * 
 	 * @return Vector<Student> data when all registers
-	 * @throws SQLException happens when sql code is wrong
-	 * @throws ClientException don't happens
+	 * @throws SQLException
+	 *             happens when sql code is wrong
+	 * @throws ClientException
+	 *             don't happens
 	 */
 	private Vector<Student> search(String query) throws SQLException,
 			ClientException {
 
-		//Start connection
-		Connection connnection = FactoryConnection.getInstance().getConnection();
-		PreparedStatement prepare_query_to_execute = connnection.prepareStatement(query);
-		
-		//Query result
+		// Start connection
+		Connection connnection = FactoryConnection.getInstance()
+				.getConnection();
+		PreparedStatement prepare_query_to_execute = connnection
+				.prepareStatement(query);
+
+		// Query result
 		ResultSet database_result = prepare_query_to_execute.executeQuery();
 
 		// Fill vector with the data query result
 		Vector<Student> data_result = new Vector<Student>();
-		while (database_result.next()){
+		while (database_result.next()) {
 			data_result.add(this.fetchStudent(database_result));
 		}
-	
-		//Close connection
+
+		// Close connection
 		prepare_query_to_execute.close();
 		database_result.close();
 		connnection.close();
-		
+
 		return data_result;
 	}
 
 	/**
 	 * Method to execute generic consult
-	 * @param query String - Select query 
+	 * 
+	 * @param query
+	 *            String - Select query
 	 * @return Vector<Equipamento> data when all registers
-	 * @throws SQLException happens when sql code is wrong
+	 * @throws SQLException
+	 *             happens when sql code is wrong
 	 */
 	private boolean inDBGeneric(String query) throws SQLException {
+		boolean has_result = false;
 		
-		//Start connection
+		// Start connection
 		Connection connection = FactoryConnection.getInstance().getConnection();
-		PreparedStatement prepare_query_to_execute = connection.prepareStatement(query);
-		
+		if(connection != null){
+		PreparedStatement prepare_query_to_execute = connection
+				.prepareStatement(query);
+
 		// Data return by query
 		ResultSet data_result = prepare_query_to_execute.executeQuery();
 
 		// Save if has result
-		boolean has_result = data_result.next();
-		
-		//close connection
+		has_result = data_result.next();
+
+		// close connection
 		data_result.close();
 		prepare_query_to_execute.close();
 		connection.close();
-		
+		} else {
+			System.exit(1);
+		}
+
 		return has_result;
 	}
 
 	/**
 	 * Method to verify if equipment exists
-	 * @param student - student to search
+	 * 
+	 * @param student
+	 *            - student to search
 	 * @return boolean - true if exist data in consult or false if not exist
-	 * @throws SQLException happens when sql code is wrong
+	 * @throws SQLException
+	 *             happens when sql code is wrong
 	 */
 	private boolean inDB(Student student) throws SQLException {
 		return this.inDBGeneric("SELECT * FROM aluno WHERE "
@@ -360,9 +392,12 @@ public class StudentDAO {
 
 	/**
 	 * Method to verify if equipment exists using code
-	 * @param code - code of equipment
+	 * 
+	 * @param code
+	 *            - code of equipment
 	 * @return boolean - true if exist data in consult or false if not exist
-	 * @throws SQLException happens when sql code is wrong
+	 * @throws SQLException
+	 *             happens when sql code is wrong
 	 */
 	private boolean inDBCpf(String code) throws SQLException {
 		return this.inDBGeneric("SELECT * FROM aluno WHERE " + "aluno.cpf = \""
@@ -371,20 +406,26 @@ public class StudentDAO {
 
 	/**
 	 * Method to verify if equipment exists using register
-	 * @param register - code of equipment
+	 * 
+	 * @param register
+	 *            - code of equipment
 	 * @return boolean - true if exist data in consult or false if not exist
-	 * @throws SQLException happens when sql code is wrong
+	 * @throws SQLException
+	 *             happens when sql code is wrong
 	 */
 	private boolean inDBRegister(String register) throws SQLException {
 		return this.inDBGeneric("SELECT * FROM aluno WHERE "
 				+ "aluno.matricula = \"" + register + "\";");
 	}
-	
+
 	/**
 	 * Method to verify if equipment exists using subquery in database
-	 * @param student - student to search
+	 * 
+	 * @param student
+	 *            - student to search
 	 * @return boolean - true if exist data in consult or false if not exist
-	 * @throws SQLException happens when sql code is wrong
+	 * @throws SQLException
+	 *             happens when sql code is wrong
 	 */
 	private boolean inOtherDB(Student student) throws SQLException,
 			ClientException {
@@ -399,34 +440,48 @@ public class StudentDAO {
 
 	/**
 	 * Method to convert result set in Student
-	 * @param equipament_data result set contain equipment data
+	 * 
+	 * @param equipament_data
+	 *            result set contain equipment data
 	 * @return new student with data in result set
-	 * @throws ClientException  will occur if the code is invalid, can no longer exist and not be null
-	 * @throws SQLException happens when sql code is wrong
+	 * @throws ClientException
+	 *             will occur if the code is invalid, can no longer exist and
+	 *             not be null
+	 * @throws SQLException
+	 *             happens when sql code is wrong
 	 */
-	private Student fetchStudent(ResultSet data_from_student) throws ClientException,
-			SQLException {
-		return new Student(data_from_student.getString("nome"), data_from_student.getString("cpf"),
-				data_from_student.getString("matricula"), data_from_student.getString("telefone"),
+	private Student fetchStudent(ResultSet data_from_student)
+			throws ClientException, SQLException {
+		return new Student(data_from_student.getString("nome"),
+				data_from_student.getString("cpf"),
+				data_from_student.getString("matricula"),
+				data_from_student.getString("telefone"),
 				data_from_student.getString("email"));
 	}
 
 	/**
 	 * Method to update student
-	 * @param query - query with update data in database
-	 * @throws SQLException happens when sql code is wrong
+	 * 
+	 * @param query
+	 *            - query with update data in database
+	 * @throws SQLException
+	 *             happens when sql code is wrong
 	 */
 	private void updateQuery(String query) throws SQLException {
 		// Start connection
 		Connection connection = FactoryConnection.getInstance().getConnection();
-		PreparedStatement prepare_query_to_execute = connection.prepareStatement(query);
-		
-		// Execute uodate query
-		prepare_query_to_execute.executeUpdate();
-		prepare_query_to_execute.close();
-		
-		// Close connection
-		connection.close();
-	}
+		if (connection != null) {
+			PreparedStatement prepare_query_to_execute = connection
+					.prepareStatement(query);
 
+			// Execute update query
+			prepare_query_to_execute.executeUpdate();
+			prepare_query_to_execute.close();
+
+			// Close connection
+			connection.close();
+		} else {
+			System.exit(1);
+		}
+	}
 }

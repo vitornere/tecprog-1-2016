@@ -614,12 +614,14 @@ public class ReservationRoomForTeacherDAO extends DAO {
 		} catch (NullPointerException e) {
 			System.exit(1);
 		}
+		
 		boolean verification = true;
 		if (hour.length() == 4) {
 			hour = "0" + hour;
 		} else {
 			// Nothing to do.
 		}
+		
 		if (Integer.parseInt(now.substring(0, 2)) > Integer.parseInt(hour
 				.substring(0, 2))) {
 		} else {
@@ -634,6 +636,7 @@ public class ReservationRoomForTeacherDAO extends DAO {
 				verification = false;
 			}
 		}
+		
 		return verification;
 	}
 
