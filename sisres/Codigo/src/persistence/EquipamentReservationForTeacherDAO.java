@@ -34,6 +34,11 @@ public class EquipamentReservationForTeacherDAO extends DAO {
 	private EquipamentReservationForTeacherDAO() {
 	}
 
+	/**
+	 * Method to return a current instance
+	 * 
+	 * @return current instance or a new instance
+	 */
 	public static EquipamentReservationForTeacherDAO getInstance() {
 		if (instance == null) {
 			instance = new EquipamentReservationForTeacherDAO();
