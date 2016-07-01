@@ -49,10 +49,13 @@ public abstract class Client {
 	}
 
 	public void setNamePerson(String nameClient) throws ClientException {
+		if (nameClient != null) {
+			// Nothing to do
+		} else {
+			throw new ClientException(NULL_NAME);
+		}
 		if (nameClient.trim().matches("[a-zA-Z][a-zA-Z\\s]+")) {
 			this.nameClient = nameClient.trim();
-		} else if (nameClient == null) {
-			throw new ClientException(NULL_NAME);
 		} else if ("".equals(nameClient.trim())) {
 			throw new ClientException(EMPTY_NAME);
 		} else {
