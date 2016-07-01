@@ -29,7 +29,12 @@ public class TeacherDAO {
 
 	private TeacherDAO() {
 	}
-
+	
+	/**
+	 * Method to return a current instance
+	 * 
+	 * @return current instance or a new instance
+	 */
 	public static TeacherDAO getInstance() {
 		if (instance == null) {
 			instance = new TeacherDAO();
@@ -41,8 +46,16 @@ public class TeacherDAO {
 		return instance;
 	}
 
-	//
-
+	/**
+	 * Method to add professor in the database
+	 * 
+	 * @param teacher
+	 *            - Object to add in database
+	 * @throws SQLException
+	 *             happens when sql code is wrong
+	 * @throws ClientException
+	 *             happens when teacher is null or his code exist
+	 */
 	public void add(Professor teacher) throws SQLException, ClientException {
 		if (teacher == null) {
 			throw new ClientException(NULLTEACHER);
@@ -65,6 +78,18 @@ public class TeacherDAO {
 				+ "\"); ");
 	}
 
+	/**
+	 * Method to Update data from student
+	 * 
+	 * @param old_teacher
+	 *            - Professor to update data
+	 * @param new_teacher
+	 *            - Professor with updated data
+	 * @throws SQLException
+	 *             happens when sql code is wrong
+	 * @throws ClientException
+	 *             happens when teacher is null or his code exist
+	 */
 	public void change(Professor old_teacher, Professor new_teacher)
 			throws SQLException, ClientException {
 		if (old_teacher == null) {
@@ -80,6 +105,7 @@ public class TeacherDAO {
 			// Nothing to do.
 
 		}
+		
 		Connection con = FactoryConnection.getInstance().getConnection();
 		PreparedStatement pst;
 
@@ -137,6 +163,16 @@ public class TeacherDAO {
 		con.close();
 	}
 
+	/**
+	 * Method to delete data from teacher
+	 * 
+	 * @param teacher
+	 *            - teacher to remove
+	 * @throws SQLException
+	 *             happens when sql code is wrong
+	 * @throws ClientException
+	 *             happens when teacher is null or his code exist
+	 */
 	public void delete(Professor teacher) throws SQLException, ClientException {
 		if (teacher == null) {
 			throw new ClientException(NULLTEACHER);
