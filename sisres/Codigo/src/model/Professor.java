@@ -16,7 +16,7 @@ public class Professor extends Client {
 	}
 
 	public void setIdPerson(String idProfessor) throws ClientException {
-		if ((idProfessor != null) || (!("".equals(idProfessor.trim())))) {
+		if ((idProfessor != null) && (!("".equals(idProfessor.trim())))) {
 			super.idClient = idProfessor;
 		} else if (idProfessor == null) {
 			throw new ClientException(NULL_ID_PROFESSOR);
