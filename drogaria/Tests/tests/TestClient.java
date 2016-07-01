@@ -7,8 +7,6 @@ import static org.junit.Assert.*;
 
 import java.util.Scanner;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import entities.Clerk;
@@ -17,63 +15,53 @@ import entities.Client;
 
 
 public class TestClient {
-
-	@Before
-	public void setUp() throws Exception {
-		System.out.println("Comecando o teste!");
-	}
-
-	@After
-	public void tearDown() throws Exception {
-		System.out.println("Finalizando o teste!");
-	}
 	
-	//Teste de idade.
+
 	@Test
 	public void testSetDigitoCpf() {
-		Client novoClient = new Client("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6");
-		assertEquals(novoClient.getDigitCpfPerson(),50);
+		Client newClient = new Client("Test 1","Test 2", 50, "Test 3", "Test 4", "Test 5", "Test 6");
+		assertEquals(newClient.getDigitCpfPerson(),50);
 		
 	}
 
 	@Test
 	public void testEmail(){
-		Client novoClient = new Client("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6","email@email.com");
-		assertEquals("email@email.com", novoClient.getEmail());
+		Client newClient = new Client("Test 1","Test 2", 50, "Test 3", "Test 4", "Test 5", "Test 6","email@email.com");
+		assertEquals("email@email.com", newClient.getEmail());
 	}
 	
 	@Test
 	public void setEmail(){
-		Client cliente = new Client();
-		cliente.setEmail("emailSet@email.com");
-		assertEquals("emailSet@email.com", cliente.getEmail());
+		Client client = new Client();
+		client.setEmail("emailSet@email.com");
+		assertEquals("emailSet@email.com", client.getEmail());
 	}
 	
 	@Test
 	public void Clerk() {
-		Client cliente = new Client();
-		Clerk[] balconista = {new Clerk() , new Clerk()};
-		cliente.setClerk(balconista);
-		assertEquals(balconista,cliente.getClerk());
+		Client client = new Client();
+		Clerk[] clerk = {new Clerk() , new Clerk()};
+		client.setClerk(clerk);
+		assertEquals(clerk,client.getClerk());
 	}
 	
 	
 	@Test
 	public void Caixa() {
-		Client cliente = new Client();
-		Cashier[] caixa = {new Cashier() , new Cashier()};
-		cliente.setCashier(caixa);
-		assertEquals(caixa,cliente.getCashier());
+		Client client = new Client();
+		Cashier[] clerk = {new Cashier() , new Cashier()};
+		client.setCashier(clerk);
+		assertEquals(clerk,client.getCashier());
 	}
 	
 	
 	
 	@Test
 	public void Client() {
-		Client cliente = new Client();
-		Client[] cliente2 = {new Client(),new Client()};
-		cliente.setClient(cliente2);
-		assertEquals(cliente2,cliente.getClient());
+		Client client1 = new Client();
+		Client[] client2 = {new Client(),new Client()};
+		client1.setClient(client2);
+		assertEquals(client2,client1.getClient());
 	}
 	
 	
@@ -88,9 +76,9 @@ public class TestClient {
 	
 	@Test
 	public void codigoExclusao(){
-		Client cliente = new Client();
-		cliente.setCodeExclusion(1);
-		assertEquals(1, cliente.getDeleteCode());
+		Client client = new Client();
+		client.setCodeExclusion(1);
+		assertEquals(1, client.getDeleteCode());
 	}
 	
 	@Test
