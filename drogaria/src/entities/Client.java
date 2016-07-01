@@ -135,7 +135,7 @@ public class Client extends Person implements Recommended {
 	 */
 
 	public void clientRegister(ArrayList<Client> clientsList) {
-		
+
 		String personIdentity = null;
 		String cpfPerson = null;
 		int cpfDigitPerson = 0;
@@ -144,65 +144,94 @@ public class Client extends Person implements Recommended {
 		String personAddress = null;
 		String personPhone = null;
 		String emailClient = null;
+		boolean returnVerification = false;
 
-		System.out.println("Digite o rg do Cliente: ");
-		try {
-			personIdentity = ConsoleMenu.readString();
-		} catch (NullPointerException e) {
-			System.out.println("RG vazio. Exceção " + e);
-		}
+		do {
+			System.out.println("Digite o rg do Cliente: ");
+			try {
+				personIdentity = ConsoleMenu.readString();
+				returnVerification = true;
+			} catch (NullPointerException e) {
+				System.out.println("RG vazio. Exceção " + e);
+				returnVerification = false;
+			}
+		} while (returnVerification == false);
 
-		System.out.println("Digite o cpf do Cliente: ");
-		try {
-			cpfPerson = ConsoleMenu.readString();
-		} catch (NullPointerException e) {
-			System.out.println("CPF vazio. Exceção " + e);
-		}
+		do {
+			System.out.println("Digite o cpf do Cliente: ");
+			try {
+				cpfPerson = ConsoleMenu.readString();
+				returnVerification = true;
+			} catch (NullPointerException e) {
+				System.out.println("CPF vazio. Exceção " + e);
+				returnVerification = false;
+			}
+		} while (returnVerification == false);
 
-		System.out.println("Digite o digito do cpf do Cliente: ");
-		try {
-			cpfDigitPerson = ConsoleMenu.readInt();
-		} catch (NumberFormatException e) {
-			System.out.println("Exceção " + e);
-		}
+		do {
+			System.out.println("Digite o digito do cpf do Cliente: ");
+			try {
+				cpfDigitPerson = ConsoleMenu.readInt();
+				returnVerification = true;
+			} catch (NumberFormatException e) {
+				System.out.println("Exceção " + e);
+				returnVerification = false;
+			}
+		} while (returnVerification == false);
 
-		System.out.println("Digite o nome do Cliente: ");
-		try {
-			personName = ConsoleMenu.readString();
-		} catch (NullPointerException e) {
-			System.out.println("Nome vazio. Exceção " + e);
-		}
+		do {
+			System.out.println("Digite o nome do Cliente: ");
+			try {
+				personName = ConsoleMenu.readString();
+				returnVerification = true;
+			} catch (NullPointerException e) {
+				System.out.println("Nome vazio. Exceção " + e);
+				returnVerification = false;
+			}
+		} while (returnVerification == false);
 
-		System.out.println("Digite o sobrenome completo do Cliente: ");
-		try {
-			personLastName = ConsoleMenu.readString();
-		} catch (NullPointerException e) {
-			System.out.println("Ultimo nome vazio. Exceção " + e);
-		}
+		do {
+			System.out.println("Digite o sobrenome completo do Cliente: ");
+			try {
+				personLastName = ConsoleMenu.readString();
+				returnVerification = true;
+			} catch (NullPointerException e) {
+				System.out.println("Ultimo nome vazio. Exceção " + e);
+				returnVerification = false;
+			}
+		} while (returnVerification == false);
 
-		System.out.println("Digite o endereco do Cliente: ");
-		try {
-			personAddress = ConsoleMenu.readString();
-		} catch (NullPointerException e) {
-			System.out.println("Endereço vazio. Exceção " + e);
-		}
+		do {
+			System.out.println("Digite o endereco do Cliente: ");
+			try {
+				personAddress = ConsoleMenu.readString();
+				returnVerification = true;
+			} catch (NullPointerException e) {
+				System.out.println("Endereço vazio. Exceção " + e);
+				returnVerification = false;
+			}
+		} while (returnVerification == false);
 
-		System.out.println("Digite o telefone do Cliente:");
-		try {
-			personPhone = ConsoleMenu.readString();
-		} catch (NullPointerException e) {
-			System.out.println("Telefone vazio. Exceção " + e);
-		}
+		do {
+			System.out.println("Digite o telefone do Cliente:");
+			try {
+				personPhone = ConsoleMenu.readString();
+			} catch (NullPointerException e) {
+				System.out.println("Telefone vazio. Exceção " + e);
+			}
+		} while (returnVerification == false);
 
-		System.out.println("Digite o email do Cliente");
-		try {
-			emailClient = ConsoleMenu.readString();
-		} catch (NullPointerException e) {
-			System.out.println("Email vazio. Exceção " + e);
-		}
+		do {
+			System.out.println("Digite o email do Cliente");
+			try {
+				emailClient = ConsoleMenu.readString();
+			} catch (NullPointerException e) {
+				System.out.println("Email vazio. Exceção " + e);
+			}
+		} while (returnVerification == false);
 
-		Client client = new Client(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName,
-				personAddress, personPhone, emailClient);
+		Client client = new Client(personIdentity, cpfPerson, cpfDigitPerson, personName, personLastName, personAddress,
+				personPhone, emailClient);
 
 		clientsList.add(client);
 
