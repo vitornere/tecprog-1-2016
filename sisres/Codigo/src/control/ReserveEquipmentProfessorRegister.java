@@ -24,7 +24,6 @@ public class ReserveEquipmentProfessorRegister {
 
 			// Nothing to do.
 		} else {
-
 			newReserveEquipmentProfessor = new ReserveEquipmentProfessorRegister();
 		}
 
