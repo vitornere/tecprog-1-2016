@@ -10,7 +10,7 @@ import java.util.Scanner;
 import entities.Cashier;
 import entities.Clerk;
 import entities.Client;
-import entities.Complementary;
+import entities.ConsoleMenu;
 import entities.Medicament;
 
 public class Console {
@@ -45,13 +45,13 @@ public class Console {
 		ArrayList<Medicament> listOfMedicaments = new ArrayList<Medicament>();
 
 		/**
-		 * Creating a new Clerk, Cashier, Client, Medicament and Complementary.
+		 * Creating a new Clerk, Cashier, Client, Medicament and ConsoleMenu.
 		 */
 		Clerk clerk = new Clerk();
 		Cashier cashier = new Cashier();
 		Client client = new Client();
 		Medicament medicament = new Medicament();
-		Complementary complementary = new Complementary();
+		ConsoleMenu consoleMenu = new ConsoleMenu();
 
 		int operation = 0;
 		int operationOfClerk = 0;
@@ -83,7 +83,7 @@ public class Console {
 
 				if (operation == BEGINNING_OF_THE_PROGRAM) {
 					try {
-						status = complementary.GeneralConfirmation(status);
+						status = consoleMenu.GeneralConfirmation(status);
 					} catch (NumberFormatException e) {
 						System.out.println("Retorno errado na linha 86");
 						System.exit(1);
@@ -109,7 +109,7 @@ public class Console {
 								operationOfClerk = scanner.nextInt();
 								if (operationOfClerk == BEGINNING_OF_THE_PROGRAM) {
 									try {
-										status = complementary
+										status = consoleMenu
 											.ConfirmationClerk(status);
 									} catch (NumberFormatException e) {
 										System.out.println("Retorno de parâmetro errado na linha 113");
@@ -146,7 +146,7 @@ public class Console {
 								operationOfCashier = scanner.nextInt();
 								if (operationOfCashier == BEGINNING_OF_THE_PROGRAM) {
 									try {
-										status = complementary
+										status = consoleMenu
 											.ConfirmationBox(status);
 									} catch (NumberFormatException e) {
 										System.out.println("Retorno de parâmetro errado na linha 152");
@@ -182,7 +182,7 @@ public class Console {
 								client.clientMenu();
 								operationOfClient = scanner.nextInt();
 								if (operationOfClient == BEGINNING_OF_THE_PROGRAM) {
-									status = complementary
+									status = consoleMenu
 											.ConfirmationClient(status);
 								}
 
@@ -217,7 +217,7 @@ public class Console {
 								operationOfMedicament = scanner.nextInt();
 								if (operationOfMedicament == BEGINNING_OF_THE_PROGRAM) {
 									try {
-										status = complementary
+										status = consoleMenu
 											.ConfirmationMedicament(status);
 									} catch(NumberFormatException e) {
 										System.out.println("Retorno de parâmetro errado na linha 223");
@@ -252,7 +252,7 @@ public class Console {
 							}
 							while (status == HELP) {
 								try {
-									status = complementary.menuHelp(status);
+									status = consoleMenu.menuHelp(status);
 								} catch (NumberFormatException e) {
 									System.out.println("Retorno de parâmetro errado na linha 257");
 									System.exit(1);

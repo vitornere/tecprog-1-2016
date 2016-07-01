@@ -130,40 +130,40 @@ public class Clerk extends Person {
 	public void registerClerk(ArrayList<Clerk> listaDeBalconistas) {
 
 		System.out.println("Digite o rg do Balconista(SSP seguido de n�meros): ");
-		String rgPessoa = Complementary.readString();
+		String rgPessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o cpf do Balconista(Sem o d�gito): ");
-		String cpfPessoa = Complementary.readString();
+		String cpfPessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o digito do cpf do Balconista: ");
-		int digitoCpfPessoa = Complementary.readInt();
+		int digitoCpfPessoa = ConsoleMenu.readInt();
 
 		System.out.println("Digite o nome do Balconista: ");
-		String nomePessoa = Complementary.readString();
+		String nomePessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o sobrenome completo do Balconista: ");
-		String sobrenomePessoa = Complementary.readString();
+		String sobrenomePessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o endereco do Balconista: ");
-		String enderecoPessoa = Complementary.readString();
+		String enderecoPessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite o telefone do Balconista:");
-		String telefonePessoa = Complementary.readString();
+		String telefonePessoa = ConsoleMenu.readString();
 
 		System.out.println("Digite a senha do Balconista:");
-		int senhaBalconista = Complementary.readInt();
+		int senhaBalconista = ConsoleMenu.readInt();
 
 		System.out.println("Digite a senha de farm�cia popular do Balconista:");
-		int senhaFarmaciaPopularBalconista = Complementary.readInt();
+		int senhaFarmaciaPopularBalconista = ConsoleMenu.readInt();
 
 		System.out.println("Digite o c�digo do Balconista:");
-		int codigoBalconista = Complementary.readInt();
+		int codigoBalconista = ConsoleMenu.readInt();
 
 		System.out.println("Digite o fator de comiss�o de vendas em porcentagem (%) do Balconista:");
-		int fatorComissaoBalconista = Complementary.readInt();
+		int fatorComissaoBalconista = ConsoleMenu.readInt();
 
 		System.out.println("Digite as horas trabalhadas semanalmente pelo Balconista:");
-		int horasTrabalhadas = Complementary.readInt();
+		int horasTrabalhadas = ConsoleMenu.readInt();
 
 		// Repete para todos atributos
 
