@@ -10,7 +10,7 @@ import java.util.Scanner;
 import entities.Cashier;
 import entities.Clerk;
 import entities.Client;
-import entities.Complementary;
+import entities.ConsoleMenu;
 import entities.Medicament;
 
 public class Console {
@@ -45,13 +45,13 @@ public class Console {
 		ArrayList<Medicament> listOfMedicaments = new ArrayList<Medicament>();
 
 		/**
-		 * Creating a new Clerk, Cashier, Client, Medicament and Complementary.
+		 * Creating a new Clerk, Cashier, Client, Medicament and ConsoleMenu.
 		 */
 		Clerk clerk = new Clerk();
 		Cashier cashier = new Cashier();
 		Client client = new Client();
 		Medicament medicament = new Medicament();
-		Complementary complementary = new Complementary();
+		ConsoleMenu consoleMenu = new ConsoleMenu();
 
 		int operation = 0;
 		int operationOfClerk = 0;
@@ -65,9 +65,16 @@ public class Console {
 			if (status == BEGINNING_OF_THE_PROGRAM) {
 
 				clerk.startMenu();
-
-				operation = scanner.nextInt();
-
+				
+				do {
+					try {
+						operation = scanner.nextInt();
+					} catch (NumberFormatException e) {
+						operation = -1;
+						System.out.println("Somente números.");
+					}
+				} while(operation != -1);
+					
 				/**
 				 * If you enter the wrong number, exit the program.
 				 */
@@ -75,7 +82,12 @@ public class Console {
 						+ operation;
 
 				if (operation == BEGINNING_OF_THE_PROGRAM) {
-					status = complementary.GeneralConfirmation(status);
+					try {
+						status = consoleMenu.GeneralConfirmation(status);
+					} catch (NumberFormatException e) {
+						System.out.println("Retorno errado na linha 86");
+						System.exit(1);
+					}
 				} else {
 					status++;
 
@@ -96,8 +108,13 @@ public class Console {
 								clerk.menuClerk();
 								operationOfClerk = scanner.nextInt();
 								if (operationOfClerk == BEGINNING_OF_THE_PROGRAM) {
-									status = complementary
+									try {
+										status = consoleMenu
 											.ConfirmationClerk(status);
+									} catch (NumberFormatException e) {
+										System.out.println("Retorno de parâmetro errado na linha 113");
+										System.exit(2);
+									}
 								}
 
 								else if (operationOfClerk == PASS_OF_START_MENU) {
@@ -128,8 +145,13 @@ public class Console {
 								cashier.cashierMenu();
 								operationOfCashier = scanner.nextInt();
 								if (operationOfCashier == BEGINNING_OF_THE_PROGRAM) {
-									status = complementary
+									try {
+										status = consoleMenu
 											.ConfirmationBox(status);
+									} catch (NumberFormatException e) {
+										System.out.println("Retorno de parâmetro errado na linha 152");
+										System.exit(1);
+									}
 								}
 
 								else if (operationOfCashier == PASS_OF_START_MENU) {
@@ -160,7 +182,7 @@ public class Console {
 								client.clientMenu();
 								operationOfClient = scanner.nextInt();
 								if (operationOfClient == BEGINNING_OF_THE_PROGRAM) {
-									status = complementary
+									status = consoleMenu
 											.ConfirmationClient(status);
 								}
 
@@ -194,8 +216,13 @@ public class Console {
 								medicament.menuMedicamento();
 								operationOfMedicament = scanner.nextInt();
 								if (operationOfMedicament == BEGINNING_OF_THE_PROGRAM) {
-									status = complementary
+									try {
+										status = consoleMenu
 											.ConfirmationMedicament(status);
+									} catch(NumberFormatException e) {
+										System.out.println("Retorno de parâmetro errado na linha 223");
+										System.exit(1);
+									}
 								}
 
 								else if (operationOfMedicament == PASS_OF_START_MENU) {
@@ -224,13 +251,19 @@ public class Console {
 								status = HELP;
 							}
 							while (status == HELP) {
-								status = complementary.menuHelp(status);
+								try {
+									status = consoleMenu.menuHelp(status);
+								} catch (NumberFormatException e) {
+									System.out.println("Retorno de parâmetro errado na linha 257");
+									System.exit(1);
+								}
 							}
 
 						}
 					}
 				}
 			}
+			
 		}
 		System.out.println("Thank you for using our management system!"
 				+ " Exiting the program!");

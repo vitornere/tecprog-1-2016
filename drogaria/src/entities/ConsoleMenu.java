@@ -49,7 +49,7 @@ public class ConsoleMenu {
 
 	}
 
-	public int menuOutputConfirmation(int states) throws IllegalArgumentException {
+	public int GeneralConfirmation(int states) throws IllegalArgumentException {
 		System.out.println("Deseja realmente sair?" + "\n(0) - Não" + "\n(1) - Sim");
 		
 		try {
@@ -73,7 +73,7 @@ public class ConsoleMenu {
 		return states;
 	}
 
-	public int clerkConfirmation(int states) {
+	public int ConfirmationClerk(int states) {
 		System.out.println("Deseja realmente sair do menu de cadastro de Balconista?" + 
 						   "\n(0) - Não" + "\n(1) - Sim");
 		
@@ -97,7 +97,7 @@ public class ConsoleMenu {
 		return states;
 	}
 
-	public int confirmacaoCaixa(int states) {
+	public int ConfirmationBox(int states) {
 		System.out.println("Deseja realmente sair do menu de cadastro de Caixa?" + "\n(0) - Não" + 
 						   "\n(1) - Sim");
 		
@@ -121,7 +121,7 @@ public class ConsoleMenu {
 		return states;
 	}
 
-	public int ConfirmacaoCliente(int states) {
+	public int ConfirmationClient(int states) {
 		System.out.println("Deseja realmente sair do menu de cadastro de Cliente?" + "\n(0) - Não" + 
 						   "\n(1) - Sim");
 		
@@ -145,7 +145,7 @@ public class ConsoleMenu {
 		return states;
 	}
 
-	public int ConfirmacaoMedicamento(int states) {
+	public int ConfirmationMedicament(int states) {
 		System.out.println("Deseja realmente sair do menu de cadastro de Medicamento?" + "\n(0) - Nâo" + 
 						   "\n(1) - Sim");
 		
@@ -194,7 +194,7 @@ public class ConsoleMenu {
 		return i;
 	}
 
-	public int menuAjuda(int states) {
+	public int menuHelp(int states) {
 		System.out.println("A ajuda deste programa tem como objetivo auxilia-lo nos métodos " + 
 						   "de inserção para utilização do sistema de gerência.");
 		System.out.println("Escolha a opção em que você deseja saber mais");
