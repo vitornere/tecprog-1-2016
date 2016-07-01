@@ -47,7 +47,7 @@ public class TeacherDAOTest {
 	
 	
 	@Test
-	public void testIncluir() throws ClientException, SQLException {
+	public void testAdd() throws ClientException, SQLException {
 		boolean resultado = false;
 		Professor prof = new Professor("Nome para Incluir", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		TeacherDAO.getInstance().add(prof);
@@ -69,10 +69,25 @@ public class TeacherDAOTest {
 		}
 		assertTrue("Teste de Inclus�o.", resultado);
 	}
+	
 	@Test (expected= ClientException.class)
-	public void testIncluirNulo() throws ClientException, SQLException {
+	public void testAddNull() throws ClientException, SQLException {
 		TeacherDAO.getInstance().add(null);
 	}
+	
+	@Test (expected= ClientException.class)
+	public void testAddNullName() throws ClientException, SQLException {
+		Professor prof = new Professor(null, "868.563.327-34", "123456", "1234-5678", "Nome@email");
+		TeacherDAO.getInstance().add(prof);
+	}
+
+	
+	@Test (expected= ClientException.class)
+	public void testAddEmptyName() throws ClientException, SQLException {
+		Professor prof = new Professor("", "868.563.327-34", "123456", "1234-5678", "Nome@email");
+		TeacherDAO.getInstance().add(prof);
+	}
+	
 	@Test (expected= ClientException.class)
 	public void testIncluirComMesmoCpf() throws ClientException, SQLException {
 		boolean resultado = true;
@@ -105,6 +120,7 @@ public class TeacherDAOTest {
 		
 		assertFalse("Teste de Inclus�o.", resultado);
 	}
+	
 	@Test (expected= ClientException.class)
 	public void testIncluirComMesmaMatricula() throws ClientException, SQLException {
 		boolean resultado = true;
@@ -137,6 +153,7 @@ public class TeacherDAOTest {
 		
 		assertFalse("Teste de Inclus�o.", resultado);
 	}
+	
 	@Test (expected= ClientException.class)
 	public void testIncluirJaExistente() throws ClientException, SQLException {
 		boolean resultado = true;
