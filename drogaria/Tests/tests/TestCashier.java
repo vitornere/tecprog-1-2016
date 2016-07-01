@@ -14,29 +14,29 @@ public class TestCashier{
 
 	@Test
 	public void GetTypeTest(){
-		Cashier transacao = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertEquals(transacao.getType() ,0);
+		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
+		assertEquals(transition.getType() ,0);
 	}
 	
 	
 	@Test
 	public void GetValueTest (){
-		Cashier transacao = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertEquals(transacao.getValue(),100, 0.1);
+		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
+		assertEquals(transition.getValue(),100, 0.1);
 	}
 	
 
 	
 	@Test
 	public void GetCodeTest (){
-		Cashier transacao = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertEquals(transacao.getCode(),1);
+		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
+		assertEquals(transition.getCode(),1);
 	}
 	
 	@Test
 	public void GetDescriptionTest (){
-		Cashier transacao = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertEquals(transacao.getDescription(),"transacaoTeste");
+		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
+		assertEquals(transition.getDescription(),"transacaoTeste");
 	}
 	
 	@Test
