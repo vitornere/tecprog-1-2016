@@ -24,7 +24,7 @@ import exception.PatrimonyException;
 public class EquipmentDAOTest {
 	static EquipmentDAO instance;
 	Equipment antigo, novo;
-	Vector <Equipment> todos;
+	Vector <Equipment> all;
 	
 	@BeforeClass
 	public static void setUpClass() throws PatrimonyException, SQLException {
@@ -41,13 +41,13 @@ public class EquipmentDAOTest {
 		 antigo = new Equipment("codigo", "descricao - antigo");
 		 novo = new Equipment("codigo", "descricao - alterada");
 		 instance.add(antigo);
-		 todos = instance.searchAll();
+		 all = instance.searchAll();
 	}
 	
 	@After
 	public void tearDown() throws SQLException, PatrimonyException {
-		todos = instance.searchAll();
-		Iterator<Equipment> i = todos.iterator();
+		all = instance.searchAll();
+		Iterator<Equipment> i = all.iterator();
 		while(i.hasNext()){
 			Equipment e = i.next();
 			instance.delete(e);
@@ -74,7 +74,7 @@ public class EquipmentDAOTest {
 	}
 	@Test
 	public void testBuscarTodos() throws SQLException, PatrimonyException {
-		assertNotNull("Testando a busca de elementos no BD.", todos);
+		assertNotNull("Testando a busca de elementos no BD.", all);
 	}
 	
 	@Test
@@ -165,8 +165,8 @@ public class EquipmentDAOTest {
 	}
 	
 	public Equipment procurarNoVetor(Equipment teste) throws PatrimonyException, SQLException {
-		todos = instance.searchAll();
-		Iterator<Equipment> i = todos.iterator();
+		all = instance.searchAll();
+		Iterator<Equipment> i = all.iterator();
 	
 		while(i.hasNext()){
 			Equipment e = i.next();

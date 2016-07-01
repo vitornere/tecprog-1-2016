@@ -56,7 +56,9 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 	/**
 	 * Construct a query to find in database Students by student data
-	 * @param student not receive null value
+	 * 
+	 * @param student
+	 *            not receive null value
 	 * @return Query with the consult
 	 */
 	private String selectIdStudent(Student student) {
@@ -67,10 +69,12 @@ public class ReservationRoomForStudentDAO extends DAO {
 				+ student.getEmailPerson() + "\" and " + "aluno.matricula = \""
 				+ student.getIdRegister() + "\"";
 	}
-	
+
 	/**
 	 * Construct a query to find in database Room by room data
-	 * @param room not receive null value
+	 * 
+	 * @param room
+	 *            not receive null value
 	 * @return Query with the consult
 	 */
 	private String selectIdRoom(Classroom room) {
@@ -79,10 +83,12 @@ public class ReservationRoomForStudentDAO extends DAO {
 				+ room.getDescriptionEquipment() + "\" and "
 				+ "sala.capacidade = " + room.getDescriptionEquipment();
 	}
-	
+
 	/**
 	 * Construct a query to find in database Room by reservation for student
-	 * @param reservation not receive null value
+	 * 
+	 * @param reservation
+	 *            not receive null value
 	 * @return Query with the consult
 	 */
 	private String whereReservationRoomForStudent(
@@ -97,8 +103,11 @@ public class ReservationRoomForStudentDAO extends DAO {
 	}
 
 	/**
-	 * Construct a query with the values in database Room by reservation for student
-	 * @param reservation not receive null value
+	 * Construct a query with the values in database Room by reservation for
+	 * student
+	 * 
+	 * @param reservation
+	 *            not receive null value
 	 * @return Query with the consult
 	 */
 	private String valuesReservationForStudent(
@@ -111,8 +120,11 @@ public class ReservationRoomForStudentDAO extends DAO {
 	}
 
 	/**
-	 * Construct a query to find in database Room by reservation with many attributes
-	 * @param reservation not receive null value
+	 * Construct a query to find in database Room by reservation with many
+	 * attributes
+	 * 
+	 * @param reservation
+	 *            not receive null value
 	 * @return Query with the consult
 	 */
 	private String reservationRoomForStudentWithManyAttributes(
@@ -128,7 +140,9 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 	/**
 	 * Construct a query to insert into database a reservation
-	 * @param reservation not receive null value
+	 * 
+	 * @param reservation
+	 *            not receive null value
 	 * @return Query with the consult
 	 */
 	private String insertInto(ReserveClassroomForStudent reservation) {
@@ -140,8 +154,11 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 	/**
 	 * Construct a query to update database reservation
-	 * @param old_reservation not receive null value
-	 * @param changed_reservation not receive null value
+	 * 
+	 * @param old_reservation
+	 *            not receive null value
+	 * @param changed_reservation
+	 *            not receive null value
 	 * @return Query with the consult
 	 */
 	private String update(ReserveClassroomForStudent old_reservation,
@@ -153,17 +170,21 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 	/**
 	 * Construct a query to update database reservation
-	 * @param reservation not receive null value
+	 * 
+	 * @param reservation
+	 *            not receive null value
 	 * @return Query with the consult
 	 */
 	private String deleteFrom(ReserveClassroomForStudent reservation) {
 		return "DELETE FROM reserva_sala_aluno "
 				+ this.whereReservationRoomForStudent(reservation) + " ;";
 	}
-	
+
 	/**
 	 * Query to add database reservation
-	 * @param reservation not receive null value
+	 * 
+	 * @param reservation
+	 *            not receive null value
 	 */
 	public void add(ReserveClassroomForStudent reservation)
 			throws ReserveException, SQLException, ClientException,
@@ -212,10 +233,12 @@ public class ReservationRoomForStudentDAO extends DAO {
 			}
 		}
 	}
-	
+
 	/**
 	 * Update database data to reservation
-	 * @param reservation not receive null value
+	 * 
+	 * @param reservation
+	 *            not receive null value
 	 */
 	public void change(ReserveClassroomForStudent old_reservation,
 			ReserveClassroomForStudent new_reservation)
@@ -292,10 +315,12 @@ public class ReservationRoomForStudentDAO extends DAO {
 			}
 		}
 	}
-	
+
 	/**
 	 * Delete data from database reservation
-	 * @param reservation not receive null value
+	 * 
+	 * @param reservation
+	 *            not receive null value
 	 * @return Query with the consult
 	 */
 	public void delete(ReserveClassroomForStudent reservation)
@@ -312,7 +337,8 @@ public class ReservationRoomForStudentDAO extends DAO {
 	}
 
 	/**
-	 * Method to display the list of classrooms reserved with the respective teacher.
+	 * Method to display the list of classrooms reserved with the respective
+	 * teacher.
 	 * 
 	 * @return list of classroom reserved with the respective teacher.
 	 * @throws SQLException
@@ -329,10 +355,12 @@ public class ReservationRoomForStudentDAO extends DAO {
 	}
 
 	/**
-	 * Method to display the list of classrooms reserved with the respective teacher according to a date.
+	 * Method to display the list of classrooms reserved with the respective
+	 * teacher according to a date.
 	 * 
 	 * @param date
-	 * @return list of classroom reserved with the respective teacher according to a date.
+	 * @return list of classroom reserved with the respective teacher according
+	 *         to a date.
 	 * @throws SQLException
 	 * @throws ClientException
 	 * @throws PatrimonyException
@@ -341,7 +369,11 @@ public class ReservationRoomForStudentDAO extends DAO {
 	public Vector<ReserveClassroomForStudent> searchbyDay(String date)
 			throws SQLException, ClientException, PatrimonyException,
 			ReserveException {
-		date = this.mountDefaultDate(date);
+		try {
+			date = this.mountDefaultDate(date);
+		} catch (NullPointerException e) {
+			System.exit(1);
+		}
 		return super
 				.search("SELECT * FROM reserva_sala_aluno "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala "
@@ -350,10 +382,12 @@ public class ReservationRoomForStudentDAO extends DAO {
 	}
 
 	/**
-	 * Method to display the list of classrooms reserved with the respective teacher according to a hour.
+	 * Method to display the list of classrooms reserved with the respective
+	 * teacher according to a hour.
 	 * 
 	 * @param hour
-	 * @return list of classroom reserved with the respective teacher according to a hour.
+	 * @return list of classroom reserved with the respective teacher according
+	 *         to a hour.
 	 * @throws SQLException
 	 * @throws ClientException
 	 * @throws PatrimonyException
@@ -362,7 +396,11 @@ public class ReservationRoomForStudentDAO extends DAO {
 	public Vector<ReserveClassroomForStudent> searchByHour(String hour)
 			throws SQLException, ClientException, PatrimonyException,
 			ReserveException {
-		hour = this.mountDefaultHour(hour);
+		try {
+			hour = this.mountDefaultHour(hour);
+		} catch (NullPointerException e) {
+			System.exit(1);
+		}
 		return super
 				.search("SELECT * FROM reserva_sala_aluno "
 						+ "INNER JOIN sala ON sala.id_sala = reserva_sala_aluno.id_sala "
@@ -372,9 +410,13 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 	/**
 	 * Method to return a number of teaspoonful chair
-	 * @param room to consult not null value
-	 * @param date to consult, not null value
-	 * @param hour to consult, not null value
+	 * 
+	 * @param room
+	 *            to consult not null value
+	 * @param date
+	 *            to consult, not null value
+	 * @param hour
+	 *            to consult, not null value
 	 * @return total chairs ins room
 	 * @throws SQLException
 	 * @throws PatrimonyException
@@ -385,17 +427,22 @@ public class ReservationRoomForStudentDAO extends DAO {
 			throws SQLException, PatrimonyException, ClientException,
 			ReserveException {
 		// Get date and hour
-		date = this.mountDefaultDate(date);
-		hour = this.mountDefaultHour(hour);
 		
-		//Search all classrooms
+		try {
+			hour = this.mountDefaultHour(hour);
+			date = this.mountDefaultDate(date);
+		} catch (NullPointerException e) {
+			System.exit(1);
+		}
+
+		// Search all classrooms
 		Vector<ReserveClassroomForStudent> vet = this.searchAll();
 		Iterator<ReserveClassroomForStudent> it = vet.iterator();
-		
-		//Get total chairs
+
+		// Get total chairs
 		int total = Integer.parseInt(room.getDescriptionEquipment());
-		
-		//Count total chairs available
+
+		// Count total chairs available
 		while (it.hasNext()) {
 			ReserveClassroomForStudent reservation = it.next();
 			if (reservation.getClassroom().equals(room)
@@ -403,16 +450,21 @@ public class ReservationRoomForStudentDAO extends DAO {
 					&& reservation.getHour().equals(hour))
 				total -= Integer.parseInt(reservation.getReservedChairs());
 		}
-		
+
 		return total;
 	}
 
 	/**
 	 * Verify to have more chairs
-	 * @param reserved_chairs int with all chairs, only int
-	 * @param room to consult not null value
-	 * @param date to consult, not null value
-	 * @param hour to consult, not null value
+	 * 
+	 * @param reserved_chairs
+	 *            int with all chairs, only int
+	 * @param room
+	 *            to consult not null value
+	 * @param date
+	 *            to consult, not null value
+	 * @param hour
+	 *            to consult, not null value
 	 * @return true if has or false
 	 * @throws SQLException
 	 * @throws ClientException
@@ -422,11 +474,15 @@ public class ReservationRoomForStudentDAO extends DAO {
 	private boolean hasChairs(String reserved_chairs, Classroom room,
 			String date, String hour) throws SQLException, ClientException,
 			PatrimonyException, ReserveException {
+
+		boolean has = true;
+		int chairs_in_room = this.availableChair(room, date, hour);
 		
-			boolean has = this.availableChair(room, date, hour) >= Integer
+		assert chairs_in_room >= 0;
+		
+		has =  chairs_in_room >= Integer
 				.parseInt(reserved_chairs);
-			
-			return has;
+		return has;
 	}
 
 	@Override
@@ -450,9 +506,9 @@ public class ReservationRoomForStudentDAO extends DAO {
 		return room_reservation;
 	}
 
-
 	/**
-	 * Method to select in the data base the reservation according to the parameters.
+	 * Method to select in the data base the reservation according to the
+	 * parameters.
 	 * 
 	 * @param student
 	 * @return information about professor according to parameters
@@ -468,7 +524,8 @@ public class ReservationRoomForStudentDAO extends DAO {
 	}
 
 	/**
-	 * Method to select in the data base the reservation according to the parameters.
+	 * Method to select in the data base the reservation according to the
+	 * parameters.
 	 * 
 	 * @param room
 	 * @return information about room according to parameters
@@ -484,9 +541,13 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 	/**
 	 * Method to verify if the room is reserved by param student
-	 * @param student not null value
-	 * @param date string with not null value and data format
-	 * @param hour string with not null value and hour format
+	 * 
+	 * @param student
+	 *            not null value
+	 * @param date
+	 *            string with not null value and data format
+	 * @param hour
+	 *            string with not null value and hour format
 	 * @return true if room is reserved or false
 	 * @throws SQLException
 	 */
@@ -503,7 +564,8 @@ public class ReservationRoomForStudentDAO extends DAO {
 	}
 
 	/**
-	 * Method to select in the data base the reservation according to the parameters.
+	 * Method to select in the data base the reservation according to the
+	 * parameters.
 	 * 
 	 * @param room
 	 * @param date
@@ -567,6 +629,7 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 	/**
 	 * Method to get current date
+	 * 
 	 * @return String with current date
 	 */
 	private String currentDate() {
@@ -574,8 +637,10 @@ public class ReservationRoomForStudentDAO extends DAO {
 		SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 		return formatador.format(date);
 	}
+
 	/**
 	 * Method to get current hour
+	 * 
 	 * @return String with current hour
 	 */
 	private String currentHour() {
@@ -585,6 +650,7 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 	/**
 	 * Method to get current hour
+	 * 
 	 * @return String with current hour
 	 */
 	private boolean isValidDate(String date) {
@@ -619,11 +685,17 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 	/**
 	 * Verify if date is equals to current date
-	 * @param date not null string
+	 * 
+	 * @param date
+	 *            not null string
 	 * @return true if equals or false if not equals
 	 */
 	public boolean equalsDate(String date) {
-		date = this.mountDefaultDate(date);
+		try {
+			date = this.mountDefaultDate(date);
+		} catch (NullPointerException e) {
+			System.exit(1);
+		}
 		String split_current_date[] = this.currentDate().split("[./-]");
 		String split_date[] = date.split("[./-]");
 
@@ -636,7 +708,9 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 	/**
 	 * Method to verify if is valid hour
-	 * @param hour in default format
+	 * 
+	 * @param hour
+	 *            in default format
 	 * @return true if hour is valid
 	 */
 	private boolean isValidHour(String hour) {
@@ -659,7 +733,9 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 	/**
 	 * Method to mount a date in default format
-	 * @param date not null and in the predefine format
+	 * 
+	 * @param date
+	 *            not null and in the predefine format
 	 * @return date in default format
 	 */
 	private String mountDefaultDate(String date) {
@@ -682,10 +758,12 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 		return date_in_default_model;
 	}
-	
+
 	/**
 	 * Method to mount a hour in default format
-	 * @param date not null and in the predefine format
+	 * 
+	 * @param date
+	 *            not null and in the predefine format
 	 * @return hour in default format
 	 */
 	private String mountDefaultHour(String hour) {

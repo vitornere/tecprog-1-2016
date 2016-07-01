@@ -2,7 +2,6 @@ package test.control;
 
 
 import control.EquipmentRegister;
-import control.ManterEquipamento;
 import exception.PatrimonyException;
 
 import java.sql.SQLException;

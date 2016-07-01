@@ -80,16 +80,18 @@ public abstract class Client {
 	}
 
 	public void setPhonePerson(String phoneClient) throws ClientException {
+		if (phoneClient != null) {
+			// Nothing to do.
+		} else {
+			throw new ClientException(NULL_PHONE);
+		}
+
 		if (phoneClient
 				.matches("(\\([ ]*[\\d]{2,3}[ ]*\\))?[ ]*[\\d]{4,4}[ ]*-?[ ]*[\\d]{4,4}[ ]*$")) {
 			this.phoneClient = phoneClient.replaceAll(" ", "");
-		} else if (phoneClient == null) {
-			throw new ClientException(NULL_PHONE);
 		} else if ("".equals(phoneClient)) {
 			this.phoneClient = phoneClient;
-		}
-
-		else {
+		} else {
 			throw new ClientException(INVALID_PHONE);
 		}
 	}
