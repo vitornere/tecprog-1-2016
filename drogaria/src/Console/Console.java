@@ -65,9 +65,16 @@ public class Console {
 			if (status == BEGINNING_OF_THE_PROGRAM) {
 
 				clerk.startMenu();
-
-				operation = scanner.nextInt();
-
+				
+				do {
+					try {
+						operation = scanner.nextInt();
+					} catch (NumberFormatException e) {
+						operation = -1;
+						System.out.println("Somente números.");
+					}
+				} while(operation != -1);
+					
 				/**
 				 * If you enter the wrong number, exit the program.
 				 */
@@ -75,7 +82,12 @@ public class Console {
 						+ operation;
 
 				if (operation == BEGINNING_OF_THE_PROGRAM) {
-					status = complementary.GeneralConfirmation(status);
+					try {
+						status = complementary.GeneralConfirmation(status);
+					} catch (NumberFormatException e) {
+						System.out.println("Retorno errado na linha 86");
+						System.exit(1);
+					}
 				} else {
 					status++;
 
@@ -96,8 +108,13 @@ public class Console {
 								clerk.menuClerk();
 								operationOfClerk = scanner.nextInt();
 								if (operationOfClerk == BEGINNING_OF_THE_PROGRAM) {
-									status = complementary
+									try {
+										status = complementary
 											.ConfirmationClerk(status);
+									} catch (NumberFormatException e) {
+										System.out.println("Retorno de parâmetro errado na linha 113");
+										System.exit(2);
+									}
 								}
 
 								else if (operationOfClerk == PASS_OF_START_MENU) {
@@ -128,8 +145,13 @@ public class Console {
 								cashier.cashierMenu();
 								operationOfCashier = scanner.nextInt();
 								if (operationOfCashier == BEGINNING_OF_THE_PROGRAM) {
-									status = complementary
+									try {
+										status = complementary
 											.ConfirmationBox(status);
+									} catch (NumberFormatException e) {
+										System.out.println("Retorno de parâmetro errado na linha 152");
+										System.exit(1);
+									}
 								}
 
 								else if (operationOfCashier == PASS_OF_START_MENU) {
@@ -194,8 +216,13 @@ public class Console {
 								medicament.menuMedicamento();
 								operationOfMedicament = scanner.nextInt();
 								if (operationOfMedicament == BEGINNING_OF_THE_PROGRAM) {
-									status = complementary
+									try {
+										status = complementary
 											.ConfirmationMedicament(status);
+									} catch(NumberFormatException e) {
+										System.out.println("Retorno de parâmetro errado na linha 223");
+										System.exit(1);
+									}
 								}
 
 								else if (operationOfMedicament == PASS_OF_START_MENU) {
@@ -224,13 +251,19 @@ public class Console {
 								status = HELP;
 							}
 							while (status == HELP) {
-								status = complementary.menuHelp(status);
+								try {
+									status = complementary.menuHelp(status);
+								} catch (NumberFormatException e) {
+									System.out.println("Retorno de parâmetro errado na linha 257");
+									System.exit(1);
+								}
 							}
 
 						}
 					}
 				}
 			}
+			
 		}
 		System.out.println("Thank you for using our management system!"
 				+ " Exiting the program!");
