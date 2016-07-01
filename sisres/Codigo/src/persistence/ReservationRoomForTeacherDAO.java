@@ -41,11 +41,10 @@ public class ReservationRoomForTeacherDAO extends DAO {
 	}
 
 	/**
-	 * Method to provider current instance or create a new.
+	 * Method to return a current instance
 	 * 
-	 * @return instance
+	 * @return current instance or a new instance
 	 */
-
 	public static ReservationRoomForTeacherDAO getInstance() {
 		if (instance != null) {
 			// Nothing to do
