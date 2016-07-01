@@ -22,7 +22,7 @@ import exception.PatrimonyException;
 import exception.ReserveException;
 
 import persistence.FactoryConnection;
-import persistence.ProfessorDAO;
+import persistence.TeacherDAO;
 import persistence.ClassroomDAO;
 
 public class TestReserveClassroomForProfessorPersist {
@@ -36,13 +36,13 @@ public class TestReserveClassroomForProfessorPersist {
 		sala1 = new Classroom("123", "Sala de Aula", "120");
 		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
 		
-		ProfessorDAO.getInstance().incluir(professor1);
+		TeacherDAO.getInstance().add(professor1);
 		ClassroomDAO.getInstance().add(sala1);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		ProfessorDAO.getInstance().excluir(professor1);
+		TeacherDAO.getInstance().delete(professor1);
 		ClassroomDAO.getInstance().delete(sala1);
 	}
 
