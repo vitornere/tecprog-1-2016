@@ -16,7 +16,9 @@ import entities.Client;
 
 public class TestClient {
 	
-
+	/**
+	 * Test if get identity valid.
+	 */
 	@Test
 	public void testPersonIdentity() {
 		Client newClient = new Client("personIdentity","Test 2", 50, "Test 3", "Test 4", "Test 5", "Test 6");
@@ -24,6 +26,9 @@ public class TestClient {
 		
 	}
 	
+	/**
+	 * Test if get identity invalid.
+	 */
 	@Test
 	public void testPersonIdentityInvalid() {
 		Client newClient = new Client("personIdentity","Test 2", 50, "Test 3", "Test 4", "Test 5", "Test 6");
@@ -31,6 +36,9 @@ public class TestClient {
 		
 	}
 	
+	/**
+	 * Test if get cpf valid.
+	 */
 	@Test
 	public void testPersonCpf() {
 		Client newClient = new Client("personIdentity","personCpf", 50, "Test 3", "Test 4", "Test 5", "Test 6");
@@ -38,6 +46,9 @@ public class TestClient {
 		
 	}
 	
+	/**
+	 * Test if get cpf invalid.
+	 */
 	@Test
 	public void testPersonCpfInvalid() {
 		Client newClient = new Client("personIdentity","personCpf", 50, "Test 3", "Test 4", "Test 5", "Test 6");
@@ -45,6 +56,9 @@ public class TestClient {
 		
 	}
 	
+	/**
+	 * Test if get cpf digit valid.
+	 */
 	@Test
 	public void testSetDigitoCpf() {
 		Client newClient = new Client("Test 1","Test 2", 50, "Test 3", "Test 4", "Test 5", "Test 6");
@@ -52,6 +66,9 @@ public class TestClient {
 		
 	}
 	
+	/**
+	 * Test if get cpf digit invalid.
+	 */
 	@Test
 	public void testSetDigitoCpfInvalid() {
 		Client newClient = new Client("Test 1","Test 2", 50, "Test 3", "Test 4", "Test 5", "Test 6");
@@ -59,6 +76,9 @@ public class TestClient {
 		
 	}
 	
+	/**
+	 * Test if get person name valid.
+	 */
 	@Test
 	public void testSetPersonName() {
 		Client newClient = new Client("Test 1","Test 2", 50, "personName", "Test 4", "Test 5", "Test 6");
@@ -66,6 +86,9 @@ public class TestClient {
 		
 	}
 	
+	/**
+	 * Test if get person name invalid.
+	 */
 	@Test
 	public void testSetPersonNameInvalid() {
 		Client newClient = new Client("Test 1","Test 2", 50, "personName", "Test 4", "Test 5", "Test 6");
@@ -73,6 +96,9 @@ public class TestClient {
 		
 	}
 	
+	/**
+	 * Test if get past name valid.
+	 */
 	@Test
 	public void testSetPastName() {
 		Client newClient = new Client("Test 1","Test 2", 50, "personName", "pastName", "Test 5", "Test 6");
@@ -80,6 +106,9 @@ public class TestClient {
 		
 	}
 	
+	/**
+	 * Test if get past name invalid.
+	 */
 	@Test
 	public void testSetPastNameInvalid() {
 		Client newClient = new Client("Test 1","Test 2", 50, "personName", "pastName", "Test 5", "Test 6");
@@ -87,6 +116,9 @@ public class TestClient {
 		
 	}
 
+	/**
+	 * Test if get address valid.
+	 */
 	@Test
 	public void testSetAddress() {
 		Client newClient = new Client("Test 1","Test 2", 50, "personName", "pastName", "address", "Test 6");
@@ -94,6 +126,9 @@ public class TestClient {
 		
 	}
 	
+	/**
+	 * Test if get address invalid.
+	 */
 	@Test
 	public void testSetAddressInvalid() {
 		Client newClient = new Client("Test 1","Test 2", 50, "personName", "pastName", "address", "Test 6");
@@ -101,6 +136,9 @@ public class TestClient {
 		
 	}
 	
+	/**
+	 * Test if get phone valid.
+	 */
 	@Test
 	public void testSetPhone() {
 		Client newClient = new Client("Test 1","Test 2", 50, "personName", "pastName", "address", "phone");
@@ -108,6 +146,9 @@ public class TestClient {
 		
 	}
 	
+	/**
+	 * Test if get phone invalid.
+	 */
 	@Test
 	public void testSetPhoneInvalid() {
 		Client newClient = new Client("Test 1","Test 2", 50, "personName", "pastName", "address", "phone");
@@ -115,25 +156,27 @@ public class TestClient {
 		
 	}
 	
+	/**
+	 * Test if get email valid.
+	 */
 	@Test
 	public void testEmail(){
 		Client newClient = new Client("Test 1","Test 2", 50, "Test 3", "Test 4", "Test 5", "Test 6","email@email.com");
 		assertEquals(newClient.getEmail(), "email@email.com");
 	}
 	
+	/**
+	 * Test if get email invalid.
+	 */
 	@Test
 	public void testEmailInvalid(){
 		Client newClient = new Client("Test 1","Test 2", 50, "Test 3", "Test 4", "Test 5", "Test 6","email@email.com");
 		assertNotEquals(newClient.getEmail(), "emailInvalid@email.com");
 	}
 	
-	@Test
-	public void setEmail(){
-		Client client = new Client();
-		client.setEmail("emailSet@email.com");
-		assertEquals("emailSet@email.com", client.getEmail());
-	}
-	
+	/**
+	 * Test if get client.
+	 */
 	@Test
 	public void Clerk() {
 		Client client = new Client();
@@ -142,7 +185,9 @@ public class TestClient {
 		assertEquals(clerk,client.getClerk());
 	}
 	
-	
+	/**
+	 * Test if get cashier.
+	 */
 	@Test
 	public void Caixa() {
 		Client client = new Client();
@@ -151,8 +196,9 @@ public class TestClient {
 		assertEquals(clerk,client.getCashier());
 	}
 	
-	
-	
+	/**
+	 * Test if get client.
+	 */
 	@Test
 	public void Client() {
 		Client client1 = new Client();
@@ -161,8 +207,9 @@ public class TestClient {
 		assertEquals(client2,client1.getClient());
 	}
 	
-	
-	
+	/**
+	 * Test if scanner client.
+	 */
 	@Test
 	public void testScanner(){
 		Client cliente = new Client();
@@ -171,6 +218,9 @@ public class TestClient {
 		assertEquals(scanner,cliente.getScanner());
 	}
 	
+	/**
+	 * Test if get delete code.
+	 */
 	@Test
 	public void codigoExclusao(){
 		Client client = new Client();
@@ -178,6 +228,9 @@ public class TestClient {
 		assertEquals(1, client.getDeleteCode());
 	}
 	
+	/**
+	 * Test if get confirm delete client.
+	 */
 	@Test
 	public void confirmacaoExclusaoClient(){
 		Client client = new Client();
