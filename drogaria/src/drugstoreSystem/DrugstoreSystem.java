@@ -125,9 +125,15 @@ public class DrugstoreSystem {
 		administrative = thirdDrugstoreClerk;
 		weeklySalaryCashier = administrative.calculateSalary() / 30 * 4;
 		monthlySalaryCashier = administrative.calculateSalary();
-		System.out.println("Clerk Salary " + thirdDrugstoreClerk.getName()
-				+ " weekly is: U$ " + df.format(weeklySalaryCashier)
-				+ " and monthly: U$ " + df.format(monthlySalaryCashier));
+		if(monthlySalaryCashier >= 0){
+			System.out.println("Clerk Salary " + thirdDrugstoreClerk.getName()
+					+ " weekly is: U$ " + df.format(weeklySalaryCashier)
+					+ " and monthly: U$ " + df.format(monthlySalaryCashier));
+		}
+		else{
+			System.exit(1);
+		}
+
 
 		Medicament secondMedicament = new Medicament("NameTest",
 				"LaboratoryTest", "Adult", "Pill", "10/10/2020",
@@ -184,10 +190,21 @@ public class DrugstoreSystem {
 		System.out
 				.println("The confirmation of the funcionary's payment (1: Confirmed and 0:rejected): "
 						+ pessoa.paymentConfirmation());
-		pessoa = cashier;
+						if((Person.getPaymentConfirmation() == 0)||(Person.getPaymentConfirmation() == 1)){
+							pessoa = cashier;
+						}
+						else{
+							System.exit(1);
+						}
 		System.out
 				.println("The confirmation of the funcionary's payment (1: Confirmed and 0:rejected): "
 						+ pessoa.paymentConfirmation());
+						if((Person.getPaymentConfirmation() == 0)||(Person.getPaymentConfirmation() == 1)){
+							pessoa = cashier;
+						}
+						else{
+							System.exit(1);
+						}
 
 		/**
 		 * Interface.
