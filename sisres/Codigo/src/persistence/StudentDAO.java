@@ -11,8 +11,10 @@ import java.sql.*;
 import java.util.Vector;
 
 import exception.ClientException;
+import exception.PatrimonyException;
+import exception.ReserveException;
 
-public class StudentDAO {
+public class StudentDAO extends DAO {
 
 	// Constants with error messenger
 	private static final String EXISTENTSTUDENT = "O Student ja esta cadastrado.";
@@ -135,35 +137,39 @@ public class StudentDAO {
 		}
 
 		// Start connection with database
-		Connection connection = FactoryConnection.getInstance().getConnection();
-		PreparedStatement preopare_query_to_execute;
+		if (super.openConnection()) {
+			PreparedStatement preopare_query_to_execute;
 
-		// try update database
-		if (!this.inDB(new_student)) {
-			String msg = "UPDATE aluno SET " + "nome = \""
-					+ new_student.getNamePerson() + "\", " + "cpf = \""
-					+ new_student.getCpfPerson() + "\", " + "telefone = \""
-					+ new_student.getPhonePerson() + "\", " + "email = \""
-					+ new_student.getEmailPerson() + "\", " + "matricula = \""
-					+ new_student.getIdRegister() + "\"" + " WHERE "
-					+ "aluno.nome = \"" + old_student.getNamePerson()
-					+ "\" and " + "aluno.cpf = \"" + old_student.getCpfPerson()
-					+ "\" and " + "aluno.telefone = \""
-					+ old_student.getPhonePerson() + "\" and "
-					+ "aluno.email = \"" + old_student.getEmailPerson()
-					+ "\" and " + "aluno.matricula = \""
-					+ old_student.getIdRegister() + "\";";
-			connection.setAutoCommit(false);
-			preopare_query_to_execute = connection.prepareStatement(msg);
-			preopare_query_to_execute.executeUpdate();
-			connection.commit();
+			// try update database
+			if (!this.inDB(new_student)) {
+				String msg = "UPDATE aluno SET " + "nome = \""
+						+ new_student.getNamePerson() + "\", " + "cpf = \""
+						+ new_student.getCpfPerson() + "\", " + "telefone = \""
+						+ new_student.getPhonePerson() + "\", " + "email = \""
+						+ new_student.getEmailPerson() + "\", "
+						+ "matricula = \"" + new_student.getIdRegister() + "\""
+						+ " WHERE " + "aluno.nome = \""
+						+ old_student.getNamePerson() + "\" and "
+						+ "aluno.cpf = \"" + old_student.getCpfPerson()
+						+ "\" and " + "aluno.telefone = \""
+						+ old_student.getPhonePerson() + "\" and "
+						+ "aluno.email = \"" + old_student.getEmailPerson()
+						+ "\" and " + "aluno.matricula = \""
+						+ old_student.getIdRegister() + "\";";
+				setAutoCommit(false);
+				preopare_query_to_execute = prepareStatement(msg);
+				preopare_query_to_execute.executeUpdate();
+				commit();
+			} else {
+				throw new ClientException(EXISTENTSTUDENT);
+			}
+
+			// Close connection
+			preopare_query_to_execute.close();
+			closeConnection();
 		} else {
-			throw new ClientException(EXISTENTSTUDENT);
+			System.exit(1);
 		}
-
-		// Close connection
-		preopare_query_to_execute.close();
-		connection.close();
 	}
 
 	/**
@@ -311,28 +317,29 @@ public class StudentDAO {
 	 * @throws ClientException
 	 *             don't happens
 	 */
-	private Vector<Student> search(String query) throws SQLException,
+	protected Vector<Student> search(String query) throws SQLException,
 			ClientException {
-
+		Vector<Student> data_result = null;
 		// Start connection
-		Connection connnection = FactoryConnection.getInstance()
-				.getConnection();
-		PreparedStatement prepare_query_to_execute = connnection
-				.prepareStatement(query);
+		if (openConnection()) {
+			PreparedStatement prepare_query_to_execute = prepareStatement(query);
 
-		// Query result
-		ResultSet database_result = prepare_query_to_execute.executeQuery();
+			// Query result
+			ResultSet database_result = prepare_query_to_execute.executeQuery();
 
-		// Fill vector with the data query result
-		Vector<Student> data_result = new Vector<Student>();
-		while (database_result.next()) {
-			data_result.add(this.fetchStudent(database_result));
+			// Fill vector with the data query result
+			data_result = new Vector<Student>();
+			while (database_result.next()) {
+				data_result.add(this.fetchStudent(database_result));
+			}
+
+			// Close connection
+			prepare_query_to_execute.close();
+			database_result.close();
+			closeConnection();
+		} else {
+			System.exit(1);
 		}
-
-		// Close connection
-		prepare_query_to_execute.close();
-		database_result.close();
-		connnection.close();
 
 		return data_result;
 	}
@@ -346,25 +353,23 @@ public class StudentDAO {
 	 * @throws SQLException
 	 *             happens when sql code is wrong
 	 */
-	private boolean inDBGeneric(String query) throws SQLException {
+	protected boolean inDBGeneric(String query) throws SQLException {
 		boolean has_result = false;
-		
+
 		// Start connection
-		Connection connection = FactoryConnection.getInstance().getConnection();
-		if(connection != null){
-		PreparedStatement prepare_query_to_execute = connection
-				.prepareStatement(query);
+		if (openConnection()) {
+			PreparedStatement prepare_query_to_execute = prepareStatement(query);
 
-		// Data return by query
-		ResultSet data_result = prepare_query_to_execute.executeQuery();
+			// Data return by query
+			ResultSet data_result = prepare_query_to_execute.executeQuery();
 
-		// Save if has result
-		has_result = data_result.next();
+			// Save if has result
+			has_result = data_result.next();
 
-		// close connection
-		data_result.close();
-		prepare_query_to_execute.close();
-		connection.close();
+			// close connection
+			data_result.close();
+			prepare_query_to_execute.close();
+			closeConnection();
 		} else {
 			System.exit(1);
 		}
@@ -467,21 +472,26 @@ public class StudentDAO {
 	 * @throws SQLException
 	 *             happens when sql code is wrong
 	 */
-	private void updateQuery(String query) throws SQLException {
+	protected void updateQuery(String query) throws SQLException {
 		// Start connection
-		Connection connection = FactoryConnection.getInstance().getConnection();
-		if (connection != null) {
-			PreparedStatement prepare_query_to_execute = connection
-					.prepareStatement(query);
+		if (openConnection()) {
+			PreparedStatement prepare_query_to_execute = prepareStatement(query);
 
 			// Execute update query
 			prepare_query_to_execute.executeUpdate();
 			prepare_query_to_execute.close();
 
 			// Close connection
-			connection.close();
+			closeConnection();
 		} else {
 			System.exit(1);
 		}
+	}
+
+	@Override
+	protected Object fetch(ResultSet rs) throws SQLException, ClientException,
+			PatrimonyException, ReserveException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
