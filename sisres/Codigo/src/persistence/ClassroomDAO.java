@@ -341,17 +341,21 @@ public class ClassroomDAO {
 	 */
 
 	private void updateQuery(String menssage) throws SQLException {
-		//Start connection.
+		// Start connection.
 		Connection connection = FactoryConnection.getInstance().getConnection();
-		assert connection != null;
-		PreparedStatement prepare_query_to_execute = connection.prepareStatement(menssage);
-		
-		//Execute update query.
-		prepare_query_to_execute.executeUpdate();
-		prepare_query_to_execute.close();
-		
-		//close connection.
-		connection.close();
+		if (connection != null) {
+			PreparedStatement prepare_query_to_execute = connection.prepareStatement(menssage);
+
+			// Execute update query.
+			prepare_query_to_execute.executeUpdate();
+			prepare_query_to_execute.close();
+
+			// close connection.
+			connection.close();
+		} else {
+			System.exit(1);
+
+		}
 	}
 
 }
