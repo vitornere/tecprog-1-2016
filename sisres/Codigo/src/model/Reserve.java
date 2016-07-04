@@ -33,12 +33,11 @@ public class Reserve {
 	}
 
 	public void setHour(String hour) throws ReserveException {
-		hour = hour.trim();
 		if ((hour != null) && (hour.equals("") == false)
-				&& (hour.matches(PATTERN_HOUR) == false)) {
+				&& (hour.matches(PATTERN_HOUR))) {
+			hour = hour.trim();
 			this.hour = hour;
 		}
-
 		else if (hour == null) {
 			throw new ReserveException(NULL_HOUR);
 		} else if (hour.equals("")) {
@@ -49,7 +48,6 @@ public class Reserve {
 			} else {
 				// Nothing to do.
 			}
-
 		} else {
 			throw new ReserveException(INVALID_HOUR);
 		}

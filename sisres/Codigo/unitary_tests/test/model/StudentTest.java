@@ -24,37 +24,37 @@ public class StudentTest {
 
 	@Test
 	public void testInstance() throws ClientException {
-		Student a = new Student("Nome", "040.757.021-70", "123456", "1234-5678", "Nome@email");
+		Student a = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
 		assertTrue("Teste de Instanciamento do Aluno", a instanceof Student);
 	}
 	
 	@Test
 	public void testNome() throws ClientException {
-		Student a = new Student("Nome", "040.757.021-70", "123456", "1234-5678", "Nome@email");
+		Student a = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
 		assertTrue("Teste do Nome do Aluno", "Nome" == a.getNamePerson());
 	}
 
 	@Test
 	public void testCpf() throws ClientException {
-		Student a = new Student("Nome", "040.757.021-70", "123456", "1234-5678", "Nome@email");
+		Student a = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
 		assertTrue("Teste do CPF do Aluno", "040.757.021-70" == a.getCpfPerson());
 	}
 	
 	@Test
 	public void testMatricula() throws ClientException {
-		Student a = new Student("Nome", "040.757.021-70", "123456", "1234-5678", "Nome@email");
+		Student a = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
 		assertTrue("Teste da Matricula do Aluno", "123456" == a.getIdRegister());
 	}
 	
 	@Test
 	public void testTelefone() throws ClientException {
-		Student a = new Student("Nome", "040.757.021-70", "123456", "1234-5678", "Nome@email");
-		assertTrue("Teste de Telefone do Aluno", "1234-5678" == a.getPhonePerson());
+		Student a = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
+		assertTrue("Teste de Telefone do Aluno", "(90)9999-9999".equals(a.getPhonePerson()));
 	}
 	
 	@Test
 	public void testEmail() throws ClientException {
-		Student a = new Student("Nome", "040.757.021-70", "123456", "1234-5678", "Nome@email");
+		Student a = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
 		assertTrue("Teste do E-mail do Aluno", "Nome@email" == a.getEmailPerson());
 	}
 
@@ -62,66 +62,66 @@ public class StudentTest {
 	
 	@Test (expected= ClientException.class)
 	public void testNomeVazio() throws ClientException {
-		new Student("", "040.757.02170", "123456", "1234-5678", "Nome@email");
+		new Student("", "040.757.02170", "123456", "(90) 9999-9999", "Nome@email");
 	}
 
 	@Test (expected= ClientException.class)
 	public void testNomeNumero() throws ClientException {
-		new Student("Nome12", "040.757.021-70", "123456", "1234-5678", "Nome@email");
+		new Student("Nome12", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
 	}
 	
 	@Test (expected= ClientException.class)
 	public void testNomeCaractere() throws ClientException {
-		new Student("Nome*", "040.757.021-70", "123456", "1234-5678", "Nome@email");
+		new Student("Nome*", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
 	}
 	
 	@Test (expected= ClientException.class)
 	public void testNomeNulo() throws ClientException {
-		new Student(null, "040.757.021-70", "123456", "1234-5678", "Nome@email");
+		new Student(null, "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
 	}
 
 	
 	
 	@Test (expected= ClientException.class)
 	public void testCpfVazio() throws ClientException {
-		new Student("Nome", "", "123456", "1234-5678", "Nome@email");
+		new Student("Nome", "", "123456", "(90) 9999-9999", "Nome@email");
 	}
 
 	@Test (expected= ClientException.class)
 	public void testCpfLetras() throws ClientException {
-		new Student("Nome", "O40.757.021-7O", "123456", "1234-5678", "Nome@email");
+		new Student("Nome", "O40.757.021-7O", "123456", "(90) 9999-9999", "Nome@email");
 	}
 	
 	@Test (expected= ClientException.class)
 	public void testCpfDespadronizado() throws ClientException {
-		new Student("Nome", "04075702170", "123456", "1234-5678", "Nome@email");
+		new Student("Nome", "04075702170", "123456", "(90) 9999-9999", "Nome@email");
 	}
 	
 	@Test (expected = ClientException.class)
 	public void testCpfInvalido() throws ClientException {
-		new Student("Nome", "123.456.789-90", "123456", "1234-5678", "Nome@email");
+		new Student("Nome", "123.456.789-90", "123456", "(90) 9999-9999", "Nome@email");
 	}
 	
 	@Test (expected= ClientException.class)
 	public void testCpfNulo() throws ClientException {
-		new Student("Nome", null, "123456", "1234-5678", "Nome@email");
+		new Student("Nome", null, "123456", "(90) 9999-9999", "Nome@email");
 	}
 	
 	
 	
 	@Test (expected= ClientException.class)
 	public void testMatriculaVazia() throws ClientException {
-		new Student("Nome", "040.757.021-70", "", "1234-5678", "Nome@email");
+		new Student("Nome", "040.757.021-70", "", "(90) 9999-9999", "Nome@email");
 	}
 	
 	@Test (expected= ClientException.class)
 	public void testMatriculaNula() throws ClientException {
-		new Student("Nome", "040.757.021-70", null, "1234-5678", "Nome@email");
+		new Student("Nome", "040.757.021-70", null, "(90) 9999-9999", "Nome@email");
 	}
 	
 	
 	
-	@Test
+	@Test (expected= ClientException.class)
 	public void testTelefoneVazio() throws ClientException {
 		Student a = new Student("Nome", "040.757.021-70", "123456", "", "Nome@email");
 		assertTrue("Teste de Telefone Vazio do Aluno", "" == a.getPhonePerson());
@@ -141,52 +141,52 @@ public class StudentTest {
 	
 	@Test
 	public void testEmailVazio() throws ClientException {
-		Student a = new Student("Nome", "040.757.021-70", "123456", "1234-5678", "");
+		Student a = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "");
 		assertTrue("Teste de Email Vazio do Aluno", "" == a.getEmailPerson());
 	}
 	
 	@Test (expected= ClientException.class)
 	public void testEmailNulo() throws ClientException {
-		new Student("Nome", "040.757.021-70", "123456", "9999-9999", null);
+		new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", null);
 	}
 
 	
 	
 	@Test
 	public void testEqualsTrue() throws ClientException {
-		Student a = new Student("Nome", "040.757.021-70", "123456", "", "Nome@email");
-		Student ae = new Student("Nome", "040.757.021-70", "123456", "", "Nome@email");
+		Student a = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
+		Student ae = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
 		assertTrue("Teste do E-mail do Aluno", a.equals(ae));
 	}
 	
 	@Test
 	public void testEqualsFalseNome() throws ClientException {
-		Student a = new Student("Nome", "040.757.021-70", "123456", "", "Nome@email");
+		Student a = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
 		Student oa = new Student("NomeDiferente", "040.757.021-70", "12356", "(90) 9999-9999", "Nom@email");
 		assertFalse("Teste do E-mail do Aluno", a.equals(oa));
 	}
 	@Test
 	public void testEqualsFalseCpf() throws ClientException {
-		Student a = new Student("Nome", "040.757.021-70", "123456", "", "Nome@email");
+		Student a = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
 		Student oa = new Student("Nome", "490.491.781-20", "12356", "(90) 9999-9999", "Nom@email");
 		assertFalse("Teste do E-mail do Aluno", a.equals(oa));
 	}
 	@Test
 	public void testEqualsFalseMatricula() throws ClientException {
-		Student a = new Student("Nome", "040.757.021-70", "123456", "", "Nome@email");
+		Student a = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
 		Student oa = new Student("Nome", "040.757.021-70", "12356", "(90) 9999-9999", "Nom@email");
 		assertFalse("Teste do E-mail do Aluno", a.equals(oa));
 	}
 	@Test
 	public void testEqualsFalseTelefone() throws ClientException {
-		Student a = new Student("Nome", "040.757.021-70", "123456", "", "Nome@email");
+		Student a = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
 		Student oa = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nom@email");
 		assertFalse("Teste do E-mail do Aluno", a.equals(oa));
 	}
 	@Test
 	public void testEqualsFalseEmail() throws ClientException {
-		Student a = new Student("Nome", "040.757.021-70", "123456", "", "Nome@email");
-		Student oa = new Student("Nome", "040.757.021-70", "123456", "", "Nom@el");
+		Student a = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nome@email");
+		Student oa = new Student("Nome", "040.757.021-70", "123456", "(90) 9999-9999", "Nom@el");
 		assertFalse("Teste do E-mail do Alunor", a.equals(oa));
 	}
 }

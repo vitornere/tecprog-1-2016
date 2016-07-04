@@ -127,7 +127,7 @@ public class ReserveClassroomForProfessorTest {
 	public void testDataComChar() throws PatrimonyException, ClientException, ReserveException {
 
 		Classroom sala = new Classroom("123", "Sala de Aula", "120");
-		Professor professor = new Professor("testInstance", "501.341.852-69", "456678", "", "");
+		Professor professor = new Professor("testInstance", "501.341.852-69", "456678", "33613110", "");
 		new ReserveClassroomForProfessor("12/q2/2030", this.horaAtual(), sala, "Grupo de Estudos", professor);
 	}
 	

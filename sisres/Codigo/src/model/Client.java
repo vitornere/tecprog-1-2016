@@ -92,12 +92,14 @@ public abstract class Client {
 		} else {
 			throw new ClientException(NULL_PHONE);
 		}
-
+		if (!"".equals(phoneClient)) {
+			// Nothing to do.
+		} else {
+			this.phoneClient = phoneClient;
+		}
 		if (phoneClient
 				.matches("(\\([ ]*[\\d]{2,3}[ ]*\\))?[ ]*[\\d]{4,4}[ ]*-?[ ]*[\\d]{4,4}[ ]*$")) {
 			this.phoneClient = phoneClient.replaceAll(" ", "");
-		} else if ("".equals(phoneClient)) {
-			this.phoneClient = phoneClient;
 		} else {
 			throw new ClientException(INVALID_PHONE);
 		}
