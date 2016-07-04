@@ -31,45 +31,173 @@ public class TestClerk {
 		Clerk balconistaVazio = new Clerk();
 		assertNotNull(balconistaVazio);
 	}
+	
+	@Test
+	public void testRgPerson() {
+		Clerk funcionarioDrogaria = new Clerk("RgPerson", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+				"Teste 6", 1234, 5678, 1, 2, 0);
+		assertEquals(funcionarioDrogaria.getIdentity(), "RgPerson");
+	}
+	
+	@Test
+	public void testRgPersonInvalid() {
+		Clerk funcionarioDrogaria = new Clerk("RgPerson", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+				"Teste 6", 1234, 5678, 1, 2, 0);
+		assertNotEquals(funcionarioDrogaria.getIdentity(), "RgPersonInvalid");
+	}
+	
+	@Test
+	public void testSetCpfPerson() {
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "cpfPerson", 50, "Teste 3", "Teste 4", "Teste 5",
+				"Teste 6", 1234, 5678, 1, 2, 0);
+		assertEquals(funcionarioDrogaria.getCpfPerson(), "cpfPerson");
+	}
+	
+	@Test
+	public void testSetCpfPersonInvalid() {
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "cpfPerson", 50, "Teste 3", "Teste 4", "Teste 5",
+				"Teste 6", 1234, 5678, 1, 2, 0);
+		assertNotEquals(funcionarioDrogaria.getCpfPerson(), "cpfPersonInvalid");
+	}
 
-	// Teste para confirma��o do digito do CPF.
 	@Test
 	public void testSetDigitoCpf() {
 		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 1, 2, 0);
 		assertEquals(funcionarioDrogaria.getDigitCpfPerson(), 50);
 	}
+	
+	@Test
+	public void testSetDigitoCpfInvalid() {
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+				"Teste 6", 1234, 5678, 1, 2, 0);
+		assertNotEquals(funcionarioDrogaria.getDigitCpfPerson(), 51);
+	}
+	
+	@Test
+	public void GetPersonNameTest(){
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "nameTest", "Teste 4", "Teste 5",
+				"Teste 6", 1234, 5678, 1, 2, 0);
+		assertEquals(funcionarioDrogaria.getName(), "nameTest");
+	}
+	
+	@Test
+	public void GetPersonNameTestInvalid(){
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "nameTest", "Teste 4", "Teste 5",
+				"Teste 6", 1234, 5678, 1, 2, 0);
+		assertNotEquals(funcionarioDrogaria.getName(), "nameTestInvalid");
+	}
+	
+	@Test
+	public void GetPersonPastNameTest(){
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "nameTest", "pastNameTest", "Teste 5",
+				"Teste 6", 1234, 5678, 1, 2, 0);
+		assertEquals(funcionarioDrogaria.getPastName(), "pastNameTest");
+	}
+	
+	@Test
+	public void GetPersonPastNameTestInvalid(){
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "nameTest", "Teste 4", "Teste 5",
+				"Teste 6", 1234, 5678, 1, 2, 0);
+		assertNotEquals(funcionarioDrogaria.getPastName(), "pastNameTestInvalid");
+	}
+	
+	@Test
+	public void GetPersonAddressTest(){
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "nameTest", "pastNameTest", "address",
+				"Teste 6", 1234, 5678, 1, 2, 0);
+		assertEquals(funcionarioDrogaria.getAddress(), "address");
+	}
+	
+	@Test
+	public void GetPersonAddressTestInvalid(){
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "nameTest", "address", "Teste 5",
+				"Teste 6", 1234, 5678, 1, 2, 0);
+		assertNotEquals(funcionarioDrogaria.getAddress(), "addressInvalid");
+	}
+	
+	@Test
+	public void GetPersonPhoneTest(){
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "nameTest", "pastNameTest", "address",
+				"phone", 1234, 5678, 1, 2, 0);
+		assertEquals(funcionarioDrogaria.getPhone(), "phone");
+	}
+	
+	@Test
+	public void GetPersonPhoneInvalid(){
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "nameTest", "address", "Teste 5",
+				"phone", 1234, 5678, 1, 2, 0);
+		assertNotEquals(funcionarioDrogaria.getPhone(), "phoneInvalid");
+	}
 
-	// Teste para confirma��o da senha
 	@Test
 	public void testGetSenha() {
 		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 15000, 5678, 1, 2, 0);
 		assertEquals(funcionarioDrogaria.getPassword(), 15000);
 	}
+	
+	@Test
+	public void testGetSenhaInvalid() {
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+				"Teste 6", 15000, 5678, 1, 2, 0);
+		assertNotEquals(funcionarioDrogaria.getPassword(), 15001);
+	}
 
-	// Teste para confirma��o da senha da farm�cia popular
 	@Test
 	public void testSetSenhaFarmaciaPopular() {
 		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 2432, 1, 2, 0);
 		assertEquals(funcionarioDrogaria.getSenhaFarmaciaPopular(), 2432);
 	}
+	
+	@Test
+	public void testSetSenhaFarmaciaPopularInvalid() {
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+				"Teste 6", 1234, 2432, 1, 2, 0);
+		assertNotEquals(funcionarioDrogaria.getSenhaFarmaciaPopular(), 2433);
+	}
 
-	// Teste para confirma��o do c�digo do funcion�rio
 	@Test
 	public void testGetCodigo() {
 		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 20, 2, 0);
 		assertEquals(funcionarioDrogaria.getIdFuncionary(), 20);
 	}
+	
+	@Test
+	public void testGetCodigoInvalid() {
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+				"Teste 6", 1234, 5678, 20, 2, 0);
+		assertNotEquals(funcionarioDrogaria.getIdFuncionary(), 21);
+	}
 
-	// Teste para confirma��o do fator de comiss�o do funcion�rio
 	@Test
 	public void testGetFatorComissao() {
 		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 1, 15, 0);
 		assertEquals(funcionarioDrogaria.getCommissionFactor(), 15);
+	}
+	
+	@Test
+	public void testGetFatorComissaoInvalid() {
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+				"Teste 6", 1234, 5678, 1, 15, 0);
+		assertNotEquals(funcionarioDrogaria.getCommissionFactor(), 16);
+	}
+	
+	@Test
+	public void testGetWorkHours() {
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+				"Teste 6", 1234, 5678, 1, 15, 0);
+		assertEquals(funcionarioDrogaria.getHoras(), 0);
+	}
+	
+	@Test
+	public void testGetWorkHoursInvalid() {
+		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
+				"Teste 6", 1234, 5678, 1, 15, 0);
+		assertNotEquals(funcionarioDrogaria.getHoras(), 16);
 	}
 
 	@Test
