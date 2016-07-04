@@ -22,7 +22,7 @@ import model.Classroom;
 @SuppressWarnings("unchecked")
 public class ReservationRoomForStudentDAO extends DAO {
 
-	// Mensagens e Alertas
+	// Constants with errors messengers
 	private final String NULL = "Termo nulo.";
 	private final String STUDENTUNAVALIBLE = "O aluno possui uma reserva no mesmo dia e horario.";
 	private final String ROOMUNAVALIBLE = "A Classroom esta reservada no mesmo dia e horario.";
@@ -55,13 +55,14 @@ public class ReservationRoomForStudentDAO extends DAO {
 	}
 
 	/**
-	 * Construct a query to find in database Students by student data
+	 * Construct a query to find in database Students by student id
 	 * 
 	 * @param student
 	 *            not receive null value
 	 * @return Query with the consult
 	 */
 	private String selectIdStudent(Student student) {
+		// Query with the sql consult by id student
 		return "SELECT id_aluno FROM aluno WHERE " + "aluno.nome = \""
 				+ student.getNamePerson() + "\" and " + "aluno.cpf = \""
 				+ student.getCpfPerson() + "\" and " + "aluno.telefone = \""
@@ -71,7 +72,7 @@ public class ReservationRoomForStudentDAO extends DAO {
 	}
 
 	/**
-	 * Construct a query to find in database Room by room data
+	 * Construct a query to find in database Room by room id
 	 * 
 	 * @param room
 	 *            not receive null value
@@ -189,48 +190,58 @@ public class ReservationRoomForStudentDAO extends DAO {
 	public void add(ReserveClassroomForStudent reservation)
 			throws ReserveException, SQLException, ClientException,
 			PatrimonyException {
-		if (reservation == null) {
-			throw new ReserveException(NULL);
+		if (reservation != null) {
+			// Nothing to do.
 		} else {
-			if (!this.studentInDB(reservation.getStudent())) {
-				throw new ReserveException(INEXISTENTSTUDENT);
+			throw new ReserveException(NULL);
+		}
+		if (this.studentInDB(reservation.getStudent())) {
+			// Nothing to do.
+		} else {
+			throw new ReserveException(INEXISTENTSTUDENT);
+		}
+		if (this.roomInDB(reservation.getClassroom())) {
+			// Nothing to do.
+		} else {
+			throw new ReserveException(INEXISTENTROOM);
+		}
+		if (!this.roomReservedByTeacherInDB(reservation.getClassroom(),
+				reservation.getDate(), reservation.getHour())) {
+			// Nothing to do.
+		} else {
+			throw new ReserveException(ROOMUNAVALIBLE);
+		}
+		if (!this.studentReservationDB(reservation.getStudent(),
+				reservation.getDate(), reservation.getHour())) {
+			// Nothing to do.
+		} else {
+			throw new ReserveException(STUDENTUNAVALIBLE);
+		}
+		if (this.hasChairs(reservation.getReservedChairs(),
+				reservation.getClassroom(), reservation.getDate(),
+				reservation.getHour())) {
+			// Nothing to do.
+		} else {
+			throw new ReserveException(UNAVAILABLECHAIR);
+		}
+		if (this.isValidDate(reservation.getDate())) {
+			// Nothing to do.
+		} else {
+			throw new ReserveException(PASTDATE);
+		}
+		if (this.isValidDate(reservation.getDate())) {
+			// Nothing to do.
+		} else {
+			throw new ReserveException(PASTDATE);
+		}
+		if (this.equalsDate(reservation.getDate())) {
+			if (!this.isValidHour(reservation.getHour())) {
+				super.executeQuery(this.insertInto(reservation));
 			} else {
-				if (!this.roomInDB(reservation.getClassroom())) {
-					throw new ReserveException(INEXISTENTROOM);
-				} else {
-					if (this.roomReservedByTeacherInDB(
-							reservation.getClassroom(), reservation.getDate(),
-							reservation.getHour())) {
-						throw new ReserveException(ROOMUNAVALIBLE);
-					} else {
-						if (this.studentReservationDB(reservation.getStudent(),
-								reservation.getDate(), reservation.getHour())) {
-							throw new ReserveException(STUDENTUNAVALIBLE);
-						} else {
-							if (!this.hasChairs(
-									reservation.getReservedChairs(),
-									reservation.getClassroom(),
-									reservation.getDate(),
-									reservation.getHour())) {
-								throw new ReserveException(UNAVAILABLECHAIR);
-							}
-							if (this.isValidDate(reservation.getDate())) {
-								throw new ReserveException(PASTDATE);
-							}
-							if (this.equalsDate(reservation.getDate())) {
-								if (this.isValidHour(reservation.getHour())) {
-									throw new ReserveException(PASTHOUR);
-								} else {
-									super.executeQuery(this
-											.insertInto(reservation));
-								}
-							} else {
-								super.executeQuery(this.insertInto(reservation));
-							}
-						}
-					}
-				}
+				throw new ReserveException(PASTHOUR);
 			}
+		} else {
+			super.executeQuery(this.insertInto(reservation));
 		}
 	}
 
@@ -244,76 +255,73 @@ public class ReservationRoomForStudentDAO extends DAO {
 			ReserveClassroomForStudent new_reservation)
 			throws ReserveException, SQLException, ClientException,
 			PatrimonyException {
-		if (old_reservation == null) {
-			throw new ReserveException(NULL);
+
+		if (old_reservation != null) {
+			// Nothing to do.
 		} else {
-			if (new_reservation == null) {
-				throw new ReserveException(NULL);
+			throw new ReserveException(NULL);
+		}
+		if (new_reservation != null) {
+			// Nothing to do.
+		} else {
+			throw new ReserveException(NULL);
+		}
+		if (this.reservationInDB(old_reservation)) {
+			// Nothing to do.
+		} else {
+			throw new ReserveException(INEXISTENTRESERVATION);
+		}
+		if (!this.reservationInDB(new_reservation)) {
+			// Nothing to do.
+		} else {
+			throw new ReserveException(INEXISTENTRESERVATION);
+		}
+		if (this.studentInDB(new_reservation.getStudent())) {
+			// Nothing to do.
+		} else {
+			throw new ReserveException(INEXISTENTSTUDENT);
+		}
+		if (this.roomInDB(new_reservation.getClassroom())) {
+			// Nothing to do.
+		} else {
+			throw new ReserveException(INEXISTENTROOM);
+		}
+		
+		if (!(!old_reservation.getDate().equals(new_reservation.getDate())
+				|| !old_reservation.getHour().equals(new_reservation.getHour()))) {
+			// Nothing to do.
+		}
+		else{
+			if (this.studentReservationDB(new_reservation.getStudent(),
+					new_reservation.getDate(), new_reservation.getHour())) {
+				throw new ReserveException(STUDENTUNAVALIBLE);
 			} else {
-				if (!this.reservationInDB(old_reservation)) {
-					throw new ReserveException(INEXISTENTRESERVATION);
-				} else {
-					if (this.reservationInDB(new_reservation)) {
-						throw new ReserveException(EXISTENTRESERVATION);
-					} else {
-						if (!this.studentInDB(new_reservation.getStudent())) {
-							throw new ReserveException(INEXISTENTSTUDENT);
-						} else {
-							if (!this.roomInDB(new_reservation.getClassroom())) {
-								throw new ReserveException(INEXISTENTROOM);
-							} else {
-								if (!old_reservation.getDate().equals(
-										new_reservation.getDate())
-										|| !old_reservation.getHour().equals(
-												new_reservation.getHour())) {
-									if (this.studentReservationDB(
-											new_reservation.getStudent(),
-											new_reservation.getDate(),
-											new_reservation.getHour())) {
-										throw new ReserveException(
-												STUDENTUNAVALIBLE);
-									} else {
-										if (this.roomReservedByTeacherInDB(
-												new_reservation.getClassroom(),
-												new_reservation.getDate(),
-												new_reservation.getHour())) {
-											throw new ReserveException(
-													ROOMUNAVALIBLE);
-										}
-									}
-									if (!this
-											.hasChairs(
-													""
-															+ (Integer
-																	.parseInt(new_reservation
-																			.getReservedChairs()) - Integer
-																	.parseInt(old_reservation
-																			.getReservedChairs())),
-													new_reservation
-															.getClassroom(),
-													new_reservation.getDate(),
-													new_reservation.getHour())) {
-										throw new ReserveException(
-												UNAVAILABLECHAIR);
-									}
-									if (this.isValidDate(new_reservation
-											.getDate()))
-										throw new ReserveException(PASTDATE);
-								}
-								if (this.isValidHour(new_reservation.getHour())
-										&& this.equalsDate(new_reservation
-												.getDate())) {
-									throw new ReserveException(PASTHOUR);
-								} else {
-									super.updateQuery(this.update(
-											old_reservation, new_reservation));
-								}
-							}
-						}
-					}
+				if (this.roomReservedByTeacherInDB(
+						new_reservation.getClassroom(),
+						new_reservation.getDate(), new_reservation.getHour())) {
+					throw new ReserveException(ROOMUNAVALIBLE);
 				}
 			}
+			if (!this.hasChairs(
+					""
+							+ (Integer.parseInt(new_reservation
+									.getReservedChairs()) - Integer
+									.parseInt(old_reservation
+											.getReservedChairs())),
+					new_reservation.getClassroom(), new_reservation.getDate(),
+					new_reservation.getHour())) {
+				throw new ReserveException(UNAVAILABLECHAIR);
+			}
+			if (this.isValidDate(new_reservation.getDate()))
+				throw new ReserveException(PASTDATE);
 		}
+		if (this.isValidHour(new_reservation.getHour())
+				&& this.equalsDate(new_reservation.getDate())) {
+			super.updateQuery(this.update(old_reservation, new_reservation));			
+		} else {
+			throw new ReserveException(PASTHOUR);
+		}
+
 	}
 
 	/**
@@ -427,7 +435,7 @@ public class ReservationRoomForStudentDAO extends DAO {
 			throws SQLException, PatrimonyException, ClientException,
 			ReserveException {
 		// Get date and hour
-		
+
 		try {
 			hour = this.mountDefaultHour(hour);
 			date = this.mountDefaultDate(date);
@@ -477,11 +485,10 @@ public class ReservationRoomForStudentDAO extends DAO {
 
 		boolean has = true;
 		int chairs_in_room = this.availableChair(room, date, hour);
-		
+
 		assert chairs_in_room >= 0;
-		
-		has =  chairs_in_room >= Integer
-				.parseInt(reserved_chairs);
+
+		has = chairs_in_room >= Integer.parseInt(reserved_chairs);
 		return has;
 	}
 

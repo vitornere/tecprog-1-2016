@@ -43,7 +43,7 @@ public class TeacherTest {
 	@Test
 	public void testCpf() throws ClientException {
 		Professor p = new Professor("Nome", "868.563.327-34", "123456", "1234-5678", "Nome@email");
-		assertTrue("Teste do CPF do Professor", "868.563.327-34" == p.getCpfPerson());
+		assertTrue("Teste do CPF do Professor", "868.563.327-34".equals(p.getCpfPerson()));
 	}
 	
 	@Test

@@ -25,7 +25,7 @@ public class Patrimony {
 	}
 
 	public void setIdEquipment(String idPatrimony) throws PatrimonyException {
-		if ((idPatrimony != null) || (!("".equals(idPatrimony.trim())))) {
+		if ((idPatrimony != null) && (!("".equals(idPatrimony.trim())))) {
 			this.idPatrimony = idPatrimony;
 		} else {
 			throw new PatrimonyException(EMPTY_ID_PATRIMONY);
@@ -35,7 +35,7 @@ public class Patrimony {
 	public void setDescriptionEquipment(String descriptionPatrimony)
 			throws PatrimonyException {
 		if ((descriptionPatrimony != null)
-				|| (!("".equals(descriptionPatrimony.trim())))) {
+				&& (!("".equals(descriptionPatrimony.trim())))) {
 			this.descriptionPatrimony = descriptionPatrimony;
 		} else {
 			throw new PatrimonyException(EMPTY_DESCRIPTION_PATRIMONY);

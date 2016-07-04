@@ -64,19 +64,23 @@ public abstract class Client {
 	}
 
 	public void setCpfPerson(String cpfClient) throws ClientException {
-		if (cpfClient.matches("[\\d]{3,3}.[\\d]{3,3}.[\\d]{3,3}-[\\d]{2,2}$")) {
-			if (this.validateCpfClient(cpfClient.split("[\\. | -]")[0]
-					+ cpfClient.split("[\\. | -]")[1]
-					+ cpfClient.split("[\\. | -]")[2]
-					+ cpfClient.split("[\\. | -]")[3])) {
-				this.cpfClient = cpfClient;
-			} else {
-				throw new ClientException(INVALID_CPF);
-			}
-		} else if (cpfClient == null) {
+		if (cpfClient != null) {
+			// Nothing to do.
+		} else {
 			throw new ClientException(NULL_CPF);
-		} else if ("".equals(cpfClient)) {
+		}
+		if (!"".equals(cpfClient)) {
+			// Nothing to do
+		} else {
 			throw new ClientException(EMPTY_CPF);
+		}
+
+		if (cpfClient.matches("[\\d]{3,3}.[\\d]{3,3}.[\\d]{3,3}-[\\d]{2,2}$")
+				&& this.validateCpfClient(cpfClient.split("[\\. | -]")[0]
+						+ cpfClient.split("[\\. | -]")[1]
+						+ cpfClient.split("[\\. | -]")[2]
+						+ cpfClient.split("[\\. | -]")[3])) {
+			this.cpfClient = cpfClient;
 		} else {
 			throw new ClientException(INVALID_CPF);
 		}
@@ -117,16 +121,11 @@ public abstract class Client {
 	}
 
 	public boolean equals(Client client) {
-		if (this.getNamePerson().equals(client.getNamePerson())
+		return this.getNamePerson().equals(client.getNamePerson())
 				&& this.getCpfPerson().equals(client.getCpfPerson())
 				&& this.getIdRegister().equals(client.getIdRegister())
 				&& this.getPhonePerson().equals(client.getPhonePerson())
-				&& this.getEmailPerson().equals(client.getEmailPerson())) {
-
-			return true;
-		} else {
-			return false;
-		}
+				&& this.getEmailPerson().equals(client.getEmailPerson());
 	}
 
 	private boolean validateCpfClient(String cpfClient) {
