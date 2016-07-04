@@ -60,6 +60,9 @@ public class Console {
 		int operationOfMedicament = 0;
 
 		int status = 0;
+		assert(status < BEGINNING_OF_THE_PROGRAM);
+		assert((status > HELP) && (status < EXIT));
+		assert(status > EXIT);
 
 		while (status != EXIT) {
 			if (status == BEGINNING_OF_THE_PROGRAM) {
