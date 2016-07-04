@@ -22,30 +22,12 @@ public class TestCashier{
 	}
 	
 	/**
-	 * Test if get Identity invalid.
-	 */
-	@Test
-	public void GetPersonIdentityTestInvalid(){
-		Cashier transition = new Cashier ("personIdentityTest","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertNotEquals(transition.getIdentity() ,"personIdentityTestInvalid");
-	}
-	
-	/**
 	 * Test if get CPF valid.
 	 */
 	@Test
 	public void GetCpfPersonTest(){
 		Cashier transition = new Cashier ("personIdentityTest","cpfPerson", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
 		assertEquals(transition.getCpfPerson() ,"cpfPerson");
-	}
-	
-	/**
-	 * Test if get CPF invalid.
-	 */
-	@Test
-	public void GetCpfPersonTestInvalid(){
-		Cashier transition = new Cashier ("personIdentityTest","cpfPerson", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertNotEquals(transition.getCpfPerson() ,"cpfPersonInvalid");
 	}
 	
 	/**
@@ -58,30 +40,12 @@ public class TestCashier{
 	}
 	
 	/**
-	 * Test if get CPF digit invalid.
-	 */
-	@Test
-	public void GetCpfDigitPersonTestInvalid(){
-		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertNotEquals(transition.getDigitCpfPerson() ,51);
-	}
-	
-	/**
 	 * Test if get Name valid.
 	 */
 	@Test
 	public void GetPersonNameTest(){
 		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "personName", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
 		assertEquals(transition.getName() ,"personName");
-	}
-	
-	/**
-	 * Test if get name invalid.
-	 */
-	@Test
-	public void GetPersonNameTestInvalid(){
-		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "personName", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertNotEquals(transition.getName() ,"personNameInvalid");
 	}
 	
 	/**
@@ -94,15 +58,6 @@ public class TestCashier{
 	}
 	
 	/**
-	 * Test if get past name invalid.
-	 */
-	@Test
-	public void GetPersonPastNameTestInvalid(){
-		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "personName", "personPastNameTest", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertNotEquals(transition.getPastName() ,"personPastNameTestInvalid");
-	}
-	
-	/**
 	 * Test if get address valid.
 	 */
 	@Test
@@ -110,16 +65,7 @@ public class TestCashier{
 		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "personName", "personPastNameTest", "personAddress", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
 		assertEquals(transition.getAddress() ,"personAddress");
 	}
-	
-	/**
-	 * Test if get address invalid.
-	 */
-	@Test
-	public void GetPersonAddressTestInvalid(){
-		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "personName", "personPastNameTest", "personAddress", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertNotEquals(transition.getAddress() ,"personAddressInvalid");
-	}
-	
+		
 	/**
 	 * Test if get phone valid.
 	 */
@@ -127,15 +73,6 @@ public class TestCashier{
 	public void GetPersonPhoneTest(){
 		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "personName", "personPastNameTest", "personAddress", "personPhone", 0, 100, "10/10/2020", "transacaoTeste",1);
 		assertEquals(transition.getPhone() ,"personPhone");
-	}
-	
-	/**
-	 * Test if get phone invalid.
-	 */
-	@Test
-	public void GetPersonPhoneTestInvalid(){
-		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "personName", "personPastNameTest", "personAddress", "personPhone", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertNotEquals(transition.getPhone() ,"personPhoneInvalid");
 	}
 	
 	/**
@@ -148,30 +85,12 @@ public class TestCashier{
 	}
 	
 	/**
-	 * Test if get type invalid.
-	 */
-	@Test
-	public void GetTypeTestInvalid(){
-		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertNotEquals(transition.getType() ,1);
-	}
-	
-	/**
 	 * Test if get value valid.
 	 */
 	@Test
 	public void GetValueTest (){
 		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
 		assertEquals(transition.getValue(),100, 0.1);
-	}
-	
-	/**
-	 * Test if get value invalid.
-	 */
-	@Test
-	public void GetValueTestInvalid (){
-		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertNotEquals(transition.getValue(),200, 0.1);
 	}
 	
 	/**
@@ -184,15 +103,6 @@ public class TestCashier{
 	}
 	
 	/**
-	 * Test if get transition date invalid.
-	 */
-	@Test
-	public void GetTrasitionDateTestInvalid (){
-		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertNotEquals(transition.getDate(),"10/10/2021");
-	}
-	
-	/**
 	 * Test if get description valid.
 	 */
 	@Test
@@ -200,16 +110,7 @@ public class TestCashier{
 		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
 		assertEquals(transition.getDescription(),"transacaoTeste");
 	}
-	
-	/**
-	 * Test if get description invalid.
-	 */
-	@Test
-	public void GetDescriptionTestInvalid (){
-		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertNotEquals(transition.getDescription(),"transacaoTesteInvalid");
-	}
-	
+		
 	/**
 	 * Test if get code valid.
 	 */
@@ -217,15 +118,6 @@ public class TestCashier{
 	public void GetCodeTest (){
 		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
 		assertEquals(transition.getCode(),1);
-	}
-	
-	/**
-	 * Test if get code invalid.
-	 */
-	@Test
-	public void GetCodeTestInvalid (){
-		Cashier transition = new Cashier ("Teste 1","Teste 2", 50, "Teste 3", "Teste 4", "Teste 5", "Teste 6", 0, 100, "10/10/2020", "transacaoTeste",1);
-		assertNotEquals(transition.getCode(),2);
 	}
 	
 	/**

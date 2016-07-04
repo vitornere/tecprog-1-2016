@@ -27,32 +27,12 @@ public class TestClient {
 	}
 	
 	/**
-	 * Test if get identity invalid.
-	 */
-	@Test
-	public void testPersonIdentityInvalid() {
-		Client newClient = new Client("personIdentity","Test 2", 50, "Test 3", "Test 4", "Test 5", "Test 6");
-		assertNotEquals(newClient.getIdentity(),"personIdentityInvalid");
-		
-	}
-	
-	/**
 	 * Test if get cpf valid.
 	 */
 	@Test
 	public void testPersonCpf() {
 		Client newClient = new Client("personIdentity","personCpf", 50, "Test 3", "Test 4", "Test 5", "Test 6");
 		assertEquals(newClient.getCpfPerson(),"personCpf");
-		
-	}
-	
-	/**
-	 * Test if get cpf invalid.
-	 */
-	@Test
-	public void testPersonCpfInvalid() {
-		Client newClient = new Client("personIdentity","personCpf", 50, "Test 3", "Test 4", "Test 5", "Test 6");
-		assertNotEquals(newClient.getCpfPerson(),"personCpfInvalid");
 		
 	}
 	
@@ -67,16 +47,6 @@ public class TestClient {
 	}
 	
 	/**
-	 * Test if get cpf digit invalid.
-	 */
-	@Test
-	public void testSetDigitoCpfInvalid() {
-		Client newClient = new Client("Test 1","Test 2", 50, "Test 3", "Test 4", "Test 5", "Test 6");
-		assertNotEquals(newClient.getDigitCpfPerson(),51);
-		
-	}
-	
-	/**
 	 * Test if get person name valid.
 	 */
 	@Test
@@ -87,32 +57,12 @@ public class TestClient {
 	}
 	
 	/**
-	 * Test if get person name invalid.
-	 */
-	@Test
-	public void testSetPersonNameInvalid() {
-		Client newClient = new Client("Test 1","Test 2", 50, "personName", "Test 4", "Test 5", "Test 6");
-		assertNotEquals(newClient.getName(),"personNameInvalid");
-		
-	}
-	
-	/**
 	 * Test if get past name valid.
 	 */
 	@Test
 	public void testSetPastName() {
 		Client newClient = new Client("Test 1","Test 2", 50, "personName", "pastName", "Test 5", "Test 6");
 		assertEquals(newClient.getPastName(),"pastName");
-		
-	}
-	
-	/**
-	 * Test if get past name invalid.
-	 */
-	@Test
-	public void testSetPastNameInvalid() {
-		Client newClient = new Client("Test 1","Test 2", 50, "personName", "pastName", "Test 5", "Test 6");
-		assertNotEquals(newClient.getPastName(),"pastNameInvalid");
 		
 	}
 
@@ -127,16 +77,6 @@ public class TestClient {
 	}
 	
 	/**
-	 * Test if get address invalid.
-	 */
-	@Test
-	public void testSetAddressInvalid() {
-		Client newClient = new Client("Test 1","Test 2", 50, "personName", "pastName", "address", "Test 6");
-		assertNotEquals(newClient.getAddress(),"pastNameInvalid");
-		
-	}
-	
-	/**
 	 * Test if get phone valid.
 	 */
 	@Test
@@ -147,31 +87,12 @@ public class TestClient {
 	}
 	
 	/**
-	 * Test if get phone invalid.
-	 */
-	@Test
-	public void testSetPhoneInvalid() {
-		Client newClient = new Client("Test 1","Test 2", 50, "personName", "pastName", "address", "phone");
-		assertNotEquals(newClient.getPhone(),"phoneInvalid");
-		
-	}
-	
-	/**
 	 * Test if get email valid.
 	 */
 	@Test
 	public void testEmail(){
 		Client newClient = new Client("Test 1","Test 2", 50, "Test 3", "Test 4", "Test 5", "Test 6","email@email.com");
 		assertEquals(newClient.getEmail(), "email@email.com");
-	}
-	
-	/**
-	 * Test if get email invalid.
-	 */
-	@Test
-	public void testEmailInvalid(){
-		Client newClient = new Client("Test 1","Test 2", 50, "Test 3", "Test 4", "Test 5", "Test 6","email@email.com");
-		assertNotEquals(newClient.getEmail(), "emailInvalid@email.com");
 	}
 	
 	/**
