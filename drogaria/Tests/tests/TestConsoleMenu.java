@@ -20,6 +20,9 @@ public class TestConsoleMenu {
 		System.out.println("Testado com sucesso!");
 	}
 
+	/**
+	 * Test if console isn't null.
+	 */
 	@Test
 	public void test() {
 		ConsoleMenu complementar = new ConsoleMenu();
