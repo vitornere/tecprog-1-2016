@@ -121,14 +121,14 @@ public class StudentDAO {
 		}
 
 		if (old_student.getCpfPerson().equals(new_student.getCpfPerson())
-				&& this.inDBCpf(new_student.getCpfPerson())) {
+				|| !this.inDBCpf(new_student.getCpfPerson())) {
 			// Nothing to do.
 		} else {
 			throw new ClientException(EXISTENTCPF);
 		}
 
 		if (old_student.getIdRegister().equals(new_student.getIdRegister())
-				&& this.inDBRegister(new_student.getIdRegister())) {
+				|| !this.inDBRegister(new_student.getIdRegister())) {
 			// Nothing to do.
 		} else {
 			throw new ClientException(EXISTENTREGISTER);

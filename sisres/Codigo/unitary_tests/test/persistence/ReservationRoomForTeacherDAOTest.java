@@ -44,8 +44,8 @@ public class ReservationRoomForTeacherDAOTest {
 	public static void setUpBeforeClass() throws Exception {
 		sala_a = new Classroom("S2", "Sala de aula", "130");
 		sala_b = new Classroom("I6", "Laboratorio", "40");
-		professor1 = new Professor("ProfessorUm", "490.491.781-20", "58801", "3333-3333", "prof@email");
-		professor2 = new Professor("ProfessorDois", "040.757.021-70", "36106", "3628-3079", "prof@email");
+		professor1 = new Professor("ProfessorUm", "490.491.781-20", "58801", "(99)3333-3333", "prof@email");
+		professor2 = new Professor("ProfessorDois", "040.757.021-70", "36106", "(99)3628-3079", "prof@email");
 		
 		ClassroomDAO.getInstance().add(sala_a);
 		ClassroomDAO.getInstance().add(sala_b);
@@ -88,7 +88,7 @@ public class ReservationRoomForTeacherDAOTest {
 	@Test (expected= ReserveException.class)
 	public void testReservaPorProfessorInexistente() throws ReserveException, ClientException, PatrimonyException, SQLException {
 		ReserveClassroomForProfessor reserva = new ReserveClassroomForProfessor("20/12/34", "8:00", sala_a,
-				"Reuniao", new Professor("Inexistente", "501.341.852-69", "456678", "", ""));
+				"Reuniao", new Professor("Inexistente", "501.341.852-69", "456678", "(99)3361-3110", ""));
 		
 		try{
 			ReservationRoomForTeacherDAO.getInstance().add(reserva);
@@ -140,7 +140,7 @@ public class ReservationRoomForTeacherDAOTest {
 				"(SELECT id_sala FROM sala WHERE codigo = \"S2\")," +
 				"\"Estudo de Fisica\", \"08:00\", \"20/12/2013\", 20);");
 		
-		ReserveClassroomForProfessor reserva = new ReserveClassroomForProfessor("20/12/13", "8:00", sala_a,
+		ReserveClassroomForProfessor reserva = new ReserveClassroomForProfessor("20/12/20", "8:00", sala_a,
 				"Aula de EA",  professor1);
 		
 		ReservationRoomForTeacherDAO.getInstance().add(reserva);
@@ -152,12 +152,12 @@ public class ReservationRoomForTeacherDAOTest {
 				"INNER JOIN aluno ON aluno.id_aluno = reserva_sala_aluno.id_aluno;");
 		
 				
-		this.executeQuery("DELETE FROM aluno;");
 		this.executeQuery("DELETE FROM reserva_sala_aluno;");
 		this.executeQuery("DELETE FROM reserva_sala_professor;");
+		this.executeQuery("DELETE FROM aluno;");
 		
 		
-		assertTrue("Sala reservada por aluno", (resultadoProf && !resultadoAluno));
+		assertTrue("Sala reservada por aluno", (resultadoProf && resultadoAluno));
 		
 		}
 
@@ -443,8 +443,8 @@ public class ReservationRoomForTeacherDAOTest {
 			ReservationRoomForTeacherDAO.getInstance().change(reserva, reserva2);
 		} finally {
 				
-		this.executeQuery("DELETE FROM professor WHERE cpf = \"257.312.954-33\"");
 		this.executeQuery("DELETE FROM reserva_sala_professor");
+		this.executeQuery("DELETE FROM professor WHERE cpf = \"257.312.954-33\"");
 		}
 	}
 	
@@ -455,7 +455,7 @@ public class ReservationRoomForTeacherDAOTest {
 		this.insert_into(reserva);
 		
 		ReserveClassroomForProfessor reserva2 = new ReserveClassroomForProfessor("20/12/34", "8:00", sala_a,
-				"Grupo de pesquisa", new Professor("Nao Existe", "501.341.852-69", "456678", "", ""));
+				"Grupo de pesquisa", new Professor("Nao Existe", "501.341.852-69", "456678", "(99)3333-3333", ""));
 		
 		try{
 			ReservationRoomForTeacherDAO.getInstance().change(reserva, reserva2);

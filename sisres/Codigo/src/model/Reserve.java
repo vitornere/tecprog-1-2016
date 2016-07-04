@@ -33,12 +33,11 @@ public class Reserve {
 	}
 
 	public void setHour(String hour) throws ReserveException {
-		hour = hour.trim();
 		if ((hour != null) && (hour.equals("") == false)
-				&& (hour.matches(PATTERN_HOUR) == false)) {
+				&& (hour.matches(PATTERN_HOUR))) {
+			hour = hour.trim();
 			this.hour = hour;
 		}
-
 		else if (hour == null) {
 			throw new ReserveException(NULL_HOUR);
 		} else if (hour.equals("")) {
@@ -49,21 +48,31 @@ public class Reserve {
 			} else {
 				// Nothing to do.
 			}
-
 		} else {
 			throw new ReserveException(INVALID_HOUR);
 		}
 	}
 
 	public void setDate(String date) throws ReserveException {
+		if (date != null) {
+			// Nothing to do.
+		}
+		else
+		{
+			throw new ReserveException(NULL_DATE);
+		}
+		if (!date.equals("")) {
+			// Nothing to do.
+		}
+		else
+		{
+			throw new ReserveException(EMPTY_DATE);
+		}
+
 		date = date.trim();
 		if (date.matches(PATTERN_DATE)) {
 			this.date = padronizeDate(date);
-		} else if (date == null) {
-			throw new ReserveException(NULL_DATE);
-		} else if (date.equals("")) {
-			throw new ReserveException(EMPTY_DATE);
-		} else {
+		}  else {
 			throw new ReserveException(INVALID_DATE);
 		}
 

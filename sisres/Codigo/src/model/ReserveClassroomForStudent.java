@@ -20,7 +20,9 @@ public class ReserveClassroomForStudent extends ClassroomReserve {
 
 	/**
 	 * Constructor method of reserve classroom for student.
-	 * @param date, hour, classroom, finality, reservedChairs, student
+	 * 
+	 * @param date
+	 *            , hour, classroom, finality, reservedChairs, student
 	 */
 	public ReserveClassroomForStudent(String date, String hour,
 			Classroom classroom, String finality, String reservedChairs,
@@ -43,6 +45,7 @@ public class ReserveClassroomForStudent extends ClassroomReserve {
 
 	/**
 	 * Create student if there is no.
+	 * 
 	 * @param student
 	 */
 	public void setStudent(Student student) throws ReserveException {
@@ -55,37 +58,44 @@ public class ReserveClassroomForStudent extends ClassroomReserve {
 
 	/**
 	 * Get reserved chairs.
+	 * 
 	 * @param reservedChairs
 	 */
 	public void setReservedChairs(String reservedChairs)
 			throws ReserveException {
-		String chairs = reservedChairs;
-		chairs = chairs.trim();
-		if ((chairs != null) && (chairs.equals("") == false)
-				&& (chairs.matches(PATTERN_CHAIRS) == false)) {
-			this.reservedChairs = reservedChairs;
-		} else if (chairs == null) {
+		if (reservedChairs != null) {
+			// Nothing to do.
+		} else {
 			throw new ReserveException(NULL_CHAIRS);
-		} else if (chairs.equals("")) {
+		}
+		if (!reservedChairs.equals("")) {
+			// Nothing to do.
+		} else {
 			throw new ReserveException(EMPTY_CHAIRS);
 		}
-
-		else if (chairs.matches(PATTERN_CHAIRS)) {
+		if (!reservedChairs.matches(PATTERN_CHAIRS)) {
+			// Nothing to do.
+		} else {
 			if (Integer.parseInt(super.getClassroom().getCapacity()) < Integer
 					.parseInt(reservedChairs)) {
 				throw new ReserveException(ABOVE_THE_LIMIT_CHAIRS);
 			} else {
 				// Nothing to do.
 			}
+		}
+
+		if ((reservedChairs != null) && (!reservedChairs.equals(""))
+				&& (reservedChairs.matches(PATTERN_CHAIRS))) {
+			reservedChairs = reservedChairs.trim();
+			this.reservedChairs = reservedChairs;
 		} else {
 			throw new ReserveException(INVALID_CHAIR);
 		}
-
 	}
-
 
 	/**
 	 * Get reservation made by the student.
+	 * 
 	 * @param obj
 	 */
 	public boolean equals(ReserveClassroomForStudent obj) {

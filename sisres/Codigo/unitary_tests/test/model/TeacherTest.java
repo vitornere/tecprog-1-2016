@@ -127,7 +127,7 @@ public class TeacherTest {
 	
 	
 	
-	@Test
+	@Test (expected= ClientException.class)
 	public void testTelefoneVazio() throws ClientException {
 		Professor p = new Professor("Nome", "868.563.327-34", "123456", "", "Nome@email");
 		assertTrue("Teste de Telefone Vazio do Professor", "" == p.getPhonePerson());
@@ -160,39 +160,39 @@ public class TeacherTest {
 	
 	@Test
 	public void testEqualsTrue() throws ClientException {
-		Professor p = new Professor("Nome", "868.563.327-34", "123456", "", "Nome@email");
-		Professor q = new Professor("Nome", "868.563.327-34", "123456", "", "Nome@email");
+		Professor p = new Professor("Nome", "868.563.327-34", "123456", "(90) 1234-3344", "Nome@email");
+		Professor q = new Professor("Nome", "868.563.327-34", "123456", "(90) 1234-3344", "Nome@email");
 		assertTrue("Teste do E-mail do Professor", p.equals(q));
 	}
 	
 	@Test
 	public void testEqualsFalseNome() throws ClientException {
-		Professor p = new Professor("Nome", "868.563.327-34", "123456", "", "Nome@email");
+		Professor p = new Professor("Nome", "868.563.327-34", "123456", "(90) 1234-3344", "Nome@email");
 		Professor q = new Professor("NomeDiferente", "868.563.327-34", "12356", "(90) 1234-3344", "Nom@email");
 		assertFalse("Teste do E-mail do Professor", p.equals(q));
 	}
 	@Test
 	public void testEqualsFalseCpf() throws ClientException {
-		Professor p = new Professor("Nome", "868.563.327-34", "123456", "", "Nome@email");
+		Professor p = new Professor("Nome", "868.563.327-34", "123456", "(90) 1234-3344", "Nome@email");
 		Professor q = new Professor("Nome", "338.688.964-65", "12356", "(90) 1234-3344", "Nom@email");
 		assertFalse("Teste do E-mail do Professor", p.equals(q));
 	}
 	@Test
 	public void testEqualsFalseMatricula() throws ClientException {
-		Professor p = new Professor("Nome", "868.563.327-34", "123456", "", "Nome@email");
+		Professor p = new Professor("Nome", "868.563.327-34", "123456", "(90) 1234-3344", "Nome@email");
 		Professor q = new Professor("Nome", "868.563.327-34", "12356", "(90) 1234-3344", "Nom@email");
 		assertFalse("Teste do E-mail do Professor", p.equals(q));
 	}
 	@Test
 	public void testEqualsFalseTelefone() throws ClientException {
-		Professor p = new Professor("Nome", "868.563.327-34", "123456", "", "Nome@email");
+		Professor p = new Professor("Nome", "868.563.327-34", "123456", "(90) 1234-3344", "Nome@email");
 		Professor q = new Professor("Nome", "868.563.327-34", "123456", "(90) 1234-3344", "Nom@email");
 		assertFalse("Teste do E-mail do Professor", p.equals(q));
 	}
 	@Test
 	public void testEqualsFalseEmail() throws ClientException {
-		Professor p = new Professor("Nome", "868.563.327-34", "123456", "", "Nome@email");
-		Professor q = new Professor("Nome", "868.563.327-34", "123456", "", "Nom@el");
+		Professor p = new Professor("Nome", "868.563.327-34", "123456", "(90) 1234-3344", "Nome@email");
+		Professor q = new Professor("Nome", "868.563.327-34", "123456", "(90) 1234-3344", "Nom@el");
 		assertFalse("Teste do E-mail do Professor", p.equals(q));
 	}
 }
