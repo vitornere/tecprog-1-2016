@@ -30,30 +30,12 @@ public class TestMedicament {
 	}
 	
 	/**
-	 * Test if get name invalid.
-	 */
-	@Test
-	public void testGetNomeInvalid() {
-		Medicament medicament = new Medicament ("Paracetamol", "LaboratorioTeste", "Adulto", "Comprimido", "10/10/2020","1cp. a cada 8 horas");
-		assertNotEquals(medicament.getNameMedicament(),"Dipirona");
-	}
-	
-	/**
 	 * Test if get fabricant valid.
 	 */
 	@Test
 	public void testGetFabricant() {
 		Medicament medicament = new Medicament ("Paracetamol", "LaboratorioTeste", "Adulto", "Comprimido", "10/10/2020","1cp. a cada 8 horas");
 		assertEquals(medicament.getManufacturer(),"LaboratorioTeste");
-	}
-	
-	/**
-	 * Test if get fabricant invalid.
-	 */
-	@Test
-	public void testGetFabricantInvalid() {
-		Medicament medicament = new Medicament ("Paracetamol", "LaboratorioTeste", "Adulto", "Comprimido", "10/10/2020","1cp. a cada 8 horas");
-		assertNotEquals(medicament.getManufacturer(),"LaboratorioTesteInvalid");
 	}
 	
 	/**
@@ -66,30 +48,12 @@ public class TestMedicament {
 	}
 	
 	/**
-	 * Test if get recommendation invalid.
-	 */
-	@Test
-	public void testGetRecommendationInvalid() {
-		Medicament medicament = new Medicament ("Paracetamol", "LaboratorioTeste", "Adulto", "Comprimido", "10/10/2020","1cp. a cada 8 horas");
-		assertNotEquals(medicament.getRecommendation(),"children");
-	}
-	
-	/**
 	 * Test if get expiration date valid.
 	 */
 	@Test
 	public void testGetExpirationDate() {
 		Medicament medicament = new Medicament ("Paracetamol", "LaboratorioTeste", "Adulto", "10-10-2020", "comprimido","1cp. a cada 8 horas");
 		assertEquals(medicament.getExpirationDate(), "10-10-2020");
-	}
-	
-	/**
-	 * Test if get expiration date invalid.
-	 */
-	@Test
-	public void testGetExpirationDateInvalid() {
-		Medicament medicament = new Medicament ("Paracetamol", "LaboratorioTeste", "Adulto", "10-10-2020", "comprimido","1cp. a cada 8 horas");
-		assertNotEquals(medicament.getExpirationDate(),"10/10/2021");
 	}
 	
 	/**
@@ -102,15 +66,6 @@ public class TestMedicament {
 	}
 	
 	/**
-	 * Test if get type invalid.
-	 */
-	@Test
-	public void testGetTypeInvalid() {
-		Medicament medicament = new Medicament ("Paracetamol", "LaboratorioTeste", "Adulto", "10-10-2020", "comprimido","1cp. a cada 8 horas");
-		assertNotEquals(medicament.getTipo(),"gotas");
-	}
-	
-	/**
 	 * Test if get posology valid.
 	 */
 	@Test
@@ -119,12 +74,4 @@ public class TestMedicament {
 		assertEquals(medicament.getPosologia(), "1cp. a cada 8 horas");
 	}
 	
-	/**
-	 * Test if get posology invalid.
-	 */
-	@Test
-	public void testGetPosologyInvalid() {
-		Medicament medicament = new Medicament ("Paracetamol", "LaboratorioTeste", "Adulto", "10-10-2020", "comprimido","1cp. a cada 8 horas");
-		assertNotEquals(medicament.getPosologia(),"1cp. a cada 5 horas");
-	}
 }

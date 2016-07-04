@@ -43,16 +43,6 @@ public class TestClerk {
 	}
 	
 	/**
-	 * Test if get Identity invalid.
-	 */
-	@Test
-	public void testRgPersonInvalid() {
-		Clerk funcionarioDrogaria = new Clerk("RgPerson", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
-				"Teste 6", 1234, 5678, 1, 2, 0);
-		assertNotEquals(funcionarioDrogaria.getIdentity(), "RgPersonInvalid");
-	}
-	
-	/**
 	 * Test if get CPF valid.
 	 */
 	@Test
@@ -63,16 +53,6 @@ public class TestClerk {
 	}
 	
 	/**
-	 * Test if get CPF invalid.
-	 */
-	@Test
-	public void testSetCpfPersonInvalid() {
-		Clerk funcionarioDrogaria = new Clerk("Teste 1", "cpfPerson", 50, "Teste 3", "Teste 4", "Teste 5",
-				"Teste 6", 1234, 5678, 1, 2, 0);
-		assertNotEquals(funcionarioDrogaria.getCpfPerson(), "cpfPersonInvalid");
-	}
-
-	/**
 	 * Test if get CPF digit valid.
 	 */
 	@Test
@@ -80,16 +60,6 @@ public class TestClerk {
 		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
 				"Teste 6", 1234, 5678, 1, 2, 0);
 		assertEquals(funcionarioDrogaria.getDigitCpfPerson(), 50);
-	}
-	
-	/**
-	 * Test if get CPF digit invalid.
-	 */
-	@Test
-	public void testSetDigitoCpfInvalid() {
-		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
-				"Teste 6", 1234, 5678, 1, 2, 0);
-		assertNotEquals(funcionarioDrogaria.getDigitCpfPerson(), 51);
 	}
 	
 	/**
@@ -103,16 +73,6 @@ public class TestClerk {
 	}
 	
 	/**
-	 * Test if get name invalid.
-	 */
-	@Test
-	public void GetPersonNameTestInvalid(){
-		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "nameTest", "Teste 4", "Teste 5",
-				"Teste 6", 1234, 5678, 1, 2, 0);
-		assertNotEquals(funcionarioDrogaria.getName(), "nameTestInvalid");
-	}
-	
-	/**
 	 * Test if get past name valid.
 	 */
 	@Test
@@ -120,16 +80,6 @@ public class TestClerk {
 		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "nameTest", "pastNameTest", "Teste 5",
 				"Teste 6", 1234, 5678, 1, 2, 0);
 		assertEquals(funcionarioDrogaria.getPastName(), "pastNameTest");
-	}
-	
-	/**
-	 * Test if get past name invalid.
-	 */
-	@Test
-	public void GetPersonPastNameTestInvalid(){
-		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "nameTest", "Teste 4", "Teste 5",
-				"Teste 6", 1234, 5678, 1, 2, 0);
-		assertNotEquals(funcionarioDrogaria.getPastName(), "pastNameTestInvalid");
 	}
 	
 	/**
@@ -143,16 +93,6 @@ public class TestClerk {
 	}
 	
 	/**
-	 * Test if get address invalid.
-	 */
-	@Test
-	public void GetPersonAddressTestInvalid(){
-		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "nameTest", "address", "Teste 5",
-				"Teste 6", 1234, 5678, 1, 2, 0);
-		assertNotEquals(funcionarioDrogaria.getAddress(), "addressInvalid");
-	}
-	
-	/**
 	 * Test if get phone valid.
 	 */
 	@Test
@@ -162,16 +102,6 @@ public class TestClerk {
 		assertEquals(funcionarioDrogaria.getPhone(), "phone");
 	}
 	
-	/**
-	 * Test if get phone invalid.
-	 */
-	@Test
-	public void GetPersonPhoneInvalid(){
-		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "nameTest", "address", "Teste 5",
-				"phone", 1234, 5678, 1, 2, 0);
-		assertNotEquals(funcionarioDrogaria.getPhone(), "phoneInvalid");
-	}
-
 	/**
 	 * Test if get password valid.
 	 */
@@ -183,16 +113,6 @@ public class TestClerk {
 	}
 	
 	/**
-	 * Test if get password invalid.
-	 */
-	@Test
-	public void testGetSenhaInvalid() {
-		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
-				"Teste 6", 15000, 5678, 1, 2, 0);
-		assertNotEquals(funcionarioDrogaria.getPassword(), 15001);
-	}
-
-	/**
 	 * Test if get drugstore password valid.
 	 */
 	@Test
@@ -202,16 +122,6 @@ public class TestClerk {
 		assertEquals(funcionarioDrogaria.getSenhaFarmaciaPopular(), 2432);
 	}
 	
-	/**
-	 * Test if get drugstore password invalid.
-	 */
-	@Test
-	public void testSetSenhaFarmaciaPopularInvalid() {
-		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
-				"Teste 6", 1234, 2432, 1, 2, 0);
-		assertNotEquals(funcionarioDrogaria.getSenhaFarmaciaPopular(), 2433);
-	}
-
 	/**
 	 * Test if get code valid.
 	 */
@@ -223,16 +133,6 @@ public class TestClerk {
 	}
 
 	/**
-	 * Test if get code invalid.
-	 */
-	@Test
-	public void testGetCodigoInvalid() {
-		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
-				"Teste 6", 1234, 5678, 20, 2, 0);
-		assertNotEquals(funcionarioDrogaria.getIdFuncionary(), 21);
-	}
-
-	/**
 	 * Test if get comission factor valid.
 	 */
 	@Test
@@ -241,17 +141,7 @@ public class TestClerk {
 				"Teste 6", 1234, 5678, 1, 15, 0);
 		assertEquals(funcionarioDrogaria.getCommissionFactor(), 15);
 	}
-	
-	/**
-	 * Test if get comission factor invalid.
-	 */
-	@Test
-	public void testGetFatorComissaoInvalid() {
-		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
-				"Teste 6", 1234, 5678, 1, 15, 0);
-		assertNotEquals(funcionarioDrogaria.getCommissionFactor(), 16);
-	}
-	
+
 	/**
 	 * Test if get work hours valid.
 	 */
@@ -262,16 +152,6 @@ public class TestClerk {
 		assertEquals(funcionarioDrogaria.getHoras(), 0);
 	}
 	
-	/**
-	 * Test if get work hours invalid.
-	 */
-	@Test
-	public void testGetWorkHoursInvalid() {
-		Clerk funcionarioDrogaria = new Clerk("Teste 1", "Teste 2", 50, "Teste 3", "Teste 4", "Teste 5",
-				"Teste 6", 1234, 5678, 1, 15, 0);
-		assertNotEquals(funcionarioDrogaria.getHoras(), 16);
-	}
-
 	/**
 	 * Test if get cashier.
 	 */
