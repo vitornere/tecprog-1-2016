@@ -48,9 +48,7 @@ public class TestClassroomPersist {
 		ClassroomRegister.getInstance().insert("codigo", "descricao", "2");
 		assertNotNull("Falha ao inserir", this.procurarNoVetor(sala_new));
 		this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + sala_new.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + sala_new.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + sala_new.getCapacity() + ";"
+				"sala.codigo = \"" + sala_new.getIdEquipment() + "\";"
 				);
 	}
 
@@ -70,9 +68,7 @@ public class TestClassroomPersist {
 		assertNotNull("Falha ao alterar", this.procurarNoVetor(sala_new));
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + sala_new.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + sala_new.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + sala_new.getCapacity() + ";"
+				"sala.codigo = \"" + sala_new.getIdEquipment() + "\";"
 				);
 	}
 

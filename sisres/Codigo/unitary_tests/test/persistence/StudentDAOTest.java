@@ -175,7 +175,6 @@ public class StudentDAOTest {
 	
 	@Test
 	public void testAlterar() throws ClientException, SQLException {
-		boolean resultado = false;
 		Student a = new Student("Incluindo", "868.563.327-34", "123456", "1234-5678", "Nome@email");
 		Student an = new Student("Alterando", "387.807.647-97", "098765", "(123)4567-8899", "email@Nome");
 		this.executaNoBanco("INSERT INTO " +
@@ -188,7 +187,7 @@ public class StudentDAOTest {
 		
 		StudentDAO.getInstance().change(a, an);
 		
-		resultado = this.estaNoBanco("SELECT * FROM aluno WHERE " +
+		boolean resultado = this.estaNoBanco("SELECT * FROM aluno WHERE " +
 				"aluno.nome = \"" + an.getNamePerson() + "\" and " +
 				"aluno.cpf = \"" + an.getCpfPerson() + "\" and " +
 				"aluno.telefone = \"" + an.getPhonePerson() + "\" and " +

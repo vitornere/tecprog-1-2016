@@ -54,16 +54,12 @@ public class ClassroomDAOTest {
 		ClassroomDAO.getInstance().add(s);
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s.getDescriptionEquipment() + "\" and " +
-				"sala.capacidade = " + s.getCapacity() +
-				";");
+				"sala.codigo = \"" + s.getIdEquipment() + 
+				"\";");
 		
 		if(rs)
 			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+				"sala.codigo = \"" + s.getIdEquipment() + "\";");
 		
 		assertTrue("Testando Inclusao no Banco", rs);
 	}
@@ -84,26 +80,21 @@ public class ClassroomDAOTest {
 			ClassroomDAO.getInstance().add(s);
 		} finally {
 			rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
-					"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
-					"sala.descricao = \"" + s.getDescriptionEquipment() + "\" and " +
-					"sala.capacidade = " + s.getCapacity() +
-					";");
-			if(rs)
+					"sala.codigo = \"" + s.getIdEquipment() + 
+					"\"	;");
+			if(rs){
 				this.executaNoBanco("DELETE FROM sala WHERE " +
-						"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
-						"sala.descricao = \"" + s.getDescriptionEquipment() +  "\" and " +
-						"sala.capacidade = " + s.getCapacity() + ";");
-			this.executaNoBanco("DELETE FROM sala WHERE " +
-					"sala.codigo = \"" + s2.getIdEquipment() + "\" and " +
-					"sala.descricao = \"" + s2.getDescriptionEquipment() +  "\" and " +
-					"sala.capacidade = " + s2.getCapacity() + ";");
+						"sala.codigo = \"" + s.getIdEquipment() + "\";");
+				this.executaNoBanco("DELETE FROM sala WHERE " +
+					"sala.codigo = \"" + s2.getIdEquipment() + "\";");
+			}
 		}
 		assertFalse("Teste de Inclus�o.", rs);
 	}
 	
 	@Test
-	public void testAlerar() throws PatrimonyException, SQLException {
-		Classroom s = new Classroom("CodigoInc", "Descricao Da Sala Inclusao", "123");
+	public void testAlterar() throws PatrimonyException, SQLException {
+		Classroom s = new Classroom("CodigoInco", "Descricao Da Sala Inclusao", "123");
 		Classroom s2 = new Classroom("CodigoAlt", "Descricao Dois", "200");
 		boolean rs = true, rs2 = false;
 		
@@ -116,29 +107,21 @@ public class ClassroomDAOTest {
 		ClassroomDAO.getInstance().change(s, s2);
 		
 		rs = this.estaNoBanco("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s.getDescriptionEquipment() + "\" and " +
-				"sala.capacidade = " + s.getCapacity() +
-				";");
+				"sala.codigo = \"" + s.getIdEquipment() +
+				"\";");
 		
-		if(rs)
+		if(rs){
 			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
-		
+				"sala.codigo = \"" + s.getIdEquipment() + "\";");
+		}
 		
 		rs2 = this.estaNoBanco("SELECT * FROM sala WHERE " +
-				"sala.codigo = \"" + s2.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s2.getDescriptionEquipment() + "\" and " +
-				"sala.capacidade = " + s2.getCapacity() +
-				";");
-		if(rs2)
+				"sala.codigo = \"" + s2.getIdEquipment() + 
+				"\";");
+		if(rs2){
 			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s2.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s2.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + s2.getCapacity() + ";");
-		
+				"sala.codigo = \"" + s2.getIdEquipment() + "\";");
+		}
 		assertTrue("Testando Inclusao no Banco", rs2 && !rs);
 	}
 	@Test (expected= PatrimonyException.class)
@@ -168,9 +151,7 @@ public class ClassroomDAOTest {
 				";");
 		if(rs2)
 			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s2.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s2.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + s2.getCapacity() + ";");
+				"sala.codigo = \"" + s2.getIdEquipment() + "\";");
 		}
 		assertTrue("Testando Inclusao no Banco", !rs2);
 	}
@@ -208,9 +189,7 @@ public class ClassroomDAOTest {
 		
 		if(rs)
 			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+				"sala.codigo = \"" + s.getIdEquipment() + "\";");
 		
 		
 		rs2 = this.estaNoBanco("SELECT * FROM sala WHERE " +
@@ -220,9 +199,7 @@ public class ClassroomDAOTest {
 				";");
 		if(rs2)
 			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s2.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s2.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + s2.getCapacity() + ";");
+				"sala.codigo = \"" + s2.getIdEquipment() + "\";");
 		
 		rs3 = this.estaNoBanco("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + s3.getIdEquipment() + "\" and " +
@@ -231,9 +208,7 @@ public class ClassroomDAOTest {
 				";");
 		if(rs3)
 			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s3.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s3.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + s3.getCapacity() + ";");
+				"sala.codigo = \"" + s3.getIdEquipment() + "\";");
 		}
 		assertTrue("Testando Inclusao no Banco", rs && rs2 && !rs3);
 	}
@@ -261,9 +236,7 @@ public class ClassroomDAOTest {
 		
 		if(rs)
 			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+				"sala.codigo = \"" + s.getIdEquipment() + "\";");
 		
 		rs2 = this.estaNoBanco("SELECT * FROM sala WHERE " +
 				"sala.codigo = \"" + s2.getIdEquipment() + "\" and " +
@@ -272,9 +245,7 @@ public class ClassroomDAOTest {
 				";");
 		if(rs2)
 			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s2.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s2.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + s2.getCapacity() + ";");
+				"sala.codigo = \"" + s2.getIdEquipment() + "\";");
 		}
 		assertTrue("Testando Inclusao no Banco", rs && !rs2);
 	}
@@ -301,9 +272,7 @@ public class ClassroomDAOTest {
 		
 		if(rs)
 			this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+				"sala.codigo = \"" + s.getIdEquipment() + "\";");
 		
 		assertTrue("Testando Inclusao no Banco", !rs);
 	}
@@ -337,9 +306,7 @@ public class ClassroomDAOTest {
 		Vector<Classroom> vet = ClassroomDAO.getInstance().searchCode("CodigoInc");
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+				"sala.codigo = \"" + s.getIdEquipment() + "\";");
 		
 		assertTrue("Testando Buscar o Vetor de ", vet.size() > 0);
 	}
@@ -356,9 +323,7 @@ public class ClassroomDAOTest {
 		Vector<Classroom> vet = ClassroomDAO.getInstance().searchDescription("Descricao Da Sala Inclusao");
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+				"sala.codigo = \"" + s.getIdEquipment() + "\";");
 		
 		assertTrue("Testando Buscar o Vetor de ", vet.size() > 0);
 	}
@@ -375,9 +340,7 @@ public class ClassroomDAOTest {
 		Vector<Classroom> vet = ClassroomDAO.getInstance().searchCapacity("123");
 		
 		this.executaNoBanco("DELETE FROM sala WHERE " +
-				"sala.codigo = \"" + s.getIdEquipment() + "\" and " +
-				"sala.descricao = \"" + s.getDescriptionEquipment() +  "\" and " +
-				"sala.capacidade = " + s.getCapacity() + ";");
+				"sala.codigo = \"" + s.getIdEquipment() + "\";");
 		
 		assertTrue("Testando Buscar o Vetor de ", vet.size() > 0);
 	}

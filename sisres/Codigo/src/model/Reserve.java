@@ -56,14 +56,25 @@ public class Reserve {
 	}
 
 	public void setDate(String date) throws ReserveException {
+		if (date != null) {
+			// Nothing to do.
+		}
+		else
+		{
+			throw new ReserveException(NULL_DATE);
+		}
+		if (!date.equals("")) {
+			// Nothing to do.
+		}
+		else
+		{
+			throw new ReserveException(EMPTY_DATE);
+		}
+
 		date = date.trim();
 		if (date.matches(PATTERN_DATE)) {
 			this.date = padronizeDate(date);
-		} else if (date == null) {
-			throw new ReserveException(NULL_DATE);
-		} else if (date.equals("")) {
-			throw new ReserveException(EMPTY_DATE);
-		} else {
+		}  else {
 			throw new ReserveException(INVALID_DATE);
 		}
 

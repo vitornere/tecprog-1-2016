@@ -91,7 +91,7 @@ public class ClassroomDAO {
 					if (this.inOtherDB(old_classroom)) {
 
 						if (old_classroom.getIdEquipment().equals(new_classroom.getIdEquipment())
-								&& !this.inDBCode(new_classroom.getIdEquipment())) {
+								|| !this.inDBCode(new_classroom.getIdEquipment())) {
 							//Try update database.
 							if (!this.inDB(new_classroom)) {
 								String msg = "UPDATE sala SET " + "codigo = \"" + new_classroom.getIdEquipment() + "\", "
@@ -139,7 +139,7 @@ public class ClassroomDAO {
 	public void delete(Classroom classroom) throws SQLException, PatrimonyException {
 		//Verify if it is a valid student.
 		if (classroom != null) {
-			if (!this.inOtherDB(classroom)) {
+			if (this.inOtherDB(classroom)) {
 				//Try to remove student from database.
 				if (this.inDB(classroom)) {
 					this.updateQuery("DELETE FROM sala WHERE " + "sala.codigo = \"" + classroom.getIdEquipment() + "\" and "

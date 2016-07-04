@@ -47,6 +47,7 @@ public class EquipmentRegister {
 			Equipment oldEquipmentData = new Equipment(
 					equipment.getIdEquipment(),
 					equipment.getDescriptionEquipment());
+			
 			equipment.setIdEquipment(idEquipment);
 			equipment.setDescriptionEquipment(descriptionEquipment);
 			EquipmentDAO.getInstance().change(oldEquipmentData, equipment);

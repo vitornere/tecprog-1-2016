@@ -21,7 +21,7 @@ public class EquipmentDAO {
 	private static final String EQUIPAMENTNOTEXIST = "Equipment nao cadastrado.";
 	private static final String NULLEQUIPAMENT = "Equipment esta nulo.";
 	private static final String EQUIPAMENTINUSE = "Equipment esta sendo utilizado em uma reserva.";
-	private static final String EXISTENTCODE = "Equipment com o mesmo codigo ja cadastrado.";
+	private static final String EXISTENTCODE = "Equipmento com o mesmo codigo ja cadastrado.";
 
 	// Current instance
 	private static EquipmentDAO instance;
@@ -97,15 +97,15 @@ public class EquipmentDAO {
 		else{
 			throw new PatrimonyException(EQUIPAMENTNOTEXIST);
 		}
-		if (this.inOtherDB(old_equipment)) {
+		if (!this.inOtherDB(old_equipment)) {
 			// Nothing to do
 		} 
 		else{
 			throw new PatrimonyException(EQUIPAMENTINUSE);
 		}
-		if (new_equipment.getIdEquipment().equals(
+		if (!(!new_equipment.getIdEquipment().equals(
 				old_equipment.getIdEquipment())
-				&& this.inDBcode(new_equipment.getIdEquipment())) {
+				&& this.inDBcode(new_equipment.getIdEquipment()))) {
 			// Nothing to do
 		} 
 		else {
@@ -119,7 +119,7 @@ public class EquipmentDAO {
 
 		//try update in database
 		if (!this.inDB(new_equipment)) {
-			String msg = "UPDATEequipament SET " + "codigo = \""
+			String msg = "UPDATE equipamento SET " + "codigo = \""
 					+ new_equipment.getIdEquipment() + "\", "
 					+ "descricao = \""
 					+ new_equipment.getDescriptionEquipment() + "\""

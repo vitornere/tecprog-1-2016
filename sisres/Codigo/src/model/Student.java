@@ -13,12 +13,16 @@ public class Student extends Client {
 	}
 
 	public void setIdPerson(String idStudent) throws ClientException {
-		if (idStudent.matches("^[\\d]{2,2}/[\\d]{5,7}$")) {
-			super.idClient = idStudent;
-		} else if (idStudent == null) {
+		if (idStudent != null) {
+			// Nothing to do
+		} else {
 			throw new ClientException(NULL_ID_STUDENT);
+		}
+		if (!"".equals(idStudent)) {
+			// Nothing to do
 		} else {
 			throw new ClientException(EMPTY_ID_STUDENT);
 		}
+		super.idClient = idStudent;
 	}
 }
