@@ -34,7 +34,7 @@ public class TestReserveClassroomForProfessorPersist {
 	public static void setUpBeforeClass() throws Exception {
 		vet = ReserveClassroomForProfessorRegister.getInstance().getVectorReserveClassroomForProfessor();
 		sala1 = new Classroom("123", "Sala de Aula", "120");
-		professor1 = new Professor("testInstance", "040.757.021-70", "0058801", "3333-3333", "nome@email");
+		professor1 = new Professor("testInstance", "423.411.558-47", "0058801", "3333-3333", "nome@email");
 		
 		TeacherDAO.getInstance().add(professor1);
 		ClassroomDAO.getInstance().add(sala1);

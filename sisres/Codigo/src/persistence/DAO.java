@@ -14,7 +14,61 @@ import java.util.Vector;
 import exception.ClientException;
 import exception.PatrimonyException;
 import exception.ReserveException;
+
 public abstract class DAO {
+
+	//Variable to manager the connection with database
+	private Connection connection;
+	
+	/**
+	 * Method to try open database connection
+	 * @return true if open with success else false
+	 * @throws SQLException error with the connection string
+	 */
+	protected boolean openConnection() throws SQLException
+	{
+		connection = FactoryConnection.getInstance().getConnection();
+		return connection != null;
+	}
+	
+	/**
+	 * Method to prepare query string to execute in database
+	 * @param query query with the sql statement
+	 * @return an object with the query prepared to execute in database
+	 * @throws SQLException wrong write sql statement
+	 */
+	protected PreparedStatement prepareStatement(String query) throws SQLException
+	{
+		return connection.prepareStatement(query);
+	}
+	
+	/**
+	 * Method to set status if database is auto commit or no.
+	 * @param isAutoCommit true if is auto commit or false is not
+	 * @throws SQLException
+	 */
+	protected void setAutoCommit(boolean isAutoCommit) throws SQLException
+	{
+		connection.setAutoCommit(isAutoCommit);
+	}
+
+	/**
+	 * Method to close connection with application and database
+	 * @throws SQLException
+	 */
+	protected void closeConnection() throws SQLException
+	{
+		connection.close();
+	}
+
+	/**
+	 * Method to force database to execute commit
+	 * @throws SQLException
+	 */
+	protected void commit() throws SQLException
+	{
+		connection.commit();
+	}
 	
 	/** Method to search data in  database
 	 * @param query String - query with contains the select clause

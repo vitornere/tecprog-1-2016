@@ -13,8 +13,10 @@ import java.util.Vector;
 
 import model.Professor;
 import exception.ClientException;
+import exception.PatrimonyException;
+import exception.ReserveException;
 
-public class TeacherDAO {
+public class TeacherDAO extends DAO {
 
 	// Mensagens
 	private static final String EXISTENTTEACHER = "O Professor ja esta cadastrado.";
@@ -81,61 +83,76 @@ public class TeacherDAO {
 	 */
 	public void change(Professor old_teacher, Professor new_teacher)
 			throws SQLException, ClientException {
+
 		verifyIfIsNullTeacher(old_teacher);
 		verifyIfIsNullTeacher(new_teacher);
 
-		Connection con = FactoryConnection.getInstance().getConnection();
-		PreparedStatement pst;
+		if (openConnection()) {
+			PreparedStatement prepare_query;
 
-		if (!this.inDB(old_teacher)) {
-			throw new ClientException(TEACHERNOTEXISTENT);
-		} else {
-			if (this.inOtherDB(old_teacher)) {
-				throw new ClientException(ROOMINUSE);
+			if (!this.inDB(old_teacher)) {
+				throw new ClientException(TEACHERNOTEXISTENT);
 			} else {
-				if (!old_teacher.getCpfPerson().equals(
-						new_teacher.getCpfPerson())
-						&& this.inDBCpf(new_teacher.getCpfPerson())) {
-					throw new ClientException(EXISTENTCPF);
+				if (this.inOtherDB(old_teacher)) {
+					throw new ClientException(ROOMINUSE);
 				} else {
-					if (!old_teacher.getIdRegister().equals(
-							new_teacher.getIdRegister())
-							&& this.inDBMatricula(new_teacher.getIdRegister())) {
-						throw new ClientException(EXISTENTREGISTER);
+					if (!old_teacher.getCpfPerson().equals(
+							new_teacher.getCpfPerson())
+							&& this.inDBCpf(new_teacher.getCpfPerson())) {
+						throw new ClientException(EXISTENTCPF);
 					} else {
-						if (!this.inDB(new_teacher)) {
-							String msg = "UPDATE professor SET " + "nome = \""
-									+ new_teacher.getNamePerson() + "\", "
-									+ "cpf = \"" + new_teacher.getCpfPerson()
-									+ "\", " + "telefone = \""
-									+ new_teacher.getPhonePerson() + "\", "
-									+ "email = \""
-									+ new_teacher.getEmailPerson() + "\", "
-									+ "matricula = \""
-									+ new_teacher.getIdRegister() + "\""
-									+ " WHERE " + "professor.nome = \""
-									+ old_teacher.getNamePerson() + "\" and "
-									+ "professor.cpf = \""
-									+ old_teacher.getCpfPerson() + "\" and "
-									+ "professor.telefone = \""
-									+ old_teacher.getPhonePerson() + "\" and "
-									+ "professor.email = \""
-									+ old_teacher.getEmailPerson() + "\" and "
-									+ "professor.matricula = \""
-									+ old_teacher.getIdRegister() + "\";";
-							con.setAutoCommit(false);
-							pst = con.prepareStatement(msg);
-							pst.executeUpdate();
-							con.commit();
+						if (!old_teacher.getIdRegister().equals(
+								new_teacher.getIdRegister())
+								&& this.inDBMatricula(new_teacher
+										.getIdRegister())) {
+							throw new ClientException(EXISTENTREGISTER);
 						} else {
-							throw new ClientException(EXISTENTTEACHER);
+							if (!this.inDB(new_teacher)) {
+								String msg = "UPDATE professor SET "
+										+ "nome = \""
+										+ new_teacher.getNamePerson()
+										+ "\", "
+										+ "cpf = \""
+										+ new_teacher.getCpfPerson()
+										+ "\", "
+										+ "telefone = \""
+										+ new_teacher.getPhonePerson()
+										+ "\", "
+										+ "email = \""
+										+ new_teacher.getEmailPerson()
+										+ "\", "
+										+ "matricula = \""
+										+ new_teacher.getIdRegister()
+										+ "\""
+										+ " WHERE "
+										+ "professor.nome = \""
+										+ old_teacher.getNamePerson()
+										+ "\" and "
+										+ "professor.cpf = \""
+										+ old_teacher.getCpfPerson()
+										+ "\" and "
+										+ "professor.telefone = \""
+										+ old_teacher.getPhonePerson()
+										+ "\" and "
+										+ "professor.email = \""
+										+ old_teacher.getEmailPerson()
+										+ "\" and "
+										+ "professor.matricula = \""
+										+ old_teacher.getIdRegister() + "\";";
+								setAutoCommit(false);
+								prepare_query = prepareStatement(msg);
+								prepare_query.executeUpdate();
+								commit();
+							} else {
+								throw new ClientException(EXISTENTTEACHER);
+							}
 						}
 					}
 				}
 			}
+			prepare_query.close();
+			closeConnection();
 		}
-		pst.close();
-		con.close();
 	}
 
 	/**
@@ -209,40 +226,39 @@ public class TeacherDAO {
 	 * Metodos Privados
 	 * */
 
-	private Vector<Professor> search(String query) throws SQLException,
+	protected Vector<Professor> search(String query) throws SQLException,
 			ClientException {
 		Vector<Professor> vet = new Vector<Professor>();
 
-		Connection con = FactoryConnection.getInstance().getConnection();
+		if (openConnection()) {
 
-		PreparedStatement pst = con.prepareStatement(query);
-		ResultSet rs = pst.executeQuery();
+			PreparedStatement prepare_query = prepareStatement(query);
+			ResultSet rs = prepare_query.executeQuery();
 
-		while (rs.next()) {
-			vet.add(this.fetchProfessor(rs));
+			while (rs.next()) {
+				vet.add(this.fetchProfessor(rs));
+			}
+			prepare_query.close();
+			rs.close();
+			closeConnection();
+		} else {
+			System.exit(1);
 		}
-		pst.close();
-		rs.close();
-		con.close();
 		return vet;
 	}
 
-	private boolean inDBGeneric(String query) throws SQLException {
-		Connection con = FactoryConnection.getInstance().getConnection();
-		PreparedStatement pst = con.prepareStatement(query);
-		ResultSet rs = pst.executeQuery();
+	protected boolean inDBGeneric(String query) throws SQLException {
+		boolean inDb = false;
+		if (openConnection()) {
+			PreparedStatement prepare_query = prepareStatement(query);
+			ResultSet query_result = prepare_query.executeQuery();
 
-		if (!rs.next()) {
-			rs.close();
-			pst.close();
-			con.close();
-			return false;
-		} else {
-			rs.close();
-			pst.close();
-			con.close();
-			return true;
+			inDb = query_result.next();
+			query_result.close();
+			prepare_query.close();
+			closeConnection();
 		}
+		return inDb;
 	}
 
 	private boolean inDB(Professor teacher) throws SQLException {
@@ -299,12 +315,18 @@ public class TeacherDAO {
 				teacher_data.getString("email"));
 	}
 
-	private void updateQuery(String messenger) throws SQLException {
-		Connection con = FactoryConnection.getInstance().getConnection();
-		PreparedStatement pst = con.prepareStatement(messenger);
-		pst.executeUpdate();
-		pst.close();
-		con.close();
+	protected void updateQuery(String messenger) throws SQLException {
+		if(openConnection())
+		{
+		PreparedStatement prepare_query = prepareStatement(messenger);
+		prepare_query.executeUpdate();
+		prepare_query.close();
+		closeConnection();
+		}
+		else
+		{
+			System.exit(1);
+		}
 	}
 
 	/**
@@ -319,7 +341,7 @@ public class TeacherDAO {
 	private void verifyIsValidProfessor(Professor teacher)
 			throws ClientException, SQLException {
 		verifyIfIsNullTeacher(teacher);
-		
+
 		if (this.inDBCpf(teacher.getCpfPerson())) {
 			throw new ClientException(EXISTENTCPF);
 		} else {
@@ -344,6 +366,13 @@ public class TeacherDAO {
 			throw new ClientException(NULLTEACHER);
 		}
 
+	}
+
+	@Override
+	protected Object fetch(ResultSet rs) throws SQLException, ClientException,
+			PatrimonyException, ReserveException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
